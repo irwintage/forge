@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Chrysasynth Forge — Creative Audio Laboratory</title>
+<meta name="description" content="40+ browser-based audio tools. No installs. Explore, create, discover."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+<link rel="preconnect" href="https://unpkg.com"/>
+<script src="https://unpkg.com/tone@14.8.49/build/Tone.js" defer></script>
+<link rel="stylesheet" href="forge.css"/>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="https://chrysasynth.com" class="nav-logo">
+      <span class="logo-mark">✦</span>
+      <span>Chrysasynth <em>Forge</em></span>
+    </a>
+    <div class="nav-links">
+      <a href="#start">Start Here</a>
+      <a href="#categories">Explore</a>
+      <a href="#tools">All Tools</a>
+      <a href="https://free-studio.chrysasynth.com/" class="nav-cta" target="_blank">Open Studio ↗</a>
+    </div>
+    <button class="nav-burger" id="navBurger" aria-label="Menu">
+      <span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile" id="navMobile">
+    <a href="#start">Start Here</a>
+    <a href="#categories">Explore</a>
+    <a href="#tools">All Tools</a>
+    <a href="https://free-studio.chrysasynth.com/" target="_blank">Open Studio ↗</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- S1: HERO -->
+<section class="hero" id="hero">
+  <canvas class="hero-bg-canvas" id="particleCanvas"></canvas>
+  <div class="hero-grain"></div>
+  <div class="hero-layout">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Creative Audio Laboratory
+      </div>
+      <h1 class="hero-title">
+        <span class="line">The tools to</span>
+        <span class="line grad">shape sound.</span>
+      </h1>
+      <p class="hero-sub">
+        40+ browser-based audio tools. No installs.<br>
+        From ambient textures to melodic generators.
+      </p>
+      <div class="hero-actions">
+        <a href="#start" class="btn-primary">Start Exploring</a>
+        <a href="#tools" class="btn-ghost">Browse All Tools</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><strong>40+</strong><span>Audio Tools</span></div>
+        <div class="stat-div"></div>
+        <div class="stat"><strong>4</strong><span>Categories</span></div>
+        <div class="stat-div"></div>
+        <div class="stat"><strong>&#8734;</strong><span>Possibilities</span></div>
+      </div>
+    </div>
+
+    <div class="hero-demo">
+      <div class="hero-demo-label">
+        <span class="demo-dot"></span>
+        Interactive Demo — Try it
+      </div>
+      <div class="hero-demo-frame">
+        <div class="cs-scope">
+          <div class="cs-box">
+            <div class="cs-top">
+              <button class="cs-btn" id="cs-playBtn">&#9654; PLAY</button>
+              <select id="cs-preset" class="cs-select">
+                <option value="techno124">Techno 124</option>
+                <option value="idm110">IDM 110</option>
+                <option value="minimalKickHH">Minimal</option>
+              </select>
+              <button class="cs-btn" id="cs-loadPreset">Load</button>
+              <div class="cs-mini">Tempo <input id="cs-tempo" class="cs-range" type="range" min="70" max="180" value="124"><span id="cs-tempoVal">124</span></div>
+              <div class="cs-mini">Swing <input id="cs-swing" class="cs-range" type="range" min="0" max="60" value="10"><span id="cs-swingVal">10</span>%</div>
+            </div>
+            <div class="cs-grid-wrap"><div id="cs-grid" class="cs-grid"></div></div>
+            <div class="cs-mix">
+              <div class="cs-fader"><label>Kick</label><input data-track="kick" type="range" min="0" max="1" step="0.01" value="0.9"></div>
+              <div class="cs-fader"><label>Snare</label><input data-track="snare" type="range" min="0" max="1" step="0.01" value="0.85"></div>
+              <div class="cs-fader"><label>HH Closed</label><input data-track="hh_cl" type="range" min="0" max="1" step="0.01" value="0.9"></div>
+              <div class="cs-fader"><label>HH Open</label><input data-track="hh_op" type="range" min="0" max="1" step="0.01" value="0.75"></div>
+              <div class="cs-fader"><label>Chord</label><input id="cs-gain-chord" type="range" min="0" max="1" step="0.01" value="0.75"></div>
+              <div class="cs-fader"><label>Bass</label><input id="cs-gain-bass" type="range" min="0" max="1" step="0.01" value="0.80"></div>
+            </div>
+            <div class="cs-macros">
+              <div class="cs-macros__inner">
+                <div class="cs-macros__group">
+                  <div class="cs-macros__title">Chord (Synth One-Shots)</div>
+                  <button class="cs-pad" data-macro="chordA">Chord A</button>
+                  <button class="cs-pad" data-macro="chordB">Chord B</button>
+                </div>
+                <div class="cs-macros__group">
+                  <div class="cs-macros__title">Bass (One-Shot)</div>
+                  <button class="cs-pad" data-macro="bass">Bass</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a href="#start" class="hero-scroll">
+    <span>Discover</span>
+    <svg width="14" height="20" viewBox="0 0 14 20" fill="none">
+      <rect x="1" y="1" width="12" height="18" rx="6" stroke="currentColor" stroke-width="1.2"/>
+      <circle cx="7" cy="6" r="2" fill="currentColor" class="scroll-dot"/>
+    </svg>
+  </a>
+</section>
+
+<!-- S2: START HERE -->
+<section class="start-here" id="start">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">&#10022; New to Forge?</div>
+      <h2 class="section-title">Start Here</h2>
+      <p class="section-sub">Four tools hand-picked for your first sonic journey.</p>
+    </div>
+    <div class="start-grid">
+      <a href="https://chrysasynth.com/neuroflow-brainwave-generator" class="start-card start-card--hero reveal" style="--delay:0ms">
+        <div class="start-card-glow" style="--hue:210"></div>
+        <div class="start-card-tag">Wellness</div>
+        <h3>NeuroFlow</h3>
+        <p>Brainwave entrainment for focus, relaxation and deep states of mind.</p>
+        <span class="start-cta">Open Tool &#8594;</span>
+        <div class="start-wave">
+          <svg viewBox="0 0 120 50" fill="none"><path d="M0 25 Q15 5 30 25 Q45 45 60 25 Q75 5 90 25 Q105 45 120 25" stroke="rgba(77,157,224,0.45)" stroke-width="1.5" fill="none"/><path d="M0 25 Q20 10 40 25 Q60 40 80 25 Q100 10 120 25" stroke="rgba(139,92,246,0.25)" stroke-width="1" fill="none"/></svg>
+        </div>
+      </a>
+      <a href="https://chrysasynth.com/aura-sampler" class="start-card reveal" style="--delay:60ms">
+        <div class="start-card-glow" style="--hue:160"></div>
+        <div class="start-card-tag">Creative</div>
+        <h3>Aura Sampler</h3>
+        <p>Layer and evolve ambient textures in real time.</p>
+        <span class="start-cta">Open Tool &#8594;</span>
+      </a>
+      <a href="https://chrysasynth.com/cosmic-garden" class="start-card reveal" style="--delay:120ms">
+        <div class="start-card-glow" style="--hue:280"></div>
+        <div class="start-card-tag">Wellness</div>
+        <h3>Cosmic Garden</h3>
+        <p>An interactive ambient space to explore and inhabit.</p>
+        <span class="start-cta">Open Tool &#8594;</span>
+      </a>
+      <a href="https://chrysasynth.com/subdive-melodic-systems" class="start-card reveal" style="--delay:180ms">
+        <div class="start-card-glow" style="--hue:40"></div>
+        <div class="start-card-tag">Creative</div>
+        <h3>Subdive</h3>
+        <p>Seed-driven melodic systems that generate infinite sequences.</p>
+        <span class="start-cta">Open Tool &#8594;</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- S3: CATEGORIES -->
+<section class="categories" id="categories">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">&#10022; The Ecosystem</div>
+      <h2 class="section-title">Explore by Category</h2>
+      <p class="section-sub">Choose a universe. Each category is a different dimension of sound.</p>
+    </div>
+    <div class="cat-grid">
+      <a href="#tools" data-filter="Creative" class="cat-card cat-creative reveal" style="--delay:0ms">
+        <div class="cat-glow"></div>
+        <div class="cat-inner">
+          <div class="cat-icon"><svg viewBox="0 0 40 40" fill="none" width="28" height="28"><path d="M20 4C20 4 8 13 8 22C8 28.627 13.373 34 20 34C26.627 34 32 28.627 32 22C32 13 20 4 20 4Z" stroke="currentColor" stroke-width="1.4"/><circle cx="20" cy="22" r="4" stroke="currentColor" stroke-width="1.4"/></svg></div>
+          <div class="cat-count">14 tools</div>
+          <h3>Creative</h3>
+          <p>Generators, synthesizers and experimental sonic instruments.</p>
+          <div class="cat-tags"><span>Generative</span><span>Synthesis</span><span>Experimental</span></div>
+          <span class="cat-link">Explore &#8594;</span>
+        </div>
+      </a>
+      <a href="#tools" data-filter="Wellness" class="cat-card cat-wellness reveal" style="--delay:80ms">
+        <div class="cat-glow"></div>
+        <div class="cat-inner">
+          <div class="cat-icon"><svg viewBox="0 0 40 40" fill="none" width="28" height="28"><circle cx="20" cy="20" r="14" stroke="currentColor" stroke-width="1.4"/><circle cx="20" cy="20" r="7" stroke="currentColor" stroke-width="1.4"/><circle cx="20" cy="20" r="2.5" fill="currentColor"/></svg></div>
+          <div class="cat-count">11 tools</div>
+          <h3>Wellness</h3>
+          <p>Binaural beats, brainwave entrainment and frequency healing.</p>
+          <div class="cat-tags"><span>Binaural</span><span>Meditation</span><span>Frequencies</span></div>
+          <span class="cat-link">Explore &#8594;</span>
+        </div>
+      </a>
+      <a href="#tools" data-filter="FX" class="cat-card cat-fx reveal" style="--delay:160ms">
+        <div class="cat-glow"></div>
+        <div class="cat-inner">
+          <div class="cat-icon"><svg viewBox="0 0 40 40" fill="none" width="28" height="28"><path d="M4 20H11L14 8L20 32L26 14L29 24L34 20H36" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="cat-count">8 tools</div>
+          <h3>FX</h3>
+          <p>Professional-grade effects: reverb, delay, modulation and more.</p>
+          <div class="cat-tags"><span>Reverb</span><span>Delay</span><span>Modulation</span></div>
+          <span class="cat-link">Explore &#8594;</span>
+        </div>
+      </a>
+      <a href="#tools" data-filter="Utility" class="cat-card cat-utility reveal" style="--delay:240ms">
+        <div class="cat-glow"></div>
+        <div class="cat-inner">
+          <div class="cat-icon"><svg viewBox="0 0 40 40" fill="none" width="28" height="28"><rect x="6" y="6" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.4"/><rect x="23" y="6" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.4"/><rect x="6" y="23" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.4"/><rect x="23" y="23" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.4"/></svg></div>
+          <div class="cat-count">7 tools</div>
+          <h3>Utility</h3>
+          <p>Practical audio calculators, converters and analysis tools.</p>
+          <div class="cat-tags"><span>Converters</span><span>Analysis</span><span>BPM</span></div>
+          <span class="cat-link">Explore &#8594;</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- S4: FEATURED -->
+<section class="featured" id="featured">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">&#10022; Editor's Picks</div>
+      <h2 class="section-title">Featured Tools</h2>
+      <p class="section-sub">The tools our community keeps coming back to.</p>
+    </div>
+    <div class="feat-grid">
+      <a href="https://chrysasynth.com/subdive-melodic-systems" class="feat-card feat-wide reveal" style="--delay:0ms">
+        <div class="feat-bg" style="--c1:rgba(20,35,70,1);--c2:rgba(10,16,32,1)"></div>
+        <div class="feat-content">
+          <div class="feat-badge feat-badge--creative">Creative</div>
+          <h3>Subdive</h3>
+          <p>Seed-driven melodic systems. One number, infinite sequences.</p>
+          <span class="feat-cta">Launch &#8594;</span>
+        </div>
+        <div class="feat-nodes">
+          <div class="fnode fn1"></div><div class="fnode fn2"></div><div class="fnode fn3"></div>
+          <svg class="fnode-lines" viewBox="0 0 200 130" fill="none">
+            <path d="M30 65 Q100 20 170 65" stroke="rgba(77,157,224,0.22)" stroke-width="1"/>
+            <path d="M30 65 Q100 110 170 65" stroke="rgba(77,157,224,0.14)" stroke-width="1"/>
+            <path d="M30 65 L100 40 L170 65" stroke="rgba(139,92,246,0.18)" stroke-width="0.8"/>
+          </svg>
+        </div>
+      </a>
+      <a href="https://chrysasynth.com/neuroflow-brainwave-generator" class="feat-card reveal" style="--delay:60ms">
+        <div class="feat-bg" style="--c1:rgba(10,28,45,1);--c2:rgba(6,14,24,1)"></div>
+        <div class="feat-content">
+          <div class="feat-badge feat-badge--wellness">Wellness</div>
+          <h3>NeuroFlow</h3>
+          <p>Brainwave audio for focus, sleep and deep states.</p>
+          <span class="feat-cta">Launch &#8594;</span>
+        </div>
+      </a>
+      <a href="https://chrysasynth.com/pixeltone-bloom" class="feat-card reveal" style="--delay:120ms">
+        <div class="feat-bg" style="--c1:rgba(28,14,40,1);--c2:rgba(14,8,22,1)"></div>
+        <div class="feat-content">
+          <div class="feat-badge feat-badge--creative">Creative</div>
+          <h3>pixelTone Bloom</h3>
+          <p>Turn photos into soft ambient textures.</p>
+          <span class="feat-cta">Launch &#8594;</span>
+        </div>
+      </a>
+      <a href="https://chrysasynth.com/zenbox-app" class="feat-card reveal" style="--delay:0ms">
+        <div class="feat-bg" style="--c1:rgba(10,20,35,1);--c2:rgba(6,12,20,1)"></div>
+        <div class="feat-content">
+          <div class="feat-badge feat-badge--wellness">Wellness</div>
+          <h3>ZenBox</h3>
+          <p>A breathing meditation cube for calm and focus.</p>
+          <span class="feat-cta">Launch &#8594;</span>
+        </div>
+      </a>
+      <a href="https://chrysasynth.com/fibonacci-melody-generator" class="feat-card reveal" style="--delay:60ms">
+        <div class="feat-bg" style="--c1:rgba(12,24,16,1);--c2:rgba(6,14,10,1)"></div>
+        <div class="feat-content">
+          <div class="feat-badge feat-badge--creative">Creative</div>
+          <h3>Fibonacci Melody</h3>
+          <p>Mathematical patterns become generative melodies.</p>
+          <span class="feat-cta">Launch &#8594;</span>
+        </div>
+      </a>
+      <a href="https://chrysasynth.com/orbit-pan" class="feat-card feat-wide reveal" style="--delay:120ms">
+        <div class="feat-bg" style="--c1:rgba(30,20,10,1);--c2:rgba(16,10,6,1)"></div>
+        <div class="feat-content">
+          <div class="feat-badge feat-badge--fx">FX</div>
+          <h3>Orbit Pan</h3>
+          <p>360&#176; orbital panning &#8212; place your sound anywhere in space.</p>
+          <span class="feat-cta">Launch &#8594;</span>
+        </div>
+        <div class="feat-orbit">
+          <div class="orbit-ring r1"></div>
+          <div class="orbit-ring r2"></div>
+          <div class="orbit-dot"></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- S5: WHAT CAN YOU CREATE -->
+<section class="create" id="create">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">&#10022; Possibilities</div>
+      <h2 class="section-title">What can you create?</h2>
+      <p class="section-sub">Forge is a means, not an end. Here's where it takes you.</p>
+    </div>
+    <div class="create-list">
+      <div class="create-item reveal" style="--delay:0ms">
+        <div class="create-num">01</div>
+        <div class="create-body">
+          <h3>Ambient Soundscapes</h3>
+          <p>Layer evolving textures and tonal drones for work, rest or creative flow.</p>
+        </div>
+        <div class="create-pills">
+          <a href="https://chrysasynth.com/aura-sampler">Aura Sampler</a>
+          <a href="https://chrysasynth.com/zenbox-app">ZenBox</a>
+          <a href="https://chrysasynth.com/reverb">Reverb</a>
+        </div>
+      </div>
+      <div class="create-item reveal" style="--delay:80ms">
+        <div class="create-num">02</div>
+        <div class="create-body">
+          <h3>Melodic Ideas</h3>
+          <p>Generate chord progressions and sequences. Break creative blocks instantly.</p>
+        </div>
+        <div class="create-pills">
+          <a href="https://chrysasynth.com/fibonacci-melody-generator">Fibonacci Melody</a>
+          <a href="https://chrysasynth.com/chord-progression-generator">Chord Progression</a>
+          <a href="https://chrysasynth.com/axis">Axis</a>
+        </div>
+      </div>
+      <div class="create-item reveal" style="--delay:160ms">
+        <div class="create-num">03</div>
+        <div class="create-body">
+          <h3>Binaural Sessions</h3>
+          <p>Engineer focus, meditation or sleep with precision frequency therapy.</p>
+        </div>
+        <div class="create-pills">
+          <a href="https://chrysasynth.com/neuroflow-brainwave-generator">NeuroFlow</a>
+          <a href="https://chrysasynth.com/binaural-beats-generator">Binaural Beats</a>
+          <a href="https://chrysasynth.com/hold-the-frequency">Hold The Frequency</a>
+        </div>
+      </div>
+      <div class="create-item reveal" style="--delay:240ms">
+        <div class="create-num">04</div>
+        <div class="create-body">
+          <h3>Evolving Textures</h3>
+          <p>Build granular pads and morphing soundscapes with organic complexity.</p>
+        </div>
+        <div class="create-pills">
+          <a href="https://chrysasynth.com/granular-pad">Granular Pad</a>
+          <a href="https://chrysasynth.com/cosmic-garden">Cosmic Garden</a>
+          <a href="https://chrysasynth.com/ethereal-stretch">Ethereal Stretch</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S6: TOOL EXPLORER -->
+<section class="explorer" id="tools">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">&#10022; Full Library</div>
+      <h2 class="section-title">Tool Explorer</h2>
+      <p class="section-sub">Every tool. Filter by category or search by name.</p>
+    </div>
+    <div class="explorer-controls reveal">
+      <div class="filter-bar" id="filterBar">
+        <button class="filter-btn active" data-cat="all">All <span class="fc">40</span></button>
+        <button class="filter-btn" data-cat="Creative">Creative <span class="fc">14</span></button>
+        <button class="filter-btn" data-cat="Wellness">Wellness <span class="fc">11</span></button>
+        <button class="filter-btn" data-cat="FX">FX <span class="fc">8</span></button>
+        <button class="filter-btn" data-cat="Utility">Utility <span class="fc">7</span></button>
+      </div>
+      <div class="exp-search">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.4"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        <input type="text" id="expSearch" placeholder="Search tools..."/>
+      </div>
+    </div>
+    <div class="tools-grid" id="toolsGrid"></div>
+    <div class="tools-empty" id="toolsEmpty">No tools found &#8212; try a different search.</div>
+  </div>
+</section>
+
+<!-- S7: PHILOSOPHY -->
+<section class="philosophy" id="philosophy">
+  <div class="container">
+    <div class="philosophy-inner">
+      <div class="phil-text reveal">
+        <div class="section-label">&#10022; Our Belief</div>
+        <h2>Sound is a medium<br>for exploration.</h2>
+        <p>Forge exists because the tools to shape sound should be accessible, immediate and beautiful. Not buried in DAWs. Not locked behind paywalls. Not intimidating.</p>
+        <p>We believe the best creative tools disappear. You stop seeing the interface and start hearing ideas. That is the standard we build to.</p>
+        <p>Chrysasynth is a laboratory. Every tool is an experiment. Every session is a discovery.</p>
+      </div>
+      <div class="phil-values reveal">
+        <div class="phil-val"><span class="pv-mark">&#8212;</span><div><strong>Curiosity</strong><p>We design for exploration, not efficiency.</p></div></div>
+        <div class="phil-val"><span class="pv-mark">&#8212;</span><div><strong>Immediacy</strong><p>No setup. No friction. Open and play.</p></div></div>
+        <div class="phil-val"><span class="pv-mark">&#8212;</span><div><strong>Depth</strong><p>Simple on the surface. Limitless underneath.</p></div></div>
+        <div class="phil-val"><span class="pv-mark">&#8212;</span><div><strong>Beauty</strong><p>Sound and interface deserve equal care.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S8: STUDIO BRIDGE -->
+<section class="studio-bridge" id="studio">
+  <div class="studio-orbs"><div class="sorb s1"></div><div class="sorb s2"></div></div>
+  <div class="container">
+    <div class="studio-inner">
+      <div class="studio-text reveal">
+        <div class="section-label light">&#10022; Go Further</div>
+        <h2>Need more<br>than tools?</h2>
+        <p>Forge gives you the instruments. Studio gives you the space &#8212; a unified creative environment for composition, sound design and full sessions.</p>
+        <div class="studio-feats">
+          <div class="sf"><span class="sf-dot"></span>All Forge tools in one session</div>
+          <div class="sf"><span class="sf-dot"></span>Project saving and recall</div>
+          <div class="sf"><span class="sf-dot"></span>Advanced routing and mixing</div>
+          <div class="sf"><span class="sf-dot"></span>Export and share your work</div>
+        </div>
+        <a href="https://free-studio.chrysasynth.com/" class="btn-studio" target="_blank">Open Chrysasynth Studio &#8599;</a>
+      </div>
+      <div class="studio-mock reveal">
+        <div class="smock">
+          <div class="smock-header">
+            <div class="smock-dots"><span></span><span></span><span></span></div>
+            <span class="smock-title">Chrysasynth Studio</span>
+            <span class="smock-badge">Beta</span>
+          </div>
+          <div class="smock-body">
+            <div class="smock-tracks">
+              <div class="strack" style="--w:72%;--c:#4a8fa8"></div>
+              <div class="strack" style="--w:48%;--c:#7c5cff"></div>
+              <div class="strack" style="--w:85%;--c:#34d399"></div>
+              <div class="strack" style="--w:36%;--c:#f59e0b"></div>
+            </div>
+            <div class="smock-mixer">
+              <div class="smix-fader" style="--h:62%"></div>
+              <div class="smix-fader" style="--h:80%"></div>
+              <div class="smix-fader" style="--h:45%"></div>
+              <div class="smix-fader" style="--h:72%"></div>
+              <div class="smix-fader" style="--h:55%"></div>
+              <div class="smix-fader" style="--h:68%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo"><span class="logo-mark">&#10022;</span><span>Chrysasynth</span></div>
+      <p>A creative audio laboratory.<br>Built for explorers.</p>
+      <div class="footer-socials">
+        <a href="#" aria-label="YouTube">&#9655;</a>
+        <a href="#" aria-label="Instagram">&#9678;</a>
+        <a href="#" aria-label="TikTok">&#9836;</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Forge</h4>
+      <a href="#start">Start Here</a>
+      <a href="#categories">Categories</a>
+      <a href="#tools">All Tools</a>
+      <a href="#featured">Featured</a>
+    </div>
+    <div class="footer-col">
+      <h4>Tools</h4>
+      <a href="#tools" class="footer-filter" data-filter-link="Creative">Creative</a>
+      <a href="#tools" class="footer-filter" data-filter-link="Wellness">Wellness</a>
+      <a href="#tools" class="footer-filter" data-filter-link="FX">FX</a>
+      <a href="#tools" class="footer-filter" data-filter-link="Utility">Utility</a>
+    </div>
+    <div class="footer-col">
+      <h4>Chrysasynth</h4>
+      <a href="https://free-studio.chrysasynth.com/" target="_blank">Studio</a>
+      <a href="https://chrysasynth.com/about">About</a>
+      <a href="https://chrysasynth.com/contact">Contact</a>
+      <a href="https://chrysasynth.com/legal">Legal</a>
+    </div>
+    <div class="footer-col footer-col--studio">
+      <h4>Open Studio</h4>
+      <p>Continue your creative journey.</p>
+      <a href="https://free-studio.chrysasynth.com/" class="footer-studio-btn" target="_blank">Open Studio &#8599;</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&#169; 2025 Chrysasynth. All rights reserved.</span>
+    <span class="footer-sig">Crafted with sound in mind &#10022;</span>
+  </div>
+</footer>
+
+<script src="forge.js"></script>
+</body>
+</html>

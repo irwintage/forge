@@ -249,8 +249,8 @@ const TRACKS = [
 ];
 
 const MACRO_SOURCES = {
-  chordA: 'samples/chord-a.wav',
-  chordB: 'samples/chord-b.wav',
+  chordA: 'samples/chordA.wav',
+  chordB: 'samples/chordB.wav',
   bass:   'samples/bass.wav'
 };
 

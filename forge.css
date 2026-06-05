@@ -55,9 +55,23 @@ a{text-decoration:none;color:inherit}
 .nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 28px;transition:background 0.4s,border-color 0.4s;border-bottom:1px solid transparent}
 .nav.scrolled{background:rgba(7,9,14,0.88);backdrop-filter:blur(20px);border-color:var(--border)}
 .nav-inner{max-width:1160px;margin:0 auto;height:62px;display:flex;align-items:center;gap:28px}
+
 .nav-logo{display:flex;align-items:center;gap:9px;font-family:var(--font-d);font-size:14px;font-weight:600;color:var(--text);flex-shrink:0}
-.nav-logo .logo-mark{color:var(--accent)}
-.nav-logo em{font-style:normal;color:var(--text2);font-weight:400}
+
+.nav-logo .logo-mark{
+  width:18px;
+  height:18px;
+  object-fit:contain;
+  display:block;
+  flex-shrink:0;
+}
+
+.nav-logo em{
+  font-style:normal;
+  color:var(--accent);
+  font-weight:600;
+}
+
 .nav-links{display:flex;align-items:center;gap:24px;margin-left:auto}
 .nav-links a{font-size:13px;color:var(--text2);font-family:var(--font-d);font-weight:500;transition:color 0.2s}
 .nav-links a:hover{color:var(--text)}

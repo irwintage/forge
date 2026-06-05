@@ -242,18 +242,17 @@ renderTools();
 });
 
 const TRACKS = [
-  { id:'kick',  name:'Kick',      url:'samples/kick.wav' },
-  { id:'snare', name:'Snare',     url:'samples/snare.wav' },
-  { id:'hh_cl', name:'HH Closed', url:'samples/hh-closed.wav' },
-  { id:'hh_op', name:'HH Open',   url:'samples/hh-open.wav' }
+  { id:'kick',  name:'Kick',      url:'kick.wav' },
+  { id:'snare', name:'Snare',     url:'snare.wav' },
+  { id:'hh_cl', name:'HH Closed', url:'hh-closed.wav' },
+  { id:'hh_op', name:'HH Open',   url:'hh-open.wav' }
 ];
 
 const MACRO_SOURCES = {
-  chordA: 'samples/chordA.wav',
-  chordB: 'samples/chordB.wav',
-  bass:   'samples/bass.wav'
+  chordA: 'chordA.wav',
+  chordB: 'chordB.wav',
+  bass:   'bass.wav'
 };
-
 const PRESETS = {
   techno124: { tempo:124, swing:8, pat: {
     kick:  [1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0],

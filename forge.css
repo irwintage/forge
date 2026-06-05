@@ -320,9 +320,19 @@ input[type="range"]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;b
   .feat-card:first-child{grid-column:span 2;min-height:210px}
   .feat-card:last-child{grid-column:span 2}
   .hero-layout{grid-template-columns:1fr}
-  .hero-demo{display:none}
+ .hero-demo{
+  display:block;
+  width:100%;
+}
   .footer-inner{grid-template-columns:1fr 1fr 1fr}
   .footer-brand{grid-column:span 3}
+}
+.hero-layout{
+  grid-template-columns:1fr;
+}
+
+.hero-demo-frame{
+  border-radius:20px;
 }
 @media(max-width:768px){
   :root{}

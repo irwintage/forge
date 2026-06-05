@@ -242,16 +242,16 @@ renderTools();
 });
 
 const TRACKS = [
-  { id:'kick',  name:'Kick',      url:'https://assets.zyrosite.com/AGB6J89462fVeVoq/kick-europe-Awv8BNxzO3hX4eXa.wav' },
-  { id:'snare', name:'Snare',     url:'https://assets.zyrosite.com/AGB6J89462fVeVoq/snare---light-AzGMxx0Mx0cGL6kx.wav' },
-  { id:'hh_cl', name:'HH Closed', url:'https://assets.zyrosite.com/AGB6J89462fVeVoq/hi-hat---philosophy-m2WqlRD3yWSjea8k.wav' },
-  { id:'hh_op', name:'HH Open',   url:'https://assets.zyrosite.com/AGB6J89462fVeVoq/open-hat---clean-AVLxzMrl2wsjl9MB.wav' }
+  { id:'kick',  name:'Kick',      url:'samples/kick.wav' },
+  { id:'snare', name:'Snare',     url:'samples/snare.wav' },
+  { id:'hh_cl', name:'HH Closed', url:'samples/hh-closed.wav' },
+  { id:'hh_op', name:'HH Open',   url:'samples/hh-open.wav' }
 ];
 
 const MACRO_SOURCES = {
-  chordA: 'https://assets.zyrosite.com/AGB6J89462fVeVoq/synth-one-shot---genius-eb2-AzGMxJZzoJhqVWE0.wav',
-  chordB: 'https://assets.zyrosite.com/AGB6J89462fVeVoq/synth-one-shot---cool-guy-g-m7-YyvDOWpPE9Ho7Q35.wav',
-  bass:   'https://assets.zyrosite.com/AGB6J89462fVeVoq/bass-one-shot---deep-house-m2Wq2xwjl2u1qgvk.wav'
+  chordA: 'samples/chord-a.wav',
+  chordB: 'samples/chord-b.wav',
+  bass:   'samples/bass.wav'
 };
 
 const PRESETS = {

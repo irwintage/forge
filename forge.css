@@ -304,7 +304,7 @@ input[type="range"]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;b
 /* ── FOOTER ── */
 .footer{padding:60px 0 0;border-top:1px solid var(--border)}
 .footer-inner{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:44px}
-.footer-logo{display:flex;align-items:center;gap:8px;font-family:var(--font-d);font-size:15px;font-weight:600;color:var(--text);margin-bottom:10px}
+.footer-logo{display:flex;align-items:center;gap:8px;font-family:var(--font-d);font-size:15px;font-weight:600;color:var(--accent);margin-bottom:10px}
 .footer-logo .logo-mark{color:var(--accent)}
 .footer-brand p{font-size:13px;color:var(--text3);line-height:1.7;margin-bottom:18px}
 .footer-socials{display:flex;gap:12px}

@@ -76,47 +76,96 @@
         <span class="demo-dot"></span>
         Interactive Demo — Try it
       </div>
-      <div class="hero-demo-frame">
-        <div class="cs-scope">
-          <div class="cs-box">
-            <div class="cs-top">
-              <button class="cs-btn" id="cs-playBtn">&#9654; PLAY</button>
-              <select id="cs-preset" class="cs-select">
-                <option value="techno124">Techno 124</option>
-                <option value="idm110">IDM 110</option>
-                <option value="minimalKickHH">Minimal</option>
-              </select>
-              <button class="cs-btn" id="cs-loadPreset">Load</button>
-              <div class="cs-mini">Tempo <input id="cs-tempo" class="cs-range" type="range" min="70" max="180" value="124"><span id="cs-tempoVal">124</span></div>
-              <div class="cs-mini">Swing <input id="cs-swing" class="cs-range" type="range" min="0" max="60" value="10"><span id="cs-swingVal">10</span>%</div>
-            </div>
-            <div class="cs-grid-wrap"><div id="cs-grid" class="cs-grid"></div></div>
-            <div class="cs-mix">
-              <div class="cs-fader"><label>Kick</label><input data-track="kick" type="range" min="0" max="1" step="0.01" value="0.9"></div>
-              <div class="cs-fader"><label>Snare</label><input data-track="snare" type="range" min="0" max="1" step="0.01" value="0.85"></div>
-              <div class="cs-fader"><label>HH Closed</label><input data-track="hh_cl" type="range" min="0" max="1" step="0.01" value="0.9"></div>
-              <div class="cs-fader"><label>HH Open</label><input data-track="hh_op" type="range" min="0" max="1" step="0.01" value="0.75"></div>
-              <div class="cs-fader"><label>Chord</label><input id="cs-gain-chord" type="range" min="0" max="1" step="0.01" value="0.75"></div>
-              <div class="cs-fader"><label>Bass</label><input id="cs-gain-bass" type="range" min="0" max="1" step="0.01" value="0.80"></div>
-            </div>
-            <div class="cs-macros">
-              <div class="cs-macros__inner">
-                <div class="cs-macros__group">
-                  <div class="cs-macros__title">Chord (Synth One-Shots)</div>
-                  <button class="cs-pad" data-macro="chordA">Chord A</button>
-                  <button class="cs-pad" data-macro="chordB">Chord B</button>
-                </div>
-                <div class="cs-macros__group">
-                  <div class="cs-macros__title">Bass (One-Shot)</div>
-                  <button class="cs-pad" data-macro="bass">Bass</button>
-                </div>
-              </div>
-            </div>
-          </div>
+     <div class="hero-demo-frame">
+
+  <!-- Desktop Drum Machine -->
+  <div class="cs-scope">
+    <div class="cs-box">
+
+      <div class="cs-top">
+        <button class="cs-btn" id="cs-playBtn">Play</button>
+
+        <select id="cs-preset" class="cs-select">
+          <option value="techno124">Techno 124</option>
+          <option value="idm110">IDM 110</option>
+          <option value="minimalKickHH">Minimal</option>
+        </select>
+
+        <button class="cs-btn" id="cs-loadPreset">Load</button>
+
+        <div class="cs-mini">
+          Tempo
+          <input id="cs-tempo" class="cs-range" type="range" min="70" max="180" value="124">
+          <span id="cs-tempoVal">124</span>
+        </div>
+
+        <div class="cs-mini">
+          Swing
+          <input id="cs-swing" class="cs-range" type="range" min="0" max="60" value="10">
+          <span id="cs-swingVal">10</span>%
         </div>
       </div>
+
+      <div class="cs-grid-wrap">
+        <div id="cs-grid" class="cs-grid"></div>
+      </div>
+
+      <div class="cs-mix">
+        <div class="cs-fader"><label>Kick</label><input data-track="kick" type="range" min="0" max="1" step="0.01" value="0.9"></div>
+        <div class="cs-fader"><label>Snare</label><input data-track="snare" type="range" min="0" max="1" step="0.01" value="0.85"></div>
+        <div class="cs-fader"><label>HH Closed</label><input data-track="hh_cl" type="range" min="0" max="1" step="0.01" value="0.9"></div>
+        <div class="cs-fader"><label>HH Open</label><input data-track="hh_op" type="range" min="0" max="1" step="0.01" value="0.75"></div>
+        <div class="cs-fader"><label>Chord</label><input id="cs-gain-chord" type="range" min="0" max="1" step="0.01" value="0.75"></div>
+        <div class="cs-fader"><label>Bass</label><input id="cs-gain-bass" type="range" min="0" max="1" step="0.01" value="0.80"></div>
+      </div>
+
+      <div class="cs-macros">
+        <div class="cs-macros__inner">
+
+          <div class="cs-macros__group">
+            <div class="cs-macros__title">Chord (Synth One-Shots)</div>
+            <button class="cs-pad" data-macro="chordA">Chord A</button>
+            <button class="cs-pad" data-macro="chordB">Chord B</button>
+          </div>
+
+          <div class="cs-macros__group">
+            <div class="cs-macros__title">Bass (One-Shot)</div>
+            <button class="cs-pad" data-macro="bass">Bass</button>
+          </div>
+
+        </div>
+      </div>
+
     </div>
   </div>
+
+  <!-- Mobile Demo -->
+  <div class="cs-mobile-demo">
+
+    <button class="cs-mobile-play" id="cs-mobile-playBtn">
+      <span class="cs-mobile-playIcon"></span>
+      <span>Play</span>
+    </button>
+
+    <div id="cs-mobile-pattern" class="cs-mobile-pattern"></div>
+
+    <div class="cs-mobile-controls">
+
+      <select id="cs-mobile-preset">
+        <option value="techno124">Techno 124</option>
+        <option value="idm110">IDM 110</option>
+        <option value="minimalKickHH">Minimal</option>
+      </select>
+
+      <button id="cs-mobile-loadPreset">
+        Load Preset
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
   <a href="#start" class="hero-scroll">
     <span>Discover</span>
     <svg width="14" height="20" viewBox="0 0 14 20" fill="none">

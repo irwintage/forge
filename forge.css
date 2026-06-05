@@ -320,35 +320,58 @@ input[type="range"]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;b
   .feat-card:first-child{grid-column:span 2;min-height:210px}
   .feat-card:last-child{grid-column:span 2}
   .hero-layout{grid-template-columns:1fr}
- .hero-demo{
-  display:block;
-  width:100%;
-}
+  .hero-demo{display:block;width:100%}
+  .hero-demo-frame{border-radius:20px}
   .footer-inner{grid-template-columns:1fr 1fr 1fr}
   .footer-brand{grid-column:span 3}
 }
-.hero-layout{
-  grid-template-columns:1fr;
-}
 
-.hero-demo-frame{
-  border-radius:20px;
-}
 @media(max-width:768px){
-  :root{}
   .container{padding:0 18px}
   .nav{padding:0 18px}
   .nav-links{display:none}
   .nav-burger{display:flex}
+
   .hero{padding:90px 18px 60px;min-height:auto}
   .hero-layout{padding-top:20px}
   .hero-title{font-size:clamp(32px,8vw,48px)}
   .hero-actions{justify-content:flex-start}
+
+  .hero-demo{display:block;width:100%;margin-top:24px}
+  .hero-demo-frame{border-radius:20px;overflow:hidden}
+
+  .cs-box{padding:10px;gap:10px}
+  .cs-top{flex-direction:column;align-items:stretch}
+  .cs-btn,
+  .cs-select,
+  .cs-mini{width:100%;justify-content:center}
+
+  .cs-grid-wrap{overflow-x:visible}
+  .cs-grid{
+    min-width:0;
+    width:100%;
+    grid-template-columns:52px repeat(16,minmax(8px,1fr));
+    gap:3px;
+    padding:8px;
+  }
+  .cs-cell{height:22px;border-radius:5px}
+  .cs-lab{
+    font-size:8px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .cs-nums{font-size:7px}
+
+  .cs-mix{grid-template-columns:repeat(3,1fr)}
+  .cs-macros__inner{grid-template-columns:1fr}
+
   .start-grid{grid-template-columns:1fr 1fr;gap:10px}
   .start-wave{display:none}
   .cat-grid{grid-template-columns:1fr 1fr}
   .feat-grid{grid-template-columns:1fr}
-  .feat-card:first-child,.feat-card:last-child{grid-column:auto}
+  .feat-card:first-child,
+  .feat-card:last-child{grid-column:auto}
   .create-item{grid-template-columns:40px 1fr;gap:14px;padding:20px 18px}
   .create-pills{display:none}
   .tools-grid{grid-template-columns:repeat(2,1fr)}
@@ -360,8 +383,8 @@ input[type="range"]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;b
   .footer-inner{grid-template-columns:1fr 1fr}
   .footer-brand{grid-column:span 2}
   .footer-bottom{flex-direction:column;gap:6px;text-align:center}
-  .cs-mix{grid-template-columns:repeat(3,1fr)}
 }
+
 @media(max-width:480px){
   .start-grid{grid-template-columns:1fr}
   .start-card--hero{grid-column:auto}

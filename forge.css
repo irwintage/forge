@@ -59,8 +59,8 @@ a{text-decoration:none;color:inherit}
 .nav-logo{display:flex;align-items:center;gap:9px;font-family:var(--font-d);font-size:14px;font-weight:600;color:var(--text);flex-shrink:0}
 
 .nav-logo .logo-mark{
-  width:22px;
-  height:22px;
+  width:24px;
+  height:24px;
   object-fit:contain;
   display:block;
   flex-shrink:0;

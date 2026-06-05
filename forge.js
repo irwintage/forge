@@ -386,17 +386,36 @@ renderGrid();
 loadPreset('idm110');
 
 document.getElementById('cs-playBtn')?.addEventListener('click', async (e) => {
-  if (typeof Tone === 'undefined') return;
-  await Tone.start();
-  if (Object.keys(players).length === 0) await setupPlayers();
-  if (Tone.Transport.state === 'started') {
-    Tone.Transport.stop();
-    e.target.textContent = '▶ PLAY';
-    document.querySelectorAll('.cs-cell').forEach(c => c.classList.remove('cs-hl'));
-  } else {
-    setupTransport();
-    Tone.Transport.start();
-    e.target.textContent = '⏸ STOP';
+  if (typeof Tone === 'undefined') {
+    console.error('Tone.js is not loaded');
+    return;
+  }
+
+  const btn = e.currentTarget;
+
+  try {
+    btn.textContent = 'Loading...';
+
+    await Tone.start();
+
+    if (Object.keys(players).length === 0) {
+      await setupPlayers();
+      await Tone.loaded();
+    }
+
+    if (Tone.Transport.state === 'started') {
+      Tone.Transport.stop();
+      Tone.Transport.cancel();
+      btn.textContent = '▶ PLAY';
+      document.querySelectorAll('.cs-cell').forEach(c => c.classList.remove('cs-hl'));
+    } else {
+      setupTransport();
+      Tone.Transport.start('+0.05');
+      btn.textContent = '⏸ STOP';
+    }
+  } catch (err) {
+    console.error('Drum machine audio error:', err);
+    btn.textContent = '▶ PLAY';
   }
 });
 

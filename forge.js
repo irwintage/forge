@@ -322,10 +322,10 @@ function setupTransport() {
       c.classList.toggle('cs-hl', +c.dataset.col === seqStep);
     });
     for (const tr of TRACKS) {
-      if (pattern[tr.id][seqStep] && players[tr.id]?.loaded) {
-        players[tr.id].start(time);
-      }
-    }
+  if (pattern[tr.id][seqStep] && players[tr.id]?.buffer?.loaded) {
+    players[tr.id].start(time);
+  }
+}
     if (seqStep === 0) {
       if (macroState.bass) triggerBass(time);
       if (macroState.chordA) triggerChord('chordA', time);

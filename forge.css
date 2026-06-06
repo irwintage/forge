@@ -193,36 +193,143 @@ input[type="range"]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;b
 /* ── FEATURED ── */
 .featured{padding:100px 0;background:var(--bg2)}
 .feat-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;grid-template-rows:auto auto;gap:14px}
-.feat-card{position:relative;border-radius:var(--rl);overflow:hidden;border:1px solid var(--border);padding:26px 22px;min-height:170px;display:flex;flex-direction:column;justify-content:flex-end;transition:transform 0.3s var(--ease),border-color 0.3s,box-shadow 0.3s}
+
+.feat-card{
+  position:relative;
+  border-radius:var(--rl);
+  overflow:hidden;
+  border:1px solid var(--border);
+  padding:26px 22px;
+  min-height:170px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  transition:transform 0.3s var(--ease),border-color 0.3s,box-shadow 0.3s;
+}
+
 .feat-card:hover{transform:translateY(-4px);border-color:var(--border2);box-shadow:0 20px 55px rgba(0,0,0,0.5)}
 .feat-card:first-child{grid-column:1;grid-row:1/3;min-height:340px}
 .feat-card:last-child{grid-column:2/4}
 .feat-wide{}
-.feat-bg{position:absolute;inset:0;background:linear-gradient(135deg,var(--c1) 0%,var(--c2) 100%)}
+
+.feat-bg{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,var(--c1) 0%,var(--c2) 100%);
+}
+
+.feat-visual{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  overflow:hidden;
+}
+
+.feat-visual img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  filter:brightness(.72) saturate(.9) contrast(1.05);
+  transform:scale(1.02);
+  transition:transform .45s var(--ease),filter .45s var(--ease);
+}
+
+.feat-card:hover .feat-visual img{
+  transform:scale(1.06);
+  filter:brightness(.82) saturate(1) contrast(1.08);
+}
+
+.feat-visual::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 10%,rgba(77,157,224,.18),transparent 45%),
+    linear-gradient(180deg,rgba(7,9,14,.08),rgba(7,9,14,.85));
+}
+
 .feat-content{position:relative;z-index:2}
-.feat-badge{font-family:var(--font-d);font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:8px;display:inline-block;padding:3px 8px;border-radius:4px}
+
+.feat-badge{
+  font-family:var(--font-d);
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  margin-bottom:8px;
+  display:inline-block;
+  padding:3px 8px;
+  border-radius:4px;
+}
+
 .feat-badge--creative{background:rgba(77,157,224,0.15);color:var(--creative)}
 .feat-badge--wellness{background:rgba(52,211,153,0.15);color:var(--wellness)}
 .feat-badge--fx{background:rgba(245,158,11,0.15);color:var(--fx)}
-.feat-card h3{font-family:var(--font-d);font-size:19px;font-weight:700;color:var(--text);margin-bottom:7px;letter-spacing:-0.01em}
-.feat-card p{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:16px}
-.feat-cta{font-family:var(--font-d);font-size:12px;font-weight:600;color:var(--accent);transition:letter-spacing 0.2s}
+.feat-badge--utility{background:rgba(167,139,250,.15);color:var(--utility)}
+
+.feat-card h3{
+  font-family:var(--font-d);
+  font-size:19px;
+  font-weight:700;
+  color:var(--text);
+  margin-bottom:7px;
+  letter-spacing:-0.01em;
+}
+
+.feat-card p{
+  font-size:13px;
+  color:var(--text2);
+  line-height:1.6;
+  margin-bottom:16px;
+}
+
+.feat-cta{
+  font-family:var(--font-d);
+  font-size:12px;
+  font-weight:600;
+  color:var(--accent);
+  transition:letter-spacing 0.2s;
+}
+
 .feat-card:hover .feat-cta{letter-spacing:0.03em}
+
 /* Nodes anim */
 .feat-nodes{position:absolute;top:0;right:0;width:50%;height:100%;pointer-events:none;display:flex;align-items:center;justify-content:center}
 .fnode{position:absolute;border-radius:50%;background:rgba(77,157,224,0.2);border:1px solid rgba(77,157,224,0.35)}
 .fn1{width:36px;height:36px;top:38%;left:12%;animation:nf 4s ease-in-out infinite}
 .fn2{width:24px;height:24px;top:55%;left:54%;animation:nf 5s ease-in-out 1s infinite}
 .fn3{width:18px;height:18px;top:22%;left:66%;animation:nf 6s ease-in-out 0.5s infinite}
-@keyframes nf{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.08)}}
+
+@keyframes nf{
+  0%,100%{transform:translateY(0) scale(1)}
+  50%{transform:translateY(-8px) scale(1.08)}
+}
+
 .fnode-lines{position:absolute;inset:0;width:100%;height:100%}
+
 /* Orbit anim */
 .feat-orbit{position:absolute;top:50%;right:30px;transform:translateY(-50%);width:110px;height:110px;pointer-events:none}
 .orbit-ring{position:absolute;border-radius:50%;border:1px solid rgba(245,158,11,0.2);top:50%;left:50%;transform:translate(-50%,-50%)}
 .r1{width:90px;height:90px;animation:spin 8s linear infinite}
 .r2{width:55px;height:55px;animation:spin 5s linear infinite reverse}
-@keyframes spin{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
-.orbit-dot{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--fx);top:calc(50% - 47px);left:calc(50% - 4px);animation:spin 8s linear infinite;box-shadow:0 0 12px var(--fx)}
+
+@keyframes spin{
+  from{transform:translate(-50%,-50%) rotate(0deg)}
+  to{transform:translate(-50%,-50%) rotate(360deg)}
+}
+
+.orbit-dot{
+  position:absolute;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--fx);
+  top:calc(50% - 47px);
+  left:calc(50% - 4px);
+  animation:spin 8s linear infinite;
+  box-shadow:0 0 12px var(--fx);
+}
 
 /* ── CREATE ── */
 .create{padding:100px 0}

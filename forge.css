@@ -878,47 +878,72 @@ input[type="range"]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;b
     height:104px;
   }
 }
-/* ── HORIZON REVEAL ── */
-.studio-horizon{
-  --open:0;
-  position:relative;
-  height:180px;
-  overflow:hidden;
-  background:var(--bg2);
-}
+/* ── STUDIO SUNRISE REVEAL ── */
 
-.horizon-line{
-  position:absolute;
-  left:50%;
-  top:58%;
-  width:calc(12% + (68% * var(--open)));
-  height:1px;
-  transform:translate(-50%,-50%);
-  background:rgba(77,157,224,.48);
-  box-shadow:0 0 calc(8px + 24px * var(--open)) rgba(77,157,224,.35);
-}
-
-.horizon-glow{
-  position:absolute;
-  left:50%;
-  top:62%;
-  width:480px;
-  height:160px;
-  border-radius:50%;
-  transform:translate(-50%,-50%) scale(calc(.15 + (.95 * var(--open))));
-  opacity:calc(.05 + (.65 * var(--open)));
-  background:radial-gradient(ellipse at center,rgba(77,157,224,.26),transparent 70%);
-  filter:blur(32px);
-}
-
-/* Studio opens from the horizon */
 .studio-bridge{
   --open:0;
+  position:relative;
+  overflow:hidden;
+}
+
+.studio-sunrise{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+}
+
+.sunrise-line{
+  position:absolute;
+  left:50%;
+  top:0;
+  width:72%;
+  height:1px;
+  transform:translateX(-50%);
+  background:rgba(77,157,224,.45);
+  box-shadow:0 0 18px rgba(77,157,224,.35);
+}
+
+.sunrise-orb{
+  position:absolute;
+  left:50%;
+  top:0;
+  width:620px;
+  height:310px;
+  border-radius:0 0 620px 620px;
+  transform:
+    translate(-50%,-72%)
+    scale(calc(.22 + .78 * var(--open)));
+  opacity:calc(.05 + .60 * var(--open));
+  background:radial-gradient(ellipse at center,
+    rgba(77,157,224,.32),
+    rgba(77,157,224,.11) 42%,
+    transparent 72%);
+  filter:blur(4px);
+}
+
+.sunrise-glow{
+  position:absolute;
+  left:50%;
+  top:0;
+  width:1100px;
+  height:620px;
+  transform:
+    translate(-50%,-50%)
+    scale(calc(.30 + .80 * var(--open)));
+  opacity:calc(.08 + .58 * var(--open));
+  background:radial-gradient(ellipse at center,
+    rgba(77,157,224,.24),
+    rgba(139,92,246,.10) 45%,
+    transparent 72%);
+  filter:blur(70px);
 }
 
 .studio-inner{
-  opacity:calc(.75 + (.25 * var(--open)));
+  position:relative;
+  z-index:2;
+  opacity:calc(.30 + .70 * var(--open));
   transform:
-    translateY(calc(28px - (28px * var(--open))))
-    scale(calc(.97 + (.03 * var(--open))));
+    translateY(calc(46px - 46px * var(--open)))
+    scale(calc(.94 + .06 * var(--open)));
 }

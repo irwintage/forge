@@ -878,3 +878,55 @@ input[type="range"]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;b
     height:104px;
   }
 }
+/* ── HORIZON REVEAL ── */
+
+.studio-horizon{
+  position:relative;
+  height:180px;
+  overflow:hidden;
+  background:var(--bg2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.horizon-line{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:0;
+  height:1px;
+  background:rgba(77,157,224,.45);
+  transform:translate(-50%,-50%);
+  box-shadow:0 0 12px rgba(77,157,224,.25);
+  transition:width 1.6s var(--ease);
+}
+
+.horizon-glow{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:radial-gradient(circle,
+    rgba(77,157,224,.22),
+    transparent 70%);
+  filter:blur(18px);
+  transform:translate(-50%,-50%) scale(.2);
+  opacity:0;
+  transition:
+    opacity 1.2s ease,
+    transform 1.8s var(--ease);
+}
+
+/* Reveal */
+
+.studio-horizon.visible .horizon-line{
+  width:70%;
+}
+
+.studio-horizon.visible .horizon-glow{
+  opacity:1;
+  transform:translate(-50%,-50%) scale(8);
+}

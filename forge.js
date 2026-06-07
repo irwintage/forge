@@ -30,7 +30,29 @@ const revealObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+/* ── STUDIO HORIZON SCROLL ── */
+const studioHorizon = document.getElementById('studioHorizon');
+const studioSection = document.getElementById('studio');
 
+function updateStudioHorizon(){
+  if(!studioHorizon || !studioSection) return;
+
+  const rect = studioSection.getBoundingClientRect();
+  const vh = window.innerHeight;
+
+  const start = vh * 0.95;
+  const end = vh * 0.25;
+
+  let p = (start - rect.top) / (start - end);
+  p = Math.max(0, Math.min(1, p));
+
+  studioHorizon.style.setProperty('--open', p);
+  studioSection.style.setProperty('--open', p);
+}
+
+window.addEventListener('scroll', updateStudioHorizon, { passive:true });
+window.addEventListener('resize', updateStudioHorizon, { passive:true });
+updateStudioHorizon();
 /* ── PARTICLE CANVAS (hero background) ── */
 (function initParticles() {
   const canvas = document.getElementById('particleCanvas');

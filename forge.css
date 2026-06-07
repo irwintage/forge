@@ -879,54 +879,46 @@ input[type="range"]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;b
   }
 }
 /* ── HORIZON REVEAL ── */
-
 .studio-horizon{
+  --open:0;
   position:relative;
   height:180px;
   overflow:hidden;
   background:var(--bg2);
-  display:flex;
-  align-items:center;
-  justify-content:center;
 }
 
 .horizon-line{
   position:absolute;
   left:50%;
-  top:50%;
-  width:0;
+  top:58%;
+  width:calc(12% + (68% * var(--open)));
   height:1px;
-  background:rgba(77,157,224,.45);
   transform:translate(-50%,-50%);
-  box-shadow:0 0 12px rgba(77,157,224,.25);
-  transition:width 1.6s var(--ease);
+  background:rgba(77,157,224,.48);
+  box-shadow:0 0 calc(8px + 24px * var(--open)) rgba(77,157,224,.35);
 }
 
 .horizon-glow{
   position:absolute;
   left:50%;
-  top:50%;
-  width:40px;
-  height:40px;
+  top:62%;
+  width:480px;
+  height:160px;
   border-radius:50%;
-  background:radial-gradient(circle,
-    rgba(77,157,224,.22),
-    transparent 70%);
-  filter:blur(18px);
-  transform:translate(-50%,-50%) scale(.2);
-  opacity:0;
-  transition:
-    opacity 1.2s ease,
-    transform 1.8s var(--ease);
+  transform:translate(-50%,-50%) scale(calc(.15 + (.95 * var(--open))));
+  opacity:calc(.05 + (.65 * var(--open)));
+  background:radial-gradient(ellipse at center,rgba(77,157,224,.26),transparent 70%);
+  filter:blur(32px);
 }
 
-/* Reveal */
-
-.studio-horizon.visible .horizon-line{
-  width:70%;
+/* Studio opens from the horizon */
+.studio-bridge{
+  --open:0;
 }
 
-.studio-horizon.visible .horizon-glow{
-  opacity:1;
-  transform:translate(-50%,-50%) scale(8);
+.studio-inner{
+  opacity:calc(.75 + (.25 * var(--open)));
+  transform:
+    translateY(calc(28px - (28px * var(--open))))
+    scale(calc(.97 + (.03 * var(--open))));
 }

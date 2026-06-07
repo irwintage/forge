@@ -30,28 +30,7 @@ const revealObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-/* ── STUDIO SUNRISE SCROLL ── */
-const studioSection = document.getElementById('studio');
 
-function updateStudioSunrise(){
-  if(!studioSection) return;
-
-  const rect = studioSection.getBoundingClientRect();
-  const vh = window.innerHeight;
-
-  const start = vh * 0.95;
-  const end = vh * 0.25;
-
-  let p = (start - rect.top) / (start - end);
-  p = Math.max(0, Math.min(1, p));
-
-  studioSection.style.setProperty('--open', p);
-}
-
-window.addEventListener('scroll', updateStudioSunrise, { passive:true });
-window.addEventListener('resize', updateStudioSunrise, { passive:true });
-
-updateStudioSunrise();
 /* ── PARTICLE CANVAS (hero background) ── */
 (function initParticles() {
   const canvas = document.getElementById('particleCanvas');

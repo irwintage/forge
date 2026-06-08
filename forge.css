@@ -718,21 +718,58 @@ input[type="range"]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;b
 }
 /* ── FOOTER ── */
 .footer{padding:60px 0 0;border-top:1px solid var(--border)}
+
 .footer-inner{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:44px}
-.footer-logo{display:flex;align-items:center;gap:8px;font-family:var(--font-d);font-size:15px;font-weight:600;color:var(--accent);margin-bottom:10px}
+
+.footer-logo{display:flex;align-items:center;gap:8px;font-family:var(--font-d);font-size:15px;font-weight:700;color:#fff;margin-bottom:10px;letter-spacing:-0.01em}
+
 .footer-logo .logo-mark{color:var(--accent)}
+
 .footer-brand p{font-size:13px;color:var(--text3);line-height:1.7;margin-bottom:18px}
+
 .footer-socials{display:flex;gap:12px}
-.footer-socials a{font-size:13px;color:var(--text3);transition:color 0.2s}
-.footer-socials a:hover{color:var(--text)}
+
+.footer-socials span{
+  font-size:13px;
+  color:var(--accent);
+  opacity:.85;
+  text-shadow:0 0 12px rgba(77,157,224,.35);
+}
+
 .footer-col h4{font-family:var(--font-d);font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--text3);margin-bottom:14px}
+
 .footer-col a{display:block;font-size:13px;color:var(--text3);margin-bottom:9px;transition:color 0.2s}
+
 .footer-col a:hover{color:var(--text)}
+
 .footer-col--studio p{font-size:12px;color:var(--text3);line-height:1.6;margin-bottom:14px}
-.footer-studio-btn{display:inline-flex;align-items:center;padding:9px 18px;background:var(--surface);border:1px solid var(--border2);border-radius:50px;font-family:var(--font-d);font-size:12px;font-weight:600;color:var(--text)!important;transition:background 0.2s,border-color 0.2s}
-.footer-studio-btn:hover{background:var(--surface2)!important;border-color:rgba(255,255,255,0.2)!important}
+
+.footer-studio-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:10px 18px;
+  background:rgba(77,157,224,.10);
+  border:1px solid rgba(77,157,224,.24);
+  border-radius:50px;
+  font-family:var(--font-d);
+  font-size:12px;
+  font-weight:700;
+  color:var(--text)!important;
+  transition:transform .2s var(--ease),background .2s,border-color .2s,box-shadow .2s;
+}
+
+.footer-studio-btn:hover{
+  transform:translateY(-1px);
+  background:rgba(77,157,224,.16)!important;
+  border-color:rgba(77,157,224,.38)!important;
+  box-shadow:0 10px 28px rgba(77,157,224,.12);
+}
+
 .footer-bottom{border-top:1px solid var(--border);padding:18px 28px;max-width:1160px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+
 .footer-bottom span{font-size:12px;color:var(--text3)}
+
 .footer-sig{font-family:var(--font-d)}
 
 /* ── SCROLL REVEAL ── */

@@ -112,10 +112,41 @@ a{text-decoration:none;color:inherit}
 .hero-demo-frame{border-radius:var(--rx);overflow:hidden;border:1px solid var(--border);box-shadow:0 40px 80px rgba(0,0,0,0.6)}
 
 /* Hero scroll */
-.hero-scroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--text3);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;font-family:var(--font-d);font-weight:600;transition:color 0.2s;z-index:2}
-.hero-scroll:hover{color:var(--text2)}
-.scroll-dot{animation:scrollBob 2s ease-in-out infinite}
-@keyframes scrollBob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+.hero-scroll{
+  position:absolute;
+  bottom:0px;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+  color:var(--text3);
+  font-size:10px;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  font-family:var(--font-d);
+  font-weight:600;
+  transition:color 0.2s;
+  z-index:2;
+}
+
+.hero-scroll:hover{
+  color:var(--text2);
+}
+
+.scroll-dot{
+  animation:scrollBob 2s ease-in-out infinite;
+}
+
+@keyframes scrollBob{
+  0%,100%{
+    transform:translateY(0);
+  }
+  50%{
+    transform:translateY(5px);
+  }
+}
 
 /* ── DRUM MACHINE STYLES (preserved from original) ── */
 .cs-scope{width:100%;font-family:'Inter',system-ui,sans-serif;color:#EEF4FF}

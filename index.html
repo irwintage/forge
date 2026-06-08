@@ -648,182 +648,209 @@
 </footer>
 
 <script src="forge.js"></script>
-      <!-- ═══════════════════════════════════════
-     CHRYSASYNTH FORGE — Sticky Email Bar
-     Colle ce bloc à la fin de ton index.html
-     juste avant </body>
-═══════════════════════════════════════ -->
+<!-- CHRYSASYNTH FORGE — Sticky Email Capture -->
 
 <style>
 .forge-sticky{
   position:fixed;
-  bottom:0;left:0;right:0;
+  left:0;
+  right:0;
+  bottom:0;
   z-index:999;
-  transform:translateY(100%);
-  transition:transform 0.5s cubic-bezier(0.16,1,0.3,1);
+  transform:translateY(110%);
+  transition:transform .55s cubic-bezier(.16,1,.3,1);
   pointer-events:none;
 }
+
 .forge-sticky.visible{
   transform:translateY(0);
   pointer-events:all;
 }
+
 .forge-sticky.hidden{
-  transform:translateY(100%);
+  transform:translateY(110%);
   pointer-events:none;
 }
 
 .fs-inner{
-  max-width:1160px;
-  margin:0 auto 16px;
-  padding:0 20px;
+  max-width:760px;
+  margin:0 auto 18px;
+  padding:0 18px;
 }
 
 .fs-bar{
-  display:flex;
+  position:relative;
+  display:grid;
+  grid-template-columns:auto 1fr auto auto;
   align-items:center;
-  gap:20px;
-  padding:14px 20px 14px 24px;
-  background:rgba(13,16,24,0.92);
+  gap:14px;
+  padding:14px 14px 14px 18px;
+  border-radius:18px;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018)),
+    rgba(12,15,23,.94);
+  border:1px solid rgba(77,157,224,.18);
   backdrop-filter:blur(24px);
   -webkit-backdrop-filter:blur(24px);
-  border:1px solid rgba(255,255,255,0.09);
-  border-radius:16px;
   box-shadow:
-    0 8px 40px rgba(0,0,0,0.5),
-    0 0 0 1px rgba(77,157,224,0.06),
-    inset 0 1px 0 rgba(255,255,255,0.04);
+    0 18px 60px rgba(0,0,0,.55),
+    0 0 44px rgba(77,157,224,.10),
+    inset 0 1px 0 rgba(255,255,255,.05);
 }
 
 .fs-text{
   font-family:'Syne',sans-serif;
   font-size:13px;
-  font-weight:600;
-  color:#e2e6f0;
-  letter-spacing:-0.01em;
+  font-weight:700;
+  color:#e6ebf5;
+  letter-spacing:-.01em;
   white-space:nowrap;
-  flex-shrink:0;
 }
 
 .fs-text em{
   font-style:normal;
-  color:rgba(77,157,224,0.85);
-}
-
-.fs-sep{
-  width:1px;
-  height:18px;
-  background:rgba(255,255,255,0.07);
-  flex-shrink:0;
+  color:#4d9de0;
+  text-shadow:0 0 18px rgba(77,157,224,.6);
 }
 
 .fs-form{
   display:flex;
   align-items:center;
   gap:8px;
-  flex:1;
   min-width:0;
 }
 
 .fs-input{
-  flex:1;
+  width:100%;
+  height:40px;
   min-width:0;
-  height:38px;
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.08);
-  border-radius:10px;
   padding:0 14px;
-  font-family:'DM Sans',sans-serif;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.045);
+  color:#e6ebf5;
+  font-family:'DM Sans',Arial,sans-serif;
   font-size:13px;
-  color:#e2e6f0;
   outline:none;
-  transition:border-color 0.2s,background 0.2s;
 }
+
 .fs-input::placeholder{
-  color:rgba(110,130,160,0.7);
+  color:rgba(136,150,175,.72);
 }
+
 .fs-input:focus{
-  border-color:rgba(77,157,224,0.4);
-  background:rgba(77,157,224,0.06);
+  border-color:rgba(77,157,224,.45);
+  background:rgba(77,157,224,.075);
+  box-shadow:0 0 0 3px rgba(77,157,224,.08);
 }
 
 .fs-btn{
-  height:38px;
+  height:40px;
   padding:0 18px;
-  background:var(--fs-accent,#4d9de0);
-  border:none;
-  border-radius:10px;
+  border:0;
+  border-radius:12px;
+  background:linear-gradient(135deg,#4d9de0,#46d9d9);
+  color:#061018;
   font-family:'Syne',sans-serif;
   font-size:13px;
-  font-weight:600;
-  color:#fff;
+  font-weight:800;
   cursor:pointer;
   white-space:nowrap;
-  flex-shrink:0;
-  transition:transform 0.2s,box-shadow 0.2s,background 0.2s;
   display:flex;
   align-items:center;
-  gap:6px;
+  gap:7px;
+  transition:transform .22s,box-shadow .22s;
 }
+
 .fs-btn:hover{
   transform:translateY(-1px);
-  box-shadow:0 6px 20px rgba(77,157,224,0.3);
-  background:#5aaae8;
-}
-.fs-btn svg{
-  transition:transform 0.2s;
-}
-.fs-btn:hover svg{
-  transform:translateX(2px);
+  box-shadow:0 10px 28px rgba(77,157,224,.25);
 }
 
 .fs-close{
-  width:32px;height:32px;
-  background:none;
-  border:none;
+  width:34px;
+  height:34px;
+  border:0;
+  border-radius:10px;
+  background:transparent;
+  color:rgba(136,150,175,.7);
   cursor:pointer;
-  color:rgba(110,130,160,0.6);
-  display:flex;align-items:center;justify-content:center;
-  border-radius:8px;
-  flex-shrink:0;
-  transition:color 0.2s,background 0.2s;
-  margin-left:4px;
-}
-.fs-close:hover{
-  color:#e2e6f0;
-  background:rgba(255,255,255,0.06);
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
-/* Success state */
+.fs-close:hover{
+  color:#e6ebf5;
+  background:rgba(255,255,255,.06);
+}
+
 .fs-success{
   display:none;
   align-items:center;
-  gap:10px;
+  gap:9px;
   font-family:'Syne',sans-serif;
   font-size:13px;
-  font-weight:600;
+  font-weight:700;
   color:#34d399;
+  white-space:nowrap;
 }
+
 .fs-success.show{display:flex}
 .fs-form.hide{display:none}
 
-/* Mobile */
 @media(max-width:640px){
-  .fs-inner{margin:0 0 0}
-  .fs-bar{
-    border-radius:0;
-    border-left:none;border-right:none;border-bottom:none;
-    gap:10px;
-    padding:12px 16px;
-    flex-wrap:wrap;
+  .fs-inner{
+    margin:0;
+    padding:0;
   }
-  .fs-text{font-size:12px}
-  .fs-sep{display:none}
-  .fs-form{width:100%}
-  .fs-input{font-size:13px}
+
+  .fs-bar{
+    grid-template-columns:1fr auto;
+    gap:12px;
+    padding:16px;
+    border-radius:18px 18px 0 0;
+    border-left:0;
+    border-right:0;
+    border-bottom:0;
+  }
+
+  .fs-text{
+    grid-column:1;
+    font-size:14px;
+  }
+
+  .fs-close{
+    grid-column:2;
+    grid-row:1;
+  }
+
+  .fs-form{
+    grid-column:1 / -1;
+    display:grid;
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+
+  .fs-input{
+    height:44px;
+    font-size:14px;
+  }
+
+  .fs-btn{
+    height:44px;
+    width:100%;
+    justify-content:center;
+    font-size:14px;
+  }
+
+  .fs-success{
+    grid-column:1 / -1;
+    font-size:14px;
+  }
 }
 </style>
 
-<!-- Sticky Bar HTML -->
 <div class="forge-sticky" id="forgeSticky">
   <div class="fs-inner">
     <div class="fs-bar">
@@ -832,9 +859,6 @@
         <em>✦</em> New tools. First.
       </div>
 
-      <div class="fs-sep"></div>
-
-      <!-- Form -->
       <div class="fs-form" id="fsStickyForm">
         <input
           class="fs-input"
@@ -843,25 +867,25 @@
           placeholder="your@email.com"
           autocomplete="email"
         />
+
         <button class="fs-btn" id="fs-submit">
           Join
           <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
-            <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
       </div>
 
-      <!-- Success -->
       <div class="fs-success" id="fsStickySuccess">
         <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-          <path d="M3 8L6.5 11.5L13 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M3 8L6.5 11.5L13 4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         You're in.
       </div>
 
       <button class="fs-close" id="fsStickyClose" aria-label="Close">
         <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
-          <path d="M3 3L13 13M13 3L3 13" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          <path d="M3 3L13 13M13 3L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
       </button>
 
@@ -869,73 +893,69 @@
   </div>
 </div>
 
-<!-- Hidden Brevo form (handles the actual submission) -->
 <div style="display:none" aria-hidden="true">
   <form id="sibFormHidden" method="POST"
     action="https://dd05a9be.sibforms.com/serve/MUIFAMDmK5haoAKqbqWWSCtPkEnNbPjrCR_HM6mWlKLrkAYRTNcjbtiFnN71s9o-c3QXj_Jg0h6YEQzRGa6O84DREjXnccSLf_Q7QpNGiNdhrDJMpWd3d_NG2-JFm-eT83uKgyAg4VyazXopodUJt4dzV5zKaO5bQfBACUwo23ClIDvXWdy9hRSLL1LKa9ssFqLpn1I-tkyKs3r4yA=="
     data-type="subscription">
-    <input type="text"  name="EMAIL"               id="sibEmailHidden" value=""/>
-    <input type="text"  name="email_address_check"  value=""/>
-    <input type="hidden" name="locale"              value="fr"/>
+    <input type="text" name="EMAIL" id="sibEmailHidden" value=""/>
+    <input type="text" name="email_address_check" value=""/>
+    <input type="hidden" name="locale" value="fr"/>
   </form>
 </div>
 
 <script>
 (function(){
-  var sticky   = document.getElementById('forgeSticky');
-  var closeBtn = document.getElementById('fsStickyClose');
-  var submitBtn= document.getElementById('fs-submit');
+  var sticky=document.getElementById('forgeSticky');
+  var closeBtn=document.getElementById('fsStickyClose');
+  var submitBtn=document.getElementById('fs-submit');
   var emailInput=document.getElementById('fs-email');
-  var form     = document.getElementById('fsStickyForm');
-  var success  = document.getElementById('fsStickySuccess');
-  var shown    = false;
-  var COOKIE   = 'cs_sticky_closed';
+  var form=document.getElementById('fsStickyForm');
+  var success=document.getElementById('fsStickySuccess');
+  var shown=false;
+  var COOKIE='cs_sticky_closed';
 
-  /* Check cookie */
   function getCookie(n){
-    var m = document.cookie.match('(^|;)\\s*'+n+'\\s*=\\s*([^;]+)');
+    var m=document.cookie.match('(^|;)\\s*'+n+'\\s*=\\s*([^;]+)');
     return m ? m.pop() : '';
   }
+
   function setCookie(n,v,days){
-    var d = new Date();
+    var d=new Date();
     d.setTime(d.getTime()+(days*24*60*60*1000));
-    document.cookie = n+'='+v+';expires='+d.toUTCString()+';path=/';
+    document.cookie=n+'='+v+';expires='+d.toUTCString()+';path=/';
   }
 
-  if(getCookie(COOKIE)) return; /* already dismissed */
+  if(getCookie(COOKIE)) return;
 
-  /* Show after 400px scroll */
-  window.addEventListener('scroll', function(){
-    if(!shown && window.scrollY > 400){
-      shown = true;
+  window.addEventListener('scroll',function(){
+    if(!shown && window.scrollY > 420){
+      shown=true;
       sticky.classList.add('visible');
     }
-  }, {passive:true});
+  },{passive:true});
 
-  /* Close */
-  closeBtn.addEventListener('click', function(){
+  closeBtn.addEventListener('click',function(){
     sticky.classList.add('hidden');
     setCookie(COOKIE,'1',30);
   });
 
-  /* Submit */
-  submitBtn.addEventListener('click', function(){
-    var email = emailInput.value.trim();
-    var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  submitBtn.addEventListener('click',function(){
+    var email=emailInput.value.trim();
+    var re=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     if(!re.test(email)){
-      emailInput.style.borderColor='rgba(245,99,99,0.5)';
+      emailInput.style.borderColor='rgba(245,99,99,.65)';
       emailInput.focus();
-      setTimeout(function(){ emailInput.style.borderColor=''; },1500);
+      setTimeout(function(){emailInput.style.borderColor='';},1500);
       return;
     }
 
-    /* Fill hidden Brevo form and submit via fetch */
-    document.getElementById('sibEmailHidden').value = email;
+    document.getElementById('sibEmailHidden').value=email;
 
-    var formEl = document.getElementById('sibFormHidden');
-    var data   = new FormData(formEl);
+    var formEl=document.getElementById('sibFormHidden');
+    var data=new FormData(formEl);
 
-    fetch(formEl.action, {
+    fetch(formEl.action,{
       method:'POST',
       body:data,
       mode:'no-cors'
@@ -945,17 +965,13 @@
       setCookie(COOKIE,'1',30);
       setTimeout(function(){
         sticky.classList.add('hidden');
-      }, 3000);
-    }).catch(function(){
-      /* no-cors always resolves, this won't fire */
+      },3000);
     });
   });
 
-  /* Enter key */
-  emailInput.addEventListener('keydown', function(e){
+  emailInput.addEventListener('keydown',function(e){
     if(e.key==='Enter') submitBtn.click();
   });
-
 })();
 </script>
 </body>

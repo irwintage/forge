@@ -460,16 +460,20 @@ input[type="range"]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;b
 @media(max-width:768px){
   .wellness-apps{
     padding:80px 0;
+    overflow:hidden;
   }
 
   .wellness-grid{
     display:flex;
     overflow-x:auto;
+    overflow-y:hidden;
     gap:14px;
     scroll-snap-type:x mandatory;
-    padding:0 18px 8px;
+    padding:0 18px 10px;
     margin:0 -18px;
     -webkit-overflow-scrolling:touch;
+    touch-action:pan-x;
+    overscroll-behavior-x:contain;
   }
 
   .wellness-grid::-webkit-scrollbar{
@@ -477,13 +481,20 @@ input[type="range"]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;b
   }
 
   .wellness-card{
+    flex:0 0 78%;
     min-width:78%;
-    scroll-snap-align:center;
+    scroll-snap-align:start;
+    transform:none!important;
+  }
+
+  .wellness-card:hover{
+    transform:none!important;
   }
 }
 
 @media(max-width:480px){
   .wellness-card{
+    flex-basis:84%;
     min-width:84%;
   }
 

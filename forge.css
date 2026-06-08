@@ -352,14 +352,30 @@ input[type="range"]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;b
 
 .orbit-dot{
   position:absolute;
+  top:50%;
+  left:50%;
   width:8px;
   height:8px;
   border-radius:50%;
   background:var(--fx);
-  top:calc(50% - 47px);
-  left:calc(50% - 4px);
-  animation:spin 8s linear infinite;
   box-shadow:0 0 12px var(--fx);
+  animation:orbitDot 8s linear infinite;
+}
+
+@keyframes orbitDot{
+  from{
+    transform:
+      translate(-50%,-50%)
+      rotate(0deg)
+      translateX(45px);
+  }
+
+  to{
+    transform:
+      translate(-50%,-50%)
+      rotate(360deg)
+      translateX(45px);
+  }
 }
 
 /* ── CREATE ── */

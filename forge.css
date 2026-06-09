@@ -29,9 +29,21 @@
   --rl:20px;
   --rx:28px;
 }
+html{
+  scroll-behavior:smooth;
+  background:#0D1424;
+}
 
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:var(--font-b);font-size:16px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-b);
+  font-size:16px;
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
 a{text-decoration:none;color:inherit}
 
 .container{max-width:1160px;margin:0 auto;padding:0 28px}

@@ -981,11 +981,13 @@ input[type="range"]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;b
   right:0;
   z-index:99;
   padding:0 28px;
-  background:rgba(77,157,224,.10);
-  border-top:1px solid rgba(77,157,224,.14);
-  border-bottom:1px solid rgba(77,157,224,.22);
+  background:
+    linear-gradient(90deg,rgba(77,157,224,.14),rgba(124,92,255,.10));
+  border-top:1px solid rgba(255,255,255,.04);
+  border-bottom:1px solid rgba(77,157,224,.28);
   backdrop-filter:blur(18px);
   -webkit-backdrop-filter:blur(18px);
+  box-shadow:0 12px 34px rgba(77,157,224,.08);
 }
 
 .forge-topbar-inner{

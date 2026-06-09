@@ -619,3 +619,14 @@ document.querySelectorAll('.cs-pad').forEach(btn => {
     }
   });
 });
+/* ── FORGE TOPBAR EMAIL / BREVO ── */
+(function(){
+  var topbar = document.getElementById('forgeTopbar');
+  var closeBtn = document.getElementById('ftClose');
+
+  if(!topbar || !closeBtn) return;
+
+  closeBtn.addEventListener('click', function(){
+    topbar.classList.add('hidden');
+  });
+})();

@@ -687,250 +687,7 @@
 </footer>
 
 <script src="forge.js"></script>
-<!-- CHRYSASYNTH FORGE — Sticky Email Capture -->
 
-<style>
-.forge-sticky{
-  position:fixed;
-  left:0;
-  right:0;
-  bottom:0;
-  z-index:999;
-  transform:translateY(110%);
-  transition:transform .55s cubic-bezier(.16,1,.3,1);
-  pointer-events:none;
-}
-
-.forge-sticky.visible{
-  transform:translateY(0);
-  pointer-events:all;
-}
-
-.forge-sticky.hidden{
-  transform:translateY(110%);
-  pointer-events:none;
-}
-
-.fs-inner{
-  max-width:760px;
-  margin:0 auto 18px;
-  padding:0 18px;
-}
-
-.fs-bar{
-  position:relative;
-  display:grid;
-  grid-template-columns:auto 1fr auto auto;
-  align-items:center;
-  gap:14px;
-  padding:14px 14px 14px 18px;
-  border-radius:18px;
-  background:
-    linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018)),
-    rgba(12,15,23,.94);
-  border:1px solid rgba(77,157,224,.18);
-  backdrop-filter:blur(24px);
-  -webkit-backdrop-filter:blur(24px);
-  box-shadow:
-    0 18px 60px rgba(0,0,0,.55),
-    0 0 44px rgba(77,157,224,.10),
-    inset 0 1px 0 rgba(255,255,255,.05);
-}
-
-.fs-text{
-  font-family:'Syne',sans-serif;
-  font-size:13px;
-  font-weight:700;
-  color:#e6ebf5;
-  letter-spacing:-.01em;
-  white-space:nowrap;
-}
-
-.fs-text em{
-  font-style:normal;
-  color:#4d9de0;
-  text-shadow:0 0 18px rgba(77,157,224,.6);
-}
-
-.fs-form{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  min-width:0;
-}
-
-.fs-input{
-  width:100%;
-  height:40px;
-  min-width:0;
-  padding:0 14px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(255,255,255,.045);
-  color:#e6ebf5;
-  font-family:'DM Sans',Arial,sans-serif;
-  font-size:13px;
-  outline:none;
-}
-
-.fs-input::placeholder{
-  color:rgba(136,150,175,.72);
-}
-
-.fs-input:focus{
-  border-color:rgba(77,157,224,.45);
-  background:rgba(77,157,224,.075);
-  box-shadow:0 0 0 3px rgba(77,157,224,.08);
-}
-
-.fs-btn{
-  height:40px;
-  padding:0 18px;
-  border:0;
-  border-radius:12px;
-  background:linear-gradient(135deg,#4d9de0,#46d9d9);
-  color:#061018;
-  font-family:'Syne',sans-serif;
-  font-size:13px;
-  font-weight:800;
-  cursor:pointer;
-  white-space:nowrap;
-  display:flex;
-  align-items:center;
-  gap:7px;
-  transition:transform .22s,box-shadow .22s;
-}
-
-.fs-btn:hover{
-  transform:translateY(-1px);
-  box-shadow:0 10px 28px rgba(77,157,224,.25);
-}
-
-.fs-close{
-  width:34px;
-  height:34px;
-  border:0;
-  border-radius:10px;
-  background:transparent;
-  color:rgba(136,150,175,.7);
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.fs-close:hover{
-  color:#e6ebf5;
-  background:rgba(255,255,255,.06);
-}
-
-.fs-success{
-  display:none;
-  align-items:center;
-  gap:9px;
-  font-family:'Syne',sans-serif;
-  font-size:13px;
-  font-weight:700;
-  color:#34d399;
-  white-space:nowrap;
-}
-
-.fs-success.show{display:flex}
-.fs-form.hide{display:none}
-
-@media(max-width:640px){
-  .fs-inner{
-    margin:0;
-    padding:0;
-  }
-
-  .fs-bar{
-    grid-template-columns:1fr auto;
-    gap:12px;
-    padding:16px;
-    border-radius:18px 18px 0 0;
-    border-left:0;
-    border-right:0;
-    border-bottom:0;
-  }
-
-  .fs-text{
-    grid-column:1;
-    font-size:14px;
-  }
-
-  .fs-close{
-    grid-column:2;
-    grid-row:1;
-  }
-
-  .fs-form{
-    grid-column:1 / -1;
-    display:grid;
-    grid-template-columns:1fr;
-    gap:10px;
-  }
-
-  .fs-input{
-    height:44px;
-    font-size:14px;
-  }
-
-  .fs-btn{
-    height:44px;
-    width:100%;
-    justify-content:center;
-    font-size:14px;
-  }
-
-  .fs-success{
-    grid-column:1 / -1;
-    font-size:14px;
-  }
-}
-</style>
-
-<div class="forge-sticky" id="forgeSticky">
-  <div class="fs-inner">
-    <div class="fs-bar">
-
-      <div class="fs-text">
-        <em>✦</em> New tools. First.
-      </div>
-
-      <div class="fs-form" id="fsStickyForm">
-        <input
-          class="fs-input"
-          type="email"
-          id="fs-email"
-          placeholder="your@email.com"
-          autocomplete="email"
-        />
-
-        <button class="fs-btn" id="fs-submit">
-          Join
-          <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
-            <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-      </div>
-
-      <div class="fs-success" id="fsStickySuccess">
-        <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-          <path d="M3 8L6.5 11.5L13 4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        You're in.
-      </div>
-
-      <button class="fs-close" id="fsStickyClose" aria-label="Close">
-        <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
-          <path d="M3 3L13 13M13 3L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-      </button>
-
-    </div>
-  </div>
-</div>
 
 <div style="display:none" aria-hidden="true">
   <form id="sibFormHidden" method="POST"
@@ -944,55 +701,40 @@
 
 <script>
 (function(){
-  var sticky=document.getElementById('forgeSticky');
-  var closeBtn=document.getElementById('fsStickyClose');
-  var submitBtn=document.getElementById('fs-submit');
-  var emailInput=document.getElementById('fs-email');
-  var form=document.getElementById('fsStickyForm');
-  var success=document.getElementById('fsStickySuccess');
-  var shown=false;
-  var COOKIE='cs_sticky_closed';
+  var topbar = document.getElementById('forgeTopbar');
+  var closeBtn = document.getElementById('ftClose');
+  var submitBtn = document.getElementById('ft-submit');
+  var emailInput = document.getElementById('ft-email');
+  var form = document.getElementById('ftForm');
+  var success = document.getElementById('ftSuccess');
 
-  function getCookie(n){
-    var m=document.cookie.match('(^|;)\\s*'+n+'\\s*=\\s*([^;]+)');
-    return m ? m.pop() : '';
+  if(!topbar || !submitBtn || !emailInput || !form || !success) return;
+
+  if(closeBtn){
+    closeBtn.addEventListener('click', function(){
+      topbar.classList.add('hidden');
+    });
   }
 
-  function setCookie(n,v,days){
-    var d=new Date();
-    d.setTime(d.getTime()+(days*24*60*60*1000));
-    document.cookie=n+'='+v+';expires='+d.toUTCString()+';path=/';
-  }
+  submitBtn.addEventListener('click', function(e){
+    e.preventDefault();
 
-  if(getCookie(COOKIE)) return;
-
-  window.addEventListener('scroll',function(){
-    if(!shown && window.scrollY > 420){
-      shown=true;
-      sticky.classList.add('visible');
-    }
-  },{passive:true});
-
-  closeBtn.addEventListener('click',function(){
-    sticky.classList.add('hidden');
-    setCookie(COOKIE,'1',30);
-  });
-
-  submitBtn.addEventListener('click',function(){
-    var email=emailInput.value.trim();
-    var re=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    var email = emailInput.value.trim();
+    var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if(!re.test(email)){
-      emailInput.style.borderColor='rgba(245,99,99,.65)';
+      emailInput.style.borderColor = 'rgba(245,99,99,.65)';
       emailInput.focus();
-      setTimeout(function(){emailInput.style.borderColor='';},1500);
+      setTimeout(function(){
+        emailInput.style.borderColor = '';
+      },1500);
       return;
     }
 
-    document.getElementById('sibEmailHidden').value=email;
+    document.getElementById('sibEmailHidden').value = email;
 
-    var formEl=document.getElementById('sibFormHidden');
-    var data=new FormData(formEl);
+    var formEl = document.getElementById('sibFormHidden');
+    var data = new FormData(formEl);
 
     fetch(formEl.action,{
       method:'POST',
@@ -1001,15 +743,15 @@
     }).then(function(){
       form.classList.add('hide');
       success.classList.add('show');
-      setCookie(COOKIE,'1',30);
-      setTimeout(function(){
-        sticky.classList.add('hidden');
-      },3000);
+      emailInput.value = '';
     });
   });
 
-  emailInput.addEventListener('keydown',function(e){
-    if(e.key==='Enter') submitBtn.click();
+  emailInput.addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){
+      e.preventDefault();
+      submitBtn.click();
+    }
   });
 })();
 </script>

@@ -1099,3 +1099,35 @@ input[type="range"]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;b
     padding-top:170px;
   }
 }
+.ft-close{
+  position:absolute;
+  right:18px;
+  top:50%;
+  transform:translateY(-50%);
+  width:28px;
+  height:28px;
+  border:0;
+  border-radius:999px;
+  background:transparent;
+  color:rgba(126,142,168,.75);
+  font-size:20px;
+  line-height:1;
+  cursor:pointer;
+}
+
+.ft-close:hover{
+  color:var(--text);
+  background:rgba(255,255,255,.06);
+}
+
+.forge-topbar.hidden{
+  display:none;
+}
+
+@media(max-width:640px){
+  .ft-close{
+    right:12px;
+    top:14px;
+    transform:none;
+  }
+}

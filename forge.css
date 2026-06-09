@@ -973,3 +973,129 @@ input[type="range"]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;b
     height:104px;
   }
 }
+/* ── FORGE TOPBAR EMAIL ── */
+.forge-topbar{
+  position:fixed;
+  top:62px;
+  left:0;
+  right:0;
+  z-index:99;
+  padding:0 28px;
+  background:rgba(77,157,224,.10);
+  border-top:1px solid rgba(77,157,224,.14);
+  border-bottom:1px solid rgba(77,157,224,.22);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
+
+.forge-topbar-inner{
+  max-width:1160px;
+  height:44px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+}
+
+.ft-text{
+  font-family:var(--font-d);
+  font-size:12px;
+  font-weight:700;
+  color:var(--text);
+  white-space:nowrap;
+}
+
+.ft-text span{
+  color:var(--accent);
+  text-shadow:0 0 14px rgba(77,157,224,.55);
+}
+
+.ft-form{
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+
+.ft-input{
+  height:30px;
+  width:190px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(7,9,14,.42);
+  color:var(--text);
+  padding:0 12px;
+  font-family:var(--font-b);
+  font-size:12px;
+  outline:none;
+}
+
+.ft-input::placeholder{
+  color:rgba(126,142,168,.72);
+}
+
+.ft-input:focus{
+  border-color:rgba(77,157,224,.48);
+  box-shadow:0 0 0 3px rgba(77,157,224,.08);
+}
+
+.ft-btn{
+  height:30px;
+  padding:0 14px;
+  border:0;
+  border-radius:999px;
+  background:linear-gradient(135deg,#4d9de0,#46d9d9);
+  color:#061018;
+  font-family:var(--font-d);
+  font-size:12px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.ft-success{
+  display:none;
+  font-family:var(--font-d);
+  font-size:12px;
+  font-weight:700;
+  color:#34d399;
+}
+
+.ft-form.hide{display:none}
+.ft-success.show{display:block}
+
+.hero{
+  padding-top:126px;
+}
+
+@media(max-width:640px){
+  .forge-topbar{
+    padding:0 14px;
+  }
+
+  .forge-topbar-inner{
+    height:auto;
+    min-height:92px;
+    padding:12px 0;
+    flex-direction:column;
+    gap:9px;
+  }
+
+  .ft-form{
+    width:100%;
+    display:grid;
+    grid-template-columns:1fr auto;
+  }
+
+  .ft-input{
+    width:100%;
+    height:36px;
+  }
+
+  .ft-btn{
+    height:36px;
+  }
+
+  .hero{
+    padding-top:170px;
+  }
+}

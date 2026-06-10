@@ -200,77 +200,100 @@ input[type="range"]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;b
 .cs-pad.is-on{background:linear-gradient(to bottom,rgba(77,94,255,.24),rgba(31,39,78,.85));border-color:rgba(130,150,255,.28);box-shadow:0 0 0 1px rgba(124,92,255,.20),0 10px 22px rgba(90,110,255,.20),inset 0 1px 0 rgba(255,255,255,.06)}
 
 /* ── START HERE ── */
-.start-here{padding:100px 0;background:var(--bg2)}
-.start-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:14px}
-.start-card{position:relative;border-radius:var(--rl);overflow:hidden;background:var(--surface);border:1px solid var(--border);padding:26px 22px;display:flex;flex-direction:column;gap:10px;min-height:190px;transition:transform 0.3s var(--ease),border-color 0.3s,box-shadow 0.3s}
-.start-card:hover{transform:translateY(-5px);border-color:var(--border2);box-shadow:0 20px 60px rgba(0,0,0,0.4)}
-.start-card--hero{min-height:230px}
-.start-card-glow{position:absolute;inset:0;background:radial-gradient(ellipse at top right,hsl(var(--hue),60%,22%,0.3) 0%,transparent 65%);pointer-events:none}
-.start-card-tag{font-family:var(--font-d);font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--text3)}
-.start-card h3{font-family:var(--font-d);font-size:18px;font-weight:700;color:var(--text);letter-spacing:-0.01em}
-.start-card p{font-size:13px;color:var(--text2);line-height:1.6;flex:1}
-.start-cta{font-family:var(--font-d);font-size:12px;font-weight:600;color:var(--accent);transition:letter-spacing 0.2s}
-.start-card:hover .start-cta{letter-spacing:0.03em}
-.start-wave{position:absolute;bottom:20px;right:18px;width:110px;height:36px;opacity:0.8}
-.start-wave svg{width:100%;height:100%}
-.start-icon{
+.start-here{
+  padding:100px 0;
+  background:var(--bg2);
+}
+
+.start-grid{
+  display:grid;
+  grid-template-columns:1.3fr 1fr 1fr 1fr;
+  gap:14px;
+}
+
+.start-card{
   position:relative;
-  z-index:1;
-  width:42px;
-  height:42px;
-  border-radius:14px;
+  border-radius:var(--rl);
+  overflow:hidden;
+  background:var(--surface);
+  border:1px solid var(--border);
+  padding:26px 22px;
   display:flex;
-  align-items:center;
-  justify-content:center;
-  margin:2px 0 4px;
-  background:rgba(255,255,255,.035);
-  border:1px solid rgba(255,255,255,.07);
+  flex-direction:column;
+  gap:10px;
+  min-height:190px;
+  transition:transform 0.3s var(--ease),border-color 0.3s,box-shadow 0.3s;
 }
 
-.start-icon--creative{color:var(--creative)}
-.start-icon--wellness{color:var(--wellness)}
-
-.start-icon svg{
-  display:block;
-  filter:drop-shadow(0 0 10px currentColor);
-  opacity:.9;
+.start-card:hover{
+  transform:translateY(-5px);
+  border-color:var(--border2);
+  box-shadow:0 20px 60px rgba(0,0,0,0.4);
 }
 
-.start-icon--wave svg{
-  animation:startWave 4.8s ease-in-out infinite;
+.start-card--hero{
+  min-height:230px;
 }
 
-.start-icon--float svg{
-  animation:startFloat 5.6s ease-in-out infinite;
+.start-card-glow{
+  position:absolute;
+  inset:0;
+  background:radial-gradient(
+    ellipse at top right,
+    hsl(var(--hue),60%,22%,0.3) 0%,
+    transparent 65%
+  );
+  pointer-events:none;
 }
 
-.start-icon--orbit svg{
-  animation:startSpin 8s linear infinite;
-  transform-origin:center;
+.start-card-tag{
+  font-family:var(--font-d);
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--text3);
 }
 
-.start-icon--pulse svg{
-  animation:startPulse 4.6s ease-in-out infinite;
+.start-card h3{
+  font-family:var(--font-d);
+  font-size:18px;
+  font-weight:700;
+  color:var(--text);
+  letter-spacing:-0.01em;
 }
 
-@keyframes startWave{
-  0%,100%{transform:scale(1);opacity:.75}
-  50%{transform:scale(1.06);opacity:1}
+.start-card p{
+  font-size:13px;
+  color:var(--text2);
+  line-height:1.6;
+  flex:1;
 }
 
-@keyframes startFloat{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-3px)}
+.start-cta{
+  font-family:var(--font-d);
+  font-size:12px;
+  font-weight:600;
+  color:var(--accent);
+  transition:letter-spacing 0.2s;
 }
 
-@keyframes startSpin{
-  from{transform:rotate(0deg)}
-  to{transform:rotate(360deg)}
+.start-card:hover .start-cta{
+  letter-spacing:0.03em;
 }
 
-@keyframes startPulse{
-  0%,100%{transform:scale(1);opacity:.75}
-  50%{transform:scale(1.08);opacity:1}
+.start-wave{
+  position:absolute;
+  bottom:20px;
+  right:18px;
+  width:110px;
+  height:36px;
+  opacity:0.8;
+}
+
+.start-wave svg{
+  width:100%;
+  height:100%;
 }
 /* ── CATEGORIES ── */
 .categories{padding:100px 0}

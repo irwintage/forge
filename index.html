@@ -18,6 +18,7 @@
 <link rel="manifest" href="/site.webmanifest" />
  <meta name="theme-color" content="#07090e">
 </head>
+ 
 <body>
 
 <nav class="nav" id="nav">
@@ -777,5 +778,200 @@
   });
 })();
 </script>
+     <script>
+(function () {
+  const GA_ID = "G-NNL9PEZ7MG";
+  const KEY = "chrysa_usage_insights_v1";
+  const ACCEPT = "accepted";
+  const DENY = "denied";
+  const DELAY_MS = 1200;
+  let triggered = false;
+
+  const get = () => localStorage.getItem(KEY);
+  const set = v => localStorage.setItem(KEY, v);
+
+  function loadGA() {
+    if (!GA_ID) return;
+
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_ID;
+    document.head.appendChild(s);
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+
+    gtag("js", new Date());
+    gtag("config", GA_ID, {
+      anonymize_ip: true,
+      allow_google_signals: false,
+      allow_ad_personalization_signals: false
+    });
+  }
+
+  function mount() {
+    if (document.getElementById("chrysa-insights")) return;
+
+    const style = document.createElement("style");
+    style.textContent = `
+      #chrysa-insights{
+        position:fixed;
+        right:18px;
+        bottom:18px;
+        width:min(380px,calc(100vw - 24px));
+        padding:18px;
+        z-index:9999;
+        overflow:hidden;
+        border-radius:20px;
+        border:1px solid rgba(77,157,224,.18);
+        background:
+          linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018)),
+          rgba(12,15,23,.94);
+        backdrop-filter:blur(24px);
+        -webkit-backdrop-filter:blur(24px);
+        box-shadow:
+          0 22px 70px rgba(0,0,0,.55),
+          0 0 46px rgba(77,157,224,.10),
+          inset 0 1px 0 rgba(255,255,255,.05);
+        color:#e6ebf5;
+        font-family:'Syne',system-ui,sans-serif;
+        animation:ciFadeIn .38s cubic-bezier(.16,1,.3,1);
+      }
+
+      #chrysa-insights::before{
+        content:"";
+        position:absolute;
+        inset:0;
+        pointer-events:none;
+        background:
+          radial-gradient(circle at 12% 0%,rgba(77,157,224,.16),transparent 42%),
+          radial-gradient(circle at 90% 20%,rgba(124,92,255,.12),transparent 38%);
+      }
+
+      @keyframes ciFadeIn{
+        from{opacity:0;transform:translateY(14px) scale(.98)}
+        to{opacity:1;transform:translateY(0) scale(1)}
+      }
+
+      #chrysa-insights h4{
+        position:relative;
+        margin:0 0 9px;
+        font-size:15px;
+        font-weight:800;
+        letter-spacing:-.02em;
+        color:#ffffff;
+      }
+
+      #chrysa-insights h4 span{
+        color:#4d9de0;
+        text-shadow:0 0 14px rgba(77,157,224,.45);
+      }
+
+      #chrysa-insights p{
+        position:relative;
+        margin:0 0 16px;
+        font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+        font-size:13px;
+        line-height:1.55;
+        color:#8896af;
+      }
+
+      #chrysa-insights .actions{
+        position:relative;
+        display:flex;
+        gap:9px;
+        justify-content:flex-end;
+      }
+
+      #chrysa-insights button{
+        appearance:none;
+        border:1px solid rgba(255,255,255,.10);
+        border-radius:999px;
+        padding:10px 15px;
+        background:rgba(255,255,255,.045);
+        color:#8896af;
+        font-family:'Syne',system-ui,sans-serif;
+        font-size:12px;
+        font-weight:700;
+        cursor:pointer;
+        transition:transform .2s cubic-bezier(.16,1,.3,1),background .2s,border-color .2s,color .2s,box-shadow .2s;
+      }
+
+      #chrysa-insights button:hover{
+        transform:translateY(-1px);
+        color:#e6ebf5;
+        border-color:rgba(255,255,255,.18);
+        background:rgba(255,255,255,.07);
+      }
+
+      #chrysa-insights .primary{
+        color:#061018;
+        background:linear-gradient(135deg,#4d9de0,#46d9d9);
+        border-color:rgba(77,157,224,.45);
+        box-shadow:0 12px 30px rgba(77,157,224,.18);
+      }
+
+      #chrysa-insights .primary:hover{
+        color:#061018;
+        box-shadow:0 16px 36px rgba(77,157,224,.26);
+      }
+
+      @media(max-width:640px){
+        #chrysa-insights{
+          left:12px;
+          right:12px;
+          bottom:12px;
+          width:auto;
+          border-radius:18px;
+        }
+
+        #chrysa-insights .actions{
+          display:grid;
+          grid-template-columns:1fr 1fr;
+        }
+
+        #chrysa-insights button{
+          width:100%;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    const el = document.createElement("div");
+    el.id = "chrysa-insights";
+    el.innerHTML = `
+      <h4><span>✦</span> Usage insights</h4>
+      <p>Anonymous analytics help us understand which tools are used most and guide future development.</p>
+      <div class="actions">
+        <button id="ci-deny">Decline</button>
+        <button class="primary" id="ci-accept">Accept</button>
+      </div>
+    `;
+    document.body.appendChild(el);
+
+    document.getElementById("ci-accept").onclick = () => {
+      set(ACCEPT);
+      loadGA();
+      el.remove();
+    };
+
+    document.getElementById("ci-deny").onclick = () => {
+      set(DENY);
+      el.remove();
+    };
+  }
+
+  function triggerOnce() {
+    if (triggered || get()) return;
+    triggered = true;
+    setTimeout(mount, DELAY_MS);
+  }
+
+  window.addEventListener("scroll", triggerOnce, { once: true, passive: true });
+  window.addEventListener("click", triggerOnce, { once: true });
+})();
+</script>
+
+
 </body>
 </html>

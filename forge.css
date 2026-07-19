@@ -1,4 +1,3 @@
-
 /* ============================================================
    CHRYSASYNTH FORGE — forge.css
    ============================================================ */
@@ -29,21 +28,9 @@
   --rl:20px;
   --rx:28px;
 }
-html{
-  scroll-behavior:smooth;
-  background:#07090e;
-}
 
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:var(--font-b);
-  font-size:16px;
-  line-height:1.6;
-  overflow-x:hidden;
-  -webkit-font-smoothing:antialiased;
-}
-
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-b);font-size:16px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 a{text-decoration:none;color:inherit}
 
 .container{max-width:1160px;margin:0 auto;padding:0 28px}
@@ -67,23 +54,9 @@ a{text-decoration:none;color:inherit}
 .nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 28px;transition:background 0.4s,border-color 0.4s;border-bottom:1px solid transparent}
 .nav.scrolled{background:rgba(7,9,14,0.88);backdrop-filter:blur(20px);border-color:var(--border)}
 .nav-inner{max-width:1160px;margin:0 auto;height:62px;display:flex;align-items:center;gap:28px}
-
 .nav-logo{display:flex;align-items:center;gap:9px;font-family:var(--font-d);font-size:14px;font-weight:600;color:var(--text);flex-shrink:0}
-
-.nav-logo .logo-mark{
-  width:24px;
-  height:24px;
-  object-fit:contain;
-  display:block;
-  flex-shrink:0;
-}
-
-.nav-logo em{
-  font-style:normal;
-  color:var(--accent);
-  font-weight:600;
-}
-
+.nav-logo .logo-mark{color:var(--accent)}
+.nav-logo em{font-style:normal;color:var(--text2);font-weight:400}
 .nav-links{display:flex;align-items:center;gap:24px;margin-left:auto}
 .nav-links a{font-size:13px;color:var(--text2);font-family:var(--font-d);font-weight:500;transition:color 0.2s}
 .nav-links a:hover{color:var(--text)}
@@ -124,41 +97,10 @@ a{text-decoration:none;color:inherit}
 .hero-demo-frame{border-radius:var(--rx);overflow:hidden;border:1px solid var(--border);box-shadow:0 40px 80px rgba(0,0,0,0.6)}
 
 /* Hero scroll */
-.hero-scroll{
-  position:absolute;
-  bottom:-80px;
-  left:50%;
-  transform:translateX(-50%);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:8px;
-  color:var(--text3);
-  font-size:10px;
-  letter-spacing:0.14em;
-  text-transform:uppercase;
-  font-family:var(--font-d);
-  font-weight:600;
-  transition:color 0.2s;
-  z-index:10;
-}
-
-.hero-scroll:hover{
-  color:var(--text2);
-}
-
-.scroll-dot{
-  animation:scrollBob 2s ease-in-out infinite;
-}
-
-@keyframes scrollBob{
-  0%,100%{
-    transform:translateY(0);
-  }
-  50%{
-    transform:translateY(5px);
-  }
-}
+.hero-scroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--text3);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;font-family:var(--font-d);font-weight:600;transition:color 0.2s;z-index:2}
+.hero-scroll:hover{color:var(--text2)}
+.scroll-dot{animation:scrollBob 2s ease-in-out infinite}
+@keyframes scrollBob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
 
 /* ── DRUM MACHINE STYLES (preserved from original) ── */
 .cs-scope{width:100%;font-family:'Inter',system-ui,sans-serif;color:#EEF4FF}
@@ -200,101 +142,20 @@ input[type="range"]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;b
 .cs-pad.is-on{background:linear-gradient(to bottom,rgba(77,94,255,.24),rgba(31,39,78,.85));border-color:rgba(130,150,255,.28);box-shadow:0 0 0 1px rgba(124,92,255,.20),0 10px 22px rgba(90,110,255,.20),inset 0 1px 0 rgba(255,255,255,.06)}
 
 /* ── START HERE ── */
-.start-here{
-  padding:100px 0;
-  background:var(--bg2);
-}
+.start-here{padding:100px 0;background:var(--bg2)}
+.start-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:14px}
+.start-card{position:relative;border-radius:var(--rl);overflow:hidden;background:var(--surface);border:1px solid var(--border);padding:26px 22px;display:flex;flex-direction:column;gap:10px;min-height:190px;transition:transform 0.3s var(--ease),border-color 0.3s,box-shadow 0.3s}
+.start-card:hover{transform:translateY(-5px);border-color:var(--border2);box-shadow:0 20px 60px rgba(0,0,0,0.4)}
+.start-card--hero{min-height:230px}
+.start-card-glow{position:absolute;inset:0;background:radial-gradient(ellipse at top right,hsl(var(--hue),60%,22%,0.3) 0%,transparent 65%);pointer-events:none}
+.start-card-tag{font-family:var(--font-d);font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--text3)}
+.start-card h3{font-family:var(--font-d);font-size:18px;font-weight:700;color:var(--text);letter-spacing:-0.01em}
+.start-card p{font-size:13px;color:var(--text2);line-height:1.6;flex:1}
+.start-cta{font-family:var(--font-d);font-size:12px;font-weight:600;color:var(--accent);transition:letter-spacing 0.2s}
+.start-card:hover .start-cta{letter-spacing:0.03em}
+.start-wave{position:absolute;bottom:20px;right:18px;width:110px;height:36px;opacity:0.8}
+.start-wave svg{width:100%;height:100%}
 
-.start-grid{
-  display:grid;
-  grid-template-columns:1.3fr 1fr 1fr 1fr;
-  gap:14px;
-}
-
-.start-card{
-  position:relative;
-  border-radius:var(--rl);
-  overflow:hidden;
-  background:var(--surface);
-  border:1px solid var(--border);
-  padding:26px 22px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  min-height:190px;
-  transition:transform 0.3s var(--ease),border-color 0.3s,box-shadow 0.3s;
-}
-
-.start-card:hover{
-  transform:translateY(-5px);
-  border-color:var(--border2);
-  box-shadow:0 20px 60px rgba(0,0,0,0.4);
-}
-
-.start-card--hero{
-  min-height:230px;
-}
-
-.start-card-glow{
-  position:absolute;
-  inset:0;
-  background:radial-gradient(
-    ellipse at top right,
-    hsl(var(--hue),60%,22%,0.3) 0%,
-    transparent 65%
-  );
-  pointer-events:none;
-}
-
-.start-card-tag{
-  font-family:var(--font-d);
-  font-size:10px;
-  font-weight:600;
-  letter-spacing:0.14em;
-  text-transform:uppercase;
-  color:var(--text3);
-}
-
-.start-card h3{
-  font-family:var(--font-d);
-  font-size:18px;
-  font-weight:700;
-  color:var(--text);
-  letter-spacing:-0.01em;
-}
-
-.start-card p{
-  font-size:13px;
-  color:var(--text2);
-  line-height:1.6;
-  flex:1;
-}
-
-.start-cta{
-  font-family:var(--font-d);
-  font-size:12px;
-  font-weight:600;
-  color:var(--accent);
-  transition:letter-spacing 0.2s;
-}
-
-.start-card:hover .start-cta{
-  letter-spacing:0.03em;
-}
-
-.start-wave{
-  position:absolute;
-  bottom:20px;
-  right:18px;
-  width:110px;
-  height:36px;
-  opacity:0.8;
-}
-
-.start-wave svg{
-  width:100%;
-  height:100%;
-}
 /* ── CATEGORIES ── */
 .categories{padding:100px 0}
 .cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
@@ -317,160 +178,129 @@ input[type="range"]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;b
 /* ── FEATURED ── */
 .featured{padding:100px 0;background:var(--bg2)}
 .feat-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;grid-template-rows:auto auto;gap:14px}
-
-.feat-card{
-  position:relative;
-  border-radius:var(--rl);
-  overflow:hidden;
-  border:1px solid var(--border);
-  padding:26px 22px;
-  min-height:170px;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-end;
-  transition:transform 0.3s var(--ease),border-color 0.3s,box-shadow 0.3s;
-}
-
+.feat-card{position:relative;border-radius:var(--rl);overflow:hidden;border:1px solid var(--border);padding:26px 22px;min-height:170px;display:flex;flex-direction:column;justify-content:flex-end;transition:transform 0.3s var(--ease),border-color 0.3s,box-shadow 0.3s}
 .feat-card:hover{transform:translateY(-4px);border-color:var(--border2);box-shadow:0 20px 55px rgba(0,0,0,0.5)}
 .feat-card:first-child{grid-column:1;grid-row:1/3;min-height:340px}
 .feat-card:last-child{grid-column:2/4}
 .feat-wide{}
-
-.feat-bg{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(135deg,var(--c1) 0%,var(--c2) 100%);
-}
-
-.feat-visual{
-  position:absolute;
-  inset:0;
-  z-index:0;
-  overflow:hidden;
-}
-
-.feat-visual img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-  filter:brightness(.72) saturate(.9) contrast(1.05);
-  transform:scale(1.02);
-  transition:transform .45s var(--ease),filter .45s var(--ease);
-}
-
-.feat-card:hover .feat-visual img{
-  transform:scale(1.06);
-  filter:brightness(.82) saturate(1) contrast(1.08);
-}
-
-.feat-visual::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    radial-gradient(circle at 20% 10%,rgba(77,157,224,.18),transparent 45%),
-    linear-gradient(180deg,rgba(7,9,14,.08),rgba(7,9,14,.85));
-}
-
+.feat-bg{position:absolute;inset:0;background:linear-gradient(135deg,var(--c1) 0%,var(--c2) 100%)}
 .feat-content{position:relative;z-index:2}
-
-.feat-badge{
-  font-family:var(--font-d);
-  font-size:10px;
-  font-weight:600;
-  letter-spacing:0.14em;
-  text-transform:uppercase;
-  margin-bottom:8px;
-  display:inline-block;
-  padding:3px 8px;
-  border-radius:4px;
-}
-
+.feat-badge{font-family:var(--font-d);font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:8px;display:inline-block;padding:3px 8px;border-radius:4px}
 .feat-badge--creative{background:rgba(77,157,224,0.15);color:var(--creative)}
 .feat-badge--wellness{background:rgba(52,211,153,0.15);color:var(--wellness)}
 .feat-badge--fx{background:rgba(245,158,11,0.15);color:var(--fx)}
-.feat-badge--utility{background:rgba(167,139,250,.15);color:var(--utility)}
-
-.feat-card h3{
-  font-family:var(--font-d);
-  font-size:19px;
-  font-weight:700;
-  color:var(--text);
-  margin-bottom:7px;
-  letter-spacing:-0.01em;
-}
-
-.feat-card p{
-  font-size:13px;
-  color:var(--text2);
-  line-height:1.6;
-  margin-bottom:16px;
-}
-
-.feat-cta{
-  font-family:var(--font-d);
-  font-size:12px;
-  font-weight:600;
-  color:var(--accent);
-  transition:letter-spacing 0.2s;
-}
-
+.feat-card h3{font-family:var(--font-d);font-size:19px;font-weight:700;color:var(--text);margin-bottom:7px;letter-spacing:-0.01em}
+.feat-card p{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:16px}
+.feat-cta{font-family:var(--font-d);font-size:12px;font-weight:600;color:var(--accent);transition:letter-spacing 0.2s}
 .feat-card:hover .feat-cta{letter-spacing:0.03em}
-
 /* Nodes anim */
 .feat-nodes{position:absolute;top:0;right:0;width:50%;height:100%;pointer-events:none;display:flex;align-items:center;justify-content:center}
 .fnode{position:absolute;border-radius:50%;background:rgba(77,157,224,0.2);border:1px solid rgba(77,157,224,0.35)}
 .fn1{width:36px;height:36px;top:38%;left:12%;animation:nf 4s ease-in-out infinite}
 .fn2{width:24px;height:24px;top:55%;left:54%;animation:nf 5s ease-in-out 1s infinite}
 .fn3{width:18px;height:18px;top:22%;left:66%;animation:nf 6s ease-in-out 0.5s infinite}
-
-@keyframes nf{
-  0%,100%{transform:translateY(0) scale(1)}
-  50%{transform:translateY(-8px) scale(1.08)}
-}
-
+@keyframes nf{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.08)}}
 .fnode-lines{position:absolute;inset:0;width:100%;height:100%}
-
 /* Orbit anim */
-.feat-orbit{position:absolute;top:50%;right:30px;transform:translateY(-50%);width:110px;height:110px;pointer-events:none}
-.orbit-ring{position:absolute;border-radius:50%;border:1px solid rgba(245,158,11,0.2);top:50%;left:50%;transform:translate(-50%,-50%)}
-.r1{width:90px;height:90px;animation:spin 8s linear infinite}
-.r2{width:55px;height:55px;animation:spin 5s linear infinite reverse}
 
-@keyframes spin{
-  from{transform:translate(-50%,-50%) rotate(0deg)}
-  to{transform:translate(-50%,-50%) rotate(360deg)}
+.feat-orbit {
+  position: absolute;
+  top: 50%;
+  right: 30px;
+
+  width: 110px;
+  height: 110px;
+
+  transform: translateY(-50%);
+
+  pointer-events: none;
 }
 
-.orbit-dot{
-  position:absolute;
-  top:50%;
-  left:50%;
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  background:var(--fx);
-  box-shadow:0 0 12px var(--fx);
-  animation:orbitDot 8s linear infinite;
+.orbit-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  border-radius: 50%;
+
+  border:
+    1px solid
+    rgba(245, 158, 11, 0.2);
+
+  transform:
+    translate(-50%, -50%);
 }
 
-@keyframes orbitDot{
-  from{
+.r1 {
+  width: 90px;
+  height: 90px;
+
+  animation:
+    spin 8s linear infinite;
+}
+
+.r2 {
+  width: 55px;
+  height: 55px;
+
+  animation:
+    spin 5s linear infinite reverse;
+}
+
+@keyframes spin {
+  from {
     transform:
-      translate(-50%,-50%)
+      translate(-50%, -50%)
+      rotate(0deg);
+  }
+
+  to {
+    transform:
+      translate(-50%, -50%)
+      rotate(360deg);
+  }
+}
+
+
+/* Moving dot */
+
+.orbit-dot {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  width: 8px;
+  height: 8px;
+
+  margin-left: -4px;
+  margin-top: -4px;
+
+  border-radius: 50%;
+
+  background: var(--fx);
+
+  box-shadow:
+    0 0 12px var(--fx);
+
+  animation:
+    orbitDotTravel
+    8s linear infinite;
+}
+
+@keyframes orbitDotTravel {
+  from {
+    transform:
       rotate(0deg)
-      translateX(45px);
+      translateY(-47px);
   }
 
-  to{
+  to {
     transform:
-      translate(-50%,-50%)
       rotate(360deg)
-      translateX(45px);
+      translateY(-47px);
   }
 }
-
 /* ── CREATE ── */
 .create{padding:100px 0}
 .create-list{border:1px solid var(--border);border-radius:var(--rx);overflow:hidden}
@@ -484,134 +314,269 @@ input[type="range"]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;b
 .create-pills a{font-size:11px;color:var(--text3);font-family:var(--font-d);font-weight:500;transition:color 0.2s;text-decoration:none}
 .create-pills a:hover{color:var(--accent)}
 /* ── IMMERSIVE SOUND APPS ── */
-.wellness-apps{
-  position:relative;
-  padding:100px 0;
+
+.wellness-apps {
+  position: relative;
+  padding: 100px 0;
+  overflow: hidden;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.wellness-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.wellness-card {
+  position: relative;
+  min-width: 0;
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 22px 18px 20px;
+  overflow: hidden;
+
+  border: 1px solid rgba(255, 255, 255, 0.075);
+  border-radius: 18px;
+
   background:
-    radial-gradient(circle at top center,rgba(77,157,224,.06),transparent 55%),
-    linear-gradient(180deg,var(--bg2) 0%,var(--bg) 100%);
-  border-top:1px solid var(--border);
-  border-bottom:1px solid var(--border);
-  overflow:hidden;
-}
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(77, 157, 224, 0.09),
+      transparent 48%
+    ),
+    linear-gradient(
+      160deg,
+      rgba(22, 28, 41, 0.78),
+      rgba(10, 13, 21, 0.92)
+    );
 
-.wellness-grid{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:14px;
-}
-
-.wellness-card{
-  position:relative;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  text-align:center;
-  min-height:260px;
-  padding:28px 18px 24px;
-  border-radius:var(--rl);
-  background:rgba(255,255,255,.025);
-  border:1px solid var(--border);
-  color:var(--text);
-  overflow:hidden;
-  transition:transform .3s var(--ease),border-color .3s,box-shadow .3s,background .3s;
-}
-
-.wellness-card:hover{
-  transform:translateY(-5px);
-  border-color:rgba(77,157,224,.24);
-  background:rgba(255,255,255,.04);
-  box-shadow:0 20px 55px rgba(0,0,0,.38);
-}
-
-.wellness-icon{
-  width:96px;
-  height:96px;
-  border-radius:26px;
-  overflow:hidden;
-  margin-bottom:22px;
   box-shadow:
-    0 18px 35px rgba(0,0,0,.45),
-    0 0 28px rgba(77,157,224,.13);
+    0 18px 42px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.035);
+
+  color: var(--text);
+  text-decoration: none;
+
+  transition:
+    transform 0.3s var(--ease),
+    border-color 0.3s,
+    box-shadow 0.3s;
 }
 
-.wellness-icon img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
+.wellness-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.035),
+      transparent 34%
+    );
 }
 
-.wellness-card h3{
-  font-family:var(--font-d);
-  font-size:16px;
-  font-weight:700;
-  color:var(--text);
-  margin-bottom:8px;
+.wellness-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(77, 157, 224, 0.24);
+  box-shadow:
+    0 26px 58px rgba(0, 0, 0, 0.38),
+    0 0 32px rgba(77, 157, 224, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
-.wellness-card p{
-  font-size:12px;
-  color:var(--text2);
-  line-height:1.55;
-  flex:1;
+.wellness-icon {
+  position: relative;
+  z-index: 1;
+  width: 76px;
+  height: 76px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 20px;
+  overflow: hidden;
+
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 20px;
+
+  background:
+    radial-gradient(
+      circle at 50% 30%,
+      rgba(106, 184, 239, 0.15),
+      transparent 68%
+    ),
+    rgba(255, 255, 255, 0.025);
+
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.035);
 }
 
-.wellness-card span{
-  margin-top:18px;
-  font-family:var(--font-d);
-  font-size:12px;
-  font-weight:600;
-  color:var(--accent);
+.wellness-icon img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  border-radius: inherit;
 }
 
-/* Mobile carousel */
-@media(max-width:768px){
-  .wellness-apps{
-    padding:80px 0;
-    overflow:hidden;
-  }
-
-  .wellness-grid{
-    display:flex;
-    overflow-x:auto;
-    overflow-y:hidden;
-    gap:14px;
-    scroll-snap-type:x mandatory;
-    padding:0 18px 10px;
-    margin:0 -18px;
-    -webkit-overflow-scrolling:touch;
-    touch-action:pan-x;
-    overscroll-behavior-x:contain;
-  }
-
-  .wellness-grid::-webkit-scrollbar{
-    display:none;
-  }
-
-  .wellness-card{
-    flex:0 0 78%;
-    min-width:78%;
-    scroll-snap-align:start;
-    transform:none!important;
-  }
-
-  .wellness-card:hover{
-    transform:none!important;
-  }
+.wellness-card h3 {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 8px;
+  font-family: var(--font-d);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
 }
 
-@media(max-width:480px){
-  .wellness-card{
-    flex-basis:84%;
-    min-width:84%;
-  }
+.wellness-card p {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  margin-bottom: 18px;
+  color: var(--text2);
+  font-family: var(--font-b);
+  font-size: 12px;
+  line-height: 1.65;
+}
 
-  .wellness-icon{
-    width:92px;
-    height:92px;
-    border-radius:24px;
-  }
+.wellness-card > span {
+  position: relative;
+  z-index: 1;
+  color: var(--accent);
+  font-family: var(--font-b);
+  font-size: 11px;
+  font-weight: 600;
+  transition: transform 0.2s var(--ease);
+}
+
+.wellness-card:hover > span {
+  transform: translateX(3px);
+}
+/* ── STUDIO SEED SHOWCASE ── */
+
+.studio-inner--seeds {
+  align-items: center;
+}
+
+.studio-screen {
+  position: relative;
+  min-width: 0;
+}
+
+.studio-screen::before {
+  content: "";
+  position: absolute;
+  width: 82%;
+  height: 68%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -44%);
+  border-radius: 50%;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(77, 157, 224, 0.15),
+      transparent 70%
+    );
+
+  filter: blur(42px);
+}
+
+.studio-screen-frame {
+  position: relative;
+  overflow: hidden;
+
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 24px;
+
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(77, 157, 224, 0.1),
+      transparent 45%
+    ),
+    rgba(10, 13, 21, 0.88);
+
+  box-shadow:
+    0 34px 82px rgba(0, 0, 0, 0.5),
+    0 0 55px rgba(77, 157, 224, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+  backdrop-filter: blur(22px) saturate(135%);
+  -webkit-backdrop-filter: blur(22px) saturate(135%);
+
+  transition:
+    transform 0.35s var(--ease),
+    border-color 0.3s,
+    box-shadow 0.35s;
+}
+
+.studio-screen-frame:hover {
+  transform: translateY(-4px);
+  border-color: rgba(77, 157, 224, 0.2);
+  box-shadow:
+    0 42px 96px rgba(0, 0, 0, 0.56),
+    0 0 70px rgba(77, 157, 224, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.065);
+}
+
+.studio-screen-top {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.065);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.studio-screen-dot {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px rgba(77, 157, 224, 0.7);
+}
+
+.studio-screen-title {
+  color: var(--text2);
+  font-family: var(--font-b);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.studio-screen-pill {
+  margin-left: auto;
+  padding: 3px 8px;
+
+  border: 1px solid rgba(77, 157, 224, 0.2);
+  border-radius: 999px;
+
+  background: rgba(77, 157, 224, 0.07);
+  color: #78b9eb;
+
+  font-family: var(--font-b);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.studio-screen-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
 }
 /* ── TOOL EXPLORER ── */
 .explorer{padding:100px 0;background:var(--bg2)}
@@ -651,218 +616,49 @@ input[type="range"]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;b
 .phil-val p{font-size:13px;color:var(--text2);line-height:1.6;margin:0}
 
 /* ── STUDIO BRIDGE ── */
-.studio-bridge{
-  position:relative;
-  padding:110px 0;
-  overflow:hidden;
-  background:
-    radial-gradient(circle at 50% 0%,rgba(77,157,224,.10),transparent 45%),
-    radial-gradient(circle at 80% 70%,rgba(139,92,246,.08),transparent 42%),
-    var(--bg3);
-  border-top:1px solid var(--border);
-  border-bottom:1px solid var(--border);
-}
-
+.studio-bridge{position:relative;padding:100px 0;overflow:hidden;background:var(--bg3);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
 .studio-orbs{position:absolute;inset:0;pointer-events:none}
 .sorb{position:absolute;border-radius:50%;filter:blur(100px)}
-.s1{width:380px;height:380px;background:rgba(77,157,224,0.08);top:-100px;left:-80px}
-.s2{width:300px;height:300px;background:rgba(139,92,246,0.07);bottom:-80px;right:-60px}
+.s1{width:380px;height:380px;background:rgba(77,157,224,0.07);top:-100px;left:-80px}
+.s2{width:280px;height:280px;background:rgba(139,92,246,0.06);bottom:-80px;right:-60px}
+.studio-inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.studio-text h2{font-family:var(--font-d);font-size:clamp(26px,3.5vw,44px);font-weight:700;letter-spacing:-0.025em;color:var(--text);line-height:1.12;margin-bottom:18px}
+.studio-text>p{font-size:15px;color:var(--text2);line-height:1.75;margin-bottom:28px}
+.studio-feats{display:flex;flex-direction:column;gap:10px;margin-bottom:32px}
+.sf{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text2)}
+.sf-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0}
+/* Studio Mock */
+.smock{background:var(--surface);border:1px solid var(--border2);border-radius:var(--rx);overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,0.5)}
+.smock-header{padding:13px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border)}
+.smock-dots{display:flex;gap:5px}
+.smock-dots span{width:9px;height:9px;border-radius:50%;background:var(--surface2)}
+.smock-title{font-family:var(--font-d);font-size:11px;font-weight:600;color:var(--text3);letter-spacing:0.06em;margin:0 auto}
+.smock-badge{font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;background:rgba(77,157,224,0.15);color:var(--accent);border-radius:4px;padding:2px 6px;border:1px solid rgba(77,157,224,0.2)}
+.smock-body{padding:16px}
+.smock-tracks{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.strack{height:26px;background:var(--bg3);border-radius:4px;overflow:hidden;position:relative}
+.strack::after{content:"";position:absolute;top:0;left:0;height:100%;width:var(--w);background:linear-gradient(90deg,var(--c) 0%,color-mix(in srgb,var(--c) 50%,transparent) 100%);border-radius:4px;opacity:0.65}
+.smock-mixer{display:flex;gap:10px;height:70px;align-items:flex-end;justify-content:center}
+.smix-fader{flex:1;background:var(--bg3);border-radius:3px;height:70px;position:relative}
+.smix-fader::after{content:"";position:absolute;bottom:0;left:0;right:0;height:var(--h);background:var(--surface2);border-radius:3px;border-top:2px solid rgba(77,157,224,0.5)}
 
-.studio-inner{
-  position:relative;
-  z-index:1;
-  display:grid;
-  grid-template-columns:.86fr 1.14fr;
-  gap:64px;
-  align-items:center;
-}
-
-.studio-text h2{
-  font-family:var(--font-d);
-  font-size:clamp(34px,4vw,58px);
-  font-weight:700;
-  letter-spacing:-0.04em;
-  color:var(--text);
-  line-height:1.02;
-  margin-bottom:20px;
-}
-
-.studio-text>p{
-  font-size:15px;
-  color:var(--text2);
-  line-height:1.75;
-  margin-bottom:28px;
-  max-width:480px;
-}
-
-.studio-feats{
-  display:flex;
-  flex-direction:column;
-  gap:11px;
-  margin-bottom:34px;
-}
-
-.sf{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-size:13px;
-  color:var(--text2);
-}
-
-.sf-dot{
-  width:5px;
-  height:5px;
-  border-radius:50%;
-  background:var(--accent);
-  box-shadow:0 0 12px var(--accent-glow);
-  flex-shrink:0;
-}
-
-.btn-studio{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  padding:13px 22px;
-  border-radius:999px;
-  background:var(--text);
-  color:#05070d;
-  font-family:var(--font-d);
-  font-size:13px;
-  font-weight:700;
-  border:1px solid rgba(255,255,255,.2);
-  transition:transform .25s var(--ease),box-shadow .25s var(--ease),background .25s;
-}
-
-.btn-studio:hover{
-  transform:translateY(-2px);
-  background:#fff;
-  box-shadow:0 18px 40px rgba(77,157,224,.20);
-}
-
-.btn-arrow{
-  font-size:15px;
-  line-height:1;
-}
-
-.studio-screen{
-  position:relative;
-}
-
-.studio-screen-frame{
-  position:relative;
-  overflow:hidden;
-  border-radius:var(--rx);
-  border:1px solid rgba(255,255,255,.12);
-  background:
-    linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02)),
-    var(--surface);
-  box-shadow:
-    0 45px 90px rgba(0,0,0,.55),
-    0 0 70px rgba(77,157,224,.12);
-}
-
-.studio-screen-top{
-  height:42px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:0 16px;
-  border-bottom:1px solid var(--border);
-  background:rgba(7,9,14,.72);
-  backdrop-filter:blur(14px);
-}
-
-.studio-screen-dot{
-  width:9px;
-  height:9px;
-  border-radius:50%;
-  background:var(--accent);
-  box-shadow:0 0 16px rgba(77,157,224,.65);
-}
-
-.studio-screen-title{
-  font-family:var(--font-d);
-  font-size:11px;
-  font-weight:600;
-  color:var(--text2);
-  letter-spacing:.08em;
-  text-transform:uppercase;
-}
-
-.studio-screen-pill{
-  margin-left:auto;
-  font-family:var(--font-d);
-  font-size:9px;
-  font-weight:700;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-  color:var(--accent);
-  background:rgba(77,157,224,.12);
-  border:1px solid rgba(77,157,224,.22);
-  border-radius:999px;
-  padding:4px 8px;
-}
-
-.studio-screen-frame img{
-  width:100%;
-  display:block;
-  object-fit:cover;
-}
 /* ── FOOTER ── */
 .footer{padding:60px 0 0;border-top:1px solid var(--border)}
-
 .footer-inner{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:44px}
-
-.footer-logo{display:flex;align-items:center;gap:8px;font-family:var(--font-d);font-size:15px;font-weight:700;color:#fff;margin-bottom:10px;letter-spacing:-0.01em}
-
+.footer-logo{display:flex;align-items:center;gap:8px;font-family:var(--font-d);font-size:15px;font-weight:600;color:var(--text);margin-bottom:10px}
 .footer-logo .logo-mark{color:var(--accent)}
-
 .footer-brand p{font-size:13px;color:var(--text3);line-height:1.7;margin-bottom:18px}
-
 .footer-socials{display:flex;gap:12px}
-
-.footer-socials span{
-  font-size:13px;
-  color:var(--accent);
-  opacity:.85;
-  text-shadow:0 0 12px rgba(77,157,224,.35);
-}
-
+.footer-socials a{font-size:13px;color:var(--text3);transition:color 0.2s}
+.footer-socials a:hover{color:var(--text)}
 .footer-col h4{font-family:var(--font-d);font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--text3);margin-bottom:14px}
-
 .footer-col a{display:block;font-size:13px;color:var(--text3);margin-bottom:9px;transition:color 0.2s}
-
 .footer-col a:hover{color:var(--text)}
-
 .footer-col--studio p{font-size:12px;color:var(--text3);line-height:1.6;margin-bottom:14px}
-
-.footer-studio-btn{
-  display:inline-flex;
-  align-items:center;
-  gap:7px;
-  padding:10px 18px;
-  background:rgba(77,157,224,.10);
-  border:1px solid rgba(77,157,224,.24);
-  border-radius:50px;
-  font-family:var(--font-d);
-  font-size:12px;
-  font-weight:700;
-  color:var(--text)!important;
-  transition:transform .2s var(--ease),background .2s,border-color .2s,box-shadow .2s;
-}
-
-.footer-studio-btn:hover{
-  transform:translateY(-1px);
-  background:rgba(77,157,224,.16)!important;
-  border-color:rgba(77,157,224,.38)!important;
-  box-shadow:0 10px 28px rgba(77,157,224,.12);
-}
-
+.footer-studio-btn{display:inline-flex;align-items:center;padding:9px 18px;background:var(--surface);border:1px solid var(--border2);border-radius:50px;font-family:var(--font-d);font-size:12px;font-weight:600;color:var(--text)!important;transition:background 0.2s,border-color 0.2s}
+.footer-studio-btn:hover{background:var(--surface2)!important;border-color:rgba(255,255,255,0.2)!important}
 .footer-bottom{border-top:1px solid var(--border);padding:18px 28px;max-width:1160px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
-
 .footer-bottom span{font-size:12px;color:var(--text3)}
-
 .footer-sig{font-family:var(--font-d)}
 
 /* ── SCROLL REVEAL ── */
@@ -870,10 +666,6 @@ input[type="range"]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;b
 .reveal.visible{opacity:1;transform:translateY(0)}
 
 /* ── RESPONSIVE ── */
-.cs-mobile-demo{
-  display:none;
-}
-
 @media(max-width:1100px){
   .tools-grid{grid-template-columns:repeat(3,1fr)}
   .start-grid{grid-template-columns:1fr 1fr}
@@ -883,155 +675,25 @@ input[type="range"]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;b
   .feat-card:first-child{grid-column:span 2;min-height:210px}
   .feat-card:last-child{grid-column:span 2}
   .hero-layout{grid-template-columns:1fr}
-  .hero-demo{display:block;width:100%}
-  .hero-demo-frame{border-radius:20px}
+  .hero-demo{display:none}
   .footer-inner{grid-template-columns:1fr 1fr 1fr}
   .footer-brand{grid-column:span 3}
 }
-
 @media(max-width:768px){
+  :root{}
   .container{padding:0 18px}
   .nav{padding:0 18px}
   .nav-links{display:none}
   .nav-burger{display:flex}
-
-  .hero{padding:90px 18px 56px;min-height:auto}
+  .hero{padding:90px 18px 60px;min-height:auto}
   .hero-layout{padding-top:20px}
   .hero-title{font-size:clamp(32px,8vw,48px)}
   .hero-actions{justify-content:flex-start}
-  .hero-scroll{display:none}
-
-  .hero-demo{display:block;width:100%;margin-top:24px}
-  .hero-demo-frame{
-    border-radius:24px;
-    overflow:hidden;
-    background:
-      radial-gradient(circle at 50% 0%,rgba(77,157,224,.16),transparent 55%),
-      linear-gradient(180deg,rgba(18,24,44,.72),rgba(8,12,24,.88));
-    border:1px solid rgba(255,255,255,.08);
-  }
-
-  /* Mobile simplified drum */
-  .cs-scope{display:none}
-
-  .cs-mobile-demo{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:18px;
-    padding:24px 18px 20px;
-  }
-
-  .cs-mobile-play{
-    width:112px;
-    height:112px;
-    border-radius:999px;
-    border:1px solid rgba(255,255,255,.14);
-    background:
-      radial-gradient(circle at 35% 25%,rgba(255,255,255,.18),transparent 34%),
-      linear-gradient(145deg,rgba(36,44,78,.98),rgba(6,10,22,.98));
-    color:#fff;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:9px;
-    font-family:var(--font-d);
-    font-weight:700;
-    text-transform:uppercase;
-    letter-spacing:.08em;
-    box-shadow:
-      0 22px 48px rgba(0,0,0,.46),
-      0 0 34px rgba(77,157,224,.2),
-      inset 0 1px 0 rgba(255,255,255,.08);
-    cursor:pointer;
-  }
-
-  .cs-mobile-playIcon{
-    width:0;
-    height:0;
-    border-top:12px solid transparent;
-    border-bottom:12px solid transparent;
-    border-left:18px solid currentColor;
-    margin-left:5px;
-  }
-
-  .cs-mobile-play.is-playing .cs-mobile-playIcon{
-    width:18px;
-    height:18px;
-    border:0;
-    border-radius:5px;
-    background:#78f0ff;
-    margin-left:0;
-    box-shadow:0 0 16px rgba(120,240,255,.65);
-  }
-
-  .cs-mobile-pattern{
-    width:100%;
-    display:grid;
-    grid-template-columns:48px repeat(16,1fr);
-    gap:5px 4px;
-    padding:16px 12px;
-    border-radius:20px;
-    background:rgba(5,10,24,.62);
-    border:1px solid rgba(255,255,255,.075);
-  }
-
-  .cs-mobile-label{
-    display:flex;
-    align-items:center;
-    font-size:9px;
-    font-weight:800;
-    color:#b9c5d8;
-    text-transform:uppercase;
-    letter-spacing:.06em;
-    overflow:hidden;
-    white-space:nowrap;
-  }
-
-  .cs-mobile-step{
-    height:20px;
-    border-radius:999px;
-    background:rgba(255,255,255,.055);
-    border:1px solid rgba(255,255,255,.065);
-  }
-
-  .cs-mobile-step.is-on{
-    background:linear-gradient(135deg,#8b5cf6,#46b9ff);
-    box-shadow:0 0 14px rgba(70,185,255,.32);
-  }
-
-  .cs-mobile-step.is-playhead{
-    outline:2px solid rgba(255,255,255,.28);
-    outline-offset:1px;
-  }
-
-  .cs-mobile-controls{
-    width:100%;
-    display:grid;
-    gap:10px;
-  }
-
-  .cs-mobile-controls select,
-  .cs-mobile-controls button{
-    width:100%;
-    min-height:44px;
-    border-radius:999px;
-    border:1px solid rgba(255,255,255,.09);
-    background:#0a0f1c;
-    color:#fff;
-    font-family:var(--font-d);
-    font-size:12px;
-    font-weight:700;
-    text-align:center;
-  }
-
   .start-grid{grid-template-columns:1fr 1fr;gap:10px}
   .start-wave{display:none}
   .cat-grid{grid-template-columns:1fr 1fr}
   .feat-grid{grid-template-columns:1fr}
-  .feat-card:first-child,
-  .feat-card:last-child{grid-column:auto}
+  .feat-card:first-child,.feat-card:last-child{grid-column:auto}
   .create-item{grid-template-columns:40px 1fr;gap:14px;padding:20px 18px}
   .create-pills{display:none}
   .tools-grid{grid-template-columns:repeat(2,1fr)}
@@ -1043,8 +705,8 @@ input[type="range"]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;b
   .footer-inner{grid-template-columns:1fr 1fr}
   .footer-brand{grid-column:span 2}
   .footer-bottom{flex-direction:column;gap:6px;text-align:center}
+  .cs-mix{grid-template-columns:repeat(3,1fr)}
 }
-
 @media(max-width:480px){
   .start-grid{grid-template-columns:1fr}
   .start-card--hero{grid-column:auto}
@@ -1052,177 +714,3330 @@ input[type="range"]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;b
   .tools-grid{grid-template-columns:1fr}
   .footer-inner{grid-template-columns:1fr}
   .footer-brand{grid-column:auto}
-
-  .cs-mobile-demo{padding:22px 14px 18px}
-  .cs-mobile-pattern{
-    grid-template-columns:42px repeat(16,1fr);
-    gap:4px 3px;
-    padding:14px 10px;
-  }
-  .cs-mobile-step{height:18px}
-  .cs-mobile-label{font-size:8px}
-  .cs-mobile-play{
-    width:104px;
-    height:104px;
-  }
+  .cs-mix{grid-template-columns:repeat(2,1fr)}
 }
-/* ── FORGE TOPBAR EMAIL ── */
-.forge-topbar{
-  position:fixed;
-  top:62px;
-  left:0;
-  right:0;
-  z-index:99;
-  padding:0 28px;
+/* ============================================================
+   HEADER — LOGO SAFETY
+   ============================================================ */
+
+.nav-logo img.logo-mark {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  max-width: 24px;
+  min-height: 24px;
+  max-height: 24px;
+  object-fit: contain;
+  display: block;
+  flex: 0 0 24px;
+}
+
+.nav-logo > span {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.nav-logo > span em {
+  color: var(--accent);
+  font-style: normal;
+  font-weight: 600;
+}
+
+
+/* ============================================================
+   FORGE HERO V2
+   Premium Seed Experience
+   ============================================================ */
+
+/* ---------- HERO ---------- */
+
+.hero--seed {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  padding: 94px 24px 76px;
+  isolation: isolate;
+}
+
+/* Large atmospheric light behind the product */
+
+.hero--seed::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  width: min(980px, 92vw);
+  height: 560px;
+  left: 50%;
+  top: 44%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
   background:
-    linear-gradient(90deg,rgba(77,157,224,.14),rgba(124,92,255,.10));
-  border-top:1px solid rgba(255,255,255,.04);
-  border-bottom:1px solid rgba(77,157,224,.28);
-  backdrop-filter:blur(18px);
-  -webkit-backdrop-filter:blur(18px);
-  box-shadow:0 12px 34px rgba(77,157,224,.08);
+    radial-gradient(
+      ellipse at center,
+      rgba(77, 157, 224, 0.17) 0%,
+      rgba(77, 157, 224, 0.075) 34%,
+      transparent 72%
+    );
+  filter: blur(38px);
+  opacity: 0.9;
+  animation: forgeAtmosphere 12s ease-in-out infinite alternate;
 }
 
-.forge-topbar-inner{
-  max-width:1160px;
-  height:44px;
-  margin:0 auto;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:14px;
+.hero--seed::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  width: 520px;
+  height: 520px;
+  right: -180px;
+  top: -170px;
+  pointer-events: none;
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      circle,
+      rgba(87, 173, 235, 0.07),
+      transparent 70%
+    );
+  filter: blur(55px);
 }
 
-.ft-text{
-  font-family:var(--font-d);
-  font-size:12px;
-  font-weight:700;
-  color:var(--text);
-  white-space:nowrap;
-}
-
-.ft-text span{
-  color:var(--accent);
-  text-shadow:0 0 14px rgba(77,157,224,.55);
-}
-
-.ft-form{
-  display:flex;
-  gap:8px;
-  align-items:center;
-}
-
-.ft-input{
-  height:30px;
-  width:190px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(7,9,14,.42);
-  color:var(--text);
-  padding:0 12px;
-  font-family:var(--font-b);
-  font-size:12px;
-  outline:none;
-}
-
-.ft-input::placeholder{
-  color:rgba(126,142,168,.72);
-}
-
-.ft-input:focus{
-  border-color:rgba(77,157,224,.48);
-  box-shadow:0 0 0 3px rgba(77,157,224,.08);
-}
-
-.ft-btn{
-  height:30px;
-  padding:0 14px;
-  border:0;
-  border-radius:999px;
-  background:linear-gradient(135deg,#4d9de0,#46d9d9);
-  color:#061018;
-  font-family:var(--font-d);
-  font-size:12px;
-  font-weight:800;
-  cursor:pointer;
-}
-
-.ft-success{
-  display:none;
-  font-family:var(--font-d);
-  font-size:12px;
-  font-weight:700;
-  color:#34d399;
-}
-
-.ft-form.hide{display:none}
-.ft-success.show{display:block}
-
-.hero{
-  padding-top:126px;
-}
-
-@media(max-width:640px){
-  .forge-topbar{
-    padding:0 14px;
+@keyframes forgeAtmosphere {
+  from {
+    opacity: 0.68;
+    transform: translate(-50%, -50%) scale(0.96);
   }
 
-  .forge-topbar-inner{
-    height:auto;
-    min-height:92px;
-    padding:12px 0;
-    flex-direction:column;
-    gap:9px;
-  }
-
-  .ft-form{
-    width:100%;
-    display:grid;
-    grid-template-columns:1fr auto;
-  }
-
-  .ft-input{
-    width:100%;
-    height:36px;
-  }
-
-  .ft-btn{
-    height:36px;
-  }
-
-  .hero{
-    padding-top:170px;
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.05);
   }
 }
-.ft-close{
-  position:absolute;
-  right:18px;
-  top:50%;
-  transform:translateY(-50%);
-  width:28px;
-  height:28px;
-  border:0;
-  border-radius:999px;
-  background:transparent;
-  color:rgba(126,142,168,.75);
-  font-size:20px;
-  line-height:1;
-  cursor:pointer;
+
+.hero--seed .hero-bg-canvas {
+  position: absolute;
+  inset: 0;
+  opacity: 0.18;
 }
 
-.ft-close:hover{
-  color:var(--text);
-  background:rgba(255,255,255,.06);
+.hero--seed .hero-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.3;
+  mix-blend-mode: soft-light;
 }
 
-.forge-topbar.hidden{
-  display:none;
+.hero-seed-shell {
+  position: relative;
+  z-index: 2;
+  width: min(860px, 100%);
+  margin: 0 auto;
+  text-align: center;
+  animation: forgeHeroEnter 0.9s var(--ease) both;
 }
 
-@media(max-width:640px){
-  .ft-close{
-    right:12px;
-    top:14px;
-    transform:none;
+@keyframes forgeHeroEnter {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
   }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ---------- HERO HEADING ---------- */
+
+.hero-seed-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 38px;
+}
+
+.hero--seed .hero-badge {
+  margin-bottom: 18px;
+  padding: 6px 13px;
+  color: rgba(205, 218, 235, 0.64);
+  background: rgba(255, 255, 255, 0.025);
+  border-color: rgba(255, 255, 255, 0.075);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  font-size: 9px;
+}
+
+.hero-title--centered {
+  max-width: 800px;
+  margin: 0 auto 18px;
+  text-align: center;
+  font-size: clamp(44px, 6vw, 72px);
+  line-height: 0.98;
+  letter-spacing: -0.048em;
+}
+
+.hero-title--centered .line {
+  display: block;
+}
+
+/* Remove purple entirely */
+
+.hero-title .grad {
+  color: #5faaf0;
+  background: none;
+  -webkit-background-clip: initial;
+  -webkit-text-fill-color: currentColor;
+  background-clip: initial;
+  text-shadow:
+    0 0 34px rgba(77, 157, 224, 0.12);
+}
+
+.hero-sub--centered {
+  max-width: 560px;
+  margin: 0 auto 15px;
+  color: rgba(157, 174, 198, 0.76);
+  font-family: var(--font-b);
+  font-size: 15px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.hero-tools-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #69afe7;
+  font-family: var(--font-b);
+  font-size: 12px;
+  font-weight: 600;
+  transition:
+    gap 0.25s var(--ease),
+    color 0.2s,
+    opacity 0.2s;
+}
+
+.hero-tools-link:hover {
+  gap: 11px;
+  color: #94cdf5;
+}
+
+.forge-seed-hook {
+  margin: 0 0 14px;
+  color: rgba(175, 190, 212, 0.66);
+  font-family: var(--font-b);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+
+/* ---------- PREMIUM CARD ---------- */
+
+.forge-seed-card {
+  position: relative;
+  width: 100%;
+  padding: 26px 28px 24px;
+  overflow: hidden;
+
+  border: 1px solid rgba(255, 255, 255, 0.095);
+  border-radius: 26px;
+
+  background:
+    radial-gradient(
+      ellipse at 50% -15%,
+      rgba(116, 192, 245, 0.13),
+      transparent 46%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(27, 35, 50, 0.54),
+      rgba(8, 12, 20, 0.66)
+    );
+
+  backdrop-filter: blur(28px) saturate(145%);
+  -webkit-backdrop-filter: blur(28px) saturate(145%);
+
+  box-shadow:
+    0 34px 90px rgba(0, 0, 0, 0.42),
+    0 0 70px rgba(77, 157, 224, 0.065),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.018);
+
+  transform:
+    perspective(1200px)
+    rotateX(var(--seed-rotate-x, 0deg))
+    rotateY(var(--seed-rotate-y, 0deg))
+    translateY(0);
+
+  transform-style: preserve-3d;
+
+  transition:
+    transform 0.45s var(--ease),
+    border-color 0.3s,
+    box-shadow 0.45s var(--ease);
+}
+
+.forge-seed-card:hover {
+  transform:
+    perspective(1200px)
+    rotateX(var(--seed-rotate-x, 0deg))
+    rotateY(var(--seed-rotate-y, 0deg))
+    translateY(-3px);
+
+  border-color: rgba(128, 193, 239, 0.17);
+
+  box-shadow:
+    0 42px 105px rgba(0, 0, 0, 0.5),
+    0 0 90px rgba(77, 157, 224, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.085);
+}
+
+/* Moving glass reflection */
+
+.forge-seed-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      420px circle at var(--seed-light-x, 50%) var(--seed-light-y, 0%),
+      rgba(255, 255, 255, 0.075),
+      transparent 46%
+    ),
+    linear-gradient(
+      140deg,
+      rgba(255, 255, 255, 0.055),
+      transparent 28%
+    );
+
+  opacity: 0.72;
+}
+
+/* Subtle inner frame */
+
+.forge-seed-card::after {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.022);
+  border-radius: 20px;
+}
+
+
+/* ---------- PLAYER ---------- */
+
+.forge-seed-player {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr);
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 19px;
+  padding: 8px 4px 6px;
+}
+
+.forge-seed-player::before {
+  content: "";
+  position: absolute;
+  left: 76px;
+  right: 4px;
+  top: 50%;
+  height: 1px;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(110, 184, 236, 0.14) 10%,
+      rgba(110, 184, 236, 0.14) 90%,
+      transparent
+    );
+}
+
+.forge-seed-play {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(250, 253, 255, 0.98),
+      rgba(202, 217, 234, 0.92)
+    );
+
+  cursor: pointer;
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.36),
+    0 0 32px rgba(77, 157, 224, 0.09),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+  transition:
+    transform 0.24s var(--ease),
+    box-shadow 0.24s,
+    filter 0.24s;
+}
+
+.forge-seed-play:hover {
+  transform: scale(1.06);
+  filter: brightness(1.04);
+
+  box-shadow:
+    0 16px 38px rgba(0, 0, 0, 0.44),
+    0 0 38px rgba(77, 157, 224, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.forge-seed-play-icon {
+  width: 0;
+  height: 0;
+  margin-left: 4px;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 11px solid #07101a;
+}
+
+.forge-seed-pause-icon {
+  display: none;
+  align-items: center;
+  gap: 4px;
+}
+
+.forge-seed-pause-icon span {
+  width: 4px;
+  height: 14px;
+  border-radius: 2px;
+  background: #07101a;
+}
+
+.forge-seed-play.is-playing .forge-seed-play-icon {
+  display: none;
+}
+
+.forge-seed-play.is-playing .forge-seed-pause-icon {
+  display: flex;
+}
+
+
+/* ---------- WAVEFORM ---------- */
+
+.forge-seed-waveform {
+  position: relative;
+  min-width: 0;
+  height: 104px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  overflow: hidden;
+  filter:
+    drop-shadow(0 0 9px rgba(78, 164, 225, 0.14));
+}
+
+.forge-seed-waveform::before {
+  content: "";
+  position: absolute;
+  inset: 22% 4%;
+  border-radius: 50%;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(77, 157, 224, 0.1),
+      transparent 70%
+    );
+
+  filter: blur(18px);
+}
+
+.forge-seed-waveform span {
+  position: relative;
+  z-index: 1;
+
+  flex: 1;
+  min-width: 2px;
+  max-width: 4px;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(214, 239, 255, 0.98) 0%,
+      rgba(116, 194, 247, 0.94) 34%,
+      rgba(67, 148, 208, 0.74) 68%,
+      rgba(32, 76, 115, 0.34) 100%
+    );
+
+  box-shadow:
+    0 0 4px rgba(100, 185, 242, 0.2);
+
+  transform-origin: center;
+
+  transition:
+    height 0.45s var(--ease),
+    opacity 0.3s,
+    transform 0.3s;
+}
+
+.forge-seed-waveform span:nth-child(4n) {
+  opacity: 0.65;
+}
+
+.forge-seed-waveform span:nth-child(7n) {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(244, 250, 255, 1),
+      rgba(136, 207, 255, 0.88),
+      rgba(47, 117, 168, 0.34)
+    );
+}
+/* ---------- WAVEFORM ---------- */
+
+/* Playback no longer uses the old equalizer animation.
+   Progress is now driven by JavaScript. */
+
+.forge-seed-waveform.is-playing span {
+  animation: none;
+}
+
+/* Only the forging state keeps a subtle animation */
+
+.forge-seed-card.is-forging .forge-seed-waveform span {
+  animation:
+    forgeWaveForging
+    0.5s
+    ease-in-out
+    infinite
+    alternate;
+}
+
+@keyframes forgeWaveForging {
+
+  from {
+    opacity: 0.26;
+    transform: scaleY(0.42);
+  }
+
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+
+}
+
+/* ---------- SEED IDENTITY ---------- */
+
+.forge-seed-identity strong {
+  display: block;
+  margin-bottom: 4px;
+
+  color: rgba(241, 247, 255, 0.95);
+
+  font-family: var(--font-d);
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.forge-seed-specs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+
+  color: rgba(113, 131, 155, 0.66);
+
+  font-family: var(--font-b);
+  font-size: 11px;
+}
+
+.forge-seed-specs span:nth-child(odd) {
+  color: rgba(171, 188, 211, 0.74);
+}
+
+
+/* ---------- VARIATIONS ---------- */
+
+
+
+
+/* ---------- ACTIONS ---------- */
+
+/* Keep = primary conversion */
+
+.forge-seed-keep {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  padding: 13px 18px;
+
+  border: 0;
+  border-radius: 11px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #69b3ea,
+      #4d9de0
+    );
+
+  color: #061019;
+
+  font-family: var(--font-b);
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 14px 36px rgba(77, 157, 224, 0.21),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+
+  transition:
+    transform 0.22s var(--ease),
+    box-shadow 0.22s,
+    filter 0.22s;
+}
+
+.forge-seed-keep:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+
+  box-shadow:
+    0 19px 44px rgba(77, 157, 224, 0.29),
+    inset 0 1px 0 rgba(255, 255, 255, 0.32);
+}
+
+/* Generate = compact secondary */
+
+.forge-seed-primary,
+.forge-seed-regenerate {
+  position: relative;
+  z-index: 2;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  width: auto;
+  margin: 12px auto 0;
+  padding: 8px 13px;
+
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 9px;
+
+  background: rgba(255, 255, 255, 0.022);
+  color: rgba(150, 169, 195, 0.76);
+
+  font-family: var(--font-b);
+  font-size: 11px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s var(--ease),
+    color 0.2s,
+    border-color 0.2s,
+    background 0.2s;
+}
+
+.forge-seed-primary:hover:not(:disabled),
+.forge-seed-regenerate:hover:not(:disabled) {
+  transform: translateY(-1px);
+
+  color: rgba(232, 241, 250, 0.92);
+  border-color: rgba(77, 157, 224, 0.24);
+  background: rgba(77, 157, 224, 0.05);
+}
+
+.forge-seed-primary:disabled,
+.forge-seed-regenerate:disabled {
+  opacity: 0.56;
+  cursor: wait;
+}
+
+.forge-seed-regenerate svg {
+  width: 13px;
+  height: 13px;
+}
+
+
+/* ---------- NOTE ---------- */
+
+.forge-seed-note {
+  margin-top: 16px;
+
+  color: rgba(86, 104, 129, 0.72);
+
+  font-family: var(--font-b);
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+
+/* ---------- FOCUS ---------- */
+
+.forge-seed-card button:focus-visible {
+  outline: 2px solid rgba(94, 176, 235, 0.72);
+  outline-offset: 3px;
+}
+
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 768px) {
+  .hero--seed {
+    min-height: auto;
+    padding: 92px 18px 72px;
+  }
+
+  .hero-seed-heading {
+    margin-bottom: 30px;
+  }
+
+  .hero-title--centered {
+    font-size: clamp(40px, 12vw, 58px);
+  }
+
+  .hero-sub--centered {
+    font-size: 14px;
+  }
+
+  .forge-seed-card {
+    padding: 22px 19px 21px;
+    border-radius: 22px;
+  }
+
+  .forge-seed-player {
+    grid-template-columns: 46px minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .forge-seed-play {
+    width: 46px;
+    height: 46px;
+  }
+
+  .forge-seed-waveform {
+    height: 78px;
+  }
+}
+
+@media (max-width: 540px) {
+  .hero--seed {
+    padding-left: 13px;
+    padding-right: 13px;
+  }
+
+  .hero--seed .hero-badge {
+    font-size: 8px;
+  }
+
+  .forge-seed-card {
+    padding: 19px 14px;
+  }
+
+  .forge-seed-player {
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 11px;
+  }
+
+  .forge-seed-play {
+    width: 42px;
+    height: 42px;
+  }
+
+  .forge-seed-waveform {
+    height: 66px;
+    gap: 2px;
+  }
+
+  
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero--seed::before,
+  .hero-seed-shell,
+  .forge-seed-card,
+  .forge-seed-card *,
+  .forge-seed-card *::before,
+  .forge-seed-card *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+@media (max-width:768px){
+
+  .wellness-grid{
+      display:flex;
+      overflow-x:auto;
+      overflow-y:hidden;
+      gap:14px;
+
+      scroll-snap-type:x mandatory;
+      -webkit-overflow-scrolling:touch;
+
+      scrollbar-width:none;
+  }
+
+  .wellness-grid::-webkit-scrollbar{
+      display:none;
+  }
+
+  .wellness-card{
+      flex:0 0 78vw;
+      max-width:300px;
+      scroll-snap-align:start;
+  }
+
+}
+/* ============================================================
+   FORGE SEED — NEW HTML SAFETY FIX
+   Prevent SVG icons from expanding
+   ============================================================ */
+
+.forge-seed-beta {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  z-index: 4;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 5px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+
+  background: rgba(8, 12, 20, 0.55);
+  color: var(--text2);
+
+  font-family: var(--font-b);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.forge-seed-beta-dot {
+  width: 5px;
+  height: 5px;
+  flex: 0 0 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px rgba(77, 157, 224, 0.65);
+}
+
+.forge-seed-state[hidden] {
+  display: none !important;
+}
+
+
+
+.forge-seed-actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 44px;
+  align-items: center;
+  gap: 10px;
+}
+
+.forge-seed-actions .forge-seed-keep {
+  width: 100%;
+  margin: 0;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.forge-seed-actions .forge-seed-keep svg {
+  display: block;
+  width: 15px;
+  height: 15px;
+  flex: 0 0 15px;
+}
+
+.forge-seed-actions .forge-seed-regenerate {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  margin: 0;
+  padding: 0;
+
+  display: grid;
+  place-items: center;
+}
+
+.forge-seed-actions .forge-seed-regenerate svg {
+  display: block;
+  width: 15px;
+  height: 15px;
+}
+/* ============================================================
+   FORGE SEED — STATE DESIGN
+   ============================================================ */
+
+.forge-seed-card {
+  min-height: 340px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.forge-seed-state {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.forge-seed-state[hidden] {
+  display: none !important;
+}
+
+/* ---------- INTRO ---------- */
+
+.forge-seed-intro {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 42px 20px 26px;
+  text-align: center;
+}
+
+.forge-seed-intro-copy {
+  margin-bottom: 26px;
+}
+
+.forge-seed-intro-copy h2 {
+  margin-bottom: 9px;
+  color: var(--text);
+  font-family: var(--font-d);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+
+.forge-seed-intro-copy p {
+  max-width: 430px;
+  margin: 0 auto;
+  color: rgba(152, 170, 194, 0.75);
+  font-family: var(--font-b);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.forge-seed-generate {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 210px;
+  padding: 14px 24px;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #69b3ea, #4d9de0);
+  color: #061019;
+  font-family: var(--font-b);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow:
+    0 16px 40px rgba(77, 157, 224, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  transition:
+    transform 0.22s var(--ease),
+    filter 0.22s,
+    box-shadow 0.22s;
+}
+
+.forge-seed-generate:hover:not(:disabled) {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+  box-shadow:
+    0 20px 48px rgba(77, 157, 224, 0.31),
+    inset 0 1px 0 rgba(255, 255, 255, 0.32);
+}
+
+.forge-seed-generate:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+/* ---------- LOADING ---------- */
+
+.forge-seed-loading {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 40px 18px 24px;
+  text-align: center;
+}
+
+.forge-seed-loading-wave {
+  width: 100%;
+  height: 82px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  margin-bottom: 20px;
+}
+
+.forge-seed-loading-wave span {
+  flex: 1;
+  min-width: 2px;
+  max-width: 4px;
+  border-radius: 999px;
+  background: linear-gradient(
+    180deg,
+    rgba(224, 243, 255, 0.98),
+    rgba(90, 173, 232, 0.78)
+  );
+  box-shadow: 0 0 7px rgba(77, 157, 224, 0.22);
+  transform-origin: center;
+  animation: forgeSeedLoadingPulse 0.82s ease-in-out infinite alternate;
+}
+
+.forge-seed-loading-wave span:nth-child(2n) {
+  animation-duration: 0.68s;
+}
+
+.forge-seed-loading-wave span:nth-child(3n) {
+  animation-duration: 1s;
+}
+
+@keyframes forgeSeedLoadingPulse {
+  from {
+    opacity: 0.34;
+    transform: scaleY(0.42);
+  }
+
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+.forge-seed-loading-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.forge-seed-loading-copy strong {
+  color: var(--text);
+  font-family: var(--font-d);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.forge-seed-loading-copy span {
+  color: rgba(130, 149, 175, 0.7);
+  font-family: var(--font-b);
+  font-size: 11px;
+}
+
+/* ---------- RESULT ---------- */
+
+.forge-seed-result {
+  padding-top: 8px;
+  animation: forgeSeedResultIn 0.42s var(--ease) both;
+}
+
+@keyframes forgeSeedResultIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.forge-seed-result .forge-seed-player {
+  margin-bottom: 17px;
+}
+
+.forge-seed-result .forge-seed-identity {
+  margin-bottom: 17px;
+}
+
+
+
+/* ---------- ACTIONS ---------- */
+
+.forge-seed-actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 44px;
+  align-items: center;
+  gap: 10px;
+}
+
+.forge-seed-actions .forge-seed-keep {
+  width: 100%;
+  margin: 0;
+}
+
+.forge-seed-actions .forge-seed-regenerate {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  margin: 0;
+  padding: 0;
+  border-radius: 11px;
+}
+
+/* ---------- CARD HEIGHT BY STATE ---------- */
+
+.forge-seed-card[data-seed-state="intro"] {
+  min-height: 320px;
+}
+
+.forge-seed-card[data-seed-state="loading"] {
+  min-height: 320px;
+}
+
+.forge-seed-card[data-seed-state="result"] {
+  min-height: 430px;
+}
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 768px) {
+  .forge-seed-card {
+    min-height: 0;
+  }
+
+  .forge-seed-card[data-seed-state="intro"],
+  .forge-seed-card[data-seed-state="loading"] {
+    min-height: 300px;
+  }
+
+  .forge-seed-card[data-seed-state="result"] {
+    min-height: 0;
+  }
+
+  .forge-seed-intro {
+    padding: 44px 12px 26px;
+  }
+
+  .forge-seed-intro-copy h2 {
+    font-size: 23px;
+  }
+
+  .forge-seed-loading {
+    padding: 44px 10px 26px;
+  }
+
+  .forge-seed-loading-wave {
+    height: 64px;
+  }
+}
+
+@media (max-width: 540px) {
+  .forge-seed-generate {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .forge-seed-actions {
+    grid-template-columns: minmax(0, 1fr) 42px;
+  }
+
+  .forge-seed-actions .forge-seed-regenerate {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+  }
+}
+/* ============================================================
+   FORGE SEED — PREMIUM PROPORTION PASS
+   Stable, compact, focused
+   ============================================================ */
+
+/* ---------- HERO ATMOSPHERE ---------- */
+
+.hero--seed {
+  min-height: 100vh;
+  padding-top: 88px;
+  padding-bottom: 76px;
+
+  background:
+    radial-gradient(
+      ellipse 620px 440px at 50% 55%,
+      rgba(77, 157, 224, 0.075),
+      transparent 72%
+    ),
+    radial-gradient(
+      ellipse 720px 360px at 50% 18%,
+      rgba(77, 157, 224, 0.035),
+      transparent 74%
+    ),
+    var(--bg);
+}
+
+/* Remove the large animated atmospheric movement */
+
+.hero--seed::before {
+  animation: none;
+  width: 780px;
+  height: 430px;
+  top: 56%;
+  opacity: 0.48;
+  filter: blur(58px);
+}
+
+.hero--seed::after {
+  opacity: 0.28;
+}
+
+/* ---------- HERO RHYTHM ---------- */
+
+.hero-seed-shell {
+  width: min(780px, 100%);
+}
+
+.hero-seed-heading {
+  margin-bottom: 34px;
+}
+
+.hero-title--centered {
+  max-width: 760px;
+  margin-bottom: 18px;
+  font-size: clamp(48px, 5.7vw, 68px);
+}
+
+.hero-sub--centered {
+  margin-bottom: 14px;
+}
+
+.forge-seed-hook {
+  margin: 0 0 15px;
+  color: rgba(149, 166, 189, 0.68);
+  font-size: 11px;
+  letter-spacing: 0.01em;
+}
+
+
+/* ---------- STABLE PRODUCT CARD ---------- */
+
+.forge-seed-card,
+.forge-seed-card:hover {
+  width: 100%;
+
+  transform: none;
+
+  border-color: rgba(255, 255, 255, 0.085);
+
+  background:
+    radial-gradient(
+      ellipse 520px 230px at 50% -30px,
+      rgba(111, 185, 237, 0.095),
+      transparent 72%
+    ),
+    linear-gradient(
+      155deg,
+      rgba(24, 31, 44, 0.62),
+      rgba(7, 11, 18, 0.76)
+    );
+
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.4),
+    0 0 60px rgba(77, 157, 224, 0.045),
+    inset 0 1px 0 rgba(255, 255, 255, 0.055);
+
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.3s ease;
+}
+
+.forge-seed-card:hover {
+  border-color: rgba(112, 183, 233, 0.14);
+
+  box-shadow:
+    0 34px 88px rgba(0, 0, 0, 0.44),
+    0 0 66px rgba(77, 157, 224, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.065);
+}
+
+/* Stop moving reflection */
+
+.forge-seed-card::before {
+  background:
+    radial-gradient(
+      ellipse 520px 210px at 50% 0%,
+      rgba(255, 255, 255, 0.045),
+      transparent 72%
+    );
+  opacity: 1;
+}
+
+
+/* ---------- CARD HEIGHT BY STATE ---------- */
+
+.forge-seed-card[data-seed-state="intro"] {
+  min-height: 250px;
+  padding: 24px 28px;
+}
+
+.forge-seed-card[data-seed-state="loading"] {
+  min-height: 250px;
+  padding: 24px 28px;
+}
+
+.forge-seed-card[data-seed-state="result"] {
+  min-height: 0;
+  padding: 24px 28px 25px;
+}
+
+
+/* ---------- INTRO ---------- */
+
+.forge-seed-intro {
+  max-width: 470px;
+  padding: 29px 20px 21px;
+}
+
+.forge-seed-intro-copy {
+  margin-bottom: 22px;
+}
+
+.forge-seed-intro-copy h2 {
+  margin-bottom: 7px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.forge-seed-intro-copy p {
+  color: rgba(155, 172, 196, 0.72);
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.forge-seed-generate {
+  min-width: 190px;
+  padding: 12px 21px;
+  border-radius: 10px;
+  font-size: 12px;
+
+  box-shadow:
+    0 12px 30px rgba(77, 157, 224, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.forge-seed-generate:hover:not(:disabled) {
+  transform: none;
+
+  box-shadow:
+    0 14px 34px rgba(77, 157, 224, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+
+/* ---------- LOADING ---------- */
+
+.forge-seed-loading {
+  max-width: 500px;
+  padding: 42px 20px 30px;
+}
+
+/* The JS does not currently create loading bars.
+   Use a restrained progress light instead of an empty area. */
+
+.forge-seed-loading-wave {
+  position: relative;
+  width: 190px;
+  height: 2px;
+  margin: 0 auto 22px;
+  overflow: hidden;
+
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.forge-seed-loading-wave::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 42%;
+  left: -42%;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(130, 201, 247, 0.95),
+      transparent
+    );
+
+  box-shadow:
+    0 0 14px rgba(77, 157, 224, 0.4);
+
+  animation: forgeSeedProgress 1.25s ease-in-out infinite;
+}
+
+@keyframes forgeSeedProgress {
+  from {
+    left: -42%;
+  }
+
+  to {
+    left: 100%;
+  }
+}
+
+.forge-seed-loading-copy strong {
+  font-family: var(--font-b);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.forge-seed-loading-copy span {
+  margin-top: 2px;
+  font-size: 10px;
+}
+
+
+/* ---------- RESULT PLAYER ---------- */
+
+.forge-seed-result {
+  padding-top: 4px;
+}
+
+.forge-seed-player {
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 16px;
+  margin-bottom: 14px;
+  padding: 4px 0;
+}
+
+.forge-seed-play {
+  width: 48px;
+  height: 48px;
+}
+
+/* Let the waveform occupy the available width */
+
+.forge-seed-waveform {
+  width: 100%;
+  height: 82px;
+  justify-content: stretch;
+  gap: 3px;
+}
+
+.forge-seed-waveform span {
+  flex: 1 1 0;
+  min-width: 1px;
+  max-width: none;
+}
+
+/* Fade waveform edges gently */
+
+.forge-seed-waveform {
+  -webkit-mask-image:
+    linear-gradient(
+      90deg,
+      transparent,
+      #000 5%,
+      #000 95%,
+      transparent
+    );
+
+  mask-image:
+    linear-gradient(
+      90deg,
+      transparent,
+      #000 5%,
+      #000 95%,
+      transparent
+    );
+}
+
+
+/* ---------- RESULT CONTENT ---------- */
+
+.forge-seed-identity {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+}
+
+.forge-seed-identity strong {
+  font-size: 18px;
+}
+
+
+
+
+/* ---------- ACTIONS ---------- */
+
+.forge-seed-actions {
+  grid-template-columns: minmax(0, 1fr) 42px;
+  gap: 9px;
+}
+
+.forge-seed-actions .forge-seed-keep {
+  min-height: 42px;
+  padding: 11px 16px;
+  border-radius: 10px;
+  font-size: 12px;
+}
+
+.forge-seed-actions .forge-seed-regenerate {
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  border-radius: 10px;
+}
+
+
+/* ---------- BETA ---------- */
+
+.forge-seed-beta {
+  top: 16px;
+  right: 17px;
+  padding: 4px 8px;
+  font-size: 8px;
+}
+
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 768px) {
+  .hero--seed {
+    padding-top: 88px;
+    padding-bottom: 62px;
+  }
+
+  .hero-seed-heading {
+    margin-bottom: 28px;
+  }
+
+  .forge-seed-card[data-seed-state="intro"],
+  .forge-seed-card[data-seed-state="loading"] {
+    min-height: 235px;
+  }
+
+  .forge-seed-card[data-seed-state="result"] {
+    padding: 19px 16px;
+  }
+
+  .forge-seed-intro {
+    padding: 34px 10px 20px;
+  }
+
+  .forge-seed-loading {
+    padding: 44px 10px 28px;
+  }
+
+  .forge-seed-waveform {
+    height: 68px;
+    gap: 2px;
+  }
+}
+
+@media (max-width: 540px) {
+  .hero-title--centered {
+    font-size: clamp(39px, 12vw, 54px);
+  }
+
+  .forge-seed-card {
+    border-radius: 20px;
+  }
+
+  .forge-seed-player {
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 11px;
+  }
+
+  .forge-seed-play {
+    width: 42px;
+    height: 42px;
+  }
+
+}
+/* ============================================================
+   FORGE SEED — FINAL SPACING REFINEMENT
+   ============================================================ */
+
+/* Tighter storytelling rhythm */
+
+.hero-seed-heading {
+  margin-bottom: 24px;
+}
+
+.forge-seed-hook {
+  margin-bottom: 12px;
+  color: rgba(166, 182, 204, 0.72);
+  font-size: 11px;
+}
+
+/* Slightly narrower product object */
+
+.hero-seed-shell {
+  width: min(740px, 100%);
+}
+
+/* Intro should feel intentional, not empty */
+
+.forge-seed-card[data-seed-state="intro"] {
+  min-height: 220px;
+  padding: 22px 26px;
+}
+
+.forge-seed-intro {
+  max-width: 430px;
+  padding: 24px 16px 16px;
+}
+
+.forge-seed-intro-copy {
+  margin-bottom: 19px;
+}
+
+.forge-seed-intro-copy h2 {
+  font-size: 23px;
+}
+
+.forge-seed-generate {
+  min-width: 178px;
+  padding: 11px 20px;
+}
+
+/* Loading keeps the same visual volume as intro */
+
+.forge-seed-card[data-seed-state="loading"] {
+  min-height: 220px;
+}
+
+.forge-seed-loading {
+  padding: 34px 16px 22px;
+}
+
+/* Result: more compact and balanced */
+
+.forge-seed-card[data-seed-state="result"] {
+  padding: 21px 24px 22px;
+}
+
+.forge-seed-player {
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 13px;
+  margin-bottom: 11px;
+}
+
+.forge-seed-play {
+  width: 44px;
+  height: 44px;
+}
+
+.forge-seed-waveform {
+  height: 72px;
+  gap: 2px;
+}
+
+.forge-seed-identity {
+  margin-bottom: 13px;
+  padding-bottom: 13px;
+}
+
+.forge-seed-identity strong {
+  font-size: 17px;
+}
+
+
+
+/* Beta has more breathing space */
+
+.forge-seed-beta {
+  top: 13px;
+  right: 14px;
+}
+
+/* Mobile */
+
+@media (max-width: 540px) {
+  .hero-seed-heading {
+    margin-bottom: 22px;
+  }
+
+  .forge-seed-hook {
+    margin-bottom: 10px;
+  }
+
+  .forge-seed-card[data-seed-state="intro"],
+  .forge-seed-card[data-seed-state="loading"] {
+    min-height: 215px;
+  }
+
+  .forge-seed-card[data-seed-state="result"] {
+    padding: 18px 14px;
+  }
+
+  .forge-seed-waveform {
+    height: 60px;
+  }
+}
+/* ============================================================
+   FORGE SEED — WAVEFORM POLISH
+   ============================================================ */
+
+/* Fill the available width */
+
+.forge-seed-waveform {
+  width: 100%;
+  height: 72px;
+
+  display: flex;
+  align-items: center;
+  justify-content: stretch;
+  gap: 2px;
+
+  overflow: hidden;
+
+  -webkit-mask-image:
+    linear-gradient(
+      90deg,
+      transparent,
+      #000 6%,
+      #000 94%,
+      transparent
+    );
+
+  mask-image:
+    linear-gradient(
+      90deg,
+      transparent,
+      #000 6%,
+      #000 94%,
+      transparent
+    );
+}
+
+.forge-seed-waveform span {
+  flex: 1 1 0;
+  min-width: 1px;
+  max-width: none;
+
+  border-radius: 999px;
+
+  transform: none;
+}
+
+/* Slight idle breathing */
+
+.forge-seed-waveform:not(.is-playing):not(.is-forging) span {
+  animation:
+    forgeWaveIdle
+    5s
+    ease-in-out
+    infinite;
+}
+
+.forge-seed-waveform:not(.is-playing):not(.is-forging) span:nth-child(2n) {
+  animation-delay: .25s;
+}
+
+.forge-seed-waveform:not(.is-playing):not(.is-forging) span:nth-child(3n) {
+  animation-delay: .5s;
+}
+
+@keyframes forgeWaveIdle {
+
+  0%,
+  100%{
+    opacity:.34;
+    transform:translateY(0);
+  }
+
+  50%{
+    opacity:.46;
+    transform:translateY(-1px);
+  }
+
+}
+
+
+/* ============================================================
+   FORGE SEED — ATMOSPHERIC SCENE UPGRADE
+   Paste at the very end of forge.css
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   1. DEEPER HERO BACKGROUND
+   ------------------------------------------------------------ */
+
+.hero--seed {
+  background:
+    radial-gradient(
+      ellipse 72% 58% at 50% 67%,
+      rgba(40, 112, 178, 0.075) 0%,
+      rgba(20, 65, 112, 0.035) 38%,
+      transparent 72%
+    ),
+    radial-gradient(
+      ellipse 55% 42% at 50% 42%,
+      rgba(43, 119, 184, 0.035) 0%,
+      transparent 72%
+    ),
+    linear-gradient(
+      180deg,
+      #060910 0%,
+      #070b12 48%,
+      #05080d 100%
+    );
+}
+
+
+/* ------------------------------------------------------------
+   2. LARGE BLUE ATMOSPHERIC HALO
+   Behind the entire Seed experience
+   ------------------------------------------------------------ */
+
+.hero--seed::before {
+  width: min(1180px, 96vw);
+  height: 680px;
+
+  left: 50%;
+  top: 62%;
+
+  transform:
+    translate(-50%, -50%)
+    scale(1);
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(75, 160, 230, 0.17) 0%,
+      rgba(48, 126, 194, 0.105) 25%,
+      rgba(29, 80, 137, 0.05) 48%,
+      transparent 73%
+    );
+
+  filter: blur(52px);
+
+  opacity: 0.82;
+
+  animation:
+    forgeAtmospherePremium
+    14s
+    var(--ease)
+    infinite
+    alternate;
+}
+
+
+@keyframes forgeAtmospherePremium {
+
+  0% {
+    opacity: 0.68;
+
+    transform:
+      translate(-50%, -50%)
+      scale(0.96);
+  }
+
+  100% {
+    opacity: 0.92;
+
+    transform:
+      translate(-50%, -50%)
+      scale(1.04);
+  }
+
+}
+
+
+/* ------------------------------------------------------------
+   3. SECONDARY LIGHT SOURCE
+   Creates asymmetry and depth
+   ------------------------------------------------------------ */
+
+.hero--seed::after {
+  width: 720px;
+  height: 720px;
+
+  right: -290px;
+  top: -260px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(72, 157, 224, 0.055) 0%,
+      rgba(39, 100, 158, 0.025) 38%,
+      transparent 72%
+    );
+
+  filter: blur(72px);
+
+  opacity: 0.8;
+}
+
+
+/* ------------------------------------------------------------
+   4. PARTICLE CANVAS
+   More integrated into the atmosphere
+   ------------------------------------------------------------ */
+
+.hero--seed .hero-bg-canvas {
+  opacity: 0.28;
+
+  filter:
+    drop-shadow(
+      0 0 4px
+      rgba(84, 174, 238, 0.22)
+    );
+}
+
+
+/* ------------------------------------------------------------
+   5. PREMIUM FILM GRAIN
+   ------------------------------------------------------------ */
+
+.hero--seed .hero-grain {
+  opacity: 0.22;
+
+  mix-blend-mode: soft-light;
+}
+
+
+/* ------------------------------------------------------------
+   6. SEED CARD — TRUE GLASSMORPH
+   ------------------------------------------------------------ */
+
+.forge-seed-card {
+
+  border:
+    1px solid
+    rgba(165, 210, 243, 0.14);
+
+  background:
+
+    radial-gradient(
+      ellipse 80% 55% at 50% -8%,
+      rgba(145, 207, 248, 0.12),
+      transparent 58%
+    ),
+
+    linear-gradient(
+      145deg,
+      rgba(28, 42, 61, 0.48) 0%,
+      rgba(12, 20, 32, 0.56) 46%,
+      rgba(5, 10, 18, 0.68) 100%
+    );
+
+
+  backdrop-filter:
+    blur(32px)
+    saturate(150%);
+
+  -webkit-backdrop-filter:
+    blur(32px)
+    saturate(150%);
+
+
+  box-shadow:
+
+    /* floating depth */
+
+    0 42px 110px
+    rgba(0, 0, 0, 0.58),
+
+
+    /* blue atmosphere underneath */
+
+    0 30px 90px
+    rgba(35, 105, 166, 0.12),
+
+
+    /* subtle external glow */
+
+    0 0 70px
+    rgba(77, 157, 224, 0.075),
+
+
+    /* glass top reflection */
+
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.12),
+
+
+    /* lower glass edge */
+
+    inset 0 -1px 0
+    rgba(117, 183, 230, 0.035);
+}
+
+
+/* ------------------------------------------------------------
+   7. GLASS REFLECTION
+   ------------------------------------------------------------ */
+
+.forge-seed-card::before {
+
+  background:
+
+    radial-gradient(
+      520px circle
+      at
+      var(--seed-light-x, 50%)
+      var(--seed-light-y, 0%),
+
+      rgba(207, 235, 255, 0.12),
+
+      rgba(112, 186, 238, 0.035) 32%,
+
+      transparent 58%
+    ),
+
+    linear-gradient(
+      135deg,
+
+      rgba(255, 255, 255, 0.07),
+
+      transparent 27%,
+
+      transparent 72%,
+
+      rgba(75, 151, 211, 0.025)
+    );
+
+  opacity: 0.72;
+}
+
+
+/* ------------------------------------------------------------
+   8. INNER GLASS EDGE
+   ------------------------------------------------------------ */
+
+.forge-seed-card::after {
+
+  inset: 6px;
+
+  border:
+    1px solid
+    rgba(196, 226, 248, 0.035);
+
+  border-radius: 20px;
+
+  box-shadow:
+
+    inset 0 0 40px
+    rgba(75, 151, 211, 0.018);
+}
+
+
+/* ------------------------------------------------------------
+   9. CARD HOVER
+   Keep movement extremely restrained
+   ------------------------------------------------------------ */
+
+.forge-seed-card:hover {
+
+  transform:
+
+    perspective(1200px)
+
+    rotateX(
+      calc(
+        var(--seed-rotate-x, 0deg) * 0.35
+      )
+    )
+
+    rotateY(
+      calc(
+        var(--seed-rotate-y, 0deg) * 0.35
+      )
+    )
+
+    translateY(-1px);
+
+
+  border-color:
+    rgba(145, 205, 247, 0.2);
+
+
+  box-shadow:
+
+    0 48px 125px
+    rgba(0, 0, 0, 0.62),
+
+    0 32px 100px
+    rgba(38, 112, 176, 0.14),
+
+    0 0 85px
+    rgba(77, 157, 224, 0.09),
+
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.14);
+}
+
+
+/* ------------------------------------------------------------
+   10. SUBTLE LIGHT BELOW THE CARD
+   ------------------------------------------------------------ */
+
+.forge-seed-shell::after {
+
+  content: "";
+
+  position: absolute;
+
+  z-index: -1;
+
+  width: 74%;
+  height: 150px;
+
+  left: 50%;
+  bottom: -54px;
+
+  transform:
+    translateX(-50%);
+
+  pointer-events: none;
+
+
+  background:
+
+    radial-gradient(
+      ellipse,
+
+      rgba(60, 143, 207, 0.13) 0%,
+
+      rgba(39, 103, 161, 0.055) 38%,
+
+      transparent 72%
+    );
+
+
+  filter:
+    blur(38px);
+
+  opacity: 0.8;
+}
+
+
+/* ------------------------------------------------------------
+   11. SLIGHTLY MORE PREMIUM WAVEFORM GLOW
+   ------------------------------------------------------------ */
+
+.forge-seed-waveform {
+
+  filter:
+
+    drop-shadow(
+      0 0 7px
+      rgba(94, 185, 245, 0.22)
+    )
+
+    drop-shadow(
+      0 0 20px
+      rgba(51, 133, 194, 0.08)
+    );
+}
+
+
+/* ------------------------------------------------------------
+   12. BUTTON PRESS MICRO-INTERACTION
+   ------------------------------------------------------------ */
+
+.forge-seed-play:active,
+
+.forge-seed-keep:active,
+.forge-seed-generate:active,
+.forge-seed-regenerate:active {
+
+  transform:
+    scale(0.97);
+
+  transition-duration:
+    80ms;
+}
+
+
+/* ------------------------------------------------------------
+   13. MOBILE — KEEP ATMOSPHERE CONTROLLED
+   ------------------------------------------------------------ */
+
+@media (max-width: 768px) {
+
+  .hero--seed::before {
+
+    width: 120vw;
+    height: 560px;
+
+    top: 64%;
+
+    opacity: 0.68;
+
+  }
+
+
+  .forge-seed-card {
+
+    backdrop-filter:
+      blur(24px)
+      saturate(140%);
+
+    -webkit-backdrop-filter:
+      blur(24px)
+      saturate(140%);
+
+  }
+
+
+  .forge-seed-shell::after {
+
+    width: 90%;
+
+  }
+
+}
+
+
+/* ------------------------------------------------------------
+   14. ACCESSIBILITY — REDUCED MOTION
+   ------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .hero--seed::before {
+
+    animation: none;
+
+  }
+
+}
+/* ============================================================
+   FORGE SEED — SCENE DEPTH / ORBITAL FIELD
+   ============================================================ */
+
+/* Give the shell enough visual depth */
+
+.hero-seed-shell {
+  position: relative;
+}
+
+/* Large resonance field behind the Seed card */
+
+.hero-seed-shell::before {
+  content: "";
+
+  position: absolute;
+  z-index: -2;
+
+  left: 50%;
+  top: 72%;
+
+  width: min(1180px, 128vw);
+  height: 430px;
+
+  transform:
+    translate(-50%, -50%)
+    perspective(900px)
+    rotateX(68deg);
+
+  border-radius: 50%;
+
+  pointer-events: none;
+
+  border:
+    1px solid
+    rgba(99, 173, 229, 0.08);
+
+  box-shadow:
+
+    0 0 0 70px
+    rgba(77, 157, 224, 0.018),
+
+    0 0 0 145px
+    rgba(77, 157, 224, 0.012),
+
+    0 0 90px
+    rgba(56, 138, 202, 0.08);
+
+  opacity: 0.9;
+
+  animation:
+    forgeFieldDrift
+    28s
+    ease-in-out
+    infinite
+    alternate;
+}
+
+
+/* Stronger luminous field under the card */
+
+.hero-seed-shell::after {
+
+  width: 86%;
+  height: 210px;
+
+  left: 50%;
+  bottom: -88px;
+
+  transform:
+    translateX(-50%);
+
+  background:
+
+    radial-gradient(
+      ellipse at center,
+
+      rgba(88, 177, 238, 0.18) 0%,
+
+      rgba(49, 123, 184, 0.09) 30%,
+
+      rgba(26, 70, 116, 0.035) 52%,
+
+      transparent 74%
+    );
+
+  filter:
+    blur(46px);
+
+  opacity: 0.92;
+
+  animation:
+    forgeUnderGlow
+    12s
+    ease-in-out
+    infinite
+    alternate;
+}
+
+
+@keyframes forgeFieldDrift {
+
+  from {
+    opacity: 0.68;
+
+    transform:
+      translate(-50%, -50%)
+      perspective(900px)
+      rotateX(68deg)
+      scale(0.97);
+  }
+
+  to {
+    opacity: 0.95;
+
+    transform:
+      translate(-50%, -50%)
+      perspective(900px)
+      rotateX(68deg)
+      scale(1.04);
+  }
+
+}
+
+
+@keyframes forgeUnderGlow {
+
+  from {
+    opacity: 0.7;
+    transform:
+      translateX(-50%)
+      scaleX(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translateX(-50%)
+      scaleX(1.06);
+  }
+
+}
+
+
+/* ============================================================
+   GLASS — MORE TRANSLUCENT
+   ============================================================ */
+
+.forge-seed-card {
+
+  background:
+
+    radial-gradient(
+      ellipse 78% 54% at 50% -10%,
+      rgba(157, 215, 252, 0.105),
+      transparent 58%
+    ),
+
+    linear-gradient(
+      145deg,
+      rgba(31, 46, 66, 0.38) 0%,
+      rgba(12, 21, 34, 0.46) 48%,
+      rgba(5, 10, 18, 0.58) 100%
+    );
+
+  backdrop-filter:
+    blur(38px)
+    saturate(155%);
+
+  -webkit-backdrop-filter:
+    blur(38px)
+    saturate(155%);
+
+  border-color:
+    rgba(174, 218, 247, 0.15);
+
+}
+
+
+/* Top glass edge / refraction */
+
+.forge-seed-card::before {
+
+  background:
+
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.07),
+      transparent 10%
+    ),
+
+    radial-gradient(
+      560px circle
+      at 50% -12%,
+
+      rgba(206, 236, 255, 0.13),
+
+      rgba(107, 184, 237, 0.04) 30%,
+
+      transparent 62%
+    );
+
+}
+
+
+/* Slight cyan rim on the lower glass edge */
+
+.forge-seed-card::after {
+
+  border-color:
+    rgba(198, 229, 250, 0.04);
+
+  box-shadow:
+
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.025),
+
+    inset 0 -1px 0
+    rgba(89, 171, 229, 0.035);
+
+}
+
+
+/* ============================================================
+   CARD / BACKGROUND CONNECTION
+   ============================================================ */
+
+/* subtle light leak behind the card */
+
+.forge-seed-card {
+  box-shadow:
+
+    0 34px 95px
+    rgba(0, 0, 0, 0.5),
+
+    0 26px 100px
+    rgba(37, 113, 176, 0.13),
+
+    0 0 110px
+    rgba(77, 157, 224, 0.075),
+
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.115),
+
+    inset 0 -1px 0
+    rgba(80, 162, 220, 0.03);
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 768px) {
+
+  .hero-seed-shell::before {
+
+    width: 150vw;
+    height: 330px;
+
+    top: 75%;
+
+    opacity: 0.52;
+
+  }
+
+  .hero-seed-shell::after {
+
+    width: 105%;
+    height: 170px;
+
+  }
+
+}
+/* ============================================================
+   FORGE SEED — 3D RESONANCE FIELD
+   ============================================================ */
+
+/* Old pseudo ring disabled */
+.hero-seed-shell::before {
+  display: none;
+}
+
+/* ------------------------------------------------------------
+   ORBIT FIELD — REST STATE
+   ------------------------------------------------------------ */
+
+.forge-orbit-field {
+  position: absolute;
+  left: 50%;
+  top: 69%;
+
+  width: min(1500px, 170vw);
+  height: 760px;
+
+  transform:
+    translate(-50%, -50%)
+    perspective(1600px)
+    rotateX(78deg)
+    scale(1.04);
+
+  transform-origin: center;
+  transform-style: preserve-3d;
+
+  pointer-events: none;
+  z-index: -2;
+
+  opacity: 0.42;
+
+  filter: blur(0);
+
+  transition:
+    transform 1.65s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 1.1s ease,
+    filter 1.2s ease;
+}
+
+
+/* ------------------------------------------------------------
+   INDIVIDUAL ORBITS
+   ------------------------------------------------------------ */
+
+.forge-orbit {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  border-radius: 50%;
+
+  border:
+    1px solid
+    rgba(105, 179, 232, 0.045);
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      transparent 54%,
+      rgba(64, 139, 200, 0.016) 64%,
+      rgba(96, 181, 239, 0.045) 76%,
+      transparent 89%
+    );
+
+  transform-style: preserve-3d;
+
+  box-shadow:
+    0 0 60px rgba(77, 157, 224, 0.028);
+
+  transition:
+    opacity 1.1s ease,
+    border-color 1.1s ease,
+    box-shadow 1.4s ease,
+    background 1.4s ease,
+    filter 1.2s ease;
+}
+
+
+/* Outer orbit */
+
+.forge-orbit--back {
+  width: 100%;
+  height: 100%;
+
+  transform:
+    translate(-50%, -50%)
+    translateZ(-240px);
+
+  opacity: 0.18;
+}
+
+
+/* Middle orbit */
+
+.forge-orbit--mid {
+  width: 76%;
+  height: 76%;
+
+  transform:
+    translate(-50%, -50%)
+    translateZ(0);
+
+  opacity: 0.3;
+}
+
+
+/* Inner orbit */
+
+.forge-orbit--front {
+  width: 52%;
+  height: 52%;
+
+  transform:
+    translate(-50%, -50%)
+    translateZ(240px);
+
+  opacity: 0.44;
+
+  box-shadow:
+    0 0 100px rgba(77, 157, 224, 0.045);
+}
+
+
+/* ============================================================
+   FORGING STATE — ENTER THE FIELD
+   ============================================================ */
+
+.hero-seed-shell.is-forging-scene .forge-orbit-field {
+  transform:
+    translate(-50%, -47%)
+    perspective(1600px)
+    rotateX(12deg)
+    scale(2.45);
+
+  opacity: 1;
+
+  filter:
+    blur(1.2px);
+}
+
+
+/* The rings dissolve into a luminous field */
+
+.hero-seed-shell.is-forging-scene .forge-orbit {
+  border-color:
+    rgba(127, 202, 250, 0.075);
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      transparent 43%,
+      rgba(71, 151, 211, 0.025) 55%,
+      rgba(104, 193, 248, 0.095) 72%,
+      rgba(66, 145, 207, 0.045) 82%,
+      transparent 94%
+    );
+
+  box-shadow:
+    0 0 140px rgba(77, 157, 224, 0.11),
+    0 0 300px rgba(40, 119, 184, 0.07);
+}
+
+
+/* Far ring fades away as we move inside */
+
+.hero-seed-shell.is-forging-scene .forge-orbit--back {
+  opacity: 0.1;
+
+  filter:
+    blur(3px);
+}
+
+
+/* Mid ring provides depth */
+
+.hero-seed-shell.is-forging-scene .forge-orbit--mid {
+  opacity: 0.28;
+
+  filter:
+    blur(1.8px);
+}
+
+
+/* Front ring becomes the tunnel edge */
+
+.hero-seed-shell.is-forging-scene .forge-orbit--front {
+  opacity: 0.58;
+
+  filter:
+    blur(2.4px);
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      transparent 38%,
+      rgba(94, 184, 241, 0.035) 53%,
+      rgba(118, 205, 255, 0.13) 69%,
+      rgba(61, 137, 199, 0.055) 82%,
+      transparent 96%
+    );
+
+  box-shadow:
+    0 0 180px rgba(91, 183, 242, 0.14),
+    0 0 360px rgba(45, 128, 194, 0.08);
+}
+
+
+/* ============================================================
+   ATMOSPHERIC RESPONSE DURING FORGING
+   ============================================================ */
+
+.hero-seed-shell::after {
+  transition:
+    transform 1.6s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 1.1s ease,
+    filter 1.2s ease;
+}
+
+.hero-seed-shell.is-forging-scene::after {
+  opacity: 1;
+
+  transform:
+    translateX(-50%)
+    scaleX(1.55)
+    scaleY(1.38);
+
+  filter:
+    blur(58px);
+}
+
+
+/* Slight card light lift during generation */
+
+.hero-seed-shell.is-forging-scene .forge-seed-card {
+  border-color:
+    rgba(167, 218, 251, 0.2);
+
+  box-shadow:
+    0 36px 100px rgba(0, 0, 0, 0.5),
+    0 0 120px rgba(77, 157, 224, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.13);
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 768px) {
+
+  .forge-orbit-field {
+    width: 210vw;
+    height: 560px;
+
+    top: 72%;
+
+    opacity: 0.32;
+  }
+
+  .hero-seed-shell.is-forging-scene .forge-orbit-field {
+    transform:
+      translate(-50%, -48%)
+      perspective(1200px)
+      rotateX(14deg)
+      scale(2.1);
+  }
+
+}
+/* ============================================================
+   FORGE ORBIT — TIMING POLISH
+   Fast entrance, slower cinematic exit
+   ============================================================ */
+
+/* Return / resting transition */
+
+.forge-orbit-field {
+  transition:
+    transform 2.2s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 1.6s ease,
+    filter 1.6s ease;
+}
+
+/* Entrance transition */
+
+.hero-seed-shell.is-forging-scene .forge-orbit-field {
+  transition:
+    transform 1.45s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.9s ease,
+    filter 1.1s ease;
+}
+.hero-seed-shell > .forge-seed-hook {
+  margin-top: 40px !important;
+  margin-bottom: 0;
+}
+/* ============================================================
+   FORGE SEED — SMOOTH INTERACTIONS
+   ============================================================ */
+
+.forge-seed-card,
+.forge-seed-generate,
+.forge-seed-keep,
+.forge-seed-regenerate
+ {
+  transition-timing-function:
+    cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Card stays stable, only light/depth changes */
+
+.forge-seed-card {
+  transition:
+    border-color 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Buttons: softer hover */
+
+.forge-seed-generate,
+.forge-seed-keep,
+.forge-seed-regenerate
+ {
+  transition:
+    background 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.35s ease;
+}
+
+/* No movement on hover */
+
+.forge-seed-card:hover,
+.forge-seed-generate:hover:not(:disabled),
+.forge-seed-keep:hover,
+.forge-seed-regenerate:hover
+ {
+  transform: none;
+}
+
+/* Physical feedback only on click */
+
+.forge-seed-generate:active,
+.forge-seed-keep:active,
+.forge-seed-regenerate:active
+ {
+  transform: scale(0.985);
+  transition-duration: 90ms;
+}
+.hero-badge {
+  display: none;
+}
+/* Ajustement Hero après suppression du badge */
+
+.hero-seed-heading {
+  padding-top: 28px;
+}
+
+.hero-title--centered {
+  margin-top: 0;
+}
+
+.forge-seed-card {
+  margin-top: 34px;
+}
+/* ============================================================
+   FORGE SEED — INLINE REGENERATION
+   ============================================================ */
+
+.forge-seed-card.is-regenerating
+.forge-seed-waveform {
+  opacity: 0.55;
+  filter:
+    blur(0.3px)
+    drop-shadow(
+      0 0 18px
+      rgba(77, 157, 224, 0.18)
+    );
+}
+
+.forge-seed-card.is-regenerating
+.forge-seed-identity {
+  opacity: 0.58;
+}
+
+.forge-seed-card.is-regenerating
+
+.forge-seed-card.is-regenerating
+.forge-seed-actions {
+  opacity: 0.42;
+  pointer-events: none;
+}
+
+.forge-seed-card.is-regenerating {
+  transition:
+    border-color 0.45s var(--ease),
+    box-shadow 0.6s var(--ease);
+}
+/* ============================================================
+   FORGE SEED — KEEP MODAL
+   ============================================================ */
+
+.forge-seed-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+
+  display: grid;
+  place-items: center;
+
+  padding: 24px;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition:
+    opacity 0.28s var(--ease),
+    visibility 0.28s;
+}
+
+.forge-seed-modal.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.forge-seed-modal-backdrop {
+  position: absolute;
+  inset: 0;
+
+  background:
+    rgba(3, 6, 11, 0.7);
+
+  backdrop-filter:
+    blur(12px);
+
+  -webkit-backdrop-filter:
+    blur(12px);
+}
+
+.forge-seed-modal-panel {
+  position: relative;
+  z-index: 1;
+
+  width: min(430px, 100%);
+
+  padding: 32px;
+
+  border:
+    1px solid
+    rgba(180, 221, 248, 0.14);
+
+  border-radius: 24px;
+
+  background:
+    radial-gradient(
+      ellipse at 50% -20%,
+      rgba(116, 195, 247, 0.12),
+      transparent 60%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(26, 39, 58, 0.72),
+      rgba(7, 12, 20, 0.86)
+    );
+
+  backdrop-filter:
+    blur(34px)
+    saturate(150%);
+
+  -webkit-backdrop-filter:
+    blur(34px)
+    saturate(150%);
+
+  box-shadow:
+    0 40px 120px rgba(0, 0, 0, 0.62),
+    0 0 90px rgba(77, 157, 224, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+
+  transform:
+    translateY(16px)
+    scale(0.98);
+
+  transition:
+    transform 0.38s var(--ease);
+}
+
+.forge-seed-modal.is-open
+.forge-seed-modal-panel {
+  transform:
+    translateY(0)
+    scale(1);
+}
+
+.forge-seed-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+
+  width: 32px;
+  height: 32px;
+
+  border: 0;
+  border-radius: 50%;
+
+  background:
+    rgba(255, 255, 255, 0.035);
+
+  color:
+    rgba(190, 207, 228, 0.68);
+
+  font-size: 20px;
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.forge-seed-modal-kicker {
+  margin-bottom: 8px;
+
+  color:
+    rgba(110, 181, 232, 0.72);
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.forge-seed-modal-panel h2 {
+  margin-bottom: 10px;
+
+  font-family: var(--font-d);
+  font-size: 28px;
+  line-height: 1.1;
+}
+
+.forge-seed-modal-copy {
+  margin-bottom: 24px;
+
+  color:
+    rgba(154, 172, 196, 0.76);
+
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.forge-seed-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.forge-seed-modal-label {
+  color:
+    rgba(190, 207, 228, 0.74);
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.forge-seed-modal-input {
+  width: 100%;
+
+  padding: 13px 14px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.09);
+
+  border-radius: 11px;
+
+  background:
+    rgba(4, 9, 16, 0.58);
+
+  color: var(--text);
+
+  font-family: var(--font-b);
+  font-size: 13px;
+
+  outline: none;
+
+  transition:
+    border-color 0.25s,
+    box-shadow 0.25s,
+    background 0.25s;
+}
+
+.forge-seed-modal-input:focus {
+  border-color:
+    rgba(104, 184, 239, 0.38);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(77, 157, 224, 0.08);
+
+  background:
+    rgba(5, 11, 20, 0.72);
+}
+
+.forge-seed-modal-error {
+  color: #ef8e8e;
+  font-size: 11px;
+}
+
+.forge-seed-modal-submit {
+  margin-top: 6px;
+
+  padding: 13px 18px;
+
+  border: 0;
+  border-radius: 11px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #6bb6ec,
+      #4d9de0
+    );
+
+  color: #061019;
+
+  font-family: var(--font-b);
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.forge-seed-modal-note {
+  margin-top: 14px;
+
+  color:
+    rgba(122, 141, 166, 0.58);
+
+  font-size: 10px;
+  text-align: center;
+}
+
+@media (max-width: 540px) {
+  .forge-seed-modal {
+    padding: 14px;
+  }
+
+  .forge-seed-modal-panel {
+    padding: 28px 20px 22px;
+    border-radius: 20px;
+  }
+}
+/* ============================================================
+   HERO → CATEGORIES SECTION TRANSITION
+   ============================================================ */
+
+.categories {
+  border-top:
+    1px solid
+    rgba(255, 255, 255, 0.045);
+}
+
+.categories::after {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: 50%;
+
+  width: min(920px, 82vw);
+  height: 1px;
+
+  transform: translateX(-50%);
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(88, 171, 229, 0.22),
+      transparent
+    );
+
+  opacity: 0.55;
+}
+
+/* ============================================================
+   GLOBAL SECTION BACKGROUND SYSTEM
+   ============================================================ */
+
+.categories,
+.featured,
+.create,
+.wellness-apps,
+.explorer,
+.philosophy,
+.studio-bridge {
+  position: relative;
+  background: #07090e;
+}
+
+.featured,
+.explorer,
+.studio-bridge,
+.wellness-apps {
+  background: #07090e !important;
+}
+
+.categories::before,
+.featured::before,
+.create::before,
+.wellness-apps::before,
+.explorer::before,
+.philosophy::before,
+.studio-bridge::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 58% 34% at 50% 0%,
+      rgba(77, 157, 224, 0.032),
+      transparent 74%
+    );
+  opacity: 1;
+}
+
+.featured,
+.explorer,
+.studio-bridge {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.025),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.018);
+}
+
+.featured::before {
+  background:
+    radial-gradient(
+      ellipse 58% 34% at 50% 0%,
+      rgba(100, 120, 220, 0.032),
+      transparent 74%
+    );
+}
+
+.wellness-apps::before {
+  background:
+    radial-gradient(
+      ellipse 58% 34% at 50% 0%,
+      rgba(52, 211, 153, 0.032),
+      transparent 74%
+    );
+}
+
+.studio-bridge::before {
+  background:
+    radial-gradient(
+      ellipse 58% 34% at 50% 0%,
+      rgba(139, 92, 246, 0.032),
+      transparent 74%
+    );
+}
+/* ============================================================
+   FEATURED TOOLS — IMAGE FIT FIX
+   ============================================================ */
+
+.feat-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.feat-visual {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.feat-visual img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+  object-position: center;
+
+  transform: scale(1.01);
+}
+
+/* dark overlay for text readability */
+
+.feat-visual::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(5, 8, 14, 0.04) 0%,
+      rgba(5, 8, 14, 0.18) 45%,
+      rgba(5, 8, 14, 0.78) 100%
+    );
+
+  pointer-events: none;
+}
+
+/* keep content above image */
+
+.feat-content {
+  position: relative;
+  z-index: 2;
+}
+.forge-seed-waveform {
+  position: relative;
+  width: 100%;
+  height: 72px;
+  overflow: hidden;
+}
+
+.forge-seed-wave-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.forge-seed-loading-wave {
+  display: none !important;
 }

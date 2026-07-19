@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Chrysasynth Forge — Creative Audio Laboratory</title>
+<title>Chrysasynth Forge - Creative Audio Laboratory</title>
 <meta name="description" content="40+ browser-based audio tools. No installs. Explore, create, discover."/>
  <link rel="canonical" href="https://forge.chrysasynth.com/" />
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -28,7 +28,7 @@
   <span>Chrysasynth <em>Forge</em></span>
 </a>
     <div class="nav-links">
-      <a href="#start">Start Here</a>
+      
       <a href="#categories">Explore</a>
       <a href="#tools">All Tools</a>
       <a href="https://free-studio.chrysasynth.com/" class="nav-cta" target="_blank">Open Studio ↗</a>
@@ -38,239 +38,233 @@
     </button>
   </div>
   <div class="nav-mobile" id="navMobile">
-    <a href="#start">Start Here</a>
+   
     <a href="#categories">Explore</a>
     <a href="#tools">All Tools</a>
     <a href="https://free-studio.chrysasynth.com/" target="_blank">Open Studio ↗</a>
   </div>
 </nav>
 
-<div class="forge-topbar" id="forgeTopbar">
-  <div class="forge-topbar-inner">
 
-    <div class="ft-text">
-      <span>✦</span> New tools. First.
-    </div>
-
-    <div class="ft-form" id="ftForm">
-      <input
-        class="ft-input"
-        type="email"
-        id="ft-email"
-        placeholder="your@email.com"
-        autocomplete="email"
-      />
-      <button class="ft-btn" id="ft-submit">Join</button>
-    </div>
-
-    <div class="ft-success" id="ftSuccess">
-      You're in.
-    </div>
-
-    <button class="ft-close" id="ftClose" aria-label="Close">
-      ×
-    </button>
-
-  </div>
-</div>
 
 <main>
 
 <!-- S1: HERO -->
-<section class="hero" id="hero">
+<section class="hero hero--seed" id="hero">
+
   <canvas class="hero-bg-canvas" id="particleCanvas"></canvas>
   <div class="hero-grain"></div>
-  <div class="hero-layout">
-    <div class="hero-content">
+
+  <div class="hero-seed-shell">
+
+    <div class="hero-seed-heading">
+
       <div class="hero-badge">
         <span class="badge-dot"></span>
         Creative Audio Laboratory
       </div>
-      <h1 class="hero-title">
+
+      <h1 class="hero-title hero-title--centered">
         <span class="line">The tools to</span>
         <span class="line grad">shape sound.</span>
       </h1>
-      <p class="hero-sub">
+
+      <p class="hero-sub hero-sub--centered">
         40+ browser-based audio tools. No installs.<br>
         From ambient textures to melodic generators.
       </p>
-      <div class="hero-actions">
-        <a href="#start" class="btn-primary">Start Exploring</a>
-        <a href="#tools" class="btn-ghost">Browse All Tools</a>
-      </div>
-      <div class="hero-stats">
-        <div class="stat"><strong>40+</strong><span>Audio Tools</span></div>
-        <div class="stat-div"></div>
-        <div class="stat"><strong>4</strong><span>Categories</span></div>
-        <div class="stat-div"></div>
-        <div class="stat"><strong>&#8734;</strong><span>Possibilities</span></div>
-      </div>
+
+      <a href="#tools" class="hero-tools-link">
+        Explore all tools
+        <span aria-hidden="true">→</span>
+      </a>
+
     </div>
 
-    <div class="hero-demo">
-      <div class="hero-demo-label">
-        <span class="demo-dot"></span>
-        Interactive Demo — Try it
-      </div>
-     <div class="hero-demo-frame">
+<div class="forge-orbit-field" aria-hidden="true">
+  <span class="forge-orbit forge-orbit--back"></span>
+  <span class="forge-orbit forge-orbit--mid"></span>
+  <span class="forge-orbit forge-orbit--front"></span>
+</div>
+<div
+  class="forge-seed-card is-intro"
+  id="forgeSeed"
+  data-seed-state="intro"
+>
 
-  <!-- Desktop Drum Machine -->
-  <div class="cs-scope">
-    <div class="cs-box">
+  <div class="forge-seed-beta" aria-label="Beta">
+    <span class="forge-seed-beta-dot" aria-hidden="true"></span>
+    Beta
+  </div>
 
-      <div class="cs-top">
-        <button class="cs-btn" id="cs-playBtn">Play</button>
+  <!-- INTRO -->
+  <div
+    class="forge-seed-state forge-seed-intro"
+    id="forgeSeedIntro"
+  >
+    <div class="forge-seed-intro-copy">
+      <h2>Forge Seed</h2>
 
-        <select id="cs-preset" class="cs-select">
-          <option value="techno124">Techno 124</option>
-          <option value="idm110">IDM 110</option>
-          <option value="minimalKickHH">Minimal</option>
-        </select>
+      <p>
+        Every Seed is unique.<br>
+        Generate your own musical starting point.
+      </p>
+    </div>
 
-        <button class="cs-btn" id="cs-loadPreset">Load</button>
+    <button
+      class="forge-seed-generate"
+      id="forgeSeedGenerate"
+      type="button"
+    >
+      Generate My Seed
+    </button>
+  </div>
 
-        <div class="cs-mini">
-          Tempo
-          <input id="cs-tempo" class="cs-range" type="range" min="70" max="180" value="124">
-          <span id="cs-tempoVal">124</span>
-        </div>
+  <!-- LOADING -->
+  <div
+    class="forge-seed-state forge-seed-loading"
+    id="forgeSeedLoading"
+    aria-live="polite"
+    hidden
+  >
+    <div
+      class="forge-seed-loading-wave"
+      id="forgeSeedLoadingWave"
+      aria-hidden="true"
+    ></div>
 
-        <div class="cs-mini">
-          Swing
-          <input id="cs-swing" class="cs-range" type="range" min="0" max="60" value="10">
-          <span id="cs-swingVal">10</span>%
-        </div>
-      </div>
-
-      <div class="cs-grid-wrap">
-        <div id="cs-grid" class="cs-grid"></div>
-      </div>
-
-      <div class="cs-mix">
-        <div class="cs-fader"><label>Kick</label><input data-track="kick" type="range" min="0" max="1" step="0.01" value="0.9"></div>
-        <div class="cs-fader"><label>Snare</label><input data-track="snare" type="range" min="0" max="1" step="0.01" value="0.85"></div>
-        <div class="cs-fader"><label>HH Closed</label><input data-track="hh_cl" type="range" min="0" max="1" step="0.01" value="0.9"></div>
-        <div class="cs-fader"><label>HH Open</label><input data-track="hh_op" type="range" min="0" max="1" step="0.01" value="0.75"></div>
-        <div class="cs-fader"><label>Chord</label><input id="cs-gain-chord" type="range" min="0" max="1" step="0.01" value="0.75"></div>
-        <div class="cs-fader"><label>Bass</label><input id="cs-gain-bass" type="range" min="0" max="1" step="0.01" value="0.80"></div>
-      </div>
-
-      <div class="cs-macros">
-        <div class="cs-macros__inner">
-
-          <div class="cs-macros__group">
-            <div class="cs-macros__title">Chord (Synth One-Shots)</div>
-            <button class="cs-pad" data-macro="chordA">Chord A</button>
-            <button class="cs-pad" data-macro="chordB">Chord B</button>
-          </div>
-
-          <div class="cs-macros__group">
-            <div class="cs-macros__title">Bass (One-Shot)</div>
-            <button class="cs-pad" data-macro="bass">Bass</button>
-          </div>
-
-        </div>
-      </div>
-
+    <div class="forge-seed-loading-copy">
+      <strong>Forging your Seed<span aria-hidden="true">…</span></strong>
+      <span>Shaping harmony, movement and texture.</span>
     </div>
   </div>
 
-  <!-- Mobile Demo -->
-  <div class="cs-mobile-demo">
+  <!-- RESULT -->
+  <div
+    class="forge-seed-state forge-seed-result"
+    id="forgeSeedResult"
+    hidden
+  >
 
-    <button class="cs-mobile-play" id="cs-mobile-playBtn">
-      <span class="cs-mobile-playIcon"></span>
-      <span>Play</span>
-    </button>
+    <div class="forge-seed-player">
 
-    <div id="cs-mobile-pattern" class="cs-mobile-pattern"></div>
+      <button
+        class="forge-seed-play"
+        id="forgeSeedPlay"
+        type="button"
+        aria-label="Play Seed"
+        aria-pressed="false"
+      >
+        <span
+          class="forge-seed-play-icon"
+          aria-hidden="true"
+        ></span>
 
-    <div class="cs-mobile-controls">
-
-      <select id="cs-mobile-preset">
-        <option value="techno124">Techno 124</option>
-        <option value="idm110">IDM 110</option>
-        <option value="minimalKickHH">Minimal</option>
-      </select>
-
-      <button id="cs-mobile-loadPreset">
-        Load Preset
+        <span
+          class="forge-seed-pause-icon"
+          aria-hidden="true"
+        >
+          <span></span>
+          <span></span>
+        </span>
       </button>
 
+     <div
+  class="forge-seed-waveform"
+  id="forgeSeedWaveform"
+  aria-hidden="true"
+>
+  <canvas
+    class="forge-seed-wave-canvas"
+    id="forgeSeedWaveCanvas"
+  ></canvas>
+</div>
+
     </div>
 
+    <div class="forge-seed-identity">
+
+      <strong id="forgeSeedName">
+        Solace-71820
+      </strong>
+
+      <div class="forge-seed-specs">
+        <span id="forgeSeedType">Chord Bloom</span>
+        <span aria-hidden="true">·</span>
+        <span id="forgeSeedKey">D Minor</span>
+        <span aria-hidden="true">·</span>
+        <span id="forgeSeedDuration">0:08</span>
+      </div>
+
+    </div>
+
+    
+    <div class="forge-seed-actions">
+
+      <button
+        class="forge-seed-keep"
+        id="forgeSeedKeep"
+        type="button"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M12 3v12"></path>
+          <path d="m7 10 5 5 5-5"></path>
+          <path d="M5 21h14"></path>
+        </svg>
+
+        <span>Keep this Seed</span>
+      </button>
+
+      <button
+        class="forge-seed-regenerate"
+        id="forgeSeedRegenerate"
+        type="button"
+        aria-label="Generate another Seed"
+        title="Generate another Seed"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <polyline points="23 4 23 10 17 10"></polyline>
+          <polyline points="1 20 1 14 7 14"></polyline>
+          <path d="M3.5 9a9 9 0 0 1 14.9-3.4L23 10"></path>
+          <path d="M1 14l4.6 4.4A9 9 0 0 0 20.5 15"></path>
+        </svg>
+      </button>
+
+       </div>
+    <!-- fin .forge-seed-actions -->
+
   </div>
+  <!-- fin .forge-seed-result -->
 
 </div>
-  <a href="#start" class="hero-scroll">
-    <span>Discover</span>
-    <svg width="14" height="20" viewBox="0 0 14 20" fill="none">
-      <rect x="1" y="1" width="12" height="18" rx="6" stroke="currentColor" stroke-width="1.2"/>
-      <circle cx="7" cy="6" r="2" fill="currentColor" class="scroll-dot"/>
-    </svg>
-  </a>
+<!-- fin .forge-seed-card -->
+
+<p class="forge-seed-hook">
+  One musical idea. Billions of possibilities.
+</p>
+
+</div>
+<!-- fin .hero-seed-shell -->
+
 </section>
+<!-- fin .hero -->
 
-<!-- S2: START HERE -->
-<section class="start-here" id="start">
-  <div class="container">
-    <div class="section-header reveal">
-      <div class="section-label">&#10022; New to Forge?</div>
-      <h2 class="section-title">Start Here</h2>
-      <p class="section-sub">Four tools hand-picked for your first sonic journey.</p>
-    </div>
-
-    <div class="start-grid">
-
-      <a href="https://chrysasynth.com/neuroflow-brainwave-generator" class="start-card start-card--hero reveal" style="--delay:0ms">
-        <div class="start-card-glow" style="--hue:210"></div>
-        <div class="start-card-tag">Wellness</div>
-        <h3>NeuroFlow</h3>
-        <p>Brainwave entrainment for focus, relaxation and deep states of mind.</p>
-        <span class="start-cta">Open Tool &#8594;</span>
-
-        <div class="start-wave">
-          <svg viewBox="0 0 120 50" fill="none">
-            <path d="M0 25 Q15 5 30 25 Q45 45 60 25 Q75 5 90 25 Q105 45 120 25"
-                  stroke="rgba(77,157,224,0.45)"
-                  stroke-width="1.5"
-                  fill="none"/>
-            <path d="M0 25 Q20 10 40 25 Q60 40 80 25 Q100 10 120 25"
-                  stroke="rgba(139,92,246,0.25)"
-                  stroke-width="1"
-                  fill="none"/>
-          </svg>
-        </div>
-
-      </a>
-
-      <a href="https://chrysasynth.com/aura-sampler" class="start-card reveal" style="--delay:60ms">
-        <div class="start-card-glow" style="--hue:160"></div>
-        <div class="start-card-tag">Creative</div>
-        <h3>Aura Sampler</h3>
-        <p>Layer and evolve ambient textures in real time.</p>
-        <span class="start-cta">Open Tool &#8594;</span>
-      </a>
-
-      <a href="https://chrysasynth.com/cosmic-garden" class="start-card reveal" style="--delay:120ms">
-        <div class="start-card-glow" style="--hue:280"></div>
-        <div class="start-card-tag">Wellness</div>
-        <h3>Cosmic Garden</h3>
-        <p>An interactive ambient space to explore and inhabit.</p>
-        <span class="start-cta">Open Tool &#8594;</span>
-      </a>
-
-      <a href="https://chrysasynth.com/subdive-melodic-systems" class="start-card reveal" style="--delay:180ms">
-        <div class="start-card-glow" style="--hue:40"></div>
-        <div class="start-card-tag">Creative</div>
-        <h3>Subdive</h3>
-        <p>Seed-driven melodic systems that generate infinite sequences.</p>
-        <span class="start-cta">Open Tool &#8594;</span>
-      </a>
-
-    </div>
-  </div>
-</section>
 <!-- S3: CATEGORIES -->
 <section class="categories" id="categories">
   <div class="container">
@@ -670,7 +664,7 @@
 
     <div class="footer-col">
       <h4>Forge</h4>
-      <a href="#start">Start Here</a>
+      
       <a href="#categories">Categories</a>
       <a href="#tools">All Tools</a>
       <a href="#featured">Featured</a>
@@ -708,7 +702,90 @@
     <span class="footer-sig">Crafted with sound in mind &#10022;</span>
   </div>
 </footer>
+<!-- FORGE SEED — KEEP MODAL -->
+<div
+  class="forge-seed-modal"
+  id="forgeSeedModal"
+  aria-hidden="true"
+>
+  <div
+    class="forge-seed-modal-backdrop"
+    data-seed-modal-close
+  ></div>
 
+  <div
+    class="forge-seed-modal-panel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="forgeSeedModalTitle"
+  >
+
+    <button
+      class="forge-seed-modal-close"
+      type="button"
+      aria-label="Close"
+      data-seed-modal-close
+    >
+      ×
+    </button>
+
+    <div class="forge-seed-modal-kicker">
+      Your Seed is ready
+    </div>
+
+    <h2 id="forgeSeedModalTitle">
+      Keep this Seed
+    </h2>
+
+    <p class="forge-seed-modal-copy">
+      Enter your email to unlock and download your WAV.
+    </p>
+
+    <form
+      class="forge-seed-modal-form"
+      id="forgeSeedModalForm"
+      novalidate
+    >
+      <label
+        class="forge-seed-modal-label"
+        for="forgeSeedEmail"
+      >
+        Email
+      </label>
+
+      <input
+        class="forge-seed-modal-input"
+        id="forgeSeedEmail"
+        name="email"
+        type="email"
+        autocomplete="email"
+        placeholder="you@example.com"
+        required
+      >
+
+      <p
+        class="forge-seed-modal-error"
+        id="forgeSeedModalError"
+        hidden
+      >
+        Enter a valid email address.
+      </p>
+
+      <button
+        class="forge-seed-modal-submit"
+        id="forgeSeedModalSubmit"
+        type="submit"
+      >
+        Unlock & Download
+      </button>
+    </form>
+
+    <p class="forge-seed-modal-note">
+      No spam. Unsubscribe anytime.
+    </p>
+
+  </div>
+</div>
 <script src="forge.js"></script>
 
 

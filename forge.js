@@ -2554,7 +2554,7 @@ document
        * from those two values whenever you need it again
        * (e.g. to re-render and email it as an attachment later).
        */
-      await fetch('/api/forge-seed-subscribe', {
+      await fetch('https://forge-irwintages-projects.vercel.app/api/forge-seed-subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

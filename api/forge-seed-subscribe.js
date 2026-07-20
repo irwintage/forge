@@ -28,10 +28,12 @@ export default async function handler(req, res) {
       'https://api.brevo.com/v3/contacts',
       {
         method: 'POST',
+
         headers: {
           'Content-Type': 'application/json',
           'api-key': process.env.BREVO_API_KEY
         },
+
         body: JSON.stringify({
           email,
           updateEnabled: true
@@ -55,7 +57,8 @@ export default async function handler(req, res) {
     }
 
     return res.status(200).json({
-      success: true
+      success: true,
+      seedId: seedId || null
     });
 
   } catch (error) {

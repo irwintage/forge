@@ -8,15 +8,6 @@ window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 40);
 }, { passive: true });
 
-/* ── NAV BURGER ── */
-const burger = document.getElementById('navBurger');
-const mobileMenu = document.getElementById('navMobile');
-burger.addEventListener('click', () => {
-  mobileMenu.classList.toggle('open');
-});
-document.addEventListener('click', (e) => {
-  if (!nav.contains(e.target)) mobileMenu.classList.remove('open');
-});
 
 /* ── SCROLL REVEAL ── */
 const revealObserver = new IntersectionObserver((entries) => {
@@ -2554,7 +2545,7 @@ document
        * from those two values whenever you need it again
        * (e.g. to re-render and email it as an attachment later).
        */
-      await fetch('https://chrysasynth-forge.vercel.app/api/forge-seed-subscribe', {
+      await fetch('/api/forge-seed-subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -2600,3 +2591,960 @@ renderSeed(currentSeed);
 
 setSeedState("intro");
 })();
+/* ============================================================
+   FORGE — HERO + CATEGORIES SCROLL MOTION
+   ============================================================ */
+
+window.addEventListener('load', () => {
+
+  const hero = document.getElementById('hero');
+  const shell = document.querySelector('.hero-seed-shell');
+  const categories = document.getElementById('categories');
+
+  if (!hero || !shell || !categories) {
+    console.warn('Forge scroll motion: element missing');
+    return;
+  }
+
+  console.log('Forge scroll motion: ACTIVE');
+
+  function clamp(v, min, max) {
+    return Math.max(min, Math.min(max, v));
+  }
+
+  function easeOutCubic(t) {
+    return 1 - Math.pow(1 - t, 3);
+  }
+
+  function updateHeroMotion() {
+
+    const rect = hero.getBoundingClientRect();
+
+    const progress = clamp(
+      -rect.top / (hero.offsetHeight * 0.82),
+      0,
+      1
+    );
+
+    /* =========================
+       HERO RECULE
+       ========================= */
+
+    const heroScale = 1 - progress * 0.08;
+    const heroY = progress * -32;
+    const heroOpacity = 1 - progress * 0.45;
+
+    shell.style.setProperty(
+      'transform',
+      `translate3d(0, ${heroY}px, 0) scale(${heroScale})`,
+      'important'
+    );
+
+    shell.style.setProperty(
+      'opacity',
+      heroOpacity,
+      'important'
+    );
+
+    shell.style.setProperty(
+      'transform-origin',
+      '50% 42%',
+      'important'
+    );
+
+    shell.style.setProperty(
+      'will-change',
+      'transform, opacity'
+    );
+
+
+    /* =========================
+       CATEGORIES ARRIVE
+       ========================= */
+
+    const catProgress = clamp(
+      (progress - 0.30) / 0.70,
+      0,
+      1
+    );
+
+    const eased = easeOutCubic(catProgress);
+
+    const catY = eased * -170;
+    const catScale = 0.965 + eased * 0.035;
+
+    categories.style.setProperty(
+      'transform',
+      `translate3d(0, ${catY}px, 0) scale(${catScale})`,
+      'important'
+    );
+
+    categories.style.setProperty(
+      'transform-origin',
+      '50% 0%',
+      'important'
+    );
+
+    categories.style.setProperty(
+      'will-change',
+      'transform'
+    );
+  }
+
+  updateHeroMotion();
+
+  window.addEventListener(
+    'scroll',
+    updateHeroMotion,
+    { passive: true }
+  );
+
+});
+/* ============================================================
+   FORGE — FEATURED BENTO SCROLL MOTION V3
+   Dispersé → Assemblé → Dispersé
+   ============================================================ */
+
+window.addEventListener('load', () => {
+
+  const featured = document.getElementById('featured');
+  const create = document.getElementById('create');
+
+  if (!featured || !create) {
+    console.warn('Featured scroll motion: element missing');
+    return;
+  }
+
+  const cards = [
+    ...featured.querySelectorAll('.feat-card')
+  ];
+
+  const createHeader =
+    create.querySelector('.section-header');
+
+  const createItems = [
+    ...create.querySelectorAll('.create-item')
+  ];
+
+  function clamp(v, min, max) {
+    return Math.max(min, Math.min(max, v));
+  }
+
+  function easeOutCubic(t) {
+    return 1 - Math.pow(1 - t, 3);
+  }
+
+  function easeInOutCubic(t) {
+    return t < 0.5
+      ? 4 * t * t * t
+      : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+
+  function updateFeaturedMotion() {
+  const isMobile =
+    window.matchMedia('(max-width: 768px)').matches;
+
+  if (isMobile) {
+
+    cards.forEach(card => {
+      card.style.removeProperty('transform');
+      card.style.removeProperty('opacity');
+      card.style.removeProperty('will-change');
+    });
+
+    return;
+  }
+    const rect = featured.getBoundingClientRect();
+    const vh = window.innerHeight;
+
+    /* ========================================================
+       PROGRESSION GLOBALE
+
+       0 = section encore sous l'écran
+       0.5 = Featured parfaitement dans la zone centrale
+       1 = section en train de quitter vers le haut
+       ======================================================== */
+
+    const start = vh * 1.05;
+    const end = -featured.offsetHeight * 0.35;
+
+    const progress = clamp(
+      (start - rect.top) /
+      (start - end),
+      0,
+      1
+    );
+
+
+    /* ========================================================
+       BENTO AMOUNT
+
+       0 = dispersé
+       1 = parfaitement assemblé
+
+       0.00 → 0.32 = rassemblement
+       0.32 → 0.58 = reste assemblé
+       0.58 → 1.00 = dispersion
+       ======================================================== */
+
+    let assembled = 0;
+
+    if (progress < 0.65) {
+
+      const p = clamp(
+        progress / 0.32,
+        0,
+        1
+      );
+
+      assembled =
+        easeInOutCubic(p);
+
+    }
+
+    else if (progress < 0.82) {
+
+      assembled = 1;
+
+    }
+
+    else {
+
+      const p = clamp(
+        (progress - 0.58) / 0.42,
+        0,
+        1
+      );
+
+      assembled =
+        1 - easeInOutCubic(p);
+
+    }
+
+
+    /* ========================================================
+       CARTES
+       ======================================================== */
+
+    const directions = [
+
+      /* Hold — grande carte gauche */
+      { x: -1.10, y:  0.20, r: -1.4 },
+
+      /* Axis */
+      { x:  0.10, y: -0.85, r:  0.8 },
+
+      /* pixelTone */
+      { x:  1.05, y: -0.25, r:  1.2 },
+
+      /* Subdive */
+      { x: -0.75, y:  0.85, r: -1.0 },
+
+      /* Frequency */
+      { x:  0.20, y:  1.00, r:  0.5 },
+
+      /* Orbit Pan */
+      { x:  1.15, y:  0.65, r:  1.1 }
+
+    ];
+
+
+    cards.forEach((card, index) => {
+
+      const dir =
+        directions[index % directions.length];
+
+
+      /*
+        scatteredAmount :
+        1 = complètement dispersé
+        0 = Bento parfaitement assemblé
+      */
+
+      const scatteredAmount =
+        1 - assembled;
+
+
+      const x =
+        dir.x * 145 * scatteredAmount;
+
+      const y =
+        dir.y * 85 * scatteredAmount;
+
+      const rotation =
+        dir.r * 3.5 * scatteredAmount;
+
+      const scale =
+        1 - 0.065 * scatteredAmount;
+
+
+      /*
+        On garde les cartes lisibles même dispersées.
+      */
+
+      const opacity =
+        1 - 0.32 * scatteredAmount;
+
+
+      card.style.setProperty(
+        'transform',
+        `
+          translate3d(${x}px, ${y}px, 0)
+          rotate(${rotation}deg)
+          scale(${scale})
+        `,
+        'important'
+      );
+
+      card.style.setProperty(
+        'opacity',
+        opacity,
+        'important'
+      );
+
+      card.style.setProperty(
+        'will-change',
+        'transform, opacity'
+      );
+
+    });
+
+
+    /* ========================================================
+       CREATE
+
+       Commence à apparaître uniquement
+       pendant la deuxième dispersion.
+       ======================================================== */
+
+    const createProgress = clamp(
+      (progress - 0.66) / 0.34,
+      0,
+      1
+    );
+
+    const createEase =
+      easeOutCubic(createProgress);
+
+
+    if (createHeader) {
+
+      const headerY =
+        65 * (1 - createEase);
+
+      const headerScale =
+        0.96 + createEase * 0.04;
+
+      createHeader.style.setProperty(
+        'transform',
+        `
+          translate3d(0, ${headerY}px, 0)
+          scale(${headerScale})
+        `,
+        'important'
+      );
+
+      createHeader.style.setProperty(
+        'opacity',
+        createEase,
+        'important'
+      );
+
+    }
+
+
+    createItems.forEach((item, index) => {
+
+      const delay =
+        index * 0.06;
+
+      const itemProgress = clamp(
+        (createProgress - delay) /
+        (1 - delay),
+        0,
+        1
+      );
+
+      const itemEase =
+        easeOutCubic(itemProgress);
+
+      const itemY =
+        38 * (1 - itemEase);
+
+      item.style.setProperty(
+        'transform',
+        `translate3d(0, ${itemY}px, 0)`,
+        'important'
+      );
+
+      item.style.setProperty(
+        'opacity',
+        itemEase,
+        'important'
+      );
+
+    });
+
+  }
+
+
+  updateFeaturedMotion();
+
+  window.addEventListener(
+    'scroll',
+    updateFeaturedMotion,
+    { passive: true }
+  );
+
+  window.addEventListener(
+    'resize',
+    updateFeaturedMotion,
+    { passive: true }
+  );
+
+});
+/* ============================================================
+   FORGE — WELLNESS APPS
+   ZOOM IN → ZOOM OUT
+   ============================================================ */
+
+window.addEventListener('load', () => {
+
+  const section =
+    document.getElementById('wellness-apps');
+
+  if (!section) {
+    console.warn('Wellness scroll motion: section not found');
+    return;
+  }
+
+  const content =
+    section.querySelector('.container');
+
+  if (!content) return;
+
+
+  function clamp(v, min, max) {
+    return Math.max(min, Math.min(max, v));
+  }
+
+
+  function easeInOutCubic(t) {
+    return t < 0.5
+      ? 4 * t * t * t
+      : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+
+
+  function updateWellnessMotion() {
+
+    /* Pas d'animation mobile */
+    if (window.innerWidth <= 768) {
+
+      content.style.removeProperty('transform');
+      content.style.removeProperty('opacity');
+      content.style.removeProperty('will-change');
+
+      return;
+    }
+
+
+    const rect =
+      section.getBoundingClientRect();
+
+    const vh =
+      window.innerHeight;
+
+
+    /*
+      Progression de toute la traversée :
+
+      0 = section arrive par le bas
+      0.5 = section au centre
+      1 = section quitte vers le haut
+    */
+
+    const start =
+      vh;
+
+    const end =
+      -section.offsetHeight;
+
+    const progress = clamp(
+      (start - rect.top) /
+      (start - end),
+      0,
+      1
+    );
+
+
+    /*
+      On construit une courbe :
+
+      0 → 0.5 : zoom IN
+      0.5 → 1 : zoom OUT
+    */
+
+    let zoomProgress;
+
+    if (progress <= 0.5) {
+
+      zoomProgress =
+        progress / 0.5;
+
+    } else {
+
+      zoomProgress =
+        (1 - progress) / 0.5;
+
+    }
+
+    const eased =
+      easeInOutCubic(
+        clamp(zoomProgress, 0, 1)
+      );
+
+
+    /*
+      0.90 quand éloigné
+      1.00 au centre
+      puis retour à 0.90
+    */
+
+    const scale =
+      0.90 + eased * 0.10;
+
+
+    /*
+      Léger déplacement vertical
+    */
+
+    const y =
+      (1 - eased) * 35;
+
+
+    /*
+      Opacité :
+      jamais trop faible
+    */
+
+    const opacity =
+      0.62 + eased * 0.38;
+
+
+    content.style.setProperty(
+      'transform',
+      `
+        translate3d(0, ${y}px, 0)
+        scale(${scale})
+      `,
+      'important'
+    );
+
+    content.style.setProperty(
+      'opacity',
+      opacity,
+      'important'
+    );
+
+    content.style.setProperty(
+      'transform-origin',
+      '50% 50%',
+      'important'
+    );
+
+    content.style.setProperty(
+      'will-change',
+      'transform, opacity'
+    );
+
+  }
+
+
+  updateWellnessMotion();
+
+
+  window.addEventListener(
+    'scroll',
+    updateWellnessMotion,
+    { passive: true }
+  );
+
+
+  window.addEventListener(
+    'resize',
+    updateWellnessMotion,
+    { passive: true }
+  );
+
+});
+/* ============================================================
+   FORGE — STUDIO FINAL NARRATIVE MOTION
+   Seed → Studio → CTA
+   ============================================================ */
+
+window.addEventListener('load', () => {
+
+  const studio = document.getElementById('studio');
+
+  if (!studio) {
+    console.warn('Studio motion: section not found');
+    return;
+  }
+
+  const button =
+    studio.querySelector('.btn-studio');
+
+  const arrow =
+    button?.querySelector('.btn-arrow');
+
+  const screen =
+    studio.querySelector('.studio-screen-frame');
+
+  const studioInner =
+    studio.querySelector('.studio-inner');
+
+  if (!button || !screen || !studioInner) return;
+
+
+  /* ========================================================
+     CREATE TRAVELLING SEED
+     ======================================================== */
+
+  const seed = document.createElement('div');
+
+  seed.className = 'studio-travel-seed';
+
+  seed.innerHTML = `
+    <span class="studio-seed-core"></span>
+    <span class="studio-seed-trail"></span>
+  `;
+
+  studio.appendChild(seed);
+
+
+  function clamp(v, min, max) {
+    return Math.max(min, Math.min(max, v));
+  }
+
+  function easeOutCubic(t) {
+    return 1 - Math.pow(1 - t, 3);
+  }
+
+  function easeInOutCubic(t) {
+    return t < 0.5
+      ? 4 * t * t * t
+      : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+
+
+  function updateStudioMotion() {
+
+    /* =========================
+       MOBILE RESET
+       ========================= */
+
+    if (window.innerWidth <= 768) {
+
+      seed.style.display = 'none';
+
+      screen.style.removeProperty('transform');
+      screen.style.removeProperty('opacity');
+      screen.style.removeProperty('filter');
+      screen.style.removeProperty('box-shadow');
+
+      button.style.removeProperty('transform');
+      button.style.removeProperty('opacity');
+      button.style.removeProperty('box-shadow');
+
+      if (arrow) {
+        arrow.style.removeProperty('transform');
+        arrow.style.removeProperty('opacity');
+      }
+
+      return;
+    }
+
+    seed.style.display = 'block';
+
+
+    /* =========================
+       GLOBAL SCROLL PROGRESS
+       ========================= */
+
+    const rect =
+      studio.getBoundingClientRect();
+
+    const vh =
+      window.innerHeight;
+
+    const progress = clamp(
+      (vh - rect.top) /
+      (vh * 1.05),
+      0,
+      1
+    );
+
+
+    /* ========================================================
+       PHASES
+
+       0.00 → 0.35 : seed appears
+       0.20 → 0.67 : seed travels
+       0.50 → 0.82 : screen activates
+       0.66 → 1.00 : CTA activates
+       ======================================================== */
+
+
+    /* =========================
+       SEED TRAVEL
+       ========================= */
+
+    const seedProgress = clamp(
+      (progress - 0.18) / 0.48,
+      0,
+      1
+    );
+
+    const seedEase =
+      easeInOutCubic(seedProgress);
+
+
+    /*
+      Start roughly near the text area.
+      Finish inside the Studio screen.
+    */
+
+    const startX = 25;
+    const startY = 34;
+
+    const endX = 73;
+    const endY = 53;
+
+
+    const seedX =
+      startX +
+      (endX - startX) * seedEase;
+
+    /*
+      Slight arc instead of straight line
+    */
+
+    const arc =
+      Math.sin(seedEase * Math.PI) * -12;
+
+    const seedY =
+      startY +
+      (endY - startY) * seedEase +
+      arc;
+
+
+    const seedScale =
+      0.65 + seedEase * 0.45;
+
+
+    /*
+      Fade in, then disappear as it enters Studio
+    */
+
+    let seedOpacity = 1;
+
+    if (seedProgress < 0.12) {
+      seedOpacity =
+        seedProgress / 0.12;
+    }
+
+    if (seedProgress > 0.82) {
+      seedOpacity =
+        1 -
+        (seedProgress - 0.82) / 0.18;
+    }
+
+
+    seed.style.setProperty(
+      'left',
+      `${seedX}%`
+    );
+
+    seed.style.setProperty(
+      'top',
+      `${seedY}%`
+    );
+
+    seed.style.setProperty(
+      'transform',
+      `translate(-50%, -50%) scale(${seedScale})`
+    );
+
+    seed.style.setProperty(
+      'opacity',
+      clamp(seedOpacity, 0, 1)
+    );
+
+
+    /* =========================
+       SCREEN ACTIVATION
+       ========================= */
+
+    const screenProgress = clamp(
+      (progress - 0.46) / 0.34,
+      0,
+      1
+    );
+
+    const screenEase =
+      easeOutCubic(screenProgress);
+
+
+    const screenScale =
+      0.92 + screenEase * 0.08;
+
+    const screenY =
+      38 * (1 - screenEase);
+
+    const screenBlur =
+      7 * (1 - screenEase);
+
+    const screenOpacity =
+      0.50 + screenEase * 0.50;
+
+
+    screen.style.setProperty(
+      'transform',
+      `
+        translate3d(0, ${screenY}px, 0)
+        scale(${screenScale})
+      `,
+      'important'
+    );
+
+    screen.style.setProperty(
+      'opacity',
+      screenOpacity,
+      'important'
+    );
+
+    screen.style.setProperty(
+      'filter',
+      `blur(${screenBlur}px)`,
+      'important'
+    );
+
+
+    /*
+      Tiny impact when the seed enters the screen
+    */
+
+    const impact = clamp(
+      1 -
+      Math.abs(seedProgress - 0.92) / 0.12,
+      0,
+      1
+    );
+
+    screen.style.setProperty(
+      'box-shadow',
+      `
+        0 30px 90px rgba(0,0,0,.46),
+        0 0 ${40 + impact * 70}px
+        rgba(77,157,224,${0.08 + impact * 0.20})
+      `,
+      'important'
+    );
+
+
+    /* =========================
+       CTA ACTIVATION
+       ========================= */
+
+    const buttonProgress = clamp(
+      (progress - 0.64) / 0.30,
+      0,
+      1
+    );
+
+    const buttonEase =
+      easeOutCubic(buttonProgress);
+
+
+    const buttonScale =
+      0.90 + buttonEase * 0.10;
+
+    const buttonY =
+      24 * (1 - buttonEase);
+
+    const buttonOpacity =
+      0.48 + buttonEase * 0.52;
+
+    const glowOpacity =
+      0.06 + buttonEase * 0.28;
+
+
+    button.style.setProperty(
+      'transform',
+      `
+        translate3d(0, ${buttonY}px, 0)
+        scale(${buttonScale})
+      `,
+      'important'
+    );
+
+    button.style.setProperty(
+      'opacity',
+      buttonOpacity,
+      'important'
+    );
+
+    button.style.setProperty(
+      'box-shadow',
+      `
+        0 0 ${18 + buttonEase * 32}px
+        rgba(77,157,224,${glowOpacity}),
+        0 12px 34px rgba(0,0,0,.28)
+      `,
+      'important'
+    );
+
+
+    /* =========================
+       CTA ARROW
+       ========================= */
+
+    if (arrow) {
+
+      arrow.style.setProperty(
+        'display',
+        'inline-block'
+      );
+
+      arrow.style.setProperty(
+        'transform',
+        `translateX(${buttonEase * 8}px)`
+      );
+
+      arrow.style.setProperty(
+        'opacity',
+        0.5 + buttonEase * 0.5
+      );
+
+    }
+
+  }
+
+
+  updateStudioMotion();
+
+
+  window.addEventListener(
+    'scroll',
+    updateStudioMotion,
+    { passive: true }
+  );
+
+  window.addEventListener(
+    'resize',
+    updateStudioMotion,
+    { passive: true }
+  );
+
+});

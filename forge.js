@@ -104,8 +104,7 @@ function setRoute(route, { updateHash = true } = {}) {
   const heroTitle = document.querySelector('.explore-hero-title');
   if (heroTitle && route === 'explore') {
     heroTitle.classList.remove('is-in');
-    void heroTitle.offsetWidth;
-    heroTitle.classList.add('is-in');
+    window.setTimeout(() => heroTitle.classList.add('is-in'), 80);
   }
 }
 

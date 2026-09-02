@@ -134,19 +134,21 @@ button{cursor:pointer;background:none;border:0}
 }
 .explore-hero{max-width:none}
 .explore-hero-title{
-  font-family:var(--font-d);font-size:40px;font-weight:700;letter-spacing:-.045em;line-height:1.02;
+  font-family:"Syne",sans-serif;font-size:42px;font-weight:800;letter-spacing:-.05em;line-height:1.02;
   color:#6ab8ef;
-  animation:riseIn .85s var(--ease) both;
+}
+.explore-hero-title.is-in{
+  animation:riseIn 1.8s cubic-bezier(.16,1,.3,1) both;
 }
 .explore-hero-copy{
   margin-top:14px;max-width:36ch;color:#b7c3d6;font-size:15px;line-height:1.6;
 }
 @keyframes riseIn{
-  from{opacity:0;transform:translateY(8px)}
+  from{opacity:0;transform:translateY(18px)}
   to{opacity:1;transform:none}
 }
 @media (prefers-reduced-motion:reduce){
-  .explore-hero-title{animation:none}
+  .explore-hero-title.is-in{animation:none}
 }
 
 .block-title{font-size:14px;font-weight:600;color:#c5d0e2;margin-bottom:12px}

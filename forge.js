@@ -101,6 +101,12 @@ function setRoute(route, { updateHash = true } = {}) {
     history.replaceState(null, '', '#' + route);
   }
   closeMobileNav();
+  const heroTitle = document.querySelector('.explore-hero-title');
+  if (heroTitle && route === 'explore') {
+    heroTitle.classList.remove('is-in');
+    void heroTitle.offsetWidth;
+    heroTitle.classList.add('is-in');
+  }
 }
 
 window.addEventListener('hashchange', () => setRoute(currentRoute(), { updateHash: false }));

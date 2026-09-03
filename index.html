@@ -1,350 +1,449 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Chrysasynth Forge - Creative Audio Laboratory</title>
-<meta name="description" content="40+ browser-based audio tools. No installs. Explore, create, discover."/>
-<link rel="canonical" href="https://forge.chrysasynth.com/" />
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
-<link rel="preconnect" href="https://unpkg.com"/>
-<script src="https://unpkg.com/tone@14.8.49/build/Tone.js"></script>
-<link rel="stylesheet" href="forge.css?v=hero3"/>
-<link rel="icon" href="/favicon.ico" sizes="48x48" />
-<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-<link rel="apple-touch-icon" href="/logo chrysasynth.com forge orbit" />
-<link rel="manifest" href="/site.webmanifest" />
-<meta name="theme-color" content="#07090e">
-</head>
-<body>
-<div class="app" id="app">
+/* Chrysasynth Forge — Pro visual language, workspace UX */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --page:#07090e;
+  --workspace:#0b0e16;
+  --text:#e4e8f2;
+  --text-2:#9aa8bf;
+  --text-3:#65728b;
+  --border:rgba(255,255,255,.07);
+  --creative:#4d9de0;
+  --wellness:#34d399;
+  --fx:#f59e0b;
+  --utility:#a78bfa;
+  --cyan:#6ab8ef;
+  --font-d:"Syne",sans-serif;
+  --font-b:"DM Sans",sans-serif;
+  --side:266px;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+html,body{height:100%}
+body{
+  background:var(--page);color:var(--text);font-family:var(--font-b);
+  overflow:hidden;-webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0}
+.app{display:flex;height:100vh}
 
-  <aside class="sidebar" id="sidebar">
-    <a href="#explore" class="sidebar-brand" data-route="explore">
-      <img src="logo-chrysasynth.png" alt="" class="logo-mark">
-      <span>CHRYSASYNTH<br><em>FORGE</em></span>
-    </a>
+/* SIDEBAR — Pro depth, typography only */
+.sidebar{
+  position:relative;width:var(--side);flex:0 0 var(--side);height:100vh;
+  display:flex;flex-direction:column;padding:22px 16px 18px;overflow:hidden;z-index:40;
+  border-right:1px solid rgba(128,184,255,.11);
+  background:
+    radial-gradient(circle at 18% 0%,rgba(84,148,255,.12),transparent 36%),
+    radial-gradient(circle at 100% 28%,rgba(143,86,255,.07),transparent 44%),
+    linear-gradient(180deg,#0c121d 0%,#080d16 100%);
+}
+.sidebar::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,255,255,.04),transparent 20%);
+}
+.sidebar>*{position:relative;z-index:1}
+.sidebar-brand{
+  display:flex;align-items:center;gap:10px;margin:0 6px 28px;
+  font-family:var(--font-d);font-size:11px;font-weight:700;letter-spacing:.1em;
+}
+.sidebar-brand em{font-style:normal;color:var(--text-2);letter-spacing:.16em}
+.logo-mark{width:36px;height:36px;object-fit:contain;filter:drop-shadow(0 0 10px rgba(90,175,255,.1))}
+.sidebar-nav{display:flex;flex-direction:column;gap:2px;flex:1}
+.nav-item{
+  min-height:42px;display:flex;align-items:center;gap:10px;padding:0 10px;
+  border:1px solid transparent;border-radius:12px;
+  color:var(--text-2);font-size:14px;font-weight:500;
+  transition:color .18s var(--ease),background .18s var(--ease),border-color .18s;
+}
+.nav-ico{
+  width:18px;height:18px;flex:0 0 18px;display:grid;place-items:center;color:inherit;
+}
+.nav-ico svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.nav-item:hover{color:var(--text);background:rgba(73,120,255,.05)}
+.nav-item.is-active{
+  color:#f5f8ff;border-color:rgba(105,185,255,.16);
+  background:linear-gradient(100deg,rgba(60,125,255,.12),rgba(133,82,255,.05));
+}
+.nav-item[data-route="creative"].is-active{color:#cfe6f8}
+.nav-item[data-route="wellness"].is-active{color:#d8fff0}
+.nav-item[data-route="fx"].is-active{color:#ffe8b5}
+.nav-item[data-route="utility"].is-active{color:#e6dcff}
+.nav-sep{height:1px;background:rgba(255,255,255,.06);margin:12px 8px}
+.sidebar-foot{padding-top:12px;border-top:1px solid rgba(255,255,255,.06)}
+.sidebar-lab{
+  position:relative;overflow:hidden;height:118px;margin-bottom:10px;
+  border:1px solid rgba(128,184,255,.12);border-radius:16px;
+}
+.sidebar-lab-img,
+.sidebar-lab-media{
+  position:absolute;inset:-16px;width:calc(100% + 32px);height:calc(100% + 32px);
+  object-fit:cover;object-position:58% 42%;
+  filter:blur(.55px) saturate(1.06) brightness(.84);
+  transform-origin:58% 42%;
+  animation:labDrift 22s ease-in-out infinite alternate;
+}
+.sidebar-lab-media{opacity:0;transition:opacity .4s ease}
+.sidebar-lab-media.is-on{opacity:1}
+@keyframes labDrift{
+  from{transform:scale(1.02) translate3d(-2%,-1%,0)}
+  to{transform:scale(1.12) translate3d(3%,2%,0)}
+}
+.sidebar-lab::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(8,12,20,.08) 0%,rgba(8,12,20,.72) 100%);
+}
+.sidebar-lab-copy{
+  position:absolute;left:12px;right:12px;bottom:12px;z-index:1;
+}
+.sidebar-lab-copy strong{display:block;font-family:var(--font-d);font-size:14px}
+.sidebar-lab-copy span{display:block;margin-top:3px;color:rgba(228,232,242,.78);font-size:11px}
+.sidebar-links{display:flex;gap:14px;align-items:center}
+.sidebar-studio{color:var(--text-3);font-size:13px;display:inline-flex;align-items:center}
+.sidebar-studio:hover{color:var(--cyan)}
+.ext-arrow{
+  display:inline-block;width:.72em;height:.72em;margin-left:.22em;vertical-align:-.06em;
+  background:currentColor;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='black' d='M5 3.2h7.8V11h-1.4V5.6L4.5 12.5l-1-1L10.4 4.6H5V3.2z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='black' d='M5 3.2h7.8V11h-1.4V5.6L4.5 12.5l-1-1L10.4 4.6H5V3.2z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.block-link{display:inline-flex;align-items:center}
 
-    <nav class="sidebar-nav" aria-label="Forge">
-      <a href="#explore" class="nav-item is-active" data-route="explore">Explore</a>
-      <a href="#creative" class="nav-item" data-route="creative">Creative</a>
-      <a href="#wellness" class="nav-item" data-route="wellness">Wellness</a>
-      <a href="#fx" class="nav-item" data-route="fx">FX</a>
-      <a href="#utility" class="nav-item" data-route="utility">Utility</a>
-      <div class="nav-sep"></div>
-      <a href="#tools" class="nav-item" data-route="tools">All Tools</a>
-      <a href="#about" class="nav-item" data-route="about">About Forge</a>
-    </nav>
+/* WORKSPACE */
+.workspace{
+  flex:1;min-width:0;height:100vh;display:flex;flex-direction:column;
+  background:
+    radial-gradient(circle at 16% 0%,rgba(59,130,246,.07),transparent 30%),
+    radial-gradient(circle at 86% 8%,rgba(139,92,246,.04),transparent 28%),
+    var(--workspace);
+}
+.topbar{height:104px;flex:0 0 104px;display:flex;align-items:flex-end;gap:18px;padding:24px 48px 20px 32px}
+.menu-btn{display:none;flex-direction:column;gap:5px}
+.menu-btn span{width:18px;height:1.5px;background:var(--text-2)}
+.topbar-title{flex:1;min-width:0}
+.topbar-title h1{font-family:var(--font-d);font-size:34px;letter-spacing:-.04em;line-height:1}
+.topbar-title p{margin-top:10px;color:var(--text-2);font-size:14px}
+.top-search{
+  width:260px;height:40px;display:flex;align-items:center;
+  padding:0 14px;border:1px solid rgba(128,184,255,.28);border-radius:12px;
+  background:rgba(16,22,34,.92);
+}
+.top-search:focus-within{border-color:rgba(106,184,239,.55);box-shadow:0 0 0 3px rgba(77,157,224,.12)}
+.top-search input{width:100%;background:none;border:0;outline:none;font-size:13px;color:var(--text)}
+.top-search input::placeholder{color:#8ea0b8;opacity:1}
 
-    <div class="sidebar-foot">
-      <div class="sidebar-lab">
-        <img src="forge-lab.png" alt="" class="sidebar-lab-img">
-        <video class="sidebar-lab-media" autoplay muted playsinline poster="forge-lab.png">
-          <source src="forge-lab.mp4" type="video/mp4">
-        </video>
-        <div class="sidebar-lab-copy">
-          <strong>Forge</strong>
-          <span>Creative Audio Laboratory</span>
-        </div>
-      </div>
-      <div class="sidebar-links">
-        <a href="https://free-studio.chrysasynth.com/" class="sidebar-studio" target="_blank" rel="noopener">Studio ↗</a>
-        <a href="https://chrysasynth.com/sound-shop" class="sidebar-studio" target="_blank" rel="noopener">Shop ↗</a>
-      </div>
-    </div>
-  </aside>
+.main{flex:1;min-height:0;padding:10px 48px 28px 32px;overflow:hidden}
+.view{display:none;height:100%;min-height:0}
+.view.is-active{display:flex;flex-direction:column}
+.view-explore.is-active{
+  display:grid;
+  grid-template-rows:auto auto 1fr;
+  gap:30px;
+  padding-top:18px;
+}
+.explore-mast{
+  display:grid;
+  grid-template-columns:minmax(560px,1.08fr) minmax(440px,.92fr);
+  gap:44px;
+  align-items:start;
+  padding:0 0 8px;
+}
+.explore-hero{
+  max-width:none;
+  min-width:0;
+}
+.explore-hero-title{
+  font-family:"Syne",sans-serif;
+  font-size:42px;
+  font-weight:800;
+  letter-spacing:-.05em;
+  line-height:1.02;
+  color:#6ab8ef;
+  white-space:nowrap;
+  opacity:0;
+  transform:translateY(16px);
+  transition:opacity 1.6s ease,transform 1.6s ease;
+}
+.explore-hero-title.is-in{
+  opacity:1;
+  transform:none;
+}
+.seed-stage{
+  margin-top:34px;
+  min-height:0;
+  max-width:none;
+}
+.explore-hero-copy{
+  margin-top:14px;max-width:36ch;color:#b7c3d6;font-size:15px;line-height:1.6;
+}
 
-  <div class="workspace">
-    <header class="topbar">
-      <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu">
-        <span></span><span></span>
-      </button>
-      <div class="topbar-title">
-        <h1 id="viewTitle">Forge</h1>
-        <p id="viewSubtitle">Creative Audio Laboratory</p>
-      </div>
-      <label class="top-search" for="globalSearch">
-        <input type="search" id="globalSearch" placeholder="Search tools..." autocomplete="off"/>
-      </label>
-    </header>
+.block-title{font-size:14px;font-weight:600;color:#c5d0e2;margin-bottom:12px}
+.block-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.block-row .block-title{margin:0}
+.block-link{color:var(--cyan);font-size:13px}
 
-    <main class="main" id="main">
+/* SEED — signature module */
+.forge-seed-card{
+  position:relative;overflow:hidden;min-height:0;max-width:none;padding:18px 22px;
+  border:1px solid rgba(128,184,255,.14);border-radius:18px;
+  background:
+    radial-gradient(circle at 88% 0%,rgba(77,157,224,.16),transparent 42%),
+    linear-gradient(180deg,rgba(20,26,38,.92),rgba(12,16,24,.96));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.04);
+}
+.forge-seed-beta{
+  position:absolute;top:16px;right:18px;display:inline-flex;align-items:center;gap:6px;
+  color:var(--text-2);font-size:11px;
+}
+.forge-seed-beta-dot{width:6px;height:6px;border-radius:50%;background:var(--creative)}
+.forge-seed-state[hidden]{display:none!important}
+.forge-seed-intro{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:88px}
+.seed-kicker{color:var(--cyan);font-family:var(--font-d);font-size:11px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.forge-seed-intro-copy h2{font-family:var(--font-d);font-size:22px;letter-spacing:-.03em;margin-bottom:4px}
+.forge-seed-intro-copy p:last-child{max-width:460px;color:var(--text-2);font-size:14px;line-height:1.55}
+.forge-seed-generate{
+  flex:0 0 auto;padding:11px 16px;border-radius:12px;
+  background:linear-gradient(180deg,#69b3ea,#4d9de0);color:#061019;font-weight:700;
+  box-shadow:0 6px 16px rgba(77,157,224,.18);
+  transition:transform .18s var(--ease),box-shadow .18s var(--ease),filter .18s;
+}
+.forge-seed-generate:hover{
+  transform:translateY(-1px);
+  filter:brightness(1.08);
+  box-shadow:0 10px 24px rgba(77,157,224,.36),0 0 18px rgba(105,184,239,.28);
+}
+.forge-seed-generate:active{transform:translateY(0)}
+.forge-seed-loading{display:flex;align-items:center;min-height:88px}
+.forge-seed-loading-copy{display:grid;gap:4px}
+.forge-seed-loading-copy span{color:var(--text-2);font-size:13px}
+.forge-seed-result{display:grid;grid-template-columns:1.15fr .85fr auto;gap:18px;align-items:center;min-height:88px}
+.forge-seed-player{display:grid;grid-template-columns:48px 1fr;gap:12px;align-items:center}
+.forge-seed-play{width:48px;height:48px;border-radius:50%;background:#eaf2fa;display:grid;place-items:center}
+.forge-seed-play-icon{width:0;height:0;margin-left:2px;border-top:6px solid transparent;border-bottom:6px solid transparent;border-left:10px solid #07101a}
+.forge-seed-pause-icon{display:none;gap:3px}
+.forge-seed-pause-icon span{width:3px;height:12px;background:#07101a}
+.forge-seed-play.is-playing .forge-seed-play-icon{display:none}
+.forge-seed-play.is-playing .forge-seed-pause-icon{display:flex}
+.forge-seed-waveform{
+  height:48px;overflow:hidden;border-radius:8px;padding:8px 0;
+  clip-path:inset(0);
+}
+.forge-seed-wave-canvas{width:100%;height:32px;display:block;margin:0}
+.forge-seed-identity strong{display:block;font-family:var(--font-d);font-size:18px;margin-bottom:4px}
+.forge-seed-specs{display:flex;flex-wrap:wrap;gap:6px;color:var(--text-2);font-size:13px}
+.forge-seed-actions{display:flex;gap:8px}
+.forge-seed-keep{
+  height:42px;padding:0 16px;border-radius:11px;
+  background:linear-gradient(180deg,#69b3ea,#4d9de0);color:#061019;font-weight:700;
+  box-shadow:0 6px 16px rgba(77,157,224,.18);
+  transition:transform .18s var(--ease),box-shadow .18s var(--ease),filter .18s;
+}
+.forge-seed-keep:hover{
+  transform:translateY(-1px);
+  filter:brightness(1.08);
+  box-shadow:0 10px 24px rgba(77,157,224,.36),0 0 18px rgba(105,184,239,.28);
+}
+.forge-seed-regenerate{
+  width:42px;height:42px;display:grid;place-items:center;
+  border:1px solid var(--border);border-radius:11px;color:var(--text-2);
+  transition:color .18s,border-color .18s,background .18s;
+}
+.forge-seed-regenerate:hover{color:var(--text);border-color:rgba(128,184,255,.28);background:rgba(255,255,255,.03)}
+.forge-seed-regenerate svg{width:16px;height:16px;transition:transform .45s var(--ease)}
+.forge-seed-regenerate:hover svg{transform:rotate(180deg)}
+.forge-seed-card.is-regenerating .forge-seed-regenerate svg{animation:seedSpin .7s linear infinite}
+@keyframes seedSpin{to{transform:rotate(360deg)}}
 
-      <section class="view is-active view-explore" id="view-explore" data-view="explore">
+/* CATEGORIES — abstract Pro graphics */
+.cat-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.cat-card{
+  position:relative;overflow:hidden;min-height:132px;padding:18px 16px;
+  display:flex;align-items:flex-end;text-align:left;
+  border:1px solid rgba(255,255,255,.06);border-radius:18px;
+}
+.cat-copy{position:relative;z-index:1;max-width:62%;color:var(--text)}
+.cat-card h3{font-family:var(--font-d);font-size:18px;margin-bottom:6px;color:var(--text)}
+.cat-card p{color:var(--text-2);font-size:13px;line-height:1.4}
+.cat-count{display:block;margin-top:10px;color:var(--text-3);font-size:12px}
+.cat-visual{position:absolute;right:-18px;bottom:-18px;width:70%;height:120%;pointer-events:none}
+.cat-visual svg{width:100%;height:100%}
+.cat-visual path,.cat-visual ellipse{fill:none;stroke:currentColor;stroke-width:1.6}
+.cat-visual .soft{opacity:.45}
+.cat-visual .faint{opacity:.22}
+.cat-visual .dot{fill:currentColor;stroke:none}
+.cat-creative{background:linear-gradient(180deg,#102033,#0c141e)}
+.cat-wellness{background:linear-gradient(180deg,#0f1d1a,#0c1413)}
+.cat-fx{background:linear-gradient(180deg,#1b160e,#12100c)}
+.cat-utility{background:linear-gradient(180deg,#161326,#100e18)}
+.cat-creative .cat-visual{color:#8ec4ef}
+.cat-wellness .cat-visual{color:#6ee7b7}
+.cat-fx .cat-visual{color:#fbbf24}
+.cat-utility .cat-visual{color:#c4b5fd}
+.cat-card{transition:transform .22s var(--ease),border-color .22s,box-shadow .22s}
+.cat-card .cat-visual{transition:transform .35s var(--ease),opacity .22s;opacity:.85}
+.cat-card:hover{
+  transform:translateY(-3px);
+  border-color:rgba(255,255,255,.16);
+  box-shadow:0 16px 32px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.08);
+}
+.cat-card:hover .cat-visual{transform:translate(-6px,-4px) scale(1.06);opacity:1}
+.cat-creative:hover{box-shadow:0 16px 32px rgba(0,0,0,.22),0 0 28px rgba(77,157,224,.12)}
+.cat-wellness:hover{box-shadow:0 16px 32px rgba(0,0,0,.22),0 0 28px rgba(52,211,153,.12)}
+.cat-fx:hover{box-shadow:0 16px 32px rgba(0,0,0,.22),0 0 28px rgba(245,158,11,.12)}
+.cat-utility:hover{box-shadow:0 16px 32px rgba(0,0,0,.22),0 0 28px rgba(167,139,250,.12)}
 
-        <div class="explore-mast">
-        <header class="explore-hero">
-          <h2 class="explore-hero-title">Tools to shape sound.</h2>
-          <p class="explore-hero-copy">40+ browser-based audio tools. No installs. From ambient textures to melodic generators.</p>
-        </header>
+/* FEATURED — image first */
+.feat-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;align-content:start}
+.feat-card{
+  overflow:hidden;border:1px solid var(--border);border-radius:16px;background:rgba(16,19,27,.86);
+  transition:transform .22s var(--ease),border-color .22s,box-shadow .22s;
+}
+.feat-visual{height:96px;overflow:hidden;background:#0b0f16}
+.feat-visual img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s var(--ease),filter .22s}
+.feat-card:hover{
+  transform:translateY(-3px);
+  border-color:rgba(128,184,255,.22);
+  box-shadow:0 16px 32px rgba(0,0,0,.24),0 0 24px rgba(77,157,224,.08);
+}
+.feat-card:hover .feat-visual img{transform:scale(1.06);filter:brightness(1.12)}
+.feat-meta{display:flex;justify-content:space-between;gap:10px;padding:12px 14px 14px}
+.feat-kicker{display:block;margin-bottom:4px;color:var(--text-3);font-size:11px}
+.feat-card:nth-child(1) .feat-kicker,.feat-card:nth-child(2) .feat-kicker{color:var(--creative)}
+.feat-card:nth-child(3) .feat-kicker{color:var(--wellness)}
+.feat-card:nth-child(4) .feat-kicker{color:var(--cyan)}
+.feat-meta h3{font-family:var(--font-d);font-size:15px}
+.feat-meta p{margin-top:3px;color:var(--text-2);font-size:12px}
+.feat-meta>span{color:var(--text-3)}
 
-        <article class="seed-stage hero-seed-shell">
-          <div class="forge-seed-card is-intro" id="forgeSeed" data-seed-state="intro">
-            <div class="forge-seed-beta"><span class="forge-seed-beta-dot"></span>Beta</div>
+/* TOOL ROWS */
+.tools-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;
+  min-height:0;overflow:auto;align-content:start;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(128,184,255,.28) transparent;
+}
+.tools-grid::-webkit-scrollbar{width:8px}
+.tools-grid::-webkit-scrollbar-track{background:transparent}
+.tools-grid::-webkit-scrollbar-thumb{
+  background:rgba(128,184,255,.22);
+  border-radius:99px;
+  border:2px solid transparent;
+  background-clip:padding-box;
+}
+.tools-grid::-webkit-scrollbar-thumb:hover{background:rgba(128,184,255,.4);background-clip:padding-box}
+.tile{
+  display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:12px;align-items:center;
+  min-height:58px;padding:8px 10px 8px 8px;
+  border-bottom:1px solid rgba(255,255,255,.05);
+  border-radius:10px;
+}
+.tile.cat-creative{--tc:var(--creative)}
+.tile.cat-wellness{--tc:var(--wellness)}
+.tile.cat-fx{--tc:var(--fx)}
+.tile.cat-utility{--tc:var(--utility)}
+.tile:hover{background:rgba(255,255,255,.025)}
+.tile-ico{
+  width:42px;height:42px;border-radius:10px;overflow:hidden;
+  border:1px solid color-mix(in srgb, var(--tc) 32%, transparent);
+  background:
+    radial-gradient(circle at 25% 20%, color-mix(in srgb, var(--tc) 28%, transparent), transparent 58%),
+    linear-gradient(145deg, color-mix(in srgb, var(--tc) 22%, #17304a) 0%, #0d1b2b 48%, #09111c 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.05),
+    inset 0 0 18px color-mix(in srgb, var(--tc) 10%, transparent);
+}
+.tile-ico img{width:100%;height:100%;object-fit:cover;display:block}
+.tile-name{font-size:14px;font-weight:600}
+.tile-desc{margin-top:2px;color:var(--text-2);font-size:12px}
+.tile-go{color:var(--text-3)}
+.explorer-controls{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.filter-btn{height:32px;padding:0 12px;border-radius:8px;color:var(--text-3);font-size:13px}
+.filter-btn.active{color:var(--text);background:rgba(255,255,255,.05)}
+.exp-search{margin-left:auto;width:220px}
+.exp-search input{
+  width:100%;height:32px;padding:0 12px;border:1px solid var(--border);border-radius:8px;background:transparent;outline:none;
+}
+.tools-empty{display:none;color:var(--text-2);padding:20px 0}
+.tools-empty.visible{display:block}
 
-            <div class="forge-seed-state forge-seed-intro" id="forgeSeedIntro">
-              <div class="forge-seed-intro-copy">
-                <p class="seed-kicker">Seed Generator</p>
-                <h2>Forge Seed</h2>
-                <p>A unique musical starting point.</p>
-              </div>
-              <button class="forge-seed-generate" id="forgeSeedGenerate" type="button">Generate My Seed</button>
-            </div>
+/* ABOUT — editorial manifesto */
+#view-about.is-active{display:flex;flex-direction:column;overflow:auto}
+.about-page{
+  min-height:100%;display:flex;flex-direction:column;justify-content:space-between;
+  width:100%;max-width:none;padding:28px 0 4px;
+}
+.about-wrap{
+  display:grid;grid-template-columns:minmax(0,1.2fr) minmax(280px,.8fr);
+  gap:80px;align-items:start;text-align:left;max-width:1080px;
+}
+.about-label,
+.about-col p.about-label{
+  color:#6ab8ef;font-family:var(--font-d);font-size:11px;letter-spacing:.18em;
+  text-transform:uppercase;margin-bottom:20px;line-height:1.3;max-width:none;
+}
+.about-wrap h2{
+  font-family:var(--font-d);font-size:48px;letter-spacing:-.055em;line-height:1.02;
+  margin-bottom:28px;color:#f3f6fb;
+}
+.about-col p{color:#b8c4d6;font-size:16px;line-height:1.75;margin-bottom:18px;max-width:44ch}
+.about-values{display:grid;gap:26px;padding-top:72px}
+.about-value{position:relative;padding-left:22px}
+.about-value::before{
+  content:"";position:absolute;left:0;top:9px;width:10px;height:1.5px;background:#6ab8ef;
+}
+.about-value strong{display:block;font-family:var(--font-d);font-size:16px;margin-bottom:6px;color:#f3f6fb}
+.about-value span{display:block;color:#9aa8bf;font-size:14px;line-height:1.55}
+.about-legal{
+  display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;
+  width:100%;margin-top:auto;padding:18px 0 6px;
+  border-top:1px solid rgba(128,184,255,.12);
+}
+.about-legal nav{display:flex;gap:20px;flex-wrap:wrap}
+.about-legal a{color:#7d8ba3;font-size:13px}
+.about-legal a:hover{color:#6ab8ef}
+.about-copy{color:#7d8ba3;font-size:12px}
 
-            <div class="forge-seed-state forge-seed-loading" id="forgeSeedLoading" hidden>
-              <div class="forge-seed-loading-wave" id="forgeSeedLoadingWave"></div>
-              <div class="forge-seed-loading-copy">
-                <strong>Forging your Seed…</strong>
-                <span>Shaping harmony, movement and texture.</span>
-              </div>
-            </div>
+.sidebar-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:30}
+.forge-seed-modal{position:fixed;inset:0;z-index:999;display:grid;place-items:center;padding:24px;opacity:0;visibility:hidden;pointer-events:none}
+.forge-seed-modal.is-open{opacity:1;visibility:visible;pointer-events:auto}
+.forge-seed-modal-backdrop{position:absolute;inset:0;background:rgba(3,6,11,.72)}
+.forge-seed-modal-panel{position:relative;width:min(430px,100%);padding:28px;border:1px solid rgba(128,184,255,.16);border-radius:18px;background:#10151e}
+.forge-seed-modal-close{position:absolute;top:12px;right:14px;font-size:20px;color:var(--text-2)}
+.forge-seed-modal-kicker{color:var(--cyan);font-size:11px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.forge-seed-modal-panel h2{font-family:var(--font-d);font-size:24px;margin-bottom:8px}
+.forge-seed-modal-copy{color:var(--text-2);margin-bottom:16px}
+.forge-seed-modal-input{width:100%;margin:8px 0;padding:12px;border-radius:10px;border:1px solid var(--border);background:#0b0f16}
+.forge-seed-modal-submit{width:100%;margin-top:8px;padding:12px;border-radius:10px;background:linear-gradient(180deg,#69b3ea,#4d9de0);color:#061019;font-weight:700}
+.forge-seed-modal-note{margin-top:10px;text-align:center;color:var(--text-3);font-size:11px}
+.forge-seed-modal-error{color:#ef8e8e;font-size:12px}
 
-            <div class="forge-seed-state forge-seed-result" id="forgeSeedResult" hidden>
-              <div class="forge-seed-player">
-                <button class="forge-seed-play" id="forgeSeedPlay" type="button" aria-label="Play Seed" aria-pressed="false">
-                  <span class="forge-seed-play-icon"></span>
-                  <span class="forge-seed-pause-icon"><span></span><span></span></span>
-                </button>
-                <div class="forge-seed-waveform" id="forgeSeedWaveform">
-                  <canvas class="forge-seed-wave-canvas" id="forgeSeedWaveCanvas"></canvas>
-                </div>
-              </div>
-              <div class="forge-seed-identity">
-                <strong id="forgeSeedName">Solace-71820</strong>
-                <div class="forge-seed-specs">
-                  <span id="forgeSeedType">Chord Bloom</span>
-                  <span>·</span>
-                  <span id="forgeSeedKey">D Minor</span>
-                  <span>·</span>
-                  <span id="forgeSeedDuration">0:08</span>
-                </div>
-              </div>
-              <div class="forge-seed-actions">
-                <button class="forge-seed-keep" id="forgeSeedKeep" type="button"><span>Keep this Seed</span></button>
-                <button class="forge-seed-regenerate" id="forgeSeedRegenerate" type="button" aria-label="Generate another Seed">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.5 9a9 9 0 0 1 14.9-3.4L23 10"></path><path d="M1 14l4.6 4.4A9 9 0 0 0 20.5 15"></path></svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        </article>
-        </div>
-
-        <div class="dash-block">
-          <h2 class="block-title">Explore by category</h2>
-          <div class="cat-row">
-            <button type="button" class="cat-card cat-creative" data-go="creative">
-              <span class="cat-copy">
-                <h3>Creative</h3>
-                <p>Generators, synths and instruments</p>
-                <span class="cat-count" data-count-for="Creative"></span>
-              </span>
-              <span class="cat-visual" aria-hidden="true">
-                <svg viewBox="0 0 260 160">
-                  <ellipse cx="168" cy="82" rx="92" ry="34" transform="rotate(-17 168 82)"/>
-                  <ellipse class="soft" cx="168" cy="82" rx="62" ry="23" transform="rotate(18 168 82)"/>
-                  <circle class="dot" cx="220" cy="57" r="4"/>
-                </svg>
-              </span>
-            </button>
-            <button type="button" class="cat-card cat-wellness" data-go="wellness">
-              <span class="cat-copy">
-                <h3>Wellness</h3>
-                <p>Soundscapes, focus and relaxation</p>
-                <span class="cat-count" data-count-for="Wellness"></span>
-              </span>
-              <span class="cat-visual" aria-hidden="true">
-                <svg viewBox="0 0 260 160">
-                  <ellipse cx="181" cy="89" rx="72" ry="40"/>
-                  <ellipse class="soft" cx="181" cy="89" rx="49" ry="27"/>
-                  <ellipse class="faint" cx="181" cy="89" rx="26" ry="14"/>
-                  <circle class="dot" cx="181" cy="89" r="4"/>
-                </svg>
-              </span>
-            </button>
-            <button type="button" class="cat-card cat-fx" data-go="fx">
-              <span class="cat-copy">
-                <h3>FX</h3>
-                <p>Effects, texture and modulation</p>
-                <span class="cat-count" data-count-for="FX"></span>
-              </span>
-              <span class="cat-visual" aria-hidden="true">
-                <svg viewBox="0 0 260 160">
-                  <path d="M55 116 Q92 42 130 105 T225 74"/>
-                  <path class="soft" d="M48 93 Q98 137 146 79 T232 112"/>
-                  <circle class="dot" cx="177" cy="91" r="4"/>
-                </svg>
-              </span>
-            </button>
-            <button type="button" class="cat-card cat-utility" data-go="utility">
-              <span class="cat-copy">
-                <h3>Utility</h3>
-                <p>Converters, analyzers and helpers</p>
-                <span class="cat-count" data-count-for="Utility"></span>
-              </span>
-              <span class="cat-visual" aria-hidden="true">
-                <svg viewBox="0 0 260 160">
-                  <path d="M143 34 L204 112 L111 112 Z"/>
-                  <path class="soft" d="M143 34 L157 128"/>
-                  <path class="faint" d="M111 70 L216 53"/>
-                  <circle class="dot" cx="157" cy="111" r="4"/>
-                </svg>
-              </span>
-            </button>
-          </div>
-        </div>
-
-        <div class="dash-block">
-          <div class="block-row">
-            <h2 class="block-title">Featured Tools</h2>
-            <a href="#tools" class="block-link" data-route="tools">All Tools ↗</a>
-          </div>
-          <div class="feat-row">
-            <a href="https://chrysasynth.com/axis" class="feat-card" target="_blank" rel="noopener">
-              <div class="feat-visual"><img src="axis-featured.jpg" alt=""></div>
-              <div class="feat-meta">
-                <div>
-                  <span class="feat-kicker">Creative</span>
-                  <h3>Axis</h3>
-                  <p>Organic acid basslines</p>
-                </div>
-                <span aria-hidden="true">↗</span>
-              </div>
-            </a>
-            <a href="https://chrysasynth.com/pixeltone-bloom" class="feat-card" target="_blank" rel="noopener">
-              <div class="feat-visual"><img src="pixeltone-bloom-featured.jpg" alt=""></div>
-              <div class="feat-meta">
-                <div>
-                  <span class="feat-kicker">Creative</span>
-                  <h3>pixelTone Bloom</h3>
-                  <p>Images into textures</p>
-                </div>
-                <span aria-hidden="true">↗</span>
-              </div>
-            </a>
-            <a href="https://chrysasynth.com/hold-the-frequency" class="feat-card" target="_blank" rel="noopener">
-              <div class="feat-visual"><img src="hold-frequency-featured.jpg" alt=""></div>
-              <div class="feat-meta">
-                <div>
-                  <span class="feat-kicker">Wellness</span>
-                  <h3>Hold The Frequency</h3>
-                  <p>Seven chakra tones</p>
-                </div>
-                <span aria-hidden="true">↗</span>
-              </div>
-            </a>
-            <a href="https://free-studio.chrysasynth.com/" class="feat-card" target="_blank" rel="noopener">
-              <div class="feat-visual"><img src="studio-featured.png" alt=""></div>
-              <div class="feat-meta">
-                <div>
-                  <span class="feat-kicker">Studio</span>
-                  <h3>Chrysasynth Studio</h3>
-                  <p>Grow your Seeds</p>
-                </div>
-                <span aria-hidden="true">↗</span>
-              </div>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section class="view" id="view-creative" data-view="creative">
-        <div class="tools-grid" data-grid="Creative"></div>
-      </section>
-      <section class="view" id="view-wellness" data-view="wellness">
-        <div class="tools-grid" data-grid="Wellness"></div>
-      </section>
-      <section class="view" id="view-fx" data-view="fx">
-        <div class="tools-grid" data-grid="FX"></div>
-      </section>
-      <section class="view" id="view-utility" data-view="utility">
-        <div class="tools-grid" data-grid="Utility"></div>
-      </section>
-
-      <section class="view" id="view-tools" data-view="tools">
-        <div class="explorer-controls">
-          <div class="filter-bar" id="filterBar">
-            <button class="filter-btn active" type="button" data-cat="all">All</button>
-            <button class="filter-btn" type="button" data-cat="Creative">Creative</button>
-            <button class="filter-btn" type="button" data-cat="Wellness">Wellness</button>
-            <button class="filter-btn" type="button" data-cat="FX">FX</button>
-            <button class="filter-btn" type="button" data-cat="Utility">Utility</button>
-          </div>
-        </div>
-        <div class="tools-grid tools-list-host" id="toolsGrid"></div>
-        <div class="tools-empty" id="toolsEmpty">No tools found — try a different search.</div>
-      </section>
-
-      <section class="view" id="view-about" data-view="about">
-        <div class="about-page">
-          <div class="about-wrap">
-            <div class="about-col">
-              <p class="about-label">Our belief</p>
-              <h2>Sound is a medium<br>for exploration.</h2>
-              <p>Forge exists because the tools to shape sound should be accessible, immediate and beautiful. Not buried in DAWs. Not locked behind paywalls. Not intimidating.</p>
-              <p>We believe the best creative tools disappear. You stop seeing the interface and start hearing ideas. That is the standard we build to.</p>
-              <p>Chrysasynth is a laboratory. Every tool is an experiment. Every session is a discovery.</p>
-            </div>
-            <div class="about-values">
-              <div class="about-value">
-                <strong>Curiosity</strong>
-                <span>We design for exploration, not efficiency.</span>
-              </div>
-              <div class="about-value">
-                <strong>Immediacy</strong>
-                <span>No setup. No friction. Open and play.</span>
-              </div>
-              <div class="about-value">
-                <strong>Depth</strong>
-                <span>Simple on the surface. Limitless underneath.</span>
-              </div>
-              <div class="about-value">
-                <strong>Beauty</strong>
-                <span>Sound and interface deserve equal care.</span>
-              </div>
-            </div>
-          </div>
-          <div class="about-legal">
-            <nav aria-label="Legal">
-              <a href="https://chrysasynth.com/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>
-              <a href="https://chrysasynth.com/terms-and-conditions" target="_blank" rel="noopener">Terms</a>
-              <a href="mailto:contact@chrysasynth.com">Contact</a>
-            </nav>
-            <p class="about-copy">© 2026 Chrysasynth. All rights reserved.</p>
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
-</div>
-
-<div class="sidebar-backdrop" id="sidebarBackdrop" hidden></div>
-
-<div class="forge-seed-modal" id="forgeSeedModal" aria-hidden="true">
-  <div class="forge-seed-modal-backdrop" data-seed-modal-close></div>
-  <div class="forge-seed-modal-panel" role="dialog" aria-modal="true" aria-labelledby="forgeSeedModalTitle">
-    <button class="forge-seed-modal-close" type="button" aria-label="Close" data-seed-modal-close>×</button>
-    <div class="forge-seed-modal-kicker">Your Seed is ready</div>
-    <h2 id="forgeSeedModalTitle">Keep this Seed</h2>
-    <p class="forge-seed-modal-copy">Enter your email to unlock and download your WAV.</p>
-    <form class="forge-seed-modal-form" id="forgeSeedModalForm" novalidate>
-      <label class="forge-seed-modal-label" for="forgeSeedEmail">Email</label>
-      <input class="forge-seed-modal-input" id="forgeSeedEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
-      <p class="forge-seed-modal-error" id="forgeSeedModalError" hidden>Enter a valid email address.</p>
-      <button class="forge-seed-modal-submit" id="forgeSeedModalSubmit" type="submit">Unlock &amp; Download</button>
-    </form>
-    <p class="forge-seed-modal-note">No spam. Unsubscribe anytime.</p>
-  </div>
-</div>
-
-<script src="forge.js"></script>
-<div style="display:none" aria-hidden="true">
-  <form id="sibFormHidden" method="POST" action="https://dd05a9be.sibforms.com/serve/MUIFAMDmK5haoAKqbqWWSCtPkEnNbPjrCR_HM6mWlKLrkAYRTNcjbtiFnN71s9o-c3QXj_Jg0h6YEQzRGa6O84DREjXnccSLf_Q7QpNGiNdhrDJMpWd3d_NG2-JFm-eT83uKgyAg4VyazXopodUJt4dzV5zKaO5bQfBACUwo23ClIDvXWdy9hRSLL1LKa9ssFqLpn1I-tkyKs3r4yA==">
-    <input type="text" name="EMAIL" id="sibEmailHidden" value=""/>
-    <input type="hidden" name="locale" value="fr"/>
-  </form>
-</div>
-</body>
-</html>
+@media (max-width:1250px){
+  .explore-mast{grid-template-columns:1fr;gap:16px}
+  .explore-hero-title{white-space:normal}
+  .seed-stage{margin-top:8px}
+}
+@media (max-width:1100px){
+  .explore-mast{grid-template-columns:1fr;gap:16px}
+  .seed-stage{margin-top:8px}
+  .about-wrap{grid-template-columns:1fr;gap:36px}
+  .about-values{padding-top:0}
+  .cat-row,.feat-row{grid-template-columns:1fr 1fr}
+  .forge-seed-result{grid-template-columns:1fr}
+}
+@media (max-width:960px){
+  body{overflow:auto}
+  .app,.workspace{height:auto;min-height:100vh}
+  .main{overflow:auto}
+  .sidebar{position:fixed;left:0;top:0;transform:translateX(-105%);transition:transform .25s var(--ease)}
+  .sidebar.is-open{transform:none}
+  .menu-btn{display:flex}
+  .view-explore.is-active{display:flex}
+  .tools-grid{grid-template-columns:1fr}
+}
+@media (max-width:620px){
+  .cat-row,.feat-row{grid-template-columns:1fr}
+  .top-search{display:none}
+  .topbar-title h1{font-size:26px}
+  .explore-hero-title{font-size:30px}
+  .about-wrap h2{font-size:30px}
+  .forge-seed-intro{flex-direction:column;align-items:flex-start}
+}

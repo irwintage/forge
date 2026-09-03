@@ -118,7 +118,7 @@ function tileHTML(tool) {
       <div class="tile-name">${tool.name}</div>
       <div class="tile-desc">${tool.desc}</div>
     </span>
-    <span class="tile-go" aria-hidden="true">↗</span>
+    <span class="tile-go ext-arrow" aria-hidden="true"></span>
   </a>`;
 }
 

@@ -429,15 +429,11 @@
     document.getElementById("ci-deny").onclick = () => { set(DENY); el.remove(); };
   }
 
-  function triggerOnce() {
+  window.setTimeout(function () {
     if (triggered || get()) return;
     triggered = true;
-    setTimeout(mount, DELAY_MS);
-  }
-
-  window.addEventListener("scroll", triggerOnce, { once: true, passive: true });
-  window.addEventListener("click", triggerOnce, { once: true });
-  window.addEventListener("hashchange", triggerOnce, { once: true });
+    mount();
+  }, DELAY_MS);
 })();
 </script>
 

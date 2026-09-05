@@ -111,10 +111,11 @@ button{cursor:pointer;background:none;border:0}
 /* WORKSPACE */
 .workspace{
   flex:1;min-width:0;height:100vh;display:flex;flex-direction:column;
+  border-right:1px solid rgba(120,150,200,.12);
   background:
     radial-gradient(circle at 16% 0%,rgba(59,130,246,.07),transparent 30%),
     radial-gradient(circle at 86% 8%,rgba(139,92,246,.04),transparent 28%),
-    var(--workspace);
+    linear-gradient(90deg,#0a101a 0%,#0c1320 62%,#111827 100%);
 }
 .topbar{height:104px;flex:0 0 104px;display:flex;align-items:flex-end;gap:18px;padding:24px 48px 20px 32px}
 .menu-btn{display:none;flex-direction:column;gap:5px}
@@ -153,15 +154,11 @@ button{cursor:pointer;background:none;border:0}
 }
 .explore-hero-title{
   font-family:"Syne",sans-serif;
-  font-size:42px;
-  font-weight:800;
-  letter-spacing:-.05em;
-  line-height:1.02;
+  font-size:44px;
+  font-weight:700;
+  letter-spacing:-.02em;
+  line-height:1.12;
   color:#6ab8ef;
-  white-space:nowrap;
-  opacity:0;
-  transform:translateY(16px);
-  transition:opacity 1.6s ease,transform 1.6s ease;
 }
 .explore-hero-title.is-in{
   opacity:1;
@@ -189,6 +186,15 @@ button{cursor:pointer;background:none;border:0}
     radial-gradient(circle at 88% 0%,rgba(77,157,224,.16),transparent 42%),
     linear-gradient(180deg,rgba(20,26,38,.92),rgba(12,16,24,.96));
   box-shadow:inset 0 1px 0 rgba(255,255,255,.04);
+  transition:border-color .2s var(--ease),box-shadow .2s var(--ease),transform .2s var(--ease);
+}
+.forge-seed-card:hover{
+  transform:translateY(-2px);
+  border-color:rgba(128,184,255,.32);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.07),
+    0 12px 28px rgba(0,0,0,.28),
+    0 0 24px rgba(77,157,224,.12);
 }
 .forge-seed-beta{
   position:absolute;top:16px;right:18px;display:inline-flex;align-items:center;gap:6px;
@@ -446,4 +452,32 @@ button{cursor:pointer;background:none;border:0}
   .explore-hero-title{font-size:30px}
   .about-wrap h2{font-size:30px}
   .forge-seed-intro{flex-direction:column;align-items:flex-start}
+}
+
+/* Usage insights consent */
+#chrysa-insights{
+  position:fixed;right:18px;bottom:18px;width:min(380px,calc(100vw - 24px));
+  padding:18px;z-index:9999;overflow:hidden;border-radius:20px;
+  border:1px solid rgba(77,157,224,.18);
+  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018)),rgba(12,15,23,.94);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  box-shadow:0 22px 70px rgba(0,0,0,.55),0 0 46px rgba(77,157,224,.1),inset 0 1px 0 rgba(255,255,255,.05);
+  color:#e6ebf5;font-family:var(--font-d);
+}
+#chrysa-insights::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(circle at 12% 0%,rgba(77,157,224,.16),transparent 42%),radial-gradient(circle at 90% 20%,rgba(124,92,255,.12),transparent 38%);
+}
+#chrysa-insights h4{position:relative;margin:0 0 9px;font-size:15px;font-weight:800;letter-spacing:-.02em}
+#chrysa-insights h4 span{color:#4d9de0}
+#chrysa-insights p{position:relative;margin:0 0 16px;font-family:var(--font-b);font-size:13px;line-height:1.55;color:#8896af}
+#chrysa-insights .actions{position:relative;display:flex;gap:9px;justify-content:flex-end}
+#chrysa-insights button{
+  border:1px solid rgba(255,255,255,.1);border-radius:999px;padding:10px 15px;
+  background:rgba(255,255,255,.045);color:#8896af;font-family:var(--font-d);font-size:12px;font-weight:700;
+}
+#chrysa-insights .primary{color:#061018;background:linear-gradient(135deg,#4d9de0,#46d9d9);border-color:rgba(77,157,224,.45)}
+@media (max-width:640px){
+  #chrysa-insights{left:12px;right:12px;bottom:12px;width:auto}
+  #chrysa-insights .actions{display:grid;grid-template-columns:1fr 1fr}
 }

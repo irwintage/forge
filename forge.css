@@ -481,3 +481,203 @@ button{cursor:pointer;background:none;border:0}
   #chrysa-insights{left:12px;right:12px;bottom:12px;width:auto}
   #chrysa-insights .actions{display:grid;grid-template-columns:1fr 1fr}
 }
+/* =========================================================
+   FORGE — LIGHT MODE
+   ========================================================= */
+
+html[data-theme="light"] {
+  --page:#eef2f6;
+  --workspace:#f6f8fb;
+
+  --text:#172033;
+  --text-2:#59677d;
+  --text-3:#8390a3;
+
+  --border:rgba(20,35,55,.10);
+
+  --cyan:#287eb8;
+}
+
+/* Page / workspace */
+html[data-theme="light"] body {
+  background:var(--page);
+  color:var(--text);
+}
+
+html[data-theme="light"] .workspace {
+  border-right-color:rgba(30,60,90,.10);
+
+  background:
+    radial-gradient(circle at 16% 0%,rgba(59,130,246,.06),transparent 30%),
+    radial-gradient(circle at 86% 8%,rgba(139,92,246,.035),transparent 28%),
+    linear-gradient(90deg,#f4f7fa 0%,#f7f9fc 62%,#eef3f8 100%);
+}
+
+/* Sidebar */
+html[data-theme="light"] .sidebar {
+  border-right-color:rgba(45,75,110,.12);
+
+  background:
+    radial-gradient(circle at 18% 0%,rgba(84,148,255,.09),transparent 36%),
+    radial-gradient(circle at 100% 28%,rgba(143,86,255,.04),transparent 44%),
+    linear-gradient(180deg,#f7f9fc 0%,#edf2f7 100%);
+}
+
+html[data-theme="light"] .sidebar::before {
+  background:linear-gradient(180deg,rgba(255,255,255,.65),transparent 20%);
+}
+
+html[data-theme="light"] .nav-item.is-active {
+  color:#172033;
+  border-color:rgba(77,157,224,.18);
+  background:linear-gradient(
+    100deg,
+    rgba(77,157,224,.11),
+    rgba(133,82,255,.045)
+  );
+}
+
+html[data-theme="light"] .nav-sep,
+html[data-theme="light"] .sidebar-foot {
+  border-color:rgba(30,50,75,.09);
+}
+
+/* Search */
+html[data-theme="light"] .top-search {
+  background:rgba(255,255,255,.82);
+  border-color:rgba(55,100,145,.18);
+  box-shadow:0 1px 4px rgba(20,35,55,.035);
+}
+
+html[data-theme="light"] .top-search input::placeholder {
+  color:#8190a5;
+}
+
+/* Hero */
+html[data-theme="light"] .explore-hero-copy {
+  color:#59677d;
+}
+
+html[data-theme="light"] .block-title {
+  color:#334155;
+}
+
+/* Forge Seed */
+html[data-theme="light"] .forge-seed-card {
+  border-color:rgba(77,157,224,.16);
+
+  background:
+    radial-gradient(circle at 88% 0%,rgba(77,157,224,.10),transparent 42%),
+    linear-gradient(180deg,#ffffff,#f7f9fc);
+
+  box-shadow:
+    0 4px 18px rgba(25,45,70,.045),
+    inset 0 1px 0 rgba(255,255,255,.9);
+}
+
+html[data-theme="light"] .forge-seed-card:hover {
+  border-color:rgba(77,157,224,.30);
+
+  box-shadow:
+    0 12px 30px rgba(25,45,70,.09),
+    0 0 24px rgba(77,157,224,.07);
+}
+
+/* Category cards */
+html[data-theme="light"] .cat-creative {
+  background:linear-gradient(180deg,#edf6fc,#e6f0f8);
+}
+
+html[data-theme="light"] .cat-wellness {
+  background:linear-gradient(180deg,#edf8f4,#e5f3ee);
+}
+
+html[data-theme="light"] .cat-fx {
+  background:linear-gradient(180deg,#faf5e9,#f5efe2);
+}
+
+html[data-theme="light"] .cat-utility {
+  background:linear-gradient(180deg,#f3effb,#ece8f5);
+}
+
+html[data-theme="light"] .cat-card {
+  border-color:rgba(30,50,75,.08);
+}
+
+html[data-theme="light"] .cat-card:hover {
+  border-color:rgba(30,50,75,.14);
+  box-shadow:0 14px 30px rgba(25,45,70,.08);
+}
+
+/* Featured */
+html[data-theme="light"] .feat-card {
+  background:rgba(255,255,255,.78);
+  box-shadow:0 2px 10px rgba(25,45,70,.035);
+}
+
+html[data-theme="light"] .feat-visual {
+  background:#e9eef4;
+}
+
+html[data-theme="light"] .feat-card:hover {
+  border-color:rgba(77,157,224,.20);
+  box-shadow:0 14px 30px rgba(25,45,70,.09);
+}
+
+/* Tool explorer */
+html[data-theme="light"] .tile {
+  border-bottom-color:rgba(30,50,75,.07);
+}
+
+html[data-theme="light"] .tile:hover {
+  background:rgba(30,70,110,.035);
+}
+
+html[data-theme="light"] .filter-btn.active {
+  background:rgba(30,70,110,.07);
+}
+
+/* About */
+html[data-theme="light"] .about-wrap h2,
+html[data-theme="light"] .about-value strong {
+  color:#172033;
+}
+
+html[data-theme="light"] .about-col p {
+  color:#59677d;
+}
+
+html[data-theme="light"] .about-value span {
+  color:#68778d;
+}
+
+html[data-theme="light"] .about-legal {
+  border-color:rgba(30,50,75,.10);
+}
+
+/* Modal */
+html[data-theme="light"] .forge-seed-modal-panel {
+  background:#ffffff;
+  border-color:rgba(77,157,224,.16);
+  box-shadow:0 24px 70px rgba(20,35,55,.15);
+}
+
+html[data-theme="light"] .forge-seed-modal-input {
+  background:#f4f7fa;
+}
+
+/* Theme transition */
+body,
+.sidebar,
+.workspace,
+.top-search,
+.forge-seed-card,
+.cat-card,
+.feat-card,
+.tile {
+  transition:
+    background .25s ease,
+    color .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease;
+}

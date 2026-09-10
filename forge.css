@@ -735,3 +735,32 @@ html[data-theme="light"] .theme-sun{
 html[data-theme="light"] .theme-moon{
   display:block;
 }
+html[data-theme="light"] .sidebar-brand::before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+
+  left:-18px;
+  top:-15px;
+
+  width:175px;
+  height:70px;
+
+  background:
+    radial-gradient(
+      ellipse at 22% 45%,
+      rgba(8,18,32,.92) 0%,
+      rgba(18,39,66,.72) 30%,
+      rgba(58,104,164,.35) 52%,
+      transparent 74%
+    ),
+    radial-gradient(
+      ellipse at 70% 20%,
+      rgba(118,82,210,.18),
+      transparent 58%
+    );
+
+  filter:blur(6px);
+  border-radius:28px;
+  pointer-events:none;
+}

@@ -2641,3 +2641,27 @@ renderSeed(currentSeed);
 
 setSeedState("intro");
 })();
+const themeToggle = document.getElementById("themeToggle");
+
+const savedTheme = localStorage.getItem("forge-theme");
+
+if (savedTheme) {
+  document.documentElement.dataset.theme = savedTheme;
+} else {
+  const prefersLight = window.matchMedia(
+    "(prefers-color-scheme: light)"
+  ).matches;
+
+  document.documentElement.dataset.theme =
+    prefersLight ? "light" : "dark";
+}
+
+themeToggle?.addEventListener("click", () => {
+  const isLight =
+    document.documentElement.dataset.theme === "light";
+
+  const newTheme = isLight ? "dark" : "light";
+
+  document.documentElement.dataset.theme = newTheme;
+  localStorage.setItem("forge-theme", newTheme);
+});

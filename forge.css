@@ -735,28 +735,14 @@ html[data-theme="light"] .theme-sun{
 html[data-theme="light"] .theme-moon{
   display:block;
 }
-html[data-theme="light"] .sidebar::after{
-  content:"";
-  position:absolute;
-  z-index:0;
-  top:0;
-  left:0;
-  width:100%;
-  height:125px;
-  pointer-events:none;
-
-  background:
-    radial-gradient(
-      ellipse at 12% 15%,
-      rgba(8,18,34,.92) 0%,
-      rgba(16,38,68,.78) 24%,
-      rgba(43,92,145,.46) 45%,
-      rgba(91,126,190,.18) 63%,
-      transparent 82%
-    );
-}
-
-html[data-theme="light"] .sidebar-brand{
-  position:relative;
-  z-index:2;
+html[data-theme="light"] .logo-mark{
+  filter:
+    brightness(0)
+    saturate(100%)
+    invert(63%)
+    sepia(37%)
+    saturate(1118%)
+    hue-rotate(169deg)
+    brightness(96%)
+    contrast(91%);
 }

@@ -735,32 +735,28 @@ html[data-theme="light"] .theme-sun{
 html[data-theme="light"] .theme-moon{
   display:block;
 }
-html[data-theme="light"] .sidebar-brand::before{
+html[data-theme="light"] .sidebar::after{
   content:"";
   position:absolute;
-  z-index:-1;
-
-  left:-18px;
-  top:-15px;
-
-  width:175px;
-  height:70px;
+  z-index:0;
+  top:0;
+  left:0;
+  width:100%;
+  height:125px;
+  pointer-events:none;
 
   background:
     radial-gradient(
-      ellipse at 22% 45%,
-      rgba(8,18,32,.92) 0%,
-      rgba(18,39,66,.72) 30%,
-      rgba(58,104,164,.35) 52%,
-      transparent 74%
-    ),
-    radial-gradient(
-      ellipse at 70% 20%,
-      rgba(118,82,210,.18),
-      transparent 58%
+      ellipse at 12% 15%,
+      rgba(8,18,34,.92) 0%,
+      rgba(16,38,68,.78) 24%,
+      rgba(43,92,145,.46) 45%,
+      rgba(91,126,190,.18) 63%,
+      transparent 82%
     );
+}
 
-  filter:blur(6px);
-  border-radius:28px;
-  pointer-events:none;
+html[data-theme="light"] .sidebar-brand{
+  position:relative;
+  z-index:2;
 }

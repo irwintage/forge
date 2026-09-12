@@ -49,10 +49,257 @@ const TOOLS = [
 const CAT_COLORS = {
   Creative: '#4d9de0',
   Wellness: '#34d399',
-  FX: '#f59e0b',
+  FX: '#e85dad',
   Utility: '#a78bfa'
 };
+const TOOL_ICONS = {
+  "Chrysasynth Studio": "layout-grid",
+  "SUBDIVE": "audio-waveform",
+  "Axis": "waves",
+  "Nodes": "git-branch",
+  "Mystic Drums": "drum",
+  "Aura Sampler": "file-audio",
+  "Duality Synth": "blend",
 
+  "Shepard": "circle-arrow-up",
+  "Ethereal Stretch": "move-horizontal",
+  "Climax": "trending-up",
+  "Chord Progression Generator": "blocks",
+  "Noise Generator": "radio",
+  "PolyShape": "shapes",
+
+  "NeuroFlow Brainwave Generator": "brain",
+  "Hold The Frequency": "circle-dot",
+  "Sphère Natale": "orbit",
+  "MindShift": "focus",
+  "ZenBox": "box",
+  "Binaural Beats Generator": "headphones",
+  "Chakra Frequency Generator": "circle-dot",
+
+  "5th Essence Multi-FX": "pentagon",
+  "Delay": "repeat-2",
+  "Orbit Pan": "circle-dashed",
+"Soft Glue Compressor": "minimize-2",
+  "Mastering Tools": "gauge",
+  "Mic Clean": "mic-2",
+  "TrimRitual": "scissors",
+  "3-Band EQ": "sliders-horizontal",
+  "BPM Tapper": "timer",
+  "Frequency to Note Converter": "music",
+  "BPM to Milliseconds Calculator": "calculator"
+};
+const TOOL_CUSTOM_ICONS = {
+
+  "pixelTone Bloom": `
+    <svg viewBox="0 0 32 32" aria-hidden="true">
+      <rect x="4.5" y="7.5" width="15" height="13" rx="2.4"/>
+      <circle cx="9.2" cy="11.6" r="1.5"/>
+      <path d="M7 17.2l4.2-4.2 3.2 3.1 2.7-2.6 2.4 2.4"/>
+
+      <path d="M23.2 16c0-2.4 1.4-4.1 3.7-4.8
+               -.1 2.5-1.3 4.1-3.7 4.8Z"/>
+
+      <path d="M23.2 16c2.4 0 4.1 1.4 4.8 3.7
+               -2.5-.1-4.1-1.3-4.8-3.7Z"/>
+
+      <path d="M23.2 16c0 2.4-1.4 4.1-3.7 4.8
+               .1-2.5 1.3-4.1 3.7-4.8Z"/>
+    </svg>
+  `,
+
+  "Etheremin": `
+    <svg viewBox="0 0 32 32" aria-hidden="true">
+      <path d="M8.8 25.3
+               c.7-4.6 1.2-8.7 1.8-12.3
+               .2-1.2 2-1.2 2.2.1
+               l.7 4.2
+               .9-6.2
+               c.2-1.3 2.1-1.2 2.3.1
+               l.8 5.8
+               1.1-4.2
+               c.3-1.2 2-.9 2.1.3
+               l.5 4.4"/>
+
+      <path d="M8.8 25.3
+               c2.7 1.6 5.2 1.9 7.6 1.1
+               2.5-.9 4.2-3 5.3-6"/>
+
+      <path d="M23.8 10.3
+               c1.2.8 1.9 1.9 2 3.3"/>
+
+      <path d="M22.9 7.4
+               c2.4 1.4 3.8 3.5 4.1 6.2"/>
+
+      <path d="M21.5 4.8
+               c3.8 2 5.9 4.9 6.4 8.8"/>
+    </svg>
+  `,
+
+  "Fibonacci Melody Generator": `
+    <svg viewBox="0 0 32 32" aria-hidden="true">
+      <path d="M24.8 22.5
+               c-2.4 3.4-7.1 5-11.3 3.5
+               -5-1.8-7.7-7.2-5.9-12.1
+               1.5-4.1 5.9-6.4 10-5
+               3.4 1.2 5.2 4.8 4 8.1
+               -1 2.7-3.9 4.2-6.6 3.2
+               -2.1-.8-3.2-3-2.4-5
+               .6-1.6 2.3-2.5 3.9-1.9
+               1.1.4 1.7 1.6 1.3 2.7"/>
+
+      <circle cx="8.7" cy="11.8" r="1.15"/>
+      <circle cx="21.7" cy="9.8" r="1.15"/>
+      <circle cx="24.8" cy="22.5" r="1.15"/>
+    </svg>
+  `,
+
+  "Polyrhythm Bouncer": `
+    <svg viewBox="0 0 32 32" aria-hidden="true">
+      <path d="M5 24h22"/>
+      <path d="M6 21c2.7-7.5 6.8-7.5 9.8 0"/>
+      <path d="M16 21c2.7-5.2 6-5.2 10 0"/>
+      <circle cx="10.8" cy="12.4" r="1.7"/>
+      <circle cx="22.2" cy="15.2" r="1.7"/>
+    </svg>
+  `,
+
+  "Polyrhythm Kaleido Looper": `
+    <svg viewBox="0 0 32 32" aria-hidden="true">
+      <circle cx="16" cy="16" r="3"/>
+      <path d="M16 5v8M16 19v8M5 16h8M19 16h8"/>
+      <path d="M8.4 8.4l5.4 5.4
+               M18.2 18.2l5.4 5.4
+               M23.6 8.4l-5.4 5.4
+               M13.8 18.2l-5.4 5.4"/>
+    </svg>
+  `,
+
+  "Granular Pad": `
+    <svg viewBox="0 0 32 32" aria-hidden="true">
+      <circle cx="8" cy="9" r="1.3"/>
+      <circle cx="13.8" cy="7" r="1"/>
+      <circle cx="20.2" cy="10.2" r="1.4"/>
+      <circle cx="25" cy="8.2" r="1"/>
+
+      <circle cx="10.3" cy="17.2" r="1.1"/>
+      <circle cx="16.1" cy="16" r="1.6"/>
+      <circle cx="23.2" cy="18.2" r="1.1"/>
+
+      <circle cx="7.2" cy="24.2" r="1"/>
+      <circle cx="14" cy="25" r="1.4"/>
+      <circle cx="21" cy="24" r="1"/>
+      <circle cx="26" cy="23" r="1.3"/>
+    </svg>
+  `,
+
+  "Cosmic Garden": `
+    <svg viewBox="0 0 32 32" aria-hidden="true">
+      <path d="M15.5 26V15"/>
+
+      <path d="M15.5 19
+               c-4.4 0-6.8-2.2-7.1-6.1
+               4.2.1 6.6 2 7.1 6.1Z"/>
+
+      <path d="M15.5 15
+               c4.3 0 6.7-2 7-5.8
+               -4.1.1-6.4 2-7 5.8Z"/>
+
+      <path d="M25 5.8
+               26 8
+               l2.2 1
+               -2.2 1
+               -1 2.2
+               -1-2.2
+               -2.2-1
+               2.2-1
+               1-2.2Z"/>
+
+      <path d="m25.2 18.1
+               .7 1.6
+               1.6.7
+               -1.6.7
+               -.7 1.6
+               -.7-1.6
+               -1.6-.7
+               1.6-.7
+               .7-1.6Z"/>
+    </svg>
+  `,
+
+  "pixelTone Warp": `
+    <svg viewBox="0 0 32 32" aria-hidden="true">
+      <rect x="4.5" y="7" width="14.5" height="13" rx="2.2"/>
+      <circle cx="9" cy="11" r="1.4"/>
+      <path d="M7 17l4-4 3 3 2.5-2.5 2.5 2.5"/>
+
+      <path d="M22 9h6
+               M21 13h4
+               M24 17h4
+               M20 21h7"/>
+
+      <path d="M22.5 9
+               l-2 3
+               3 2
+               -2 3
+               3 2
+               -2 3"/>
+    </svg>
+  `,
+
+  "Reverb": `
+    <svg viewBox="0 0 32 32" aria-hidden="true">
+      <path d="M5 11.5
+               c4-4.5 7-4.5 11 0
+               s7 4.5 11 0"/>
+
+      <path d="M7 17
+               c3.3-3.6 5.8-3.6 9 0
+               s5.7 3.6 9 0"
+            opacity=".72"/>
+
+      <path d="M10 22
+               c2.2-2.3 3.8-2.3 6 0
+               s3.8 2.3 6 0"
+            opacity=".45"/>
+    </svg>
+  `,
+
+  "Flanger / Chorus": `
+    <svg viewBox="0 0 32 32" aria-hidden="true">
+      <path d="M4 12
+               c4-5 8 5 12 0
+               s8 5 12 0"/>
+
+      <path d="M4 20
+               c4-5 8 5 12 0
+               s8 5 12 0"
+            opacity=".65"/>
+    </svg>
+  `
+
+};
+function toolIconHTML(tool) {
+
+  const custom = TOOL_CUSTOM_ICONS[tool.name];
+
+  if (custom) {
+    return custom;
+  }
+
+  const icon = TOOL_ICONS[tool.name];
+
+  if (icon) {
+    return `<i data-lucide="${icon}"></i>`;
+  }
+
+  return "";
+}
+
+function refreshIcons() {
+  if (window.lucide) {
+    lucide.createIcons();
+  }
+}
 const TOOL_ART = {
   "Chrysasynth Studio": "studio-featured.png",
   "Axis": "axis-featured.jpg",
@@ -86,6 +333,7 @@ function currentRoute() {
 
 function setRoute(route, { updateHash = true } = {}) {
   if (!ROUTES[route]) route = 'explore';
+  document.querySelector('.workspace')?.classList.toggle('is-explore', route === 'explore');
   document.querySelectorAll('.view').forEach(view => {
     view.classList.toggle('is-active', view.dataset.view === route);
   });
@@ -113,7 +361,9 @@ window.addEventListener('hashchange', () => setRoute(currentRoute(), { updateHas
 function tileHTML(tool) {
   const catClass = 'cat-' + String(tool.category || 'Creative').toLowerCase();
   return `<a class="tile ${catClass}" href="${tool.url}" target="_blank" rel="noopener">
-    <span class="tile-ico" aria-hidden="true"></span>
+    <span class="tile-ico" aria-hidden="true">
+  ${toolIconHTML(tool)}
+</span>
     <span>
       <div class="tile-name">${tool.name}</div>
       <div class="tile-desc">${tool.desc}</div>
@@ -155,6 +405,7 @@ function renderCategoryGrids() {
     const n = TOOLS.filter(t => t.category === cat).length;
     el.textContent = n + ' tool' + (n === 1 ? '' : 's');
   });
+  refreshIcons();
 }
 
 function renderHomeTools() {
@@ -162,6 +413,7 @@ function renderHomeTools() {
   if (!host) return;
   const list = filtered(TOOLS, homeFilter, currentQuery).slice(0, 12);
   host.innerHTML = list.map(tileHTML).join('');
+  refreshIcons();
 }
 
 function renderTools() {
@@ -178,6 +430,7 @@ function renderTools() {
     grid.innerHTML = list.map(tileHTML).join('');
     empty?.classList.remove('visible');
   }
+  refreshIcons();
 }
 
 function syncFilters(cat) {

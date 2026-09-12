@@ -11,6 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
 <link rel="preconnect" href="https://unpkg.com"/>
 <script src="https://unpkg.com/tone@14.8.49/build/Tone.js"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 <link rel="stylesheet" href="forge.css?v=hero3"/>
 <link rel="icon" href="/favicon.ico" sizes="48x48" />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -58,29 +59,7 @@
     Shop<span class="ext-arrow" aria-hidden="true"></span>
   </a>
 
-  <button
-    id="themeToggle"
-    class="theme-toggle"
-    type="button"
-    aria-label="Switch theme"
-    title="Switch theme"
-  >
-    <!-- Sun -->
-    <svg class="theme-icon theme-sun"
-         viewBox="0 0 24 24"
-         aria-hidden="true">
-      <circle cx="12" cy="12" r="4"></circle>
-      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
-    </svg>
-
-    <!-- Moon -->
-    <svg class="theme-icon theme-moon"
-         viewBox="0 0 24 24"
-         aria-hidden="true">
-      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-    </svg>
-
-  </button>
+ 
 
 </div>
     </div>
@@ -89,79 +68,190 @@
   <div class="workspace">
     <header class="topbar">
       <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu">
-        <span></span><span></span>
-      </button>
+  <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true">
+    <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+    <path d="M9 4v16"></path>
+  </svg>
+</button>
       <div class="topbar-title">
         <h1 id="viewTitle">Forge</h1>
         <p id="viewSubtitle">Creative Audio Laboratory</p>
       </div>
+      
       <label class="top-search" for="globalSearch">
-        <input type="search" id="globalSearch" placeholder="Search tools..." autocomplete="off"/>
-      </label>
+  <input type="search" id="globalSearch" placeholder="Search tools..." autocomplete="off"/>
+</label>
+
+<button
+  id="themeToggle"
+  class="theme-toggle"
+  type="button"
+  aria-label="Switch theme"
+  title="Switch theme"
+>
+  <!-- Sun -->
+  <svg class="theme-icon theme-sun"
+       viewBox="0 0 24 24"
+       aria-hidden="true">
+    <circle cx="12" cy="12" r="4"></circle>
+    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+  </svg>
+
+  <!-- Moon -->
+  <svg class="theme-icon theme-moon"
+       viewBox="0 0 24 24"
+       aria-hidden="true">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+  </svg>
+</button>
     </header>
 
     <main class="main" id="main">
 
       <section class="view is-active view-explore" id="view-explore" data-view="explore">
 
-        <div class="explore-mast">
-        <header class="explore-hero">
-          <h2 class="explore-hero-title">Tools to shape sound.</h2>
-          <p class="explore-hero-copy">40+ browser-based audio tools. No installs. From ambient textures to melodic generators.</p>
-        </header>
+        <div class="explore-mast forge-hero-banner">
 
-        <article class="seed-stage hero-seed-shell">
-          <div class="forge-seed-card is-intro" id="forgeSeed" data-seed-state="intro">
-            <div class="forge-seed-beta"><span class="forge-seed-beta-dot"></span>Beta</div>
+  <header class="explore-hero">
+    <h2 class="explore-hero-title">Tools to shape sound.</h2>
 
-            <div class="forge-seed-state forge-seed-intro" id="forgeSeedIntro">
-              <div class="forge-seed-intro-copy">
-                <p class="seed-kicker">Seed Generator</p>
-                <h2>Forge Seed</h2>
-                <p>A unique musical starting point.</p>
-              </div>
-              <button class="forge-seed-generate" id="forgeSeedGenerate" type="button">Generate My Seed</button>
-            </div>
+    <p class="explore-hero-copy">
+  40+ browser-based audio tools. No installs.<br>
+  From ambient textures to melodic generators.
+</p>
+  </header>
 
-            <div class="forge-seed-state forge-seed-loading" id="forgeSeedLoading" hidden>
-              <div class="forge-seed-loading-wave" id="forgeSeedLoadingWave"></div>
-              <div class="forge-seed-loading-copy">
-                <strong>Forging your Seed…</strong>
-                <span>Shaping harmony, movement and texture.</span>
-              </div>
-            </div>
+  <article class="seed-stage hero-seed-shell">
 
-            <div class="forge-seed-state forge-seed-result" id="forgeSeedResult" hidden>
-              <div class="forge-seed-player">
-                <button class="forge-seed-play" id="forgeSeedPlay" type="button" aria-label="Play Seed" aria-pressed="false">
-                  <span class="forge-seed-play-icon"></span>
-                  <span class="forge-seed-pause-icon"><span></span><span></span></span>
-                </button>
-                <div class="forge-seed-waveform" id="forgeSeedWaveform">
-                  <canvas class="forge-seed-wave-canvas" id="forgeSeedWaveCanvas"></canvas>
-                </div>
-              </div>
-              <div class="forge-seed-identity">
-                <strong id="forgeSeedName">Solace-71820</strong>
-                <div class="forge-seed-specs">
-                  <span id="forgeSeedType">Chord Bloom</span>
-                  <span>·</span>
-                  <span id="forgeSeedKey">D Minor</span>
-                  <span>·</span>
-                  <span id="forgeSeedDuration">0:08</span>
-                </div>
-              </div>
-              <div class="forge-seed-actions">
-                <button class="forge-seed-keep" id="forgeSeedKeep" type="button"><span>Keep this Seed</span></button>
-                <button class="forge-seed-regenerate" id="forgeSeedRegenerate" type="button" aria-label="Generate another Seed">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.5 9a9 9 0 0 1 14.9-3.4L23 10"></path><path d="M1 14l4.6 4.4A9 9 0 0 0 20.5 15"></path></svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        </article>
+    <div class="forge-seed-card is-intro" id="forgeSeed" data-seed-state="intro">
+
+      <div class="forge-seed-beta">
+        <span class="forge-seed-beta-dot"></span>Beta
+      </div>
+
+      <div class="forge-seed-state forge-seed-intro" id="forgeSeedIntro">
+
+        <div class="forge-seed-intro-copy">
+          <p class="seed-kicker">Seed Generator</p>
+          <h2>Forge Seed</h2>
+          <p>A unique musical starting point.</p>
         </div>
 
+        <button
+          class="forge-seed-generate"
+          id="forgeSeedGenerate"
+          type="button"
+        >
+          Generate My Seed
+        </button>
+
+      </div>
+
+      <div
+        class="forge-seed-state forge-seed-loading"
+        id="forgeSeedLoading"
+        hidden
+      >
+        <div
+          class="forge-seed-loading-wave"
+          id="forgeSeedLoadingWave"
+        ></div>
+
+        <div class="forge-seed-loading-copy">
+          <strong>Forging your Seed…</strong>
+          <span>Shaping harmony, movement and texture.</span>
+        </div>
+      </div>
+
+      <div
+        class="forge-seed-state forge-seed-result"
+        id="forgeSeedResult"
+        hidden
+      >
+
+        <div class="forge-seed-player">
+
+          <button
+            class="forge-seed-play"
+            id="forgeSeedPlay"
+            type="button"
+            aria-label="Play Seed"
+            aria-pressed="false"
+          >
+            <span class="forge-seed-play-icon"></span>
+
+            <span class="forge-seed-pause-icon">
+              <span></span>
+              <span></span>
+            </span>
+          </button>
+
+          <div
+            class="forge-seed-waveform"
+            id="forgeSeedWaveform"
+          >
+            <canvas
+              class="forge-seed-wave-canvas"
+              id="forgeSeedWaveCanvas"
+            ></canvas>
+          </div>
+
+        </div>
+
+        <div class="forge-seed-identity">
+
+          <strong id="forgeSeedName">
+            Solace-71820
+          </strong>
+
+          <div class="forge-seed-specs">
+            <span id="forgeSeedType">Chord Bloom</span>
+            <span>·</span>
+            <span id="forgeSeedKey">D Minor</span>
+            <span>·</span>
+            <span id="forgeSeedDuration">0:08</span>
+          </div>
+
+        </div>
+
+        <div class="forge-seed-actions">
+
+          <button
+            class="forge-seed-keep"
+            id="forgeSeedKeep"
+            type="button"
+          >
+            <span>Keep this Seed</span>
+          </button>
+
+          <button
+            class="forge-seed-regenerate"
+            id="forgeSeedRegenerate"
+            type="button"
+            aria-label="Generate another Seed"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <polyline points="23 4 23 10 17 10"></polyline>
+              <polyline points="1 20 1 14 7 14"></polyline>
+              <path d="M3.5 9a9 9 0 0 1 14.9-3.4L23 10"></path>
+              <path d="M1 14l4.6 4.4A9 9 0 0 0 20.5 15"></path>
+            </svg>
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </article>
+
+</div>
         <div class="dash-block">
           <h2 class="block-title">Explore by category</h2>
           <div class="cat-row">

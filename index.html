@@ -459,13 +459,27 @@
   </div>
 </div>
 
-<script src="forge.js"></script>
+<iframe
+  name="brevoHiddenFrame"
+  style="display:none"
+  title="Brevo subscription"
+></iframe>
+
 <div style="display:none" aria-hidden="true">
-  <form id="sibFormHidden" method="POST" action="https://dd05a9be.sibforms.com/serve/MUIFAMDmK5haoAKqbqWWSCtPkEnNbPjrCR_HM6mWlKLrkAYRTNcjbtiFnN71s9o-c3QXj_Jg0h6YEQzRGa6O84DREjXnccSLf_Q7QpNGiNdhrDJMpWd3d_NG2-JFm-eT83uKgyAg4VyazXopodUJt4dzV5zKaO5bQfBACUwo23ClIDvXWdy9hRSLL1LKa9ssFqLpn1I-tkyKs3r4yA==">
+  <form
+    id="sibFormHidden"
+    method="POST"
+    target="brevoHiddenFrame"
+    action="https://dd05a9be.sibforms.com/serve/MUIFAMDmK5haoAKqbqWWSCtPkEnNbPjrCR_HM6mWlKLrkAYRTNcjbtiFnN71s9o-c3QXj_Jg0h6YEQzRGa6O84DREjXnccSLf_Q7QpNGiNdhrDJMpWd3d_NG2-JFm-eT83uKgyAg4VyazXopodUJt4dzV5zKaO5bQfBACUwo23ClIDvXWdy9hRSLL1LKa9ssFqLpn1I-tkyKs3r4yA=="
+  >
     <input type="text" name="EMAIL" id="sibEmailHidden" value=""/>
+    <input type="text" name="email_address_check" value=""/>
     <input type="hidden" name="locale" value="fr"/>
+    <input type="hidden" name="html_type" value="simple"/>
   </form>
 </div>
+
+<script src="forge.js"></script>
 
 <script>
 (function () {

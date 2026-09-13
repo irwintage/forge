@@ -2837,33 +2837,24 @@ document
 
     try {
 
-      /*
-       * TODO (server-side, not doable safely from the browser):
-       * POST { email, seedId: currentSeed.id, transform: currentSeed.activeTransform }
-       * to your Brevo-connected endpoint to add the contact —
-       * the Brevo API key can't live in client JS.
-       *
-       * Note: you only need to send the seed id + transform name,
-       * never the audio itself — the WAV is fully reproducible
-       * from those two values whenever you need it again
-       * (e.g. to re-render and email it as an attachment later).
-       */
-      await fetch('/api/forge-seed-subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email,
-          seedId: currentSeed.id,
-          transform: currentSeed.activeTransform || null
-        })
-      }).catch(() => {
-        /* Endpoint not wired up yet — don't block the download on it. */
-      });
+  const sibForm =
+    document.getElementById('sibFormHidden');
 
-      await exportSeedToWav(currentSeed);
+  const sibEmail =
+    document.getElementById('sibEmailHidden');
 
-      seedModal?.classList.remove('is-open');
-      seedModal?.setAttribute('aria-hidden', 'true');
+  if (!sibForm || !sibEmail) {
+    throw new Error('Brevo form not found');
+  }
+
+  sibEmail.value = email;
+
+  sibForm.submit();
+
+  await exportSeedToWav(currentSeed);
+
+  seedModal?.classList.remove('is-open');
+  seedModal?.setAttribute('aria-hidden', 'true');
 
     } catch (error) {
       console.error('Forge Seed export error:', error);

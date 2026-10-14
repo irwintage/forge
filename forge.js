@@ -318,7 +318,8 @@ const ROUTES = {
   fx:       { title: 'FX', subtitle: 'Effects and processing' },
   utility:  { title: 'Utility', subtitle: 'Calculators and analysis' },
   tools:    { title: 'All Tools', subtitle: 'Full laboratory catalogue' },
-  about:    { title: 'About Forge', subtitle: 'A creative audio laboratory' }
+  about:    { title: 'About Forge', subtitle: 'A creative audio laboratory' },
+  account:  { title: 'Your Space', subtitle: 'Chrysasynth ID · Coming soon' }
 };
 
 let currentFilter = 'all';
@@ -355,7 +356,62 @@ function setRoute(route, { updateHash = true } = {}) {
     window.setTimeout(() => heroTitle.classList.add('is-in'), 80);
   }
 }
+function setDesktopSidebar(collapsed, { persist = true } = {}) {
+  if (!app) return;
 
+  app.classList.toggle('sidebar-collapsed', collapsed);
+
+  menuBtn?.setAttribute(
+    'aria-expanded',
+    String(!collapsed)
+  );
+
+  menuBtn?.setAttribute(
+    'aria-label',
+    collapsed
+      ? 'Expand sidebar'
+      : 'Collapse sidebar'
+  );
+
+  menuBtn?.setAttribute(
+    'title',
+    collapsed
+      ? 'Expand sidebar'
+      : 'Collapse sidebar'
+  );
+
+  if (persist) {
+    try {
+      localStorage.setItem(
+        SIDEBAR_STATE_KEY,
+        collapsed ? '1' : '0'
+      );
+    } catch (_) {}
+  }
+}
+function restoreDesktopSidebar() {
+  if (!DESKTOP_SIDEBAR.matches) {
+    app?.classList.remove('sidebar-collapsed');
+
+    menuBtn?.setAttribute('aria-expanded', 'false');
+    menuBtn?.setAttribute('aria-label', 'Open sidebar');
+    menuBtn?.setAttribute('title', 'Open sidebar');
+
+    return;
+  }
+
+  let collapsed = false;
+
+  try {
+    collapsed =
+      localStorage.getItem(SIDEBAR_STATE_KEY) === '1';
+  } catch (_) {}
+
+  setDesktopSidebar(
+    collapsed,
+    { persist: false }
+  );
+}
 window.addEventListener('hashchange', () => setRoute(currentRoute(), { updateHash: false }));
 
 function tileHTML(tool) {
@@ -493,39 +549,114 @@ document.querySelectorAll('[data-go]').forEach(btn => {
   btn.addEventListener('click', () => setRoute(btn.getAttribute('data-go')));
 });
 
+const app = document.getElementById('app');
 const sidebar = document.getElementById('sidebar');
 const backdrop = document.getElementById('sidebarBackdrop');
 const menuBtn = document.getElementById('menuBtn');
+const DESKTOP_SIDEBAR = window.matchMedia('(min-width: 961px)');
+const SIDEBAR_STATE_KEY = 'forge_sidebar_collapsed_v1';
 function closeMobileNav() {
   sidebar?.classList.remove('is-open');
-  if (backdrop) backdrop.hidden = true;
+
+  if (backdrop) {
+    backdrop.hidden = true;
+  }
+
+  if (!DESKTOP_SIDEBAR.matches) {
+    menuBtn?.setAttribute('aria-expanded', 'false');
+  }
 }
 menuBtn?.addEventListener('click', () => {
-  const open = sidebar?.classList.toggle('is-open');
-  if (backdrop) backdrop.hidden = !open;
+  if (DESKTOP_SIDEBAR.matches) {
+    const collapsed =
+      !app?.classList.contains('sidebar-collapsed');
+
+    setDesktopSidebar(collapsed);
+    return;
+  }
+
+  const open =
+    sidebar?.classList.toggle('is-open');
+
+  if (backdrop) {
+    backdrop.hidden = !open;
+  }
+
+  menuBtn.setAttribute(
+    'aria-expanded',
+    String(Boolean(open))
+  );
+
+  menuBtn.setAttribute(
+    'aria-label',
+    open
+      ? 'Close sidebar'
+      : 'Open sidebar'
+  );
+
+  menuBtn.setAttribute(
+    'title',
+    open
+      ? 'Close sidebar'
+      : 'Open sidebar'
+  );
 });
 backdrop?.addEventListener('click', closeMobileNav);
 
+function handleSidebarBreakpointChange() {
+  closeMobileNav();
+  restoreDesktopSidebar();
+}
+
+if (
+  typeof DESKTOP_SIDEBAR.addEventListener === 'function'
+) {
+  DESKTOP_SIDEBAR.addEventListener(
+    'change',
+    handleSidebarBreakpointChange
+  );
+} else if (
+  typeof DESKTOP_SIDEBAR.addListener === 'function'
+) {
+  DESKTOP_SIDEBAR.addListener(
+    handleSidebarBreakpointChange
+  );
+}
+restoreDesktopSidebar();
 renderCategoryGrids();
 renderHomeTools();
 renderTools();
 setRoute(currentRoute(), { updateHash: false });
 
-const labVideo = document.querySelector('.sidebar-lab-media');
-if (labVideo) {
-  labVideo.loop = false;
-  labVideo.muted = true;
-  labVideo.addEventListener('playing', () => labVideo.classList.add('is-on'));
-  labVideo.addEventListener('ended', () => {
-    labVideo.classList.remove('is-on');
-    labVideo.pause();
-  });
-  labVideo.addEventListener('error', () => labVideo.classList.remove('is-on'));
-}
+
 
 /* ============================================================
    FORGE SEED — HERO ENGINE V1
    ============================================================ */
+
+/* Local WAV history: IndexedDB stores the actual WAV blob and metadata. */
+(function initForgeSeedLibrary(){
+  const DB = 'chrysasynth-forge-seeds-v1', STORE = 'downloads';
+  function openDB(){return new Promise((resolve,reject)=>{if(!('indexedDB' in window))return reject(new Error('IndexedDB unavailable'));const req=indexedDB.open(DB,1);req.onupgradeneeded=()=>{const db=req.result;if(!db.objectStoreNames.contains(STORE))db.createObjectStore(STORE,{keyPath:'key'});};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});}
+  async function query(mode,fn){const db=await openDB();return new Promise((resolve,reject)=>{const tx=db.transaction(STORE,mode),req=fn(tx.objectStore(STORE));let result;req.onsuccess=()=>{result=req.result};tx.oncomplete=()=>{db.close();resolve(result)};tx.onerror=()=>{db.close();reject(tx.error)};tx.onabort=()=>{db.close();reject(tx.error||new Error('Storage aborted'))};});}
+  const all=async()=> (await query('readonly',s=>s.getAll())).sort((a,b)=>b.savedAt-a.savedAt);
+  const preview=document.getElementById('seedLibraryPreview'), full=document.getElementById('seedLibraryFull'), viewAll=document.getElementById('seedViewAll'), modal=document.getElementById('seedLibraryModal');
+  let player=null,playing=null;
+  function stop(){if(player){player.pause();URL.revokeObjectURL(player.src);player=null;}if(playing){playing.textContent='▶';playing=null;}}
+  function filename(item){return 'chrysasynth-forge-'+item.name.replace(/\s+/g,'-').toLowerCase()+'.wav';}
+  function download(item){const url=URL.createObjectURL(item.wav),a=document.createElement('a');a.href=url;a.download=filename(item);document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),4000);}
+  function row(item){const el=document.createElement('div');el.className='seed-library-item';const play=document.createElement('button');play.className='seed-library-play';play.type='button';play.textContent='▶';play.setAttribute('aria-label','Play '+item.name);play.addEventListener('click',()=>{if(playing===play){stop();return;}stop();player=new Audio(URL.createObjectURL(item.wav));playing=play;play.textContent='Ⅱ';player.onended=stop;player.play().catch(stop);});const details=document.createElement('div');details.className='seed-library-details';const title=document.createElement('strong');title.textContent=item.name;const meta=document.createElement('small');meta.textContent=[item.type,item.musicalKey,new Date(item.savedAt).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})].filter(Boolean).join(' · ');details.append(title,meta);const dl=document.createElement('button');dl.type='button';dl.className='seed-library-action';dl.textContent='↓ WAV';dl.addEventListener('click',()=>download(item));const del=document.createElement('button');del.type='button';del.className='seed-library-action seed-library-delete';del.textContent='×';del.title='Delete saved Seed';del.setAttribute('aria-label','Delete '+item.name);del.addEventListener('click',async()=>{try{stop();await query('readwrite',s=>s.delete(item.key));await render();}catch(e){showWarning('Could not delete this Seed.')}});el.append(play,details,dl,del);return el;}
+  async function render(){try{const items=await all();for(const [root,subset] of [[preview,items.slice(0,3)],[full,items]]){if(!root)continue;root.replaceChildren();if(!subset.length){const empty=document.createElement('div');empty.className='seed-library-empty';empty.innerHTML='<span class="seed-empty-icon" aria-hidden="true">♫</span><span class="seed-empty-copy"><strong>Your Seeds</strong><small>Your downloaded sounds will appear here.</small></span>';root.append(empty);}else subset.forEach(item=>root.append(row(item)));}if(viewAll)viewAll.hidden=false;}catch(e){console.warn('Seed library unavailable',e);if(preview)preview.textContent='Local history is unavailable in this browser.';}}
+  const save=async(seed,wav)=>{const item={key:String(seed.id)+"-"+Date.now(),name:seed.name,type:seed.type,keyName:seed.rootName+' '+seed.modeName,musicalKey:seed.rootName+' '+seed.modeName,duration:seed.duration,savedAt:Date.now(),wav};await query('readwrite',s=>s.put(item));await render();};
+  function showWarning(msg){const foot=document.querySelector('.seed-library-foot');if(foot)foot.textContent=msg;}
+  window.ForgeSeedLibrary={save,render,showWarning};
+  viewAll?.addEventListener('click',()=>{modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');render();});
+  document.querySelectorAll('[data-library-close]').forEach(el=>el.addEventListener('click',()=>{stop();modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');}));
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal?.classList.contains('is-open')){stop();modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');}});
+  render();
+  window.addEventListener('pageshow', render);
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)render();});
+})();
 
 (function initForgeSeed() {
   const root = document.getElementById('forgeSeed');
@@ -803,7 +934,7 @@ let isPlaying = false;
     );
 
     const octaveLift =
-      random() > 0.78
+      random() > 0.92
         ? 12
         : 0;
 
@@ -813,6 +944,33 @@ let isPlaying = false;
       scale[previousDegree] +
       octaveLift
     );
+  }
+
+  // V12: short musical phrase with a recognizable answer, not a random walk.
+  // Keep PixelTone's distinctive digital fragments unchanged.
+  if (type !== 'PixelTone Fragment' && type !== 'Chord Bloom' && melody.length >= 6) {
+    const phraseSize = Math.min(4, Math.floor(melody.length / 2));
+    for (let i = phraseSize; i < melody.length - 1; i++) {
+      const source = melody[i % phraseSize];
+      if (random() < 0.68) {
+        melody[i] = source;
+      } else {
+        // Neighbor note in the same mode and octave, for a small variation.
+        const relative = source - root.midi - octaveOffset;
+        const octave = Math.floor(relative / 12);
+        const pitchClass = ((relative % 12) + 12) % 12;
+        const degree = scale.indexOf(pitchClass);
+        if (degree >= 0) {
+          const next = clamp(degree + (random() < 0.5 ? -1 : 1), 0, scale.length - 1);
+          melody[i] = root.midi + octaveOffset + octave * 12 + scale[next];
+        }
+      }
+    }
+    // Close the phrase on the tonic, near the preceding note.
+    const tonic = root.midi + octaveOffset;
+    const previous = melody[melody.length - 2];
+    melody[melody.length - 1] = [tonic - 12, tonic, tonic + 12]
+      .sort((a, b) => Math.abs(a - previous) - Math.abs(b - previous))[0];
   }
 
   const chordDegrees = [0, 2, 4];
@@ -1259,7 +1417,7 @@ audio.limiter?.dispose();
 }
 
 function buildAudio(seed) {
-  disposeAudio();
+  // V11: return an independent engine, never modify preview state.
 
 
   /* ------------------------------------------------------------
@@ -1273,7 +1431,7 @@ function buildAudio(seed) {
 
 
   const master =
-    new Tone.Gain(0.62)
+    new Tone.Gain(0.58)
       .connect(limiter);
 
 
@@ -1386,13 +1544,10 @@ function buildAudio(seed) {
 
 
     synth.volume.value =
-      Math.max(
-        -12,
-        seed.sound.volume
-      );
+      Math.max(-15, seed.sound.volume - 2);
 
 
-    audio = {
+    return {
       engine:
         'axis',
 
@@ -1403,9 +1558,6 @@ function buildAudio(seed) {
       master,
       limiter
     };
-
-
-    return;
   }
 
 
@@ -1441,15 +1593,8 @@ function buildAudio(seed) {
 
     const filter =
       new Tone.Filter({
-        frequency:
-  Math.min(
-    1800,
-    Math.max(
-      700,
-      seed.sound.brightness * 0.62
-    )
-  ),
-        type: seed.sound.filterType,
+        frequency: Math.min(1450, Math.max(650, seed.sound.brightness * 0.54)),
+        type: 'lowpass',
         rolloff: -12
       }).connect(delay);
 
@@ -1477,10 +1622,9 @@ function buildAudio(seed) {
         }
       }).connect(filter);
 
-    synth.volume.value = seed.sound.volume - 1;
+    synth.volume.value = seed.sound.volume - 3;
 
-    audio = { engine: 'chord-bloom', synth, filter, delay, chorus, reverb, master, limiter };
-    return;
+    return { engine: 'chord-bloom', synth, filter, delay, chorus, reverb, master, limiter };
   }
 
   /* ============================================================
@@ -1505,8 +1649,8 @@ function buildAudio(seed) {
 
     const filter =
       new Tone.Filter({
-        frequency: seed.sound.brightness,
-        type: seed.sound.filterType,
+        frequency: Math.min(1850, Math.max(750, seed.sound.brightness * 0.72)),
+        type: 'lowpass',
         rolloff: -12
       }).connect(delay);
 
@@ -1523,17 +1667,16 @@ function buildAudio(seed) {
           detune: seed.sound.detune
         },
         envelope: {
-          attack: seed.sound.attack * 0.7,
+          attack: Math.max(0.035, seed.sound.attack * 0.85),
           decay: seed.sound.decay,
           sustain: seed.sound.sustain,
           release: seed.sound.release * 0.7
         }
       }).connect(vibrato);
 
-    synth.volume.value = seed.sound.volume;
+    synth.volume.value = seed.sound.volume - 2;
 
-    audio = { engine: 'subdive', synth, filter, delay, vibrato, reverb, master, limiter };
-    return;
+    return { engine: 'subdive', synth, filter, delay, vibrato, reverb, master, limiter };
   }
 
   /* ============================================================
@@ -1559,7 +1702,7 @@ function buildAudio(seed) {
 
     const filter =
       new Tone.Filter({
-        frequency: Math.max(900, seed.sound.brightness),
+        frequency: Math.min(1900, Math.max(850, seed.sound.brightness * 0.75)),
         type: 'lowpass',
         rolloff: -24
       }).connect(delay);
@@ -1568,17 +1711,16 @@ function buildAudio(seed) {
       new Tone.PolySynth(Tone.Synth, {
         oscillator: { type: seed.sound.oscillator },
         envelope: {
-          attack: Math.min(0.02, seed.sound.attack),
+          attack: Math.max(0.012, Math.min(0.035, seed.sound.attack)),
           decay: 0.18 + seed.sound.decay * 0.3,
           sustain: 0.12,
           release: Math.min(0.5, seed.sound.release * 0.3)
         }
       }).connect(filter);
 
-    synth.volume.value = seed.sound.volume;
+    synth.volume.value = seed.sound.volume - 2;
 
-    audio = { engine: 'nodes', synth, filter, delay, reverb, master, limiter };
-    return;
+    return { engine: 'nodes', synth, filter, delay, reverb, master, limiter };
   }
 
  /* ============================================================
@@ -1678,7 +1820,7 @@ if (seed.type === 'PixelTone Fragment') {
     );
 
 
-  audio = {
+  return {
     engine:
       'pixeltone',
 
@@ -1689,9 +1831,6 @@ if (seed.type === 'PixelTone Fragment') {
     master,
     limiter
   };
-
-
-  return;
 }
 
  /* ============================================================
@@ -1724,7 +1863,7 @@ if (seed.type === 'Ethereal Drift') {
       frequency:
         Math.max(
           500,
-          seed.sound.brightness * 0.62
+          seed.sound.brightness * 0.55
         ),
 
       type:
@@ -1782,13 +1921,10 @@ if (seed.type === 'Ethereal Drift') {
 
 
   synth.volume.value =
-    Math.min(
-      -11,
-      seed.sound.volume - 3
-    );
+    Math.min(-13, seed.sound.volume - 4);
 
 
-  audio = {
+  return {
     engine:
       'ethereal',
 
@@ -1798,9 +1934,6 @@ if (seed.type === 'Ethereal Drift') {
     master,
     limiter
   };
-
-
-  return;
 }
 
   /* ============================================================
@@ -1842,7 +1975,7 @@ if (seed.type === 'Ethereal Drift') {
 
   synth.volume.value = seed.sound.volume;
 
-  audio = { engine: 'poly-fallback', synth, filter, delay, reverb, master, limiter };
+  return { engine: 'poly-fallback', synth, filter, delay, reverb, master, limiter };
 }
 
 /* ------------------------------------------------------------
@@ -1959,93 +2092,62 @@ function getHumanizedTime(
    CHORD BLOOM
    ------------------------------------------------------------ */
 
-async function playChordBloom(seed) {
-  const now =
-    Tone.now() + 0.06;
+async function playChordBloom(seed, engine) {
+  const now = Tone.now() + 0.06;
+  const scale = seed.scale;
+  const root = seed.rootMidi + seed.octaveOffset;
+  const chordDuration = seed.duration / 4;
 
-  const scale =
-    seed.scale;
-
-  const root =
-    seed.rootMidi +
-    seed.octaveOffset;
-
-  const chordDuration =
-    Math.max(
-      1.8,
-      seed.duration / 3
-    );
-
-  /*
-   * Simple modal progression:
-   * I → IV → VI
-   *
-   * Degrees are wrapped inside the current scale,
-   * so it stays coherent with the Seed mode.
-   */
-
-  const progressionDegrees = [
-    0,
-    3,
-    5
+  // V12: four harmonic events with an explicit tonic resolution.
+  // The same Seed ID always selects the same progression.
+  const random = mulberry32(seed.id + 3301);
+  const progressions = [
+    [0, 3, 4, 0], // I - IV - V - I
+    [0, 5, 4, 0], // I - vi - V - I
+    [0, 3, 5, 0], // I - IV - vi - I (modal)
+    [0, 1, 4, 0]  // I - ii - V - I
   ];
+  const degrees = progressions[Math.floor(random() * progressions.length)];
+  let previousVoicing = null;
 
-  progressionDegrees.forEach(
-    (degree, index) => {
+  degrees.forEach((degree, index) => {
+    const diatonic = [0, 2, 4].map(interval => {
+      const position = degree + interval;
+      return root + scale[position % scale.length] +
+        12 * Math.floor(position / scale.length);
+    });
 
-      const chordRoot =
-        root +
-        scale[
-          degree %
-          scale.length
-        ];
-
-      const chord = [
-        chordRoot,
-        chordRoot +
-          scale[2],
-        chordRoot +
-          scale[4]
-      ];
-
-      /*
-       * Optional upper colour note.
-       */
-      if (
-        index === 2
-      ) {
-        chord.push(
-          chordRoot +
-          scale[6] +
-          12
-        );
+    const candidates = [];
+    for (let inversion = 0; inversion < 3; inversion++) {
+      const voiced = diatonic.slice();
+      for (let i = 0; i < inversion; i++) voiced[i] += 12;
+      voiced.sort((a, b) => a - b);
+      for (const shift of [-24, -12, 0, 12]) {
+        const notes = voiced.map(note => note + shift);
+        if (notes[0] < 45 || notes[2] > 72) continue;
+        const distance = previousVoicing
+          ? notes.reduce((sum, note, i) => sum + Math.abs(note - previousVoicing[i]), 0)
+          : notes.reduce((sum, note) => sum + Math.abs(note - (root + 5)), 0);
+        candidates.push({ notes, distance });
       }
-
-      const notes =
-        chord.map(
-          midiToNote
-        );
-
-      audio.synth
-        .triggerAttackRelease(
-          notes,
-          chordDuration * 0.9,
-          now +
-            index *
-            chordDuration,
-          index === 0
-            ? 0.52
-            : 0.46
-        );
     }
-  );
+    const notes = candidates.sort((a, b) => a.distance - b.distance)[0]?.notes ||
+      diatonic.map(note => note > 72 ? note - 12 : note);
+    previousVoicing = notes;
+    engine.synth.triggerAttackRelease(
+      notes.map(midiToNote),
+      chordDuration * (index === 3 ? 0.96 : 0.84),
+      now + index * chordDuration,
+      index === 3 ? 0.43 : 0.40
+    );
+  });
 }
 
 
 /* ------------------------------------------------------------
    MELODIC subdive
    ------------------------------------------------------------ */
-async function playSubdiveSequence(seed) {
+async function playSubdiveSequence(seed, engine) {
   const random =
     mulberry32(
       seed.id + 901
@@ -2100,7 +2202,7 @@ const note =
         ) *
         0.22;
 
-      audio.synth
+      engine.synth
         .triggerAttackRelease(
           note,
           duration,
@@ -2116,7 +2218,7 @@ const note =
    ARP FRAGMENT
    ------------------------------------------------------------ */
 
-async function playNodesArp(seed) {
+async function playNodesArp(seed, engine) {
 
   const random =
     mulberry32(
@@ -2178,7 +2280,7 @@ async function playNodesArp(seed) {
         random
       );
 
-    audio.synth
+    engine.synth
       .triggerAttackRelease(
         midiToNote(midi),
         Math.max(
@@ -2197,7 +2299,7 @@ async function playNodesArp(seed) {
    PLUCK SEQUENCE
    ------------------------------------------------------------ */
 
-async function playPixelToneFragment(seed) {
+async function playPixelToneFragment(seed, engine) {
 
   const random =
     mulberry32(
@@ -2286,7 +2388,7 @@ async function playPixelToneFragment(seed) {
       );
 
 
-    audio.synth
+    engine.synth
       .triggerAttackRelease(
 
         midiToNote(
@@ -2310,7 +2412,7 @@ async function playPixelToneFragment(seed) {
    AMBIENT DRIFT
    ------------------------------------------------------------ */
 
-async function playEtherealDrift(seed) {
+async function playEtherealDrift(seed, engine) {
 
   const random =
     mulberry32(
@@ -2325,7 +2427,7 @@ async function playEtherealDrift(seed) {
       .slice(0, 3)
       .map(midiToNote);
 
-  audio.synth
+  engine.synth
     .triggerAttackRelease(
       lowerChord,
       Math.max(
@@ -2351,7 +2453,7 @@ async function playEtherealDrift(seed) {
           ) +
           random() * 0.18;
 
-        audio.synth
+        engine.synth
           .triggerAttackRelease(
             midiToNote(
               midi + 12
@@ -2371,7 +2473,7 @@ async function playEtherealDrift(seed) {
    AXIS PATTERN 
    ------------------------------------------------------------ */
 
-async function playAxisBassline(seed) {
+async function playAxisBassline(seed, engine) {
   const random =
     mulberry32(
       seed.id + 2101
@@ -2455,7 +2557,7 @@ async function playAxisBassline(seed) {
       0.42 +
       random() * 0.22;
 
-    audio.synth
+    engine.synth
       .triggerAttackRelease(
         midiToNote(
           bassMidi
@@ -2475,35 +2577,35 @@ async function playAxisBassline(seed) {
    PLAY CURRENT SEED FAMILY
    ------------------------------------------------------------ */
 
-async function playSeed(seed) {
+async function playSeed(seed, engine) {
   switch (seed.type) {
 
     case 'Chord Bloom':
-      await playChordBloom(seed);
+      await playChordBloom(seed, engine);
       break;
 
     case 'Subdive Sequence':
-      await playSubdiveSequence(seed);
+      await playSubdiveSequence(seed, engine);
       break;
 
     case 'Nodes Arp':
-      await playNodesArp(seed);
+      await playNodesArp(seed, engine);
       break;
 
     case 'PixelTone Fragment':
-      await playPixelToneFragment(seed);
+      await playPixelToneFragment(seed, engine);
       break;
 
     case 'Ethereal Drift':
-      await playEtherealDrift(seed);
+      await playEtherealDrift(seed, engine);
       break;
 
     case 'Axis Bassline':
-      await playAxisBassline(seed);
+      await playAxisBassline(seed, engine);
       break;
 
     default:
-      await playSubdiveSequence(seed);
+      await playSubdiveSequence(seed, engine);
       break;
   }
 }
@@ -2577,12 +2679,12 @@ function audioBufferToWav(buffer) {
 }
 
 async function renderSeedToWav(seed) {
-  const tail = 3; // seconds of release/reverb tail after the last note
+  const tail = seed.type === "Ethereal Drift" ? 7 : 4; // preserve reverb tails
   const length = seed.duration + tail;
 
   const buffer = await Tone.Offline(async () => {
-    buildAudio(seed);
-    await playSeed(seed);
+    const offlineEngine = buildAudio(seed);
+    await playSeed(seed, offlineEngine);
   }, length);
 
   return audioBufferToWav(buffer.get ? buffer.get() : buffer);
@@ -2632,9 +2734,8 @@ async function startPreview() {
   try {
     await Tone.start();
 
-    buildAudio(
-      currentSeed
-    );
+    disposeAudio();
+    audio = buildAudio(currentSeed);
 
     isPlaying = true;
 
@@ -2656,9 +2757,7 @@ async function startPreview() {
 
     
 
-    await playSeed(
-      currentSeed
-    );
+    await playSeed(currentSeed, audio);
 
     playbackTimer =
       window.setTimeout(
@@ -2794,7 +2893,7 @@ regenerateBtn?.addEventListener(
     seedModal.setAttribute('aria-hidden', 'false');
 
     window.setTimeout(() => {
-      seedEmailInput?.focus();
+      document.getElementById("forgeSeedModalSubmit")?.focus();
     }, 250);
   });
 }
@@ -2811,62 +2910,27 @@ document
       seedModalError.hidden = true;
     });
   });
-  seedModalForm?.addEventListener(
-  'submit',
-  async event => {
-    event.preventDefault();
-
-    const email =
-      seedEmailInput.value.trim();
-
-    const isValid =
-      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-    if (!isValid) {
-      seedModalError.hidden = false;
-      return;
-    }
-
+  document.getElementById('forgeSeedModalSubmit')?.addEventListener('click', async event => {
+    if (!currentSeed) return;
+    const btn = event.currentTarget;
+    btn.disabled = true; btn.textContent = 'Rendering WAV…';
+    const seedToExport = currentSeed;
+    generateBtn.disabled = true;
+    regenerateBtn?.setAttribute('disabled', '');
+    playBtn?.setAttribute('disabled', '');
     seedModalError.hidden = true;
-
-    const submitBtn = seedModalForm.querySelector('[type="submit"]');
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Rendering…';
-    }
-
     try {
-
-  const sibForm =
-    document.getElementById('sibFormHidden');
-
-  const sibEmail =
-    document.getElementById('sibEmailHidden');
-
-  if (!sibForm || !sibEmail) {
-    throw new Error('Brevo form not found');
-  }
-
-  sibEmail.value = email;
-
-  sibForm.submit();
-
-  await exportSeedToWav(currentSeed);
-
-  seedModal?.classList.remove('is-open');
-  seedModal?.setAttribute('aria-hidden', 'true');
-
+      const wav = await renderSeedToWav(seedToExport);
+      try { await window.ForgeSeedLibrary.save(seedToExport, wav); }
+      catch (storageError) { console.warn('WAV downloaded but local save failed:', storageError); window.ForgeSeedLibrary.showWarning('WAV downloaded, but this browser could not save its history. Try opening Forge on localhost or HTTPS.'); }
+      downloadBlob(wav, `chrysasynth-forge-${seedToExport.name.replace(/\s+/g, '-').toLowerCase()}.wav`);
+      seedModal?.classList.remove('is-open');
+      seedModal?.setAttribute('aria-hidden','true');
     } catch (error) {
-      console.error('Forge Seed export error:', error);
+      console.error('Seed WAV export failed', error);
       seedModalError.hidden = false;
-    } finally {
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Get my WAV';
-      }
-    }
-  }
-);
+    } finally { btn.disabled = false; btn.textContent = 'Download WAV'; generateBtn.disabled = false; regenerateBtn?.removeAttribute('disabled'); playBtn?.removeAttribute('disabled'); }
+  });
 
   window.addEventListener('resize', () => {
     if (currentSeed) {
@@ -2885,27 +2949,17 @@ renderSeed(currentSeed);
 
 setSeedState("intro");
 })();
-const themeToggle = document.getElementById("themeToggle");
+// Forge uses one intentional dark visual identity.
+document.documentElement.dataset.theme = "dark";
+try { localStorage.removeItem("forge-theme"); } catch (_) {}
 
-const savedTheme = localStorage.getItem("forge-theme");
+const sidebarAccount = document.getElementById("sidebarAccount");
+sidebarAccount?.addEventListener("click", () => setRoute("account"));
 
-if (savedTheme) {
-  document.documentElement.dataset.theme = savedTheme;
-} else {
-  const prefersLight = window.matchMedia(
-    "(prefers-color-scheme: light)"
-  ).matches;
-
-  document.documentElement.dataset.theme =
-    prefersLight ? "light" : "dark";
-}
-
-themeToggle?.addEventListener("click", () => {
-  const isLight =
-    document.documentElement.dataset.theme === "light";
-
-  const newTheme = isLight ? "dark" : "light";
-
-  document.documentElement.dataset.theme = newTheme;
-  localStorage.setItem("forge-theme", newTheme);
+/* Optional My Forge launch interest: separate from Seed downloads. */
+document.getElementById('accountNotifyForm')?.addEventListener('submit',event=>{
+ event.preventDefault();const input=document.getElementById('accountNotifyEmail'),feedback=document.getElementById('accountNotifyFeedback'),form=document.getElementById('sibFormHidden'),email=document.getElementById('sibEmailHidden');
+ if(!input?.checkValidity()){input?.reportValidity();return;}
+ if(!form||!email){feedback.textContent='Signup is temporarily unavailable.';return;}
+ email.value=input.value.trim();form.submit();feedback.textContent='Request sent. Please check your inbox for any confirmation.';input.value='';
 });

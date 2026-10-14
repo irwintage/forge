@@ -12,7 +12,8 @@
 <link rel="preconnect" href="https://unpkg.com"/>
 <script src="https://unpkg.com/tone@14.8.49/build/Tone.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-<link rel="stylesheet" href="forge.css?v=hero3"/>
+<link rel="preload" as="image" href="forge-hero-green.webp" type="image/webp"/>
+<link rel="stylesheet" href="forge.css?v=forge-v12"/>
 <link rel="icon" href="/favicon.ico" sizes="48x48" />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="apple-touch-icon" href="/logo chrysasynth.com forge orbit" />
@@ -29,34 +30,70 @@
     </a>
 
     <nav class="sidebar-nav" aria-label="Forge">
-      <a href="#explore" class="nav-item is-active" data-route="explore">Explore</a>
-      <a href="#creative" class="nav-item" data-route="creative">Creative</a>
-      <a href="#wellness" class="nav-item" data-route="wellness">Wellness</a>
-      <a href="#fx" class="nav-item" data-route="fx">FX</a>
-      <a href="#utility" class="nav-item" data-route="utility">Utility</a>
+      <a href="#explore" class="nav-item is-active" data-route="explore">
+        <span class="nav-ico" aria-hidden="true"><i data-lucide="compass"></i></span>
+        <span class="nav-label">Explore</span>
+      </a>
+      <a href="#creative" class="nav-item" data-route="creative">
+        <span class="nav-ico" aria-hidden="true"><i data-lucide="sparkles"></i></span>
+        <span class="nav-label">Creative</span>
+      </a>
+      <a href="#wellness" class="nav-item" data-route="wellness">
+        <span class="nav-ico" aria-hidden="true"><i data-lucide="waves"></i></span>
+        <span class="nav-label">Wellness</span>
+      </a>
+      <a href="#fx" class="nav-item" data-route="fx">
+        <span class="nav-ico" aria-hidden="true"><i data-lucide="sliders-horizontal"></i></span>
+        <span class="nav-label">FX</span>
+      </a>
+      <a href="#utility" class="nav-item" data-route="utility">
+        <span class="nav-ico" aria-hidden="true"><i data-lucide="wrench"></i></span>
+        <span class="nav-label">Utility</span>
+      </a>
       <div class="nav-sep"></div>
-      <a href="#tools" class="nav-item" data-route="tools">All Tools</a>
-      <a href="#about" class="nav-item" data-route="about">About Forge</a>
+      <a href="#tools" class="nav-item" data-route="tools">
+        <span class="nav-ico" aria-hidden="true"><i data-lucide="grid-2x2"></i></span>
+        <span class="nav-label">All Tools</span>
+      </a>
+      <a href="#about" class="nav-item" data-route="about">
+        <span class="nav-ico" aria-hidden="true"><i data-lucide="info"></i></span>
+        <span class="nav-label">About Forge</span>
+      </a>
     </nav>
 
     <div class="sidebar-foot">
       <div class="sidebar-lab">
-        <img src="forge-lab.png" alt="" class="sidebar-lab-img">
-        <video class="sidebar-lab-media" autoplay muted playsinline poster="forge-lab.png">
-          <source src="forge-lab.mp4" type="video/mp4">
-        </video>
-        <div class="sidebar-lab-copy">
-          <strong>Forge</strong>
-          <span>Creative Audio Laboratory</span>
-        </div>
-      </div>
+  <img src="forge-lab.png" alt="" class="sidebar-lab-img">
+
+  <div class="sidebar-lab-copy">
+    <strong>Forge</strong>
+    <span>Creative Audio Laboratory</span>
+  </div>
+
+  <button
+    class="sidebar-account"
+    id="sidebarAccount"
+    type="button"
+  >
+    <span class="sidebar-account-icon">○</span>
+
+    <span class="sidebar-account-copy">
+      <strong>Sign in</strong>
+      <small>My Forge · Coming soon</small>
+    </span>
+
+    <span class="sidebar-account-arrow">›</span>
+  </button>
+</div>
       <div class="sidebar-links">
 
   <a href="https://chrysasynth.com/sound-shop"
      class="sidebar-studio"
      target="_blank"
      rel="noopener">
-    Shop<span class="ext-arrow" aria-hidden="true"></span>
+    <span class="nav-ico" aria-hidden="true"><i data-lucide="shopping-bag"></i></span>
+    <span class="nav-label">Shop</span>
+    <span class="ext-arrow" aria-hidden="true"></span>
   </a>
 
  
@@ -67,7 +104,7 @@
 
   <div class="workspace">
     <header class="topbar">
-      <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu">
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Collapse sidebar" aria-expanded="true" title="Collapse sidebar">
   <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true">
     <rect x="3" y="4" width="18" height="16" rx="2"></rect>
     <path d="M9 4v16"></path>
@@ -82,28 +119,7 @@
   <input type="search" id="globalSearch" placeholder="Search tools..." autocomplete="off"/>
 </label>
 
-<button
-  id="themeToggle"
-  class="theme-toggle"
-  type="button"
-  aria-label="Switch theme"
-  title="Switch theme"
->
-  <!-- Sun -->
-  <svg class="theme-icon theme-sun"
-       viewBox="0 0 24 24"
-       aria-hidden="true">
-    <circle cx="12" cy="12" r="4"></circle>
-    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
-  </svg>
 
-  <!-- Moon -->
-  <svg class="theme-icon theme-moon"
-       viewBox="0 0 24 24"
-       aria-hidden="true">
-    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-  </svg>
-</button>
     </header>
 
     <main class="main" id="main">
@@ -113,7 +129,7 @@
         <div class="explore-mast forge-hero-banner">
 
   <header class="explore-hero">
-    <h2 class="explore-hero-title">Tools to shape sound.</h2>
+    <h2 class="explore-hero-title" aria-label="Tools to shape sound."><span class="hero-word">Tools</span> <span class="hero-word">to</span> <span class="hero-word">shape</span> <span class="hero-word">sound.</span></h2>
 
     <p class="explore-hero-copy">
   40+ browser-based audio tools. No installs.<br>
@@ -221,7 +237,7 @@
             id="forgeSeedKeep"
             type="button"
           >
-            <span>Keep this Seed</span>
+            <span>Download WAV</span>
           </button>
 
           <button
@@ -252,6 +268,11 @@
   </article>
 
 </div>
+        <div class="dash-block seed-library-block" id="seedLibraryBlock">
+          <div class="block-row"><div><span class="seed-library-eyebrow">RECENT DOWNLOADS</span><h2 class="block-title">Your Seeds</h2><p class="seed-library-caption">Your downloaded sounds, ready when you return.</p></div><button class="seed-library-link" id="seedViewAll" type="button" hidden>View all →</button></div>
+          <div class="seed-library-list" id="seedLibraryPreview"><div class="seed-library-empty">Your library starts with your first WAV download. <span>Generate a Seed above to begin.</span></div></div>
+          <div class="seed-library-foot">◉ Saved on this device · No account required</div>
+        </div>
         <div class="dash-block">
           <h2 class="block-title">Explore by category</h2>
           <div class="cat-row">
@@ -368,6 +389,7 @@
             </a>
           </div>
         </div>
+
       </section>
 
       <section class="view" id="view-creative" data-view="creative">
@@ -397,17 +419,37 @@
         <div class="tools-empty" id="toolsEmpty">No tools found — try a different search.</div>
       </section>
 
+      <section class="view view-account" id="view-account" data-view="account">
+        <div class="account-soon">
+          <div class="account-soon-copy">
+            <span class="account-eyebrow">CHRYSASYNTH ID</span>
+            <h2>A space for<br>your ideas.</h2>
+            <p>Your creative home is coming.</p>
+            <div class="account-status">In development <svg class="forge-motion-svg" width="52" height="28" viewBox="0 0 52 28" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="12" cy="14" r="3" fill="#A9F27C"><animate attributeName="cx" values="12;12;26;26;12;12" keyTimes="0;.22;.4;.65;.83;1" dur="2.8s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;1;0;0;1;1" keyTimes="0;.22;.4;.65;.83;1" dur="2.8s" repeatCount="indefinite"/></circle>
+  <circle cx="26" cy="14" r="3" fill="#A9F27C"><animate attributeName="opacity" values="1;1;0;0;1;1" keyTimes="0;.22;.4;.65;.83;1" dur="2.8s" repeatCount="indefinite"/></circle>
+  <circle cx="40" cy="14" r="3" fill="#A9F27C"><animate attributeName="cx" values="40;40;26;26;40;40" keyTimes="0;.22;.4;.65;.83;1" dur="2.8s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;1;0;0;1;1" keyTimes="0;.22;.4;.65;.83;1" dur="2.8s" repeatCount="indefinite"/></circle>
+  <circle cx="26" cy="14" r="9" fill="none" stroke="#A9F27C" stroke-width="2"><animate attributeName="r" values="2;2;9;9;2;2" keyTimes="0;.22;.4;.65;.83;1" dur="2.8s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.22;.4;.65;.83;1" dur="2.8s" repeatCount="indefinite"/></circle>
+</svg></div><form class="account-notify" id="accountNotifyForm"><label for="accountNotifyEmail">Be first to explore My Forge</label><div class="account-notify-row"><input id="accountNotifyEmail" type="email" autocomplete="email" placeholder="Your email address" required><button type="submit">Notify me</button></div><p id="accountNotifyFeedback" aria-live="polite">Only launch updates. No account needed.</p></form>
+
+          </div>
+          <div class="account-character account-illustration">
+            <img src="your-space-illustration.png" alt="Creator exploring an audio workspace" loading="lazy">
+          </div>
+        </div>
+      </section>
+
       <section class="view" id="view-about" data-view="about">
         <div class="about-page">
           <div class="about-wrap">
             <div class="about-col">
-              <p class="about-label">Our belief</p>
+              <p class="about-label">01 / OUR PHILOSOPHY</p>
               <h2>Sound is a medium<br>for exploration.</h2>
               <p>Forge exists because the tools to shape sound should be accessible, immediate and beautiful. Not buried in DAWs. Not locked behind paywalls. Not intimidating.</p>
               <p>We believe the best creative tools disappear. You stop seeing the interface and start hearing ideas. That is the standard we build to.</p>
               <p>Chrysasynth is a laboratory. Every tool is an experiment. Every session is a discovery.</p>
             </div>
-            <div class="about-values">
+            <div class="about-values"><p class="about-label">02 / WHAT DRIVES US</p>
               <div class="about-value">
                 <strong>Curiosity</strong>
                 <span>We design for exploration, not efficiency.</span>
@@ -447,17 +489,15 @@
   <div class="forge-seed-modal-panel" role="dialog" aria-modal="true" aria-labelledby="forgeSeedModalTitle">
     <button class="forge-seed-modal-close" type="button" aria-label="Close" data-seed-modal-close>×</button>
     <div class="forge-seed-modal-kicker">Your Seed is ready</div>
-    <h2 id="forgeSeedModalTitle">Keep this Seed</h2>
-    <p class="forge-seed-modal-copy">Enter your email to unlock and download your WAV.</p>
-    <form class="forge-seed-modal-form" id="forgeSeedModalForm" novalidate>
-      <label class="forge-seed-modal-label" for="forgeSeedEmail">Email</label>
-      <input class="forge-seed-modal-input" id="forgeSeedEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
-      <p class="forge-seed-modal-error" id="forgeSeedModalError" hidden>Enter a valid email address.</p>
-      <button class="forge-seed-modal-submit" id="forgeSeedModalSubmit" type="submit">Unlock &amp; Download</button>
-    </form>
-    <p class="forge-seed-modal-note">No spam. Unsubscribe anytime.</p>
+    <h2 id="forgeSeedModalTitle">Your Seed is ready.</h2>
+    <p class="forge-seed-modal-copy">Download your WAV instantly. It will also appear in Your Seeds on this device.</p>
+    <button class="forge-seed-modal-submit" id="forgeSeedModalSubmit" type="button">Download WAV</button>
+    <p class="forge-seed-modal-error" id="forgeSeedModalError" hidden>Export failed. Please try again.</p>
+    <p class="forge-seed-modal-note">No email or account needed.</p>
   </div>
 </div>
+
+<div class="seed-library-modal" id="seedLibraryModal" aria-hidden="true"><div class="seed-library-modal-shade" data-library-close></div><div class="seed-library-modal-panel" role="dialog" aria-modal="true" aria-labelledby="seedLibraryTitle"><div class="seed-library-modal-head"><div><span class="seed-library-eyebrow">LOCAL LIBRARY</span><h2 id="seedLibraryTitle">Your Seeds</h2></div><button type="button" class="seed-library-close" data-library-close aria-label="Close library">×</button></div><p class="seed-library-caption">WAV files saved in this browser. Clearing site data may remove them.</p><div class="seed-library-list" id="seedLibraryFull"></div></div></div>
 
 <iframe
   name="brevoHiddenFrame"
@@ -478,8 +518,13 @@
     <input type="hidden" name="html_type" value="simple"/>
   </form>
 </div>
-
-<script src="forge.js"></script>
+<div
+  class="login-modal"
+  id="loginModal"
+  aria-hidden="true"
+>
+ 
+<script src="forge.js?v=forge-v12"></script>
 
 <script>
 (function () {

@@ -534,12 +534,35 @@
   const DENY = "denied";
   const DELAY_MS = 1200;
   let triggered = false;
+  let gaLoaded = false;
 
-  const get = () => localStorage.getItem(KEY);
-  const set = v => localStorage.setItem(KEY, v);
+  const COOKIE = "chrysa_usage_insights_shared_v1";
+  const getCookie = () => {
+    const entry = document.cookie.split("; ").find(row => row.startsWith(COOKIE + "="));
+    const value = entry ? decodeURIComponent(entry.slice(COOKIE.length + 1)) : null;
+    return value === ACCEPT || value === DENY ? value : null;
+  };
+  const set = value => {
+    if (value !== ACCEPT && value !== DENY) return;
+    document.cookie = COOKIE + "=" + encodeURIComponent(value) + "; Domain=.chrysasynth.com; Path=/; Max-Age=15552000; SameSite=Lax; Secure";
+    try { localStorage.setItem(KEY, value); } catch (_) {}
+  };
+  const get = () => {
+    const shared = getCookie();
+    if (shared) return shared;
+    try {
+      const legacy = localStorage.getItem(KEY);
+      if (legacy === ACCEPT || legacy === DENY) {
+        set(legacy);
+        return legacy;
+      }
+    } catch (_) {}
+    return null;
+  };
 
   function loadGA() {
-    if (!GA_ID) return;
+    if (!GA_ID || gaLoaded) return;
+    gaLoaded = true;
     const s = document.createElement("script");
     s.async = true;
     s.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_ID;
@@ -562,31 +585,55 @@
   if (get() === DENY) return;
 
   function mount() {
-    if (document.getElementById("chrysa-insights")) return;
+    if (get() || document.getElementById("chrysa-insights")) return;
     const style = document.createElement("style");
     style.textContent = `
       #chrysa-insights{
         position:fixed;right:18px;bottom:18px;width:min(380px,calc(100vw - 24px));
         padding:18px;z-index:9999;overflow:hidden;border-radius:20px;
-        border:1px solid rgba(77,157,224,.18);
-        background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018)),rgba(12,15,23,.94);
+        border:1px solid rgba(129,236,147,.27);
+        background:linear-gradient(115deg,rgba(12,39,29,.98) 0%,rgba(24,38,50,.98) 100%);
         backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
-        box-shadow:0 22px 70px rgba(0,0,0,.55),0 0 46px rgba(77,157,224,.1),inset 0 1px 0 rgba(255,255,255,.05);
+        box-shadow:0 22px 70px rgba(0,0,0,.42);
         color:#e6ebf5;font-family:"DM Sans",system-ui,sans-serif;
       }
       #chrysa-insights::before{
         content:"";position:absolute;inset:0;pointer-events:none;
-        background:radial-gradient(circle at 12% 0%,rgba(77,157,224,.16),transparent 42%),radial-gradient(circle at 90% 20%,rgba(124,92,255,.12),transparent 38%);
+        background:linear-gradient(0deg,rgba(3,25,13,.55),transparent 55%);
       }
       #chrysa-insights h4{position:relative;margin:0 0 9px;font-size:15px;font-weight:600;letter-spacing:-.01em;font-family:"DM Sans",system-ui,sans-serif}
-      #chrysa-insights h4 span{color:#4d9de0}
+      #chrysa-insights h4 span{color:#a9f27c}
       #chrysa-insights p{position:relative;margin:0 0 16px;font-size:13px;line-height:1.55;color:#8896af}
       #chrysa-insights .actions{position:relative;display:flex;gap:9px;justify-content:flex-end}
       #chrysa-insights button{
         appearance:none;border:1px solid rgba(255,255,255,.1);border-radius:999px;padding:10px 15px;
         background:rgba(255,255,255,.045);color:#8896af;font-family:"DM Sans",system-ui,sans-serif;font-size:12px;font-weight:600;cursor:pointer;
       }
-      #chrysa-insights .primary{color:#061018;background:linear-gradient(135deg,#4d9de0,#46d9d9);border-color:rgba(77,157,224,.45)}
+      #chrysa-insights .primary{
+        color:#061018;background:#a9f27c;border-color:#a9f27c;
+        box-shadow:0 0 0 rgba(169,242,124,0);
+        transition:transform .2s ease,box-shadow .25s ease,background-color .2s ease;
+        will-change:transform;
+      }
+      #chrysa-insights .primary:hover{
+        background:#b9fa91;
+        transform:translateY(-2px);
+        box-shadow:0 5px 20px rgba(169,242,124,.27),0 0 0 1px rgba(169,242,124,.15);
+      }
+      #chrysa-insights .primary:active{
+        transform:translateY(0) scale(.96);
+        box-shadow:0 2px 8px rgba(169,242,124,.16);
+        transition-duration:.08s;
+      }
+      #chrysa-insights .primary:focus-visible{
+        outline:2px solid #d4ffb7;outline-offset:3px;
+      }
+      @media(hover:none){
+        #chrysa-insights .primary:hover{background:#a9f27c;transform:none;box-shadow:none}
+      }
+      @media(prefers-reduced-motion:reduce){
+        #chrysa-insights .primary{transition:none}
+      }
       @media(max-width:640px){
         #chrysa-insights{left:12px;right:12px;bottom:12px;width:auto}
         #chrysa-insights .actions{display:grid;grid-template-columns:1fr 1fr}

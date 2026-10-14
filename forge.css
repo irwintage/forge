@@ -93,7 +93,7 @@ box-shadow:
 }
 
 .nav-item[data-route="fx"].is-active{
-  color:#e85dad;
+  color:var(--fx);
 }
 
 .nav-item[data-route="utility"].is-active{
@@ -381,13 +381,13 @@ box-shadow:
 .cat-creative{background:linear-gradient(180deg,#102033,#0c141e)}
 .cat-wellness{background:linear-gradient(180deg,#0f1d1a,#0c1413)}
 .cat-fx{
-  background:linear-gradient(180deg,#21101c,#130d14);
+  background:linear-gradient(180deg,#201425,#14111e);
 }
 .cat-utility{background:linear-gradient(180deg,#161326,#100e18)}
 .cat-creative .cat-visual{color:#8ec4ef}
 .cat-wellness .cat-visual{color:#6ee7b7}
 .cat-fx .cat-visual{
-  color:#e85dad;
+  color:var(--fx);
 }
 .cat-utility .cat-visual{color:#c4b5fd}
 .cat-card{transition:transform .22s var(--ease),border-color .22s,box-shadow .22s}
@@ -403,7 +403,7 @@ box-shadow:
 .cat-fx:hover{
   box-shadow:
     0 16px 32px rgba(0,0,0,.22),
-    0 0 28px rgba(232,93,173,.14);
+    0 0 28px rgba(232,93,173,.13);
 }
 .cat-utility:hover{box-shadow:0 16px 32px rgba(0,0,0,.22),0 0 28px rgba(167,139,250,.12)}
 
@@ -2248,10 +2248,10 @@ html[data-theme="light"] .sidebar-account-arrow{
   --text-2:#91a898;
   --text-3:#607568;
   --border:rgba(169,242,124,.10);
-  --creative:#66b9d8;
-  --wellness:#66dca4;
-  --fx:#d56ca9;
-  --utility:#a991e8;
+  --creative:#4d9de0;
+  --wellness:#34d399;
+  --fx:#e85dad;
+  --utility:#a78bfa;
   --cyan:#a9f27c;
 }
 .app{background:#050a08}
@@ -2519,3 +2519,27 @@ html,body{overflow-x:hidden}
 
 /* V10: native SVG animation, independent of legacy span animation selectors. */
 .account-status .forge-motion-svg {display:block; width:52px; height:28px; min-width:52px; flex:0 0 52px; overflow:visible; filter:drop-shadow(0 0 4px rgba(169,242,124,.45));}
+
+
+/* Forge V12.1 — category identity. Keep global green brand palette. */
+:root {
+  --creative: #4d9de0;
+  --wellness: #34d399;
+  --fx: #e85dad;
+  --utility: #a78bfa;
+}
+/* Category visuals, including the category overview cards. */
+.cat-creative .cat-visual { color: var(--creative); }
+.cat-wellness .cat-visual { color: var(--wellness); }
+.cat-fx .cat-visual { color: var(--fx); }
+.cat-utility .cat-visual { color: var(--utility); }
+.cat-fx:hover { box-shadow: 0 16px 32px rgba(0,0,0,.22), 0 0 28px rgba(232,93,173,.13); }
+.nav-item[data-route="creative"].is-active { color: var(--creative); }
+.nav-item[data-route="wellness"].is-active { color: var(--wellness); }
+.nav-item[data-route="fx"].is-active { color: var(--fx); }
+.nav-item[data-route="utility"].is-active { color: var(--utility); }
+/* Category tabs: keep All in brand green; color the selected category. */
+.filter-btn.active[data-cat="Creative"] { color:#07131b!important; background:var(--creative)!important; border-color:var(--creative)!important; }
+.filter-btn.active[data-cat="Wellness"] { color:#071b13!important; background:var(--wellness)!important; border-color:var(--wellness)!important; }
+.filter-btn.active[data-cat="FX"] { color:#210b1b!important; background:var(--fx)!important; border-color:var(--fx)!important; }
+.filter-btn.active[data-cat="Utility"] { color:#180e2c!important; background:var(--utility)!important; border-color:var(--utility)!important; }

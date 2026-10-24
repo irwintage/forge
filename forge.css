@@ -2636,5 +2636,21 @@ body.forge-knot-active #view-knot knot-instrument{height:100%!important;min-heig
   body.forge-knot-active #sidebar > #menuBtn {
     position:fixed!important;top:12px!important;left:12px!important;
     right:auto!important;transform:none!important;z-index:1100!important;
+    /* KNOT - Mobile container fix */
+@media (max-width: 768px) {
+  #knotMount,
+  #knotMount > * {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  #knotMount {
+    overflow-x: hidden;
+    overflow-y: visible;
+  }
+}
   }
 }

@@ -2543,3 +2543,201 @@ html,body{overflow-x:hidden}
 .filter-btn.active[data-cat="Wellness"] { color:#071b13!important; background:var(--wellness)!important; border-color:var(--wellness)!important; }
 .filter-btn.active[data-cat="FX"] { color:#210b1b!important; background:var(--fx)!important; border-color:var(--fx)!important; }
 .filter-btn.active[data-cat="Utility"] { color:#180e2c!important; background:var(--utility)!important; border-color:var(--utility)!important; }
+
+/* Knot V12 navigation and workspace */
+.all-tools-header{display:flex;align-items:center;min-width:0}.all-tools-header>.nav-item{flex:1;min-width:0}.tools-expand{border:0;background:transparent;color:inherit;padding:10px;cursor:pointer;opacity:.75}.tools-expand[aria-expanded="true"] svg{transform:rotate(180deg)}.tools-expand svg{width:16px;height:16px;transition:transform .2s}.tools-submenu{padding-left:16px}.tools-submenu[hidden]{display:none}.tools-submenu .nav-item{min-height:36px;font-size:13px}.tools-submenu .nav-ico{width:18px}.sidebar-collapsed .tools-submenu{display:none}.sidebar-collapsed .tools-expand{display:none}.knot-workspace{min-width:0}.knot-workspace-actions{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:0 0 10px;color:#a9f27c;font:600 11px system-ui;letter-spacing:.1em}.knot-workspace-actions button{border:1px solid #44654b;border-radius:8px;background:#102019;color:#b6ed9a;padding:8px 12px;cursor:pointer}.knot-mount{width:100%;min-width:0;min-height:650px}.knot-mount knot-instrument{display:block;width:100%}
+
+/* Forge V12 / Knot: scroll within workspace, keep shared sidebar fixed */
+#view-knot.knot-workspace.is-active {
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(169,242,124,.55) transparent;
+  overscroll-behavior: contain;
+}
+#view-knot.knot-workspace.is-active::-webkit-scrollbar { width: 9px; }
+#view-knot.knot-workspace.is-active::-webkit-scrollbar-thumb {
+  background: rgba(169,242,124,.42); border-radius: 10px;
+}
+#view-knot .knot-mount { flex: 0 0 auto; min-height: 0; }
+
+/* Knot compact workstation: hide duplicate Forge header, preserve sidebar and its collapse control. */
+body.forge-knot-active .workspace > .topbar{display:none!important}
+body.forge-knot-active .workspace > .main{padding:8px 10px!important;min-height:0}
+body.forge-knot-active #view-knot.knot-workspace.is-active{overflow-y:auto;overflow-x:hidden;min-height:0;padding:0!important}
+body.forge-knot-active #view-knot .knot-mount{height:100%;min-height:0!important;flex:1 1 auto}
+body.forge-knot-active #view-knot knot-instrument{height:100%;min-height:0}
+body.forge-knot-active #sidebar > #menuBtn{position:absolute;top:12px;right:10px;z-index:25;width:33px;height:33px}
+body.forge-knot-active #sidebar{position:relative}
+@media(max-height:720px){body.forge-knot-active #view-knot .knot-mount{min-height:720px!important}}
+
+/* Knot: only Forge's shared sidebar stays; its own instrument toolbar starts at the top */
+body.forge-knot-active .workspace > header.topbar{display:none!important}
+body.forge-knot-active .workspace{min-height:0!important}
+body.forge-knot-active #main{min-height:0!important;flex:1 1 0!important;padding:8px 12px!important;overflow:hidden!important}
+body.forge-knot-active #view-knot.is-active{display:block!important;height:100%!important;min-height:0!important;overflow:hidden!important;padding:0!important}
+body.forge-knot-active #view-knot .knot-mount{height:100%!important;min-height:0!important}
+body.forge-knot-active #view-knot knot-instrument{height:100%!important;min-height:0!important}
+/* Sidebar collapse remains controlled by Forge and unchanged */
+@media(max-height:700px), (max-width:1150px){
+ body.forge-knot-active #view-knot.is-active{overflow-y:auto!important}
+ body.forge-knot-active #view-knot .knot-mount,body.forge-knot-active #view-knot knot-instrument{min-height:680px!important;height:auto!important}
+}
+
+/* Forge Knot: desktop brand clearance and mobile responsive workspace */
+@media(min-width:961px){
+  body.forge-knot-active #sidebar:not(.is-collapsed) .sidebar-brand{padding-right:45px;min-width:0}
+  body.forge-knot-active #sidebar .sidebar-brand > span{font-size:10px;letter-spacing:.04em}
+  body.forge-knot-active #sidebar > #menuBtn{top:12px;right:8px}
+  body.forge-knot-active .app.sidebar-collapsed #sidebar > #menuBtn{top:71px;right:calc(50% - 17px)}
+  body.forge-knot-active .app.sidebar-collapsed #sidebar .sidebar-nav{padding-top:37px}
+}
+@media(max-width:960px){
+  body.forge-knot-active{overflow:auto!important}
+  body.forge-knot-active .app{height:auto!important;min-height:100dvh!important;overflow:visible!important}
+  body.forge-knot-active .workspace{height:auto!important;min-height:100dvh!important;overflow:visible!important}
+  body.forge-knot-active #main{height:auto!important;min-height:100dvh!important;overflow:visible!important;padding:58px 12px 20px!important;display:block!important}
+  body.forge-knot-active #view-knot.is-active{height:auto!important;min-height:0!important;overflow:visible!important;display:block!important}
+  body.forge-knot-active #view-knot .knot-mount,
+  body.forge-knot-active #view-knot knot-instrument{height:auto!important;min-height:0!important;display:block!important}
+  body.forge-knot-active #menuBtn{display:flex!important;position:fixed!important;top:12px!important;left:12px!important;right:auto!important;z-index:1100!important}
+}
+
+
+/* V12 Knot sidebar logo/collapse: precise layout without overlap. */
+@media (min-width:961px){
+  body.forge-knot-active #sidebar {position:relative;}
+  body.forge-knot-active #sidebar > #menuBtn {
+    position:absolute!important;
+    display:flex!important;
+    width:33px!important;height:33px!important;
+    top:14px!important; right:9px!important; left:auto!important;
+    margin:0!important; z-index:30;
+  }
+  body.forge-knot-active .app.sidebar-collapsed #sidebar > #menuBtn {
+    top:68px!important;
+    left:50%!important; right:auto!important;
+    transform:translateX(-50%)!important;
+  }
+  body.forge-knot-active .app.sidebar-collapsed #sidebar .sidebar-brand {
+    justify-content:center!important;
+    margin:0 0 76px!important;
+    padding:0!important;
+  }
+  body.forge-knot-active .app.sidebar-collapsed #sidebar .sidebar-brand .logo-mark {
+    width:36px;height:36px;flex:0 0 36px;
+  }
+  body.forge-knot-active .app.sidebar-collapsed #sidebar .sidebar-nav {
+    padding-top:0!important;
+  }
+}
+
+/* =========================================
+   FORGE V12 - KNOT MOBILE LAYOUT FIX
+   ========================================= */
+
+@media (max-width: 960px) {
+
+  body.forge-knot-active {
+    width: 100%;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+  }
+
+  body.forge-knot-active .app {
+    display: flex !important;
+    width: 100%;
+    min-width: 0 !important;
+    height: auto !important;
+    min-height: 100dvh !important;
+  }
+
+  body.forge-knot-active .workspace {
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    height: auto !important;
+    min-height: 100dvh !important;
+    overflow: visible !important;
+  }
+
+  body.forge-knot-active #main {
+    display: block !important;
+    flex: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 70px 10px 24px !important;
+    overflow: visible !important;
+  }
+
+  body.forge-knot-active #view-knot.is-active {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+  }
+
+  body.forge-knot-active #knotMount,
+  body.forge-knot-active #knotMount > knot-instrument {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Navigation Forge conservée sur mobile */
+
+  body.forge-knot-active #sidebar > #menuBtn,
+  body.forge-knot-active #menuBtn {
+    position: fixed !important;
+    top: 12px !important;
+    left: 12px !important;
+    right: auto !important;
+    transform: none !important;
+    z-index: 1100 !important;
+  }
+}
+
+/* KNOT MOBILE - FIX SIDEBAR PUSHING CONTENT */
+
+@media (max-width: 960px) {
+
+  body.forge-knot-active #sidebar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: var(--side) !important;
+    height: 100dvh !important;
+    flex: none !important;
+    z-index: 1000 !important;
+    transform: translateX(-105%);
+  }
+
+  body.forge-knot-active #sidebar.is-open {
+    transform: translateX(0) !important;
+  }
+
+  body.forge-knot-active .app {
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  body.forge-knot-active .workspace {
+    width: 100% !important;
+    min-width: 0 !important;
+    margin-left: 0 !important;
+  }
+}

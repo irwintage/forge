@@ -313,6 +313,7 @@ const TOOL_ART = {
 
 const ROUTES = {
   explore:  { title: 'Forge', subtitle: 'Creative Audio Laboratory' },
+  knot:     { title: 'Knot', subtitle: 'Chrysasynth Synthesizer' },
   creative: { title: 'Creative', subtitle: 'Generators and instruments' },
   wellness: { title: 'Wellness', subtitle: 'Frequencies and listening states' },
   fx:       { title: 'FX', subtitle: 'Effects and processing' },
@@ -335,6 +336,7 @@ function currentRoute() {
 function setRoute(route, { updateHash = true } = {}) {
   if (!ROUTES[route]) route = 'explore';
   document.querySelector('.workspace')?.classList.toggle('is-explore', route === 'explore');
+  document.body.classList.toggle('forge-knot-active', route === 'knot');
   document.querySelectorAll('.view').forEach(view => {
     view.classList.toggle('is-active', view.dataset.view === route);
   });
@@ -349,6 +351,7 @@ function setRoute(route, { updateHash = true } = {}) {
   if (updateHash && location.hash.replace('#', '') !== route) {
     history.replaceState(null, '', '#' + route);
   }
+  window.dispatchEvent(new CustomEvent('forge:route', {detail:{route}}));
   closeMobileNav();
   const heroTitle = document.querySelector('.explore-hero-title');
   if (heroTitle && route === 'explore') {
@@ -2963,3 +2966,28 @@ document.getElementById('accountNotifyForm')?.addEventListener('submit',event=>{
  if(!form||!email){feedback.textContent='Signup is temporarily unavailable.';return;}
  email.value=input.value.trim();form.submit();feedback.textContent='Request sent. Please check your inbox for any confirmation.';input.value='';
 });
+
+
+/* Knot sidebar: the same Forge collapse control lives in the sidebar on Knot only.
+   Reparent the original button; do not create or clone a second button. */
+(function setupKnotSidebarButton(){
+  function init(){
+    const btn=document.getElementById('menuBtn');
+    const side=document.getElementById('sidebar');
+    const top=document.querySelector('.workspace > .topbar');
+    if(!btn||!side||!top)return;
+    const originalNext=btn.nextSibling;
+    function sync(){
+      if(document.body.classList.contains('forge-knot-active')){
+        if(btn.parentElement!==side)side.appendChild(btn);
+      } else if(btn.parentElement!==top){
+        if(originalNext&&originalNext.parentNode===top)top.insertBefore(btn,originalNext);
+        else top.prepend(btn);
+      }
+    }
+    window.addEventListener('forge:route',sync);
+    sync();
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);
+  else init();
+})();

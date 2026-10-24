@@ -34,27 +34,23 @@
         <span class="nav-ico" aria-hidden="true"><i data-lucide="compass"></i></span>
         <span class="nav-label">Explore</span>
       </a>
-      <a href="#creative" class="nav-item" data-route="creative">
-        <span class="nav-ico" aria-hidden="true"><i data-lucide="sparkles"></i></span>
-        <span class="nav-label">Creative</span>
-      </a>
-      <a href="#wellness" class="nav-item" data-route="wellness">
-        <span class="nav-ico" aria-hidden="true"><i data-lucide="waves"></i></span>
-        <span class="nav-label">Wellness</span>
-      </a>
-      <a href="#fx" class="nav-item" data-route="fx">
-        <span class="nav-ico" aria-hidden="true"><i data-lucide="sliders-horizontal"></i></span>
-        <span class="nav-label">FX</span>
-      </a>
-      <a href="#utility" class="nav-item" data-route="utility">
-        <span class="nav-ico" aria-hidden="true"><i data-lucide="wrench"></i></span>
-        <span class="nav-label">Utility</span>
+      <a href="#knot" class="nav-item" data-route="knot">
+        <span class="nav-ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="display:block"><rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" stroke-width="1.7"/><path d="M5.8 12h2.1l2-4.5 4.1 9 2.2-4.5h2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="nav-label">Knot <small style="opacity:.58;font-size:10px;margin-left:5px">Synth</small></span>
       </a>
       <div class="nav-sep"></div>
-      <a href="#tools" class="nav-item" data-route="tools">
-        <span class="nav-ico" aria-hidden="true"><i data-lucide="grid-2x2"></i></span>
-        <span class="nav-label">All Tools</span>
-      </a>
+      <div class="all-tools-nav">
+        <div class="all-tools-header">
+          <a href="#tools" class="nav-item" data-route="tools"><span class="nav-ico"><i data-lucide="grid-2x2"></i></span><span class="nav-label">All Tools</span></a>
+          <button id="toolsToggle" class="tools-expand" type="button" aria-label="Toggle tool categories" aria-expanded="false"><i data-lucide="chevron-down"></i></button>
+        </div>
+        <div id="toolsSubmenu" class="tools-submenu" hidden>
+          <a href="#creative" class="nav-item" data-route="creative"><span class="nav-ico"><i data-lucide="sparkles"></i></span><span class="nav-label">Creative</span></a>
+          <a href="#wellness" class="nav-item" data-route="wellness"><span class="nav-ico"><i data-lucide="waves"></i></span><span class="nav-label">Wellness</span></a>
+          <a href="#fx" class="nav-item" data-route="fx"><span class="nav-ico"><i data-lucide="sliders-horizontal"></i></span><span class="nav-label">FX</span></a>
+          <a href="#utility" class="nav-item" data-route="utility"><span class="nav-ico"><i data-lucide="wrench"></i></span><span class="nav-label">Utility</span></a>
+        </div>
+      </div>
       <a href="#about" class="nav-item" data-route="about">
         <span class="nav-ico" aria-hidden="true"><i data-lucide="info"></i></span>
         <span class="nav-label">About Forge</span>
@@ -392,6 +388,10 @@
 
       </section>
 
+      <section class="view knot-workspace" id="view-knot" data-view="knot">
+        
+        <div id="knotMount" class="knot-mount"><p>Loading Knot…</p></div>
+      </section>
       <section class="view" id="view-creative" data-view="creative">
         <div class="tools-grid" data-grid="Creative"></div>
       </section>
@@ -524,7 +524,8 @@
   aria-hidden="true"
 >
  
-<script src="forge.js?v=forge-v12"></script>
+<script src="forge.js?v=forge-v12-knot"></script>
+<script src="knot-loader.js"></script>
 
 <script>
 (function () {

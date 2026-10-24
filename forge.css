@@ -2632,25 +2632,80 @@ body.forge-knot-active #view-knot knot-instrument{height:100%!important;min-heig
     padding-top:0!important;
   }
 }
-@media (max-width:960px){
-  body.forge-knot-active #sidebar > #menuBtn {
-    position:fixed!important;top:12px!important;left:12px!important;
-    right:auto!important;transform:none!important;z-index:1100!important;
-    /* KNOT - Mobile container fix */
-@media (max-width: 768px) {
-  #knotMount,
-  #knotMount > * {
-    display: block;
+
+/* =========================================
+   FORGE V12 - KNOT MOBILE LAYOUT FIX
+   ========================================= */
+
+@media (max-width: 960px) {
+
+  body.forge-knot-active {
     width: 100%;
-    max-width: 100%;
-    min-width: 0;
-    box-sizing: border-box;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
   }
 
-  #knotMount {
-    overflow-x: hidden;
-    overflow-y: visible;
+  body.forge-knot-active .app {
+    display: flex !important;
+    width: 100%;
+    min-width: 0 !important;
+    height: auto !important;
+    min-height: 100dvh !important;
   }
-}
+
+  body.forge-knot-active .workspace {
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    height: auto !important;
+    min-height: 100dvh !important;
+    overflow: visible !important;
+  }
+
+  body.forge-knot-active #main {
+    display: block !important;
+    flex: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 70px 10px 24px !important;
+    overflow: visible !important;
+  }
+
+  body.forge-knot-active #view-knot.is-active {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+  }
+
+  body.forge-knot-active #knotMount,
+  body.forge-knot-active #knotMount > knot-instrument {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Navigation Forge conservée sur mobile */
+
+  body.forge-knot-active #sidebar > #menuBtn,
+  body.forge-knot-active #menuBtn {
+    position: fixed !important;
+    top: 12px !important;
+    left: 12px !important;
+    right: auto !important;
+    transform: none !important;
+    z-index: 1100 !important;
   }
 }

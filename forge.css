@@ -2709,3 +2709,35 @@ body.forge-knot-active #view-knot knot-instrument{height:100%!important;min-heig
     z-index: 1100 !important;
   }
 }
+
+/* KNOT MOBILE - FIX SIDEBAR PUSHING CONTENT */
+
+@media (max-width: 960px) {
+
+  body.forge-knot-active #sidebar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: var(--side) !important;
+    height: 100dvh !important;
+    flex: none !important;
+    z-index: 1000 !important;
+    transform: translateX(-105%);
+  }
+
+  body.forge-knot-active #sidebar.is-open {
+    transform: translateX(0) !important;
+  }
+
+  body.forge-knot-active .app {
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  body.forge-knot-active .workspace {
+    width: 100% !important;
+    min-width: 0 !important;
+    margin-left: 0 !important;
+  }
+}

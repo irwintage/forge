@@ -1,0 +1,21 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Vocalis · Chrysasynth Forge</title><link rel="stylesheet" href="css/main.css"><script defer src="https://unpkg.com/tone@14.8.49/build/Tone.js"></script><script defer src="js/audio-engine.js"></script><script defer src="js/app.js"></script><script defer src="js/forge-bridge.js"></script><link rel="stylesheet" href="../forge-scrollbars.css">
+<script src="../forge-scrollbars.js" defer></script>
+</head><body>
+<main class="shell">
+<header class="mast"><div><h1>Vocalis<span>.</span></h1><p>CHRYSASYNTH / VOCAL TEXTURE INSTRUMENT</p></div><div class="mast-right"><small>FORGE / 02</small><span class="status"><i id="led"></i><span id="status">Awaiting voice</span></span></div></header>
+<div class="workspace">
+<section class="left"><div class="sectiontop"><strong>01 / VOICE SOURCE</strong><span>Local audio processing</span></div>
+<div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose vocal audio"><div class="dropcontent"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 5v27m-9-18 9-9 9 9M8 32v9h32v-9"/></svg><h2>DROP A VOCAL RECORDING</h2><p>WAV · MP3 · WebM</p></div><button type="button" id="chooseBtn" class="btn primary"><svg viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></svg>Choose file</button><input type="file" id="filePick" accept="audio/*" hidden></div>
+<div class="fileline"><span id="fileName">No audio loaded</span><span id="fileInfo">00:00</span><button id="clearBtn" class="btn tiny" disabled>Clear</button></div>
+<div class="wavebox"><canvas id="waveCanvas" aria-label="Source waveform"></canvas><div id="playhead" class="playhead"></div><div class="waveempty" id="waveEmpty">WAVEFORM PREVIEW</div></div>
+<div class="timebar"><span id="timeTxt">00:00</span><div class="progress"><div id="bar"></div></div><span id="durTxt">00:00</span></div>
+<div class="transport"><div class="playcontrols"><button id="playBtn" class="btn primary" disabled><svg viewBox="0 0 24 24"><path d="m7 4 13 8-13 8z"/></svg>Play</button><button id="stopBtn" class="btn" disabled><svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1"/></svg>Stop</button></div><div class="ab" role="group" aria-label="A/B listening comparison"><button id="aBtn" class="abbtn active">A <span>Original</span></button><button id="bBtn" class="abbtn">B <span>Processed</span></button></div></div>
+</section>
+<section class="right"><div class="sectiontop"><strong>02 / VOCAL PROCESSING</strong><span>Shape your sound</span></div>
+<div class="modes" role="group" aria-label="Vocal mode"><button class="mode active" data-mode="doubler">Doubler</button><button class="mode" data-mode="pitch">Pitch</button><button class="mode" data-mode="robot">Robot</button><button class="mode" data-mode="space">Space</button></div>
+<div class="modeview"><div class="mode-caption">CHARACTER</div><div class="character-header"><h2 id="modeTitle">STEREO DOUBLER</h2><span id="charVal">50%</span></div><input id="char" type="range" min="0" max="1" value="0.5" step="0.01"><p id="modeHintTxt">From subtle thickness to a wide, modulated double.</p></div>
+<div class="controlsection"><h3>GLOBAL CONTROLS</h3><div class="param"><label for="mix">Dry / Wet</label><input id="mix" type="range" min="0" max="1" value="0.75" step="0.01"><output id="mixVal">75%</output></div><div class="param"><label for="out">Output</label><input id="out" type="range" min="-18" max="12" value="0" step="0.5"><output id="outVal">0.0 dB</output></div></div>
+<div class="modecard"><span>PROCESS SIGNAL</span><div class="signal"><div>IN</div><svg viewBox="0 0 64 22" aria-hidden="true"><path d="M1 11h24l-6-6m6 6-6 6m6-6h38"/></svg><div id="signalMode">DOUBLER</div><svg viewBox="0 0 64 22" aria-hidden="true"><path d="M1 11h24l-6-6m6 6-6 6m6-6h38"/></svg><div>OUT</div></div></div>
+<div class="output"><div><h3>03 / EXPORT</h3><p>Render processed voice · 16-bit WAV</p></div><button id="exportBtn" class="btn export" disabled><svg viewBox="0 0 24 24"><path d="M12 3v13m-5-5 5 5 5-5M4 17v4h16v-4"/></svg>Export WAV</button></div>
+</section></div><footer><span>VOCALIS / CHRYSASYNTH FORGE</span><span id="exportTxt">Ready</span></footer>
+</main></body></html>

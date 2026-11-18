@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Polyrhythm · Chrysasynth Forge</title>
+  <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../forge-scrollbars.css">
+<script src="../forge-scrollbars.js" defer></script>
+</head>
+<body>
+<main id="poly-app" class="poly-app">
+  <header class="hero">
+    <div class="hero-title">
+      <div class="eyebrow">CHRYSASYNTH / GENERATIVE SYSTEMS</div>
+      <h1>Poly<span>rhythm</span></h1>
+      <p>Patterns in motion. Sound on impact.</p>
+    </div>
+    <div class="master-wrap">
+      <div class="field-top"><label for="master">MASTER</label><output id="master-value">22%</output></div>
+      <input id="master" type="range" min="0" max="100" value="22" aria-label="Master volume">
+    </div>
+  </header>
+  <section class="toolbar" aria-label="Transport and timing">
+    <div class="transport">
+      <button id="play" class="button primary"><span aria-hidden="true">▶</span> Play</button>
+      <button id="stop" class="button secondary"><span aria-hidden="true">■</span> Stop</button>
+      <span id="status" class="status" aria-live="polite">READY</span>
+    </div>
+    <div class="tempo-control"><label for="bpm">TEMPO</label><output id="bpm-value">96 BPM</output><input id="bpm" type="range" min="40" max="200" value="96"></div>
+  </section>
+  <div class="workspace">
+    <section class="stage panel" aria-label="Bouncing balls visualization">
+      <div class="panel-heading"><span>BOUNCING BALLS</span><span id="pattern-label">3 : 4</span></div>
+      <canvas id="vis" aria-label="Balls bouncing in synchronized rhythms"></canvas>
+      <div class="stage-footer"><span id="lane-count">2 VOICES</span><span>4 BEATS / CYCLE</span></div>
+    </section>
+    <aside class="settings panel" aria-label="Rhythm and sound settings">
+      <div class="panel-heading"><span>COMPOSITION</span></div>
+      <div class="section">
+        <label class="section-label" for="preset">POLYRHYTHM</label>
+        <select id="preset">
+          <option value="2,3">2 : 3</option>
+          <option value="3,4" selected>3 : 4</option>
+          <option value="3,5">3 : 5</option>
+          <option value="5,7">5 : 7</option>
+          <option value="2,3,4,5,6">2 : 3 : 4 : 5 : 6</option>
+        </select>
+      </div>
+      <div class="section">
+        <div class="section-label">VOICES <span class="hint">Click to mute</span></div>
+        <div id="voices" class="voice-list"></div>
+      </div>
+      <div class="section sound-section">
+        <div class="section-label">SOUND & SPACE</div>
+        <div class="slider-field"><div class="field-top"><label for="tone">TONE</label><output id="tone-value">Soft FM</output></div><input id="tone" type="range" min="0" max="100" value="38"></div>
+        <div class="slider-field"><div class="field-top"><label for="reverb">REVERB</label><output id="reverb-value">18%</output></div><input id="reverb" type="range" min="0" max="100" value="18"></div>
+      </div>
+      <p class="info">Each ball lands exactly on its note. All voices complete a shared four-beat cycle.</p>
+    </aside>
+  </div>
+</main>
+<script src="audio/engine.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

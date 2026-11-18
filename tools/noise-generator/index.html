@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Noise Generator · Chrysasynth Forge</title>
+  <link rel="stylesheet" href="./style.css">
+<link rel="stylesheet" href="../forge-scrollbars.css">
+<script src="../forge-scrollbars.js" defer></script>
+</head>
+<body>
+<main class="nz-app" id="noise-generator" aria-label="Noise Generator">
+  <header class="nz-header">
+    <div class="nz-heading">
+      <div class="nz-eyebrow">CHRYSASYNTH / UTILITY</div>
+      <h1>Noise <span>Generator</span></h1>
+      <p>Shape noise. Find your texture.</p>
+    </div>
+    <div class="nz-topright">
+      <label class="nz-masterlabel" for="nz-master">MASTER <output id="nz-master-val">−18 dB</output></label>
+      <input id="nz-master" type="range" min="-48" max="-6" step="1" value="-18" aria-label="Master level in decibels">
+      <div id="nz-status" class="nz-status" aria-live="polite">READY</div>
+    </div>
+  </header>
+  <div class="nz-transport">
+    <button id="nz-play" class="nz-btn nz-primary" type="button"><span class="nz-playicon">▶</span> Play</button>
+    <button id="nz-stop" class="nz-btn" type="button">■ Stop</button>
+    <span class="nz-caption">Use a comfortable listening level</span>
+  </div>
+  <div class="nz-layout">
+    <section class="nz-panel nz-mainpanel" aria-labelledby="nz-texture-title">
+      <div class="nz-paneltop"><h2 id="nz-texture-title">NOISE TEXTURE</h2><span class="nz-panelhint">SIGNAL / STEREO</span></div>
+      <div class="nz-types" role="group" aria-label="Noise type">
+        <button class="nz-type is-selected" type="button" data-noise="white"><span class="nz-type-title">White</span><span class="nz-type-sub">Bright · Full spectrum</span></button>
+        <button class="nz-type" type="button" data-noise="pink"><span class="nz-type-title">Pink</span><span class="nz-type-sub">Balanced · Warm</span></button>
+        <button class="nz-type" type="button" data-noise="brown"><span class="nz-type-title">Brown</span><span class="nz-type-sub">Deep · Soft</span></button>
+      </div>
+      <div class="nz-visual">
+        <div class="nz-visualtop"><span>LIVE SIGNAL</span><span id="nz-visual-name">WHITE NOISE</span></div>
+        <canvas id="nz-scope" aria-label="Live audio waveform" role="img"></canvas>
+        <div class="nz-visbottom"><span>LEFT</span><span>STEREO</span><span>RIGHT</span></div>
+      </div>
+      <div class="nz-bottomcontrols">
+        <div class="nz-control">
+          <div class="nz-controlhead"><label for="nz-air">Air</label><output id="nz-air-val">0 dB</output></div>
+          <input id="nz-air" type="range" min="-12" max="12" step="0.5" value="0">
+        </div>
+        <div class="nz-control">
+          <div class="nz-controlhead"><label for="nz-width">Stereo Width</label><output id="nz-width-val">50%</output></div>
+          <input id="nz-width" type="range" min="0" max="100" step="1" value="50">
+        </div>
+      </div>
+    </section>
+    <aside class="nz-panel nz-filterpanel" aria-labelledby="nz-filter-title">
+      <div class="nz-paneltop"><h2 id="nz-filter-title">FILTER</h2><span class="nz-panelhint">FREQUENCY RESPONSE</span></div>
+      <div class="nz-filters" role="group" aria-label="Filter type">
+        <button class="nz-filter is-selected" type="button" data-filter="off">Off</button>
+        <button class="nz-filter" type="button" data-filter="lowpass">LP</button>
+        <button class="nz-filter" type="button" data-filter="highpass">HP</button>
+        <button class="nz-filter" type="button" data-filter="bandpass">BP</button>
+      </div>
+      <div class="nz-filtergraph"><canvas id="nz-filter-canvas" aria-label="Filter frequency response" role="img"></canvas><div class="nz-filteraxis"><span>20 Hz</span><span>1 kHz</span><span>20 kHz</span></div></div>
+      <div class="nz-control nz-filterctrl" id="nz-cut-wrap">
+        <div class="nz-controlhead"><label for="nz-cut">Cutoff</label><output id="nz-cut-val">2,000 Hz</output></div>
+        <input id="nz-cut" type="range" min="0" max="1000" value="665" step="1">
+        <div class="nz-range"><span>20 Hz</span><span>20 kHz</span></div>
+      </div>
+      <div class="nz-control nz-filterctrl" id="nz-q-wrap">
+        <div class="nz-controlhead"><label for="nz-q">Resonance</label><output id="nz-q-val">1.0 Q</output></div>
+        <input id="nz-q" type="range" min="0.1" max="20" step="0.1" value="1">
+      </div>
+
+    </aside>
+  </div>
+</main>
+<script src="./audio/engine.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>pixelTone Warp · Chrysasynth</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", sans-serif;
+      --space-xxs: 4px;
+      --space-xs: 8px;
+      --space-sm: 12px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --color-accent-1: #7CF5D5;
+      --color-accent-2: #FF6FD8;
+      --color-text-1: #F8FAFF;
+      --color-text-2: #A5AEC7;
+      --color-stroke: rgba(255,255,255,0.16);
+      --panel-bg: rgba(9,11,18,0.70);
+      --panel-bg-strong: rgba(5,7,12,0.90);
+      --shadow-soft: 0 18px 40px rgba(0,0,0,0.75);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* Hide all scrollbars */
+    * { scrollbar-width: none; -ms-overflow-style: none; }
+    *::-webkit-scrollbar { display: none; }
+
+    html, body {
+      font-family: var(--font-family);
+      color: var(--color-text-1);
+      background: transparent;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: var(--space-sm) var(--space-md);
+    }
+
+    .app-shell {
+      width: min(1080px, 100%);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      backdrop-filter: blur(26px) saturate(170%);
+      -webkit-backdrop-filter: blur(26px) saturate(170%);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(255,255,255,0.10);
+      background:
+        radial-gradient(circle at top left, rgba(124,245,213,0.12), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(255,111,216,0.16), transparent 55%),
+        radial-gradient(circle at top, rgba(9,11,18,0.96), rgba(3,4,10,0.98));
+      box-shadow: var(--shadow-soft);
+      padding: var(--space-md) var(--space-md) var(--space-sm);
+    }
+
+    /* HEADER */
+    .app-header {
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+      align-items: baseline;
+    }
+    .app-title-block { display: flex; flex-direction: column; gap: var(--space-xxs); }
+    .app-title { font-size: 22px; font-weight: 600; display: flex; align-items: center; gap: var(--space-xs); }
+    .app-title-orb {
+      width: 18px; height: 18px; border-radius: 50%;
+      background: conic-gradient(from 160deg, #7CF5D5, #FF6FD8, #8AB5FF, #7CF5D5);
+      box-shadow: 0 0 18px rgba(124,245,213,0.7);
+    }
+    .app-subtitle { font-size: 12px; color: var(--color-text-2); }
+    .badge {
+      padding: 4px 10px; border-radius: var(--radius-pill);
+      border: 1px solid var(--color-stroke); font-size: 11px; color: var(--color-text-2);
+      display: inline-flex; align-items: center; gap: 6px; background: rgba(5,7,12,0.9);
+    }
+    .badge-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: radial-gradient(circle at center, var(--color-accent-1), var(--color-accent-2));
+      box-shadow: 0 0 12px rgba(124,245,213,0.9);
+    }
+
+    /* LAYOUT */
+    .layout-main {
+      display: grid;
+      grid-template-columns: minmax(0,1.45fr) minmax(0,1.1fr);
+      gap: var(--space-md);
+      align-items: flex-start;
+    }
+    @media (max-width: 880px) { .layout-main { grid-template-columns: 1fr; } }
+
+    /* PANEL */
+    .panel {
+      background: var(--panel-bg); border-radius: var(--radius-md);
+      border: 1px solid var(--color-stroke); padding: var(--space-md);
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+    }
+    .panel-title { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+    .panel-caption { font-size: 11px; color: var(--color-text-2); margin-bottom: var(--space-sm); }
+
+    /* CANVAS */
+    .canvas-wrapper {
+      position: relative; width: 100%;
+      aspect-ratio: 4 / 3; max-height: 42vh;
+      border-radius: var(--radius-md); overflow: hidden;
+      background:
+        radial-gradient(circle at top, rgba(124,245,213,0.14), transparent 60%),
+        radial-gradient(circle at bottom, rgba(255,111,216,0.18), transparent 60%),
+        rgba(3,7,18,0.96);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    #ptw-canvas { width: 100%; height: 100%; display: block; }
+
+    /* DROP OVERLAY */
+    .drop-overlay {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      pointer-events: auto; cursor: pointer;
+    }
+    .drop-overlay-inner {
+      padding: var(--space-md); border-radius: var(--radius-md);
+      border: 1px dashed rgba(255,255,255,0.26); background: rgba(5,7,12,0.92);
+      text-align: center; max-width: 80%;
+    }
+    .drop-title { font-size: 13px; margin-bottom: var(--space-xs); }
+    .drop-text { font-size: 11px; color: var(--color-text-2); margin-bottom: var(--space-sm); }
+    .drop-cta {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 4px 12px; border-radius: var(--radius-pill);
+      border: 1px solid var(--color-accent-1); color: var(--color-accent-1); font-size: 11px;
+    }
+    .drop-overlay.dragover .drop-overlay-inner {
+      border-color: var(--color-accent-2); box-shadow: 0 0 0 1px var(--color-accent-2);
+    }
+
+    /* FORMAT PILLS */
+    .format-row { display: flex; align-items: center; gap: var(--space-xs); margin-top: var(--space-sm); flex-wrap: wrap; }
+    .format-label { font-size: 11px; color: var(--color-text-2); flex-shrink: 0; }
+    .format-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+    .format-pill {
+      padding: 4px 10px; border-radius: var(--radius-pill);
+      border: 1px solid rgba(255,255,255,0.18); background: rgba(5,7,12,0.8);
+      font-size: 11px; color: var(--color-text-2); cursor: pointer;
+      transition: all 0.15s; user-select: none;
+    }
+    .format-pill.active {
+      border-color: var(--color-accent-1); color: var(--color-accent-1);
+      background: rgba(124,245,213,0.08); box-shadow: 0 0 8px rgba(124,245,213,0.3);
+    }
+
+    /* IMAGE FOOTER */
+    .image-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: var(--space-xs); margin-top: var(--space-sm); flex-wrap: wrap;
+    }
+
+    /* CONTROLS */
+    .controls-stack { display: flex; flex-direction: column; gap: var(--space-sm); }
+    .row { display: flex; align-items: center; gap: var(--space-sm); font-size: 12px; }
+    .row-label { width: 90px; font-size: 11px; color: var(--color-text-2); flex-shrink: 0; }
+    .row-main { flex: 1; display: flex; align-items: center; gap: var(--space-sm); min-width: 0; }
+    .select {
+      display: inline-flex; align-items: center; gap: var(--space-xs);
+      padding: 4px 10px; border-radius: var(--radius-pill);
+      border: 1px solid rgba(255,255,255,0.16); background: var(--panel-bg-strong); font-size: 11px;
+    }
+    .select-label { color: var(--color-text-2); }
+    .select select {
+      border: none; background: rgba(9,11,18,0.95); color: var(--color-text-1);
+      font-size: 11px; outline: none; border-radius: var(--radius-pill); padding: 2px 6px;
+    }
+    .select select option { background: #050814; color: var(--color-text-1); }
+    .slider-wrap { flex: 1; display: flex; align-items: center; gap: var(--space-xs); min-width: 0; }
+    .slider-value {
+      width: 36px; text-align: right; font-size: 11px;
+      color: var(--color-text-2); font-variant-numeric: tabular-nums; flex-shrink: 0;
+    }
+    input[type="range"] {
+      -webkit-appearance: none; appearance: none; width: 100%; height: 4px;
+      border-radius: var(--radius-pill); background: rgba(255,255,255,0.18); outline: none; min-width: 0;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none; appearance: none; width: 16px; height: 16px;
+      border-radius: 50%; background: var(--color-accent-1);
+      box-shadow: 0 0 10px rgba(124,245,213,0.9); border: none; cursor: pointer;
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 16px; height: 16px; border-radius: 50%; background: var(--color-accent-1);
+      box-shadow: 0 0 10px rgba(124,245,213,0.9); border: none; cursor: pointer;
+    }
+
+    /* FX LIST */
+    .fx-list { display: flex; flex-direction: column; gap: 5px; max-height: 220px; overflow-y: auto; }
+    .fx-row {
+      display: grid; grid-template-columns: 1fr auto;
+      align-items: center; gap: var(--space-xs);
+      padding: 6px var(--space-sm); border-radius: var(--radius-sm);
+      background: rgba(2,4,12,0.9); border: 1px solid rgba(255,255,255,0.10);
+      transition: opacity 0.15s;
+    }
+    .fx-row:has(.toggle[data-checked="false"]) { opacity: 0.5; }
+    .fx-row-top { display: flex; align-items: center; gap: var(--space-xs); }
+    .fx-name { font-size: 12px; flex: 1; }
+    .fx-tag {
+      font-size: 10px; padding: 2px 7px; border-radius: var(--radius-pill);
+      border: 1px solid rgba(255,111,216,0.5); color: var(--color-accent-2); white-space: nowrap;
+    }
+    .fx-slider-row {
+      grid-column: 1 / -1; display: flex; align-items: center;
+      gap: var(--space-xs); padding-top: 2px;
+    }
+
+    /* TOGGLE */
+    .toggle {
+      width: 30px; height: 18px; border-radius: var(--radius-pill);
+      border: 1px solid rgba(255,255,255,0.26); background: rgba(0,0,0,0.65);
+      position: relative; cursor: pointer; flex-shrink: 0;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .toggle-thumb {
+      position: absolute; top: 2px; left: 2px; width: 12px; height: 12px;
+      border-radius: 50%; background: #E7EDFF; transition: transform 0.14s ease;
+    }
+    .toggle[data-checked="true"] {
+      background: radial-gradient(circle at top left, var(--color-accent-1), var(--color-accent-2));
+      border-color: rgba(255,255,255,0.5);
+    }
+    .toggle[data-checked="true"] .toggle-thumb { transform: translateX(12px); }
+
+    /* BUTTONS */
+    .controls-footer {
+      margin-top: var(--space-sm); display: flex; align-items: center;
+      justify-content: space-between; gap: var(--space-xs); flex-wrap: wrap;
+    }
+    .btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn {
+      border-radius: var(--radius-pill); border: 1px solid rgba(255,255,255,0.24);
+      background: rgba(0,0,0,0.65); color: var(--color-text-1); font-size: 11px;
+      padding: 7px 14px; display: inline-flex; align-items: center; gap: 6px;
+      cursor: pointer; white-space: nowrap; transition: opacity 0.15s;
+    }
+    .btn:disabled { opacity: 0.35; cursor: not-allowed; }
+    .btn-primary {
+      border: 1px solid var(--color-accent-1);
+      background: linear-gradient(135deg, var(--color-accent-1), var(--color-accent-2));
+      color: #030509; box-shadow: 0 0 18px rgba(124,245,213,0.6);
+    }
+    .btn-icon { font-size: 12px; line-height: 1; }
+    .audio-status { font-size: 11px; color: var(--color-text-2); display: inline-flex; align-items: center; gap: 6px; }
+    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #F97373; flex-shrink: 0; }
+    .status-dot.on { background: #22c55e; box-shadow: 0 0 6px rgba(34,197,94,0.7); }
+    .app-footer {
+      font-size: 10px; color: var(--color-text-2);
+      display: flex; justify-content: space-between; gap: var(--space-xs);
+      flex-wrap: wrap; padding: 0 var(--space-xs);
+    }
+
+    /* MOBILE */
+    @media (max-width: 600px) {
+      body { padding: var(--space-xs) var(--space-xxs); }
+      .app-shell { padding: var(--space-sm) var(--space-xs); border-radius: var(--radius-md); }
+      .app-header { flex-direction: column; align-items: flex-start; }
+      .app-title { font-size: 18px; }
+      .panel { padding: var(--space-sm) var(--space-xs); }
+      .fx-list { max-height: none; overflow-y: visible; }
+      .fx-tag { display: none; }
+      .row { flex-wrap: wrap; }
+      .row-label { width: 100%; }
+      .row-main { width: 100%; }
+      .controls-footer { flex-direction: column; align-items: flex-start; }
+      .btn-group { width: 100%; }
+      .btn, .btn-primary { flex: 1; justify-content: center; }
+      .audio-status { width: 100%; }
+      .image-footer { flex-direction: column; align-items: flex-start; }
+      .image-footer .btn-group { width: 100%; }
+      .image-footer .btn { flex: 1; justify-content: center; }
+      .format-pills { width: 100%; }
+      .format-pill { flex: 1; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+
+    <header class="app-header">
+      <div class="app-title-block">
+        <div class="app-title"><div class="app-title-orb"></div>pixelTone Warp</div>
+        <div class="app-subtitle">Glitch / distortion twin of pixelTone Bloom · static image, warped tone.</div>
+      </div>
+      <div class="badge"><span class="badge-dot"></span><span>Chrysasynth Tools</span></div>
+    </header>
+
+    <main class="layout-main">
+      <section class="panel">
+        <div class="panel-title">Source image</div>
+        <div class="panel-caption">Drop a JPG / PNG. Glitch effects applied on raw pixel data.</div>
+        <div class="canvas-wrapper" id="canvas-wrapper">
+          <canvas id="ptw-canvas"></canvas>
+          <div class="drop-overlay" id="drop-overlay">
+            <div class="drop-overlay-inner">
+              <div class="drop-title">Drop an image here</div>
+              <div class="drop-text">Warp with pixelation, RGB shifts, scanlines, slices, melt & noise.</div>
+              <div class="drop-cta">Click to choose a file</div>
+            </div>
+          </div>
+          <input type="file" id="file-input" accept="image/*" style="display:none;" />
+        </div>
+        <div class="format-row">
+          <span class="format-label">Export format</span>
+          <div class="format-pills">
+            <div class="format-pill active" data-format="1:1">1:1 Square</div>
+            <div class="format-pill" data-format="4:5">4:5 Portrait</div>
+            <div class="format-pill" data-format="16:9">16:9 Wide</div>
+          </div>
+        </div>
+        <div class="image-footer">
+          <div class="btn-group">
+            <button class="btn" id="export-image-btn" disabled><span class="btn-icon">⬇︎</span> Export image</button>
+            <button class="btn" id="export-audio-btn"><span class="btn-icon">◎</span> Export 10s audio</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-title">Audio & linked FX</div>
+        <div class="panel-caption">Glitch FX — sliders shape image and sound simultaneously.</div>
+        <div class="controls-stack">
+          <div class="row">
+            <div class="row-label">Waveform</div>
+            <div class="row-main">
+              <div class="select">
+                <span class="select-label">Type</span>
+                <select id="waveform-select">
+                  <option value="sine">Sine (liquid)</option>
+                  <option value="triangle">Triangle</option>
+                  <option value="square">Soft square</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="row-label">Intensity</div>
+            <div class="row-main">
+              <div class="slider-wrap">
+                <input type="range" id="master-intensity" min="0" max="1" step="0.01" value="0.7" />
+                <div class="slider-value" id="master-intensity-label">70%</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="fx-list">
+            <div class="fx-row">
+              <div class="fx-row-top"><div class="fx-name">Pixelate warp</div><div class="fx-tag">Pixels ⇄ Granularity</div></div>
+              <div class="toggle" data-toggle="pixelate" data-checked="true"><div class="toggle-thumb"></div></div>
+              <div class="fx-slider-row"><div class="slider-wrap"><input type="range" min="0" max="1" step="0.01" value="0.5" data-slider="pixelate" /><div class="slider-value" data-slider-label="pixelate">50%</div></div></div>
+            </div>
+            <div class="fx-row">
+              <div class="fx-row-top"><div class="fx-name">RGB shift</div><div class="fx-tag">Chromatic ⇄ Micro pitch</div></div>
+              <div class="toggle" data-toggle="rgbShift" data-checked="true"><div class="toggle-thumb"></div></div>
+              <div class="fx-slider-row"><div class="slider-wrap"><input type="range" min="0" max="1" step="0.01" value="0.4" data-slider="rgbShift" /><div class="slider-value" data-slider-label="rgbShift">40%</div></div></div>
+            </div>
+            <div class="fx-row">
+              <div class="fx-row-top"><div class="fx-name">Scanline distortion</div><div class="fx-tag">Scanlines ⇄ Gate</div></div>
+              <div class="toggle" data-toggle="scanline" data-checked="true"><div class="toggle-thumb"></div></div>
+              <div class="fx-slider-row"><div class="slider-wrap"><input type="range" min="0" max="1" step="0.01" value="0.3" data-slider="scanline" /><div class="slider-value" data-slider-label="scanline">30%</div></div></div>
+            </div>
+            <div class="fx-row">
+              <div class="fx-row-top"><div class="fx-name">Warp slice</div><div class="fx-tag">Slices ⇄ Stutter</div></div>
+              <div class="toggle" data-toggle="warpSlice" data-checked="true"><div class="toggle-thumb"></div></div>
+              <div class="fx-slider-row"><div class="slider-wrap"><input type="range" min="0" max="1" step="0.01" value="0.4" data-slider="warpSlice" /><div class="slider-value" data-slider-label="warpSlice">40%</div></div></div>
+            </div>
+            <div class="fx-row">
+              <div class="fx-row-top"><div class="fx-name">Noise spray</div><div class="fx-tag">Dust ⇄ Noise</div></div>
+              <div class="toggle" data-toggle="noiseSpray" data-checked="true"><div class="toggle-thumb"></div></div>
+              <div class="fx-slider-row"><div class="slider-wrap"><input type="range" min="0" max="1" step="0.01" value="0.5" data-slider="noiseSpray" /><div class="slider-value" data-slider-label="noiseSpray">50%</div></div></div>
+            </div>
+            <div class="fx-row">
+              <div class="fx-row-top"><div class="fx-name">Warp flow</div><div class="fx-tag">Waves ⇄ Vibrato</div></div>
+              <div class="toggle" data-toggle="warpFlow" data-checked="true"><div class="toggle-thumb"></div></div>
+              <div class="fx-slider-row"><div class="slider-wrap"><input type="range" min="0" max="1" step="0.01" value="0.5" data-slider="warpFlow" /><div class="slider-value" data-slider-label="warpFlow">50%</div></div></div>
+            </div>
+            <div class="fx-row">
+              <div class="fx-row-top"><div class="fx-name">Data melt</div><div class="fx-tag">Artifacts ⇄ Crush</div></div>
+              <div class="toggle" data-toggle="dataMelt" data-checked="true"><div class="toggle-thumb"></div></div>
+              <div class="fx-slider-row"><div class="slider-wrap"><input type="range" min="0" max="1" step="0.01" value="0.4" data-slider="dataMelt" /><div class="slider-value" data-slider-label="dataMelt">40%</div></div></div>
+            </div>
+            <div class="fx-row">
+              <div class="fx-row-top"><div class="fx-name">Pixel corrupt</div><div class="fx-tag">Raw data ⇄ Crush</div></div>
+              <div class="toggle" data-toggle="pixelCorrupt" data-checked="false"><div class="toggle-thumb"></div></div>
+              <div class="fx-slider-row"><div class="slider-wrap"><input type="range" min="0" max="1" step="0.01" value="0.3" data-slider="pixelCorrupt" /><div class="slider-value" data-slider-label="pixelCorrupt">30%</div></div></div>
+            </div>
+          </div>
+
+          <div class="controls-footer">
+            <div class="btn-group">
+              <button class="btn btn-primary" id="audio-toggle"><span class="btn-icon">◎</span><span id="audio-toggle-label">Enable audio</span></button>
+              <button class="btn" id="random-fx-btn"><span class="btn-icon">🎲</span> Random FX</button>
+            </div>
+            <div class="audio-status">
+              <span class="status-dot" id="audio-status-dot"></span>
+              <span id="audio-status-text">Waiting for activation</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer"><span></span><span></span></footer>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('ptw-canvas');
+    const ctx = canvas.getContext('2d');
+    const canvasWrapper = document.getElementById('canvas-wrapper');
+    const dropOverlay = document.getElementById('drop-overlay');
+    const fileInput = document.getElementById('file-input');
+    const exportImageBtn = document.getElementById('export-image-btn');
+    const exportAudioBtn = document.getElementById('export-audio-btn');
+    const randomFxBtn = document.getElementById('random-fx-btn');
+
+    let baseImage = null, baseCanvas = null, baseCtx = null, noiseCanvas = null;
+    let exportFormat = '1:1';
+
+    const state = {
+      masterIntensity: 0.7,
+      effects: {
+        pixelate:     { enabled: true,  intensity: 0.5 },
+        rgbShift:     { enabled: true,  intensity: 0.4 },
+        scanline:     { enabled: true,  intensity: 0.3 },
+        warpSlice:    { enabled: true,  intensity: 0.4 },
+        noiseSpray:   { enabled: true,  intensity: 0.5 },
+        warpFlow:     { enabled: true,  intensity: 0.5 },
+        dataMelt:     { enabled: true,  intensity: 0.4 },
+        pixelCorrupt: { enabled: false, intensity: 0.3 }
+      }
+    };
+
+    document.querySelectorAll('.format-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        document.querySelectorAll('.format-pill').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        exportFormat = pill.dataset.format;
+      });
+    });
+
+    function resizeCanvas() {
+      const rect = canvasWrapper.getBoundingClientRect();
+      canvas.width = Math.round(rect.width);
+      canvas.height = Math.round(rect.height);
+      if (baseImage) { createBaseCanvas(); renderImage(); }
+    }
+
+    function createBaseCanvas() {
+      if (!baseImage) return;
+      baseCanvas = document.createElement('canvas');
+      baseCanvas.width = canvas.width; baseCanvas.height = canvas.height;
+      baseCtx = baseCanvas.getContext('2d');
+      baseCtx.fillStyle = '#020617';
+      baseCtx.fillRect(0, 0, baseCanvas.width, baseCanvas.height);
+      const iw = baseImage.width, ih = baseImage.height;
+      const cw = baseCanvas.width, ch = baseCanvas.height;
+      const scale = Math.min(cw / iw, ch / ih);
+      const dw = iw * scale, dh = ih * scale;
+      baseCtx.drawImage(baseImage, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
+    }
+
+    function createNoiseTexture() {
+      noiseCanvas = document.createElement('canvas');
+      noiseCanvas.width = 256; noiseCanvas.height = 256;
+      const nctx = noiseCanvas.getContext('2d');
+      const imgData = nctx.createImageData(256, 256);
+      const d = imgData.data;
+      for (let i = 0; i < d.length; i += 4) {
+        const v = 120 + Math.random() * 100;
+        d[i] = v; d[i+1] = v; d[i+2] = v; d[i+3] = 255;
+      }
+      nctx.putImageData(imgData, 0, 0);
+    }
+
+    function applyPixelCorrupt(src, amount) {
+      const w = src.width, h = src.height;
+      const out = document.createElement('canvas'); out.width = w; out.height = h;
+      const octx = out.getContext('2d'); octx.drawImage(src, 0, 0);
+      const imgData = octx.getImageData(0, 0, w, h); const data = imgData.data;
+      const blockCount = Math.floor(amount * 40);
+      for (let b = 0; b < blockCount; b++) {
+        const bx = Math.floor(Math.random() * w), by = Math.floor(Math.random() * h);
+        const bw = Math.floor(10 + Math.random() * 60 * amount), bh2 = Math.floor(2 + Math.random() * 20 * amount);
+        const mode = Math.floor(Math.random() * 3);
+        for (let y = by; y < Math.min(by + bh2, h); y++) {
+          for (let x = bx; x < Math.min(bx + bw, w); x++) {
+            const i = (y * w + x) * 4;
+            if (mode === 0) { const t = data[i]; data[i] = data[i+1]; data[i+1] = t; }
+            else if (mode === 1) { const t = data[i+1]; data[i+1] = data[i+2]; data[i+2] = t; }
+            else { const t = data[i]; data[i] = data[i+2]; data[i+2] = t; }
+          }
+        }
+      }
+      const rowCount = Math.floor(amount * 15);
+      for (let r = 0; r < rowCount; r++) {
+        const sr = Math.floor(Math.random() * h), dr = Math.floor(Math.random() * h);
+        const shift = Math.floor((Math.random() - 0.5) * w * 0.3);
+        for (let x = 0; x < w; x++) {
+          const sx = ((x - shift) + w) % w;
+          const si = (sr * w + sx) * 4, di = (dr * w + x) * 4;
+          data[di] = data[si]; data[di+1] = data[si+1]; data[di+2] = data[si+2];
+        }
+      }
+      octx.putImageData(imgData, 0, 0);
+      return out;
+    }
+
+    function renderImage() {
+      if (!baseCanvas) { ctx.clearRect(0, 0, canvas.width, canvas.height); return; }
+      const w = canvas.width, h = canvas.height;
+      ctx.setTransform(1,0,0,1,0,0); ctx.clearRect(0,0,w,h);
+      const fx = state.effects, global = state.masterIntensity;
+
+      let src = baseCanvas;
+      if (fx.pixelate.enabled && fx.pixelate.intensity > 0.01) {
+        const amt = fx.pixelate.intensity * global, bs = 2 + Math.floor(amt * 30);
+        const sw = Math.max(1, Math.floor(w / bs)), sh = Math.max(1, Math.floor(h / bs));
+        const pix = document.createElement('canvas'); pix.width = sw; pix.height = sh;
+        const pctx = pix.getContext('2d'); pctx.imageSmoothingEnabled = false;
+        pctx.drawImage(baseCanvas, 0, 0, sw, sh);
+        const up = document.createElement('canvas'); up.width = w; up.height = h;
+        const upctx = up.getContext('2d'); upctx.imageSmoothingEnabled = false;
+        upctx.drawImage(pix, 0, 0, sw, sh, 0, 0, w, h); src = up;
+      }
+
+      if (fx.pixelCorrupt.enabled && fx.pixelCorrupt.intensity > 0.01)
+        src = applyPixelCorrupt(src, fx.pixelCorrupt.intensity * global);
+
+      const wc = document.createElement('canvas'); wc.width = w; wc.height = h;
+      const wctx = wc.getContext('2d');
+      const warpAmt = fx.warpFlow.enabled ? fx.warpFlow.intensity * global : 0;
+      const sliceAmt = fx.warpSlice.enabled ? fx.warpSlice.intensity * global : 0;
+      const stripeH = 8 + Math.floor(sliceAmt * 24);
+      for (let y = 0; y < h; y += stripeH) {
+        const sh = Math.min(stripeH, h - y);
+        const ox = Math.sin(y * 0.05) * 35 * warpAmt + (Math.floor(y / stripeH) % 2 === 0 ? 1 : -1) * 25 * sliceAmt;
+        wctx.drawImage(src, 0, y, w, sh, ox, y, w, sh);
+      }
+
+      let melt = wc;
+      if (fx.dataMelt.enabled && fx.dataMelt.intensity > 0.01) {
+        const amt = fx.dataMelt.intensity * global;
+        const m = document.createElement('canvas'); m.width = w; m.height = h;
+        const mctx = m.getContext('2d'); mctx.drawImage(wc, 0, 0);
+        const mh = h * (0.2 + amt * 0.6), sy = h - mh;
+        mctx.save(); mctx.globalAlpha = 0.8;
+        mctx.drawImage(wc, 0, sy, w, mh, 0, sy, w, mh * (1 + amt * 0.7));
+        mctx.restore(); melt = m;
+      }
+
+      ctx.save();
+      const sat = 1 + 0.4 * global, bright = 1 + 0.1 * global;
+      ctx.filter = `saturate(${sat.toFixed(2)}) brightness(${bright.toFixed(2)})`;
+      ctx.drawImage(melt, 0, 0, w, h);
+      const rgbAmt = fx.rgbShift.enabled ? fx.rgbShift.intensity * global : 0;
+      if (rgbAmt > 0.01) {
+        const shift = 6 + rgbAmt * 18;
+        ctx.globalAlpha = 0.65 * rgbAmt;
+        ctx.filter = `hue-rotate(20deg)`; ctx.drawImage(melt, shift, 0, w, h);
+        ctx.filter = `hue-rotate(-25deg)`; ctx.drawImage(melt, -shift, 0, w, h);
+        ctx.filter = `saturate(${sat.toFixed(2)}) brightness(${bright.toFixed(2)})`; ctx.globalAlpha = 1;
+      }
+      ctx.restore();
+
+      const scanAmt = fx.scanline.enabled ? fx.scanline.intensity * global : 0;
+      if (scanAmt > 0.01) {
+        const gap = 2 + Math.floor(8 - scanAmt * 6);
+        ctx.save(); ctx.globalAlpha = 0.25 + scanAmt * 0.35; ctx.fillStyle = 'rgba(0,0,0,0.9)';
+        for (let y = 0; y < h; y += gap * 2) ctx.fillRect(0, y, w, gap);
+        ctx.restore();
+      }
+
+      const noiseAmt = fx.noiseSpray.enabled ? fx.noiseSpray.intensity * global : 0;
+      if (noiseAmt > 0.01 && noiseCanvas) {
+        ctx.save(); ctx.globalAlpha = 0.12 + noiseAmt * 0.18;
+        ctx.globalCompositeOperation = 'overlay'; ctx.drawImage(noiseCanvas, 0, 0, w, h); ctx.restore();
+      }
+    }
+
+    function exportImage() {
+      if (!baseImage) return;
+      const sizes = { '1:1': [1200,1200], '4:5': [1080,1350], '16:9': [1920,1080] };
+      const [ew, eh] = sizes[exportFormat] || [1200,1200];
+      const ec = document.createElement('canvas'); ec.width = ew; ec.height = eh;
+      const ectx = ec.getContext('2d');
+      const sw = canvas.width, sh = canvas.height;
+      canvas.width = ew; canvas.height = eh; createBaseCanvas(); renderImage();
+      ectx.drawImage(canvas, 0, 0);
+      canvas.width = sw; canvas.height = sh; createBaseCanvas(); renderImage();
+      const a = document.createElement('a');
+      a.href = ec.toDataURL('image/png');
+      a.download = `pixelToneWarp-${exportFormat.replace(':','x')}.png`;
+      document.body.appendChild(a); a.click(); a.remove();
+    }
+
+    function handleFiles(files) {
+      if (!files || !files.length) return;
+      const file = files[0]; if (!file.type.startsWith('image/')) return;
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = () => {
+        baseImage = img; createBaseCanvas(); renderImage();
+        dropOverlay.style.display = 'none'; exportImageBtn.disabled = false;
+        URL.revokeObjectURL(url);
+      };
+      img.src = url;
+    }
+
+    function setupDragAndDrop() {
+      const prevent = e => { e.preventDefault(); e.stopPropagation(); };
+      ['dragenter','dragover','dragleave','drop'].forEach(e => dropOverlay.addEventListener(e, prevent));
+      dropOverlay.addEventListener('dragenter', () => dropOverlay.classList.add('dragover'));
+      dropOverlay.addEventListener('dragleave', () => dropOverlay.classList.remove('dragover'));
+      dropOverlay.addEventListener('drop', e => { dropOverlay.classList.remove('dragover'); handleFiles(e.dataTransfer.files); });
+      dropOverlay.addEventListener('click', () => fileInput.click());
+      fileInput.addEventListener('change', () => handleFiles(fileInput.files));
+    }
+
+    let audioCtx=null,oscNode=null,tremoloLFO=null,tremoloDepth=null,tremoloOffset=null,tremoloGainNode=null;
+    let vibratoLFO=null,vibratoGain=null,filterNode=null,pannerNode=null,reverbNode=null,reverbGain=null;
+    let dryGain=null,noiseSource=null,noiseGain=null,masterGain=null,distortionNode=null;
+    let mediaDest=null,mediaRecorder=null,audioReady=false,audioEnabled=false;
+
+    const waveformSelect = document.getElementById('waveform-select');
+    const masterIntensityEl = document.getElementById('master-intensity');
+    const masterIntensityLabel = document.getElementById('master-intensity-label');
+    const audioToggleBtn = document.getElementById('audio-toggle');
+    const audioToggleLabel = document.getElementById('audio-toggle-label');
+    const audioStatusDot = document.getElementById('audio-status-dot');
+    const audioStatusText = document.getElementById('audio-status-text');
+
+    function createReverbImpulse(ac) {
+      const len = ac.sampleRate * 2, buf = ac.createBuffer(2, len, ac.sampleRate);
+      for (let c = 0; c < 2; c++) { const ch = buf.getChannelData(c); for (let i = 0; i < len; i++) ch[i] = (Math.random()*2-1)*Math.pow(1-i/len,1.6); }
+      return buf;
+    }
+    function makeDistortionCurve(amount) {
+      const k=amount*80,n=256,curve=new Float32Array(n),deg=Math.PI/180;
+      for(let i=0;i<n;i++){const x=(i*2)/n-1;curve[i]=(3+k)*x*20*deg/(Math.PI+k*Math.abs(x));}
+      return curve;
+    }
+
+    async function initAudio() {
+      if (audioReady) return;
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) { audioStatusText.textContent = "Web Audio not supported."; return; }
+      audioCtx = new AC(); await audioCtx.resume();
+      oscNode = audioCtx.createOscillator(); oscNode.type = waveformSelect.value; oscNode.frequency.value = 220;
+      tremoloLFO = audioCtx.createOscillator(); tremoloLFO.frequency.value = 4;
+      tremoloDepth = audioCtx.createGain(); tremoloDepth.gain.value = 0;
+      tremoloOffset = audioCtx.createConstantSource(); tremoloOffset.offset.value = 1;
+      tremoloGainNode = audioCtx.createGain(); tremoloGainNode.gain.value = 1;
+      tremoloLFO.connect(tremoloDepth); tremoloDepth.connect(tremoloGainNode.gain); tremoloOffset.connect(tremoloGainNode.gain);
+      vibratoLFO = audioCtx.createOscillator(); vibratoLFO.frequency.value = 5;
+      vibratoGain = audioCtx.createGain(); vibratoGain.gain.value = 0;
+      vibratoLFO.connect(vibratoGain).connect(oscNode.frequency);
+      distortionNode = audioCtx.createWaveShaper(); distortionNode.curve = makeDistortionCurve(0); distortionNode.oversample = '4x';
+      filterNode = audioCtx.createBiquadFilter(); filterNode.type = 'lowpass'; filterNode.frequency.value = 4000; filterNode.Q.value = 0.7;
+      pannerNode = audioCtx.createStereoPanner ? audioCtx.createStereoPanner() : audioCtx.createPanner();
+      if (pannerNode.pan) pannerNode.pan.value = 0;
+      reverbNode = audioCtx.createConvolver(); reverbNode.buffer = createReverbImpulse(audioCtx);
+      reverbGain = audioCtx.createGain(); reverbGain.gain.value = 0;
+      dryGain = audioCtx.createGain(); dryGain.gain.value = 1;
+      noiseGain = audioCtx.createGain(); noiseGain.gain.value = 0;
+      masterGain = audioCtx.createGain(); masterGain.gain.value = 0;
+      const buf = audioCtx.createBuffer(1, 2*audioCtx.sampleRate, audioCtx.sampleRate);
+      const d = buf.getChannelData(0); for (let i=0;i<d.length;i++) d[i]=Math.random()*2-1;
+      noiseSource = audioCtx.createBufferSource(); noiseSource.buffer = buf; noiseSource.loop = true;
+      oscNode.connect(distortionNode).connect(tremoloGainNode).connect(filterNode).connect(pannerNode);
+      pannerNode.connect(dryGain).connect(masterGain);
+      pannerNode.connect(reverbNode).connect(reverbGain).connect(masterGain);
+      noiseSource.connect(noiseGain).connect(masterGain);
+      masterGain.connect(audioCtx.destination);
+      if (audioCtx.createMediaStreamDestination) {
+        mediaDest = audioCtx.createMediaStreamDestination();
+        masterGain.connect(mediaDest); mediaRecorder = new MediaRecorder(mediaDest.stream);
+      }
+      oscNode.start(); tremoloLFO.start(); tremoloOffset.start(); vibratoLFO.start(); noiseSource.start();
+      audioReady = true; audioStatusText.textContent = 'Audio ready · click to enable / mute.';
+    }
+
+    function setAudioEnabled(en) {
+      audioEnabled = en;
+      if (masterGain) masterGain.gain.value = en ? (0.2 + state.masterIntensity * 0.8) : 0;
+      audioStatusDot.classList.toggle('on', en);
+      audioStatusText.textContent = en ? 'Audio on' : 'Audio off';
+      audioToggleLabel.textContent = en ? 'Disable audio' : 'Enable audio';
+    }
+
+    let audioTimer = null;
+    function scheduleAudio() {
+      if (audioTimer) return;
+      audioTimer = setTimeout(() => { audioTimer = null; updateAudio(); }, 30);
+    }
+
+    function updateAudio() {
+      if (!audioReady) return;
+      const g = state.masterIntensity, fx = state.effects;
+      if (oscNode) oscNode.type = waveformSelect.value;
+      if (distortionNode && filterNode) { const a = fx.pixelate.enabled ? fx.pixelate.intensity*g : 0; distortionNode.curve = makeDistortionCurve(a); filterNode.frequency.value = 2000+a*2000; }
+      if (pannerNode && vibratoGain) { const a = fx.rgbShift.enabled ? fx.rgbShift.intensity*g : 0; if(pannerNode.pan) pannerNode.pan.value=(a-0.5)*0.6; vibratoGain.gain.value=a*8; vibratoLFO.frequency.value=3+a*5; }
+      if (tremoloDepth) { const a = fx.scanline.enabled ? fx.scanline.intensity*g : 0; tremoloDepth.gain.value=a*0.8; tremoloLFO.frequency.value=4+a*14; }
+      if (noiseGain) noiseGain.gain.value = fx.noiseSpray.enabled ? fx.noiseSpray.intensity*g*0.25 : 0;
+      if (vibratoGain) vibratoGain.gain.value += fx.warpFlow.enabled ? fx.warpFlow.intensity*g*5 : 0;
+      if (reverbGain && filterNode) { const a = fx.dataMelt.enabled ? fx.dataMelt.intensity*g : 0; reverbGain.gain.value=a*0.7; filterNode.frequency.value-=a*1200; }
+      if (masterGain) masterGain.gain.value = audioEnabled ? (0.2+g*0.8) : 0;
+    }
+
+    async function exportAudio() {
+      if (!audioReady || !mediaRecorder) { alert("Audio export not supported in this browser."); return; }
+      const chunks = [];
+      mediaRecorder.ondataavailable = e => { if(e.data.size>0) chunks.push(e.data); };
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(chunks,{type:'audio/wav'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href=url; a.download='pixelToneWarp-audio.wav';
+        document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+      };
+      mediaRecorder.start(); setTimeout(()=>mediaRecorder.stop(),10000);
+    }
+
+    function setupUI() {
+      const updateMaster = () => {
+        const v = parseFloat(masterIntensityEl.value);
+        state.masterIntensity = v; masterIntensityLabel.textContent = `${Math.round(v*100)}%`;
+        scheduleAudio(); renderImage();
+      };
+      masterIntensityEl.addEventListener('input', updateMaster); updateMaster();
+      waveformSelect.addEventListener('change', scheduleAudio);
+
+      document.querySelectorAll('.toggle').forEach(t => {
+        t.addEventListener('click', () => {
+          const next = t.getAttribute('data-checked') !== 'true';
+          t.setAttribute('data-checked', String(next));
+          if (state.effects[t.dataset.toggle]) state.effects[t.dataset.toggle].enabled = next;
+          renderImage(); scheduleAudio();
+        });
+      });
+
+      document.querySelectorAll('input[type="range"][data-slider]').forEach(sl => {
+        const key = sl.dataset.slider, label = document.querySelector(`[data-slider-label="${key}"]`);
+        const update = () => {
+          const v = parseFloat(sl.value);
+          if (state.effects[key]) state.effects[key].intensity = v;
+          if (label) label.textContent = `${Math.round(v*100)}%`;
+          renderImage(); scheduleAudio();
+        };
+        sl.addEventListener('input', update); update();
+      });
+
+      audioToggleBtn.addEventListener('click', async () => {
+        await initAudio();
+        if (!audioReady) { audioStatusText.textContent = "Audio error."; return; }
+        setAudioEnabled(!audioEnabled); updateAudio();
+      });
+
+      exportImageBtn.addEventListener('click', exportImage);
+      exportAudioBtn.addEventListener('click', exportAudio);
+
+      randomFxBtn.addEventListener('click', () => {
+        document.querySelectorAll('input[type="range"][data-slider]').forEach(sl => {
+          const v = Math.random(); sl.value = v.toFixed(2);
+          const label = document.querySelector(`[data-slider-label="${sl.dataset.slider}"]`);
+          if (state.effects[sl.dataset.slider]) state.effects[sl.dataset.slider].intensity = v;
+          if (label) label.textContent = `${Math.round(v*100)}%`;
+        });
+        document.querySelectorAll('.toggle').forEach(t => {
+          const on = Math.random() > 0.25; t.setAttribute('data-checked', String(on));
+          if (state.effects[t.dataset.toggle]) state.effects[t.dataset.toggle].enabled = on;
+        });
+        renderImage(); scheduleAudio();
+      });
+    }
+
+    window.addEventListener('load', () => { createNoiseTexture(); resizeCanvas(); setupDragAndDrop(); setupUI(); });
+    window.addEventListener('resize', resizeCanvas);
+  </script>
+</body>
+</html>

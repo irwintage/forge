@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Trim Ritual · Chrysasynth Forge</title>
+  <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../forge-scrollbars.css">
+<script src="../forge-scrollbars.js" defer></script>
+</head>
+<body>
+<main class="tool" aria-label="Trim Ritual audio utility">
+  <header class="header">
+    <div><h1>Trim Ritual</h1><p>Audio snippet utility</p></div>
+    <span class="header-side">CHRYSASYNTH FORGE</span>
+  </header>
+
+  <section class="workspace" aria-label="Audio source">
+    <div class="sourcebar">
+      <div class="sourceinfo"><span class="section-label">SOURCE AUDIO</span><strong id="filename">No file loaded</strong><span class="subtle" id="filemeta">WAV or MP3 · 5–60 seconds</span></div>
+      <div class="source-actions">
+        <button class="btn secondary" id="reset" disabled>Reset</button>
+        <button class="btn primary" id="upload">Upload Audio</button>
+        <input id="file" type="file" accept=".wav,.wave,.mp3,audio/wav,audio/mpeg" hidden>
+      </div>
+    </div>
+
+    <div class="wave-stage" id="stage" tabindex="0" role="group" aria-label="Waveform editor. Drag across the waveform to select, or drag selection edges to trim.">
+      <canvas id="wave" aria-hidden="true"></canvas>
+      <div id="empty" class="empty">
+        <div class="empty-title">Click to import audio</div><div class="empty-sub">or drop a WAV / MP3 file here</div>
+      </div>
+      <div class="wave-hint" id="hint">DRAG TO SELECT · DRAG ENDS TO TRIM</div>
+    </div>
+
+    <div class="ruler"><span id="ruler-start">0:00</span><span id="ruler-mid">0:00</span><span id="ruler-end">0:00</span></div>
+
+    <div class="trim-row">
+      <div class="time-field"><label for="start">START</label><input id="start" type="number" min="0" step="0.01" value="0.00" disabled><span>s</span></div>
+      <div class="time-field"><label for="end">END</label><input id="end" type="number" min="0" step="0.01" value="0.00" disabled><span>s</span></div>
+      <div class="length-box"><span class="section-label">LENGTH</span><strong id="length">0.00 s</strong></div>
+      <div class="random-box"><label for="random-length">RANDOM LENGTH <output id="random-value">2.0 s</output></label><input id="random-length" class="battery" type="range" min="0.5" max="4" step="0.1" value="2"></div>
+      <button id="random" class="btn secondary" disabled>Random Cut</button>
+    </div>
+  </section>
+  <footer class="transport">
+    <div class="playgroup"><button class="btn primary" id="play" disabled><span id="play-text">▶ Play</span></button><button class="btn secondary" id="stop" disabled>■ Stop</button></div>
+    <div class="rightgroup"><span id="status" role="status">Ready to import audio</span><button id="export" class="btn export" disabled>Export WAV</button></div>
+  </footer>
+  <div class="footnote">44.1 kHz · 16-bit PCM · Local processing</div>
+</main>
+<script src="engine/audio.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

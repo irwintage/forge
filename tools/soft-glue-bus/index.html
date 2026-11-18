@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Soft Glue Bus · Chrysasynth Forge</title><link rel="stylesheet" href="css/main.css"><link rel="stylesheet" href="../forge-scrollbars.css">
+<script src="../forge-scrollbars.js" defer></script>
+</head><body>
+<main class="plugin" id="plugin">
+<header class="header"><div class="identity"><h1>soft<span>glue</span><i>.</i></h1><p>BUS COMPRESSION · CHRYSASYNTH</p></div><div class="header-right"><span class="edition">FORGE / 02</span><div class="status" id="status"><span class="led"></span><span id="statusText">Awaiting audio</span></div></div></header>
+<div class="layout">
+<section class="source-col" aria-label="Audio workspace"><div class="section-head"><span>01 / AUDIO WORKSPACE</span><span class="hint">Source &amp; playback</span></div>
+<div class="wavebox" id="dropZone"><div class="wavebar"><div class="filebox"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h10l4 4v12H5zM15 4v5h4"/></svg><span id="fileInfo" title="No sample loaded">No sample loaded</span></div><div class="filebuttons"><button class="textbutton" id="resetBtn" disabled type="button">Clear</button><button class="mini primary-mini" id="uploadBtn" type="button"><svg viewBox="0 0 24 24"><path d="M12 16V4m-5 5 5-5 5 5M5 16v4h14v-4"/></svg>Import Audio</button><input type="file" accept="audio/*" id="fileInput" hidden></div></div><div class="waveview"><canvas id="wave" aria-label="Audio waveform"></canvas><div id="playhead" class="playhead"></div><div id="empty" class="empty"><svg viewBox="0 0 60 60" aria-hidden="true"><path d="M4 32h10l7-20 13 36 9-25 6 9h7"/></svg><strong>DROP AN AUDIO FILE</strong><small>WAV / MP3 · up to 60 seconds</small></div></div><div class="wave-bottom"><span id="timeDisplay">00:00 / 00:00</span><span id="formatDisplay">NO AUDIO</span></div></div>
+<div class="playback"><div class="transport"><button class="btn play" id="playBtn" disabled><svg viewBox="0 0 24 24"><path d="m8 5 11 7-11 7z"/></svg>Play</button><button class="btn" id="stopBtn" disabled><svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1"/></svg>Stop</button><button class="btn loop" id="loopToggle" type="button" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M5 8a5 5 0 0 1 5-4h8l-3-3m3 3-3 3M19 16a5 5 0 0 1-5 4H6l3 3m-3-3 3-3"/></svg>Loop</button></div><span class="playback-hint">Processed preview</span></div>
+<div class="meter-zone"><div class="meter-head"><span>GAIN REDUCTION</span><span class="meter-output" id="grValue">0.0 <small>dB</small></span></div><div class="gr-track" id="grTrack"><div class="gr-fill" id="grFill"></div><div class="gr-indicator" id="grIndicator"></div><div class="gr-ticks"><span>0</span><span>−5</span><span>−10</span><span>−15</span><span>−20 dB</span></div></div><p class="meter-caption">The meter responds to the signal being compressed.</p></div>
+</section>
+<section class="controls-col" aria-label="Compressor controls"><div class="section-head"><span>02 / BUS COMPRESSOR</span><span class="hint">Dynamics shaping</span></div>
+<div class="preset-section"><div class="label-line"><span>PRESETS</span><span class="hint">Starting points</span></div><div class="presets"><button class="preset" id="presetSoft">Soft Glue</button><button class="preset" id="presetPunch">Punch</button><button class="preset" id="presetCalm">Calm</button></div></div>
+<div class="settings"><div class="label-line param-heading"><span>COMPRESSION</span><span class="hint">Live parameters</span></div>
+<div class="param"><label for="threshSlider">Threshold</label><input type="range" id="threshSlider" min="-40" max="0" step="0.5" value="-18"><output id="threshValue">−18.0 dB</output></div>
+<div class="param"><label for="ratioSlider">Ratio</label><input type="range" id="ratioSlider" min="1.5" max="8" step="0.1" value="2.5"><output id="ratioValue">2.5:1</output></div>
+<div class="param"><label for="attackSlider">Attack</label><input type="range" id="attackSlider" min="0.5" max="50" step="0.5" value="10"><output id="attackValue">10.0 ms</output></div>
+<div class="param"><label for="releaseSlider">Release</label><input type="range" id="releaseSlider" min="50" max="1000" step="10" value="250"><output id="releaseValue">250 ms</output></div>
+<div class="label-line makeup-heading"><span>OUTPUT</span><span class="hint">Level compensation</span></div>
+<div class="param"><label for="makeupSlider">Makeup</label><input type="range" id="makeupSlider" min="-6" max="12" step="0.5" value="2"><output id="makeupValue">+2.0 dB</output></div>
+</div>
+<div class="info"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-9v1"/></svg><p>Gentle bus compression for cohesive mixes. Start with <strong>Soft Glue</strong>, then adjust to taste.</p></div>
+<div class="export"><div><span>03 / BOUNCE</span><small>Offline render · 16-bit WAV</small></div><button class="btn export-btn" id="exportBtn" disabled><svg viewBox="0 0 24 24"><path d="M12 4v12m-5-5 5 5 5-5M4 17v3h16v-3"/></svg>Export WAV</button></div>
+</section></div>
+<footer class="footer"><span>SOFT GLUE BUS / DYNAMICS PROCESSOR</span><span>CHRYSASYNTH FORGE</span></footer>
+</main><script src="js/audio-engine.js"></script><script src="js/app.js"></script><script src="js/forge-bridge.js"></script></body></html>

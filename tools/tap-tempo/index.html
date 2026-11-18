@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
+<title>Tap Tempo</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Syne:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/tone@14.8.49/build/Tone.js"></script>
+
+<link href="./style.css" rel="stylesheet"/><link rel="stylesheet" href="../forge-scrollbars.css">
+<script src="../forge-scrollbars.js" defer></script>
+</head>
+<body>
+<section class="forge-pulse" id="forgePulse">
+<div class="fp-layout">
+<section class="fp-stage">
+<div class="fp-stage-top">
+<div class="fp-stage-copy">
+<div class="fp-eyebrow">Tempo utility</div>
+<h1 class="fp-heading">Tap Tempo</h1>
+<p class="fp-sub">Tap the pulse, then start the metronome.</p>
+</div>
+<div class="fp-status" id="fpStatus">
+<span class="fp-status-dot"></span>
+<span id="fpStatusText">Idle</span>
+</div>
+</div>
+<div class="fp-orbit" id="fpOrbit">
+<div class="fp-aura"></div>
+<div class="fp-ring"></div>
+<div class="fp-layer" id="fpTickLayer"></div>
+<div class="fp-layer" id="fpBeatLayer"></div>
+<div class="fp-ripple"></div>
+<button aria-label="Tap tempo" class="fp-core" id="fpTapCore" type="button">
+<span>
+<span class="fp-bpm" id="fpBpm">120</span>
+<span class="fp-bpm-unit">BPM</span>
+<span class="fp-tempo-name" id="fpTempoName">Allegro moderato</span>
+<span class="fp-meter-note" id="fpMeterNote">Quarter-note pulse</span>
+</span>
+</button>
+<div class="fp-tap-label">Tap the pulse · Space</div>
+</div>
+<div class="fp-actions">
+<button class="fp-btn fp-btn-primary" id="fpPlay" type="button">Start pulse</button>
+<button class="fp-btn" id="fpTap" type="button">Tap tempo</button>
+</div>
+</section>
+<aside class="fp-controls">
+<div class="fp-controls-head">
+<div>
+<div class="fp-controls-title">Metronome settings</div>
+<div class="fp-controls-sub" id="fpMeterDescription">Simple meter · four quarter-note beats</div>
+</div>
+<div class="fp-taps" id="fpTapCount">0 taps</div>
+</div>
+<div class="fp-control fp-control-wide">
+<label for="fpSignature">Meter</label>
+<select id="fpSignature">
+<option value="2-4">2 / 4</option>
+<option value="3-4">3 / 4</option>
+<option selected="" value="4-4">4 / 4</option>
+<option value="5-4">5 / 4 · 3+2</option>
+<option value="7-4">7 / 4 · 4+3</option>
+<option value="6-8">6 / 8 · 3+3</option>
+<option value="7-8">7 / 8 · 2+2+3</option>
+<option value="9-8">9 / 8 · 3+3+3</option>
+<option value="12-8">12 / 8 · 3+3+3+3</option>
+</select>
+<span class="fp-value" id="fpSignatureValue">4/4</span>
+</div>
+<div class="fp-control fp-control-wide">
+<label for="fpDivision">Click</label>
+<select id="fpDivision"></select>
+<span class="fp-value" id="fpDivisionValue">Beat</span>
+</div>
+<div class="fp-control">
+<label for="fpVoice">Voice</label>
+<select id="fpVoice">
+<option selected="" value="crystal">Crystal</option>
+<option value="wood">Wood</option>
+<option value="pulse">Pulse</option>
+<option value="deep">Deep pulse</option>
+<option value="minimal">Minimal</option>
+</select>
+<span class="fp-value">Tone</span>
+</div>
+<div class="fp-control">
+<label for="fpSwing">Swing</label>
+<input id="fpSwing" max=".6" min="0" step=".01" type="range" value="0"/>
+<span class="fp-value" id="fpSwingValue">0%</span>
+</div>
+<div class="fp-control">
+<label for="fpVolume">Volume</label>
+<input id="fpVolume" max="1" min="0" step=".01" type="range" value=".72"/>
+<span class="fp-value" id="fpVolumeValue">72%</span>
+</div>
+<div class="fp-control">
+<label for="fpSmooth">Smoothing</label>
+<input id="fpSmooth" max="16" min="3" step="1" type="range" value="8"/>
+<span class="fp-value" id="fpSmoothValue">8</span>
+</div>
+<div class="fp-control">
+<label for="fpTempo">Tempo</label>
+<input id="fpTempo" max="240" min="20" step="1" type="range" value="120"/>
+<span class="fp-value" id="fpTempoValue">120</span>
+</div>
+<div class="fp-step-actions">
+<button class="fp-btn" id="fpMinus" type="button">−1 BPM</button>
+<button class="fp-btn" id="fpPlus" type="button">+1 BPM</button>
+</div>
+<div class="fp-footnote" id="fpFootnote">
+          BPM follows the quarter note in simple meters.
+        </div>
+</aside>
+</div>
+</section>
+
+<script defer="True" src="./app.js"></script></body>
+</html>

@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0B1110"><title>pixelTone · Bloom / Warp | Chrysasynth Forge</title><link rel="stylesheet" href="shared/shell.css"><link rel="stylesheet" href="../forge-scrollbars.css">
+<script src="../forge-scrollbars.js" defer></script>
+</head>
+<body>
+<main class="app" id="app" data-mode="bloom">
+  <header class="masthead">
+    <div class="identity"><h1>pixelTone</h1><p>IMAGE TO SOUND · CHRYSASYNTH</p></div>
+    <div class="header-right"><span class="edition">BLOOM / WARP</span></div>
+  </header>
+  <nav class="modes" aria-label="Instrument mode">
+    <button type="button" id="bloom-tab" class="mode-tab is-active" role="tab" aria-selected="true" aria-controls="bloom-view"><span class="mode-name">Bloom</span><span class="mode-desc">Organic / Ambient</span></button>
+    <button type="button" id="warp-tab" class="mode-tab" role="tab" aria-selected="false" aria-controls="warp-view"><span class="mode-name">Warp</span><span class="mode-desc">Glitch / Digital</span></button>
+  </nav>
+  <div class="mode-heading"><div><h2 id="mode-heading">Bloom</h2><p id="mode-caption">Sculpt fluid textures from imagery.</p></div><span id="mode-indicator" class="mode-indicator">01 / 02</span></div>
+  <section class="mode-page" id="bloom-view" role="tabpanel" aria-labelledby="bloom-tab"><iframe id="bloom-frame" title="pixelTone Bloom instrument" loading="eager" src="bloom/index.html" allow="autoplay" scrolling="no"></iframe></section>
+  <section class="mode-page" id="warp-view" role="tabpanel" aria-labelledby="warp-tab" hidden><iframe id="warp-frame" title="pixelTone Warp instrument" loading="eager" src="warp/index.html" allow="autoplay" scrolling="no"></iframe></section>
+  <footer class="footer"><span>PIXELTONE / FORGE</span><span id="foot-note">Independent engines · settings preserved between pages</span></footer>
+</main>
+<script src="shared/shell.js"></script>
+</body></html>

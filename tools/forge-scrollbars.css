@@ -1,0 +1,25 @@
+/* Chrysasynth Forge / shared embedded scrollbar design.
+   Applies to document scrolling and independently scrollable tool panels.
+   Keep genuinely scrollable editors (e.g. Structura) operational. */
+:root { color-scheme: dark; }
+html, body {
+  scrollbar-width: thin !important;
+  scrollbar-color: #42634f transparent !important;
+}
+html.forge-no-document-scroll { overflow-y: hidden !important; }
+:where(*) {
+  scrollbar-width: thin !important;
+  scrollbar-color: #42634f transparent !important;
+}
+/* Chromium + older WebKit use these; current Chromium may prefer scrollbar-color. */
+::-webkit-scrollbar { width: 5px !important; height: 5px !important; }
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-track-piece { background: transparent !important; border: 0 !important; box-shadow: none !important; }
+::-webkit-scrollbar-thumb {
+  background: #42634f !important;
+  border-radius: 999px !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+::-webkit-scrollbar-thumb:hover { background: #648970 !important; }
+::-webkit-scrollbar-corner { background: transparent !important; }

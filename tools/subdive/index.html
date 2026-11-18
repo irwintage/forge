@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Subdive · Chrysasynth Forge</title>
+<link rel="stylesheet" href="css/main.css"><script src="vendor/Tone.js"></script>
+<link rel="stylesheet" href="../forge-scrollbars.css">
+<script src="../forge-scrollbars.js" defer></script>
+</head>
+<body>
+<main class="shell">
+<header class="topbar">
+  <div class="brand"><div class="brand-title">Subdive<span class="accent">.</span></div><div class="brand-sub">CHRYSASYNTH / GENERATIVE BASS</div></div>
+  <div class="headright"><div class="head-caption">INSTRUMENT / 01</div><button class="status" id="audioBtn">Audio: click to enable</button></div>
+</header>
+<div class="workspace">
+ <section class="left-column">
+  <div class="panel music-panel">
+   <div class="panel-head"><div class="label">01 / MUSIC</div><span class="micro">Tonal context</span></div>
+   <div class="slider music-tempo"><label for="tempo">Tempo</label><input id="tempo" type="range" min="60" max="160" step="1" value="96"><div class="v" id="tempoVal">96 BPM</div></div>
+   <div class="divider"></div>
+   <div class="control-head"><span class="section-label">Root note</span><span class="micro">SELECT KEY</span></div>
+   <div class="keyRow" id="keyRow" aria-label="Root note"></div>
+   <div class="scale-row"><label for="scaleSelect">Scale</label><select id="scaleSelect"><option value="minor">Minor</option><option value="major">Major</option><option value="pentatonic">Pentatonic</option><option value="dorian">Dorian</option></select></div>
+  </div>
+  <div class="panel seed-panel">
+   <div class="panel-head"><div class="section-identity"><span class="section-icon seed-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h4l3 4 3-5h6"/><path d="m17 3 3 3-3 3"/><path d="M4 17h4l3-4 3 5h6"/><path d="m17 15 3 3-3 3"/></svg></span><div class="section-copy"><div class="label">02 / SEED</div><span class="micro">Sound character</span></div></div><span class="micro">Preset & variation</span></div>
+   <div class="seed-controls"><select id="seedSelect" aria-label="Seed preset"></select><button class="chip" id="randomizeBtn">↻ Randomize</button><button class="chip active" id="lockBtn" aria-pressed="true">Locked</button></div>
+   <div class="note" id="seedInfo">—</div>
+  </div>
+  <div class="panel drums-panel">
+   <div class="drum-heading"><span class="drum-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="16" cy="11" rx="10" ry="4.5"/><path d="M6 11v12c0 2.5 4.5 4.5 10 4.5s10-2 10-4.5V11"/><path d="M6 23c0 2.5 4.5 4.5 10 4.5s10-2 10-4.5"/><path d="M10 4 8 1M22 4l2-3"/></svg></span><span class="drum-heading-copy"><span class="label">03 / DRUM ENGINE</span><span class="micro">Rhythmic accompaniment</span></span><button class="chip active drum-switch" id="drumToggle" aria-label="Enable drums" aria-pressed="true">On</button></div>
+   <div class="slider"><label for="drumIntensity">Intensity</label><input id="drumIntensity" type="range" min="0" max="1" step=".01" value=".25"><div class="v" id="drumIntensityVal">0.25</div></div>
+   <div class="slider"><label for="drumVariation">Variation</label><input id="drumVariation" type="range" min="0" max="1" step=".01" value=".20"><div class="v" id="drumVariationVal">0.20</div></div>
+  </div>
+ </section>
+ <section class="panel generation-panel">
+  <div class="panel-head"><div class="label">PATTERN GENERATION</div><span class="micro">06 / MODULATION CONTROLS</span></div>
+  <div class="parameters">
+   <div class="param"><div class="param-control"><div class="param-head"><label for="repeat">Repeat</label><div class="v" id="repeatVal">0.42</div></div><input type="range" id="repeat" min="0" max="1" step=".01" value=".42"></div><div class="viz"><canvas id="vizRepeat"></canvas></div></div>
+   <div class="param"><div class="param-control"><div class="param-head"><label for="alternate">Alternate</label><div class="v" id="alternateVal">0.18</div></div><input type="range" id="alternate" min="0" max="1" step=".01" value=".18"></div><div class="viz"><canvas id="vizAlternate"></canvas></div></div>
+   <div class="param"><div class="param-control"><div class="param-head"><label for="shift">Shift</label><div class="v" id="shiftVal">0.22</div></div><input type="range" id="shift" min="0" max="1" step=".01" value=".22"></div><div class="viz"><canvas id="vizShift"></canvas></div></div>
+   <div class="param"><div class="param-control"><div class="param-head"><label for="harmony">Harmony</label><div class="v" id="harmonyVal">0.35</div></div><input type="range" id="harmony" min="0" max="1" step=".01" value=".35"></div><div class="viz"><canvas id="vizHarmony"></canvas></div></div>
+   <div class="param"><div class="param-control"><div class="param-head"><label for="density">Density</label><div class="v" id="densityVal">0.48</div></div><input type="range" id="density" min="0" max="1" step=".01" value=".48"></div><div class="viz"><canvas id="vizDensity"></canvas></div></div>
+   <div class="param"><div class="param-control"><div class="param-head"><label for="chance">Chance</label><div class="v" id="chanceVal">0.12</div></div><input type="range" id="chance" min="0" max="1" step=".01" value=".12"></div><div class="viz"><canvas id="vizChance"></canvas></div></div>
+  </div>
+  <div class="micro gen-foot">Sculpt your pattern · The visualizations follow each macro live.</div>
+ </section>
+</div>
+<div class="bottom-row">
+ <section class="panel output-panel"><div class="panel-head"><div class="label">OUTPUT</div><span class="micro">MASTER BUS</span></div><div class="slider"><label for="master">Master</label><input id="master" type="range" min="0" max="1" step=".01" value=".85"><div class="v" id="masterVal">0.85</div></div></section>
+ <section class="panel action-panel"><div><div class="label">NEW PATTERN</div><div class="micro" id="patternActionHint">New bass + drums · Same key &amp; scale</div></div><button id="regenBtn" class="btn" title="Create a new bass and drum pattern without changing your key, scale or tempo">↻ New Pattern</button></section>
+</div>
+<footer class="transport"><div class="transport-left"><button id="playBtn" class="btn primary" aria-pressed="false">▶ Play</button><button id="stopBtn" class="btn">■ Stop</button><button id="recordBtn" class="btn" aria-pressed="false"><span class="record-led" aria-hidden="true"></span> Record</button></div><div class="transport-right"><span class="micro">Record exports WEBM audio</span><span class="status-dot" aria-hidden="true"></span><span class="micro" id="transportState">Ready</span></div></footer>
+</main>
+<script src="js/app.js"></script><script id="forgeToolMeta" type="application/json">{"name":"Subdive","slug":"Subdive","version":"Forge V5.2","kind":"Instrument · generative bass"}</script><script src="js/forge-bridge.js"></script>
+</body></html>

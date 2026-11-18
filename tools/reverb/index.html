@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Chrysasynth · Reverb</title><link rel="stylesheet" href="./style.css"><link rel="stylesheet" href="../forge-scrollbars.css">
+<script src="../forge-scrollbars.js" defer></script>
+</head>
+<body><main class="app">
+<header><div><div class="overline">CHRYSASYNTH <span>/</span> FORGE FX</div><h1>Reverb</h1><p>Spatial diffusion processor</p></div><div class="output"><label for="master">OUTPUT <output id="masterValue">75%</output></label><input id="master" type="range" min="0" max="100" value="75"><button id="bypass" class="bypass" aria-pressed="false">Effect On</button></div></header>
+<section class="source" id="dropzone" aria-label="Audio file drop zone"><div class="file-row"><label class="load" for="file">＋ Load audio</label><input type="file" id="file" accept="audio/*"><button class="subtle" id="demo">Try demo</button><span id="fileInfo" class="file-info">Drop an audio file here</span></div><div class="transport"><button id="play" class="play" disabled>▶ Play</button><button id="stop" disabled>■ Stop</button><button id="export" disabled>↓ WAV</button></div></section>
+<section class="workbench"><div class="controls"><div class="toprow"><div class="effect-tag">REVERB ENGINE <span> / </span> STEREO</div><div class="preset"><label for="preset">PRESET</label><select id="preset" aria-label="Reverb preset"></select></div></div><div class="inner-head"><div><span class="overline">SPACE PARAMETERS</span><h2 id="engineName">Room</h2></div><button id="reset" class="reset">Reset preset</button></div>
+<div class="knobs" id="knobs">
+<div class="control"><label for="mix">Mix <output id="mixVal">30%</output></label><input id="mix" type="range" min="0" max="100"></div>
+<div class="control"><label for="decay">Decay <output id="decayVal">2.0 s</output></label><input id="decay" type="range" min="0" max="100"></div>
+<div class="control"><label for="predelay">Pre-delay <output id="predelayVal">20 ms</output></label><input id="predelay" type="range" min="0" max="100"></div>
+<div class="control"><label for="damping">Damping <output id="dampingVal">50%</output></label><input id="damping" type="range" min="0" max="100"></div>
+<div class="control"><label for="width">Width <output id="widthVal">100%</output></label><input id="width" type="range" min="0" max="100"></div>
+<div class="control"><label for="diffusion">Diffusion <output id="diffusionVal">65%</output></label><input id="diffusion" type="range" min="0" max="100"></div></div>
+<div class="description" id="effectInfo">A natural, balanced room with clear early reflections.</div></div>
+<div class="display"><div class="display-head"><span>REVERB TAIL</span><span id="displayMode">ROOM</span></div><canvas id="scope" aria-label="Reverb decay envelope"></canvas><div class="axis"><span>DIRECT</span><span id="readout">2.0 s</span><span>TAIL</span></div><div class="meter-row"><label>L</label><div class="meter"><i id="meterL"></i></div><label>R</label><div class="meter"><i id="meterR"></i></div></div><div class="hint">Decay display · Stereo output meters</div></div></section>
+<footer><span>Chrysasynth · FX Collection</span><span>Offline stereo WAV · Reverb tail included</span></footer>
+</main><script src="./audio/presets.js"></script><script src="./audio/engine.js"></script><script src="./visual/display.js"></script><script src="./app.js"></script></body></html>

@@ -1,0 +1,1 @@
+(()=>{'use strict';window.addEventListener('message',e=>{if(e.source!==window.parent)return;const d=e.data;if(!d||typeof d!=='object')return;if(['forge-deactivate','forge-stop','chrysasynth-tool-deactivate','softglue-stop'].includes(d.type)||d.type==='forge-activate'&&d.active===false){window.SoftGlueStop?.();}});})();

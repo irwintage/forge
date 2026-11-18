@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b111b">
+  <title>NeuroFlow · Chrysasynth Forge</title>
+  <link rel="stylesheet" href="./style.css">
+  <script defer src="./audio/engine.js"></script>
+  <script defer src="./app.js"></script>
+<link rel="stylesheet" href="../forge-scrollbars.css">
+<script src="../forge-scrollbars.js" defer></script>
+</head>
+<body>
+<main id="neuroflow" class="nf-app" aria-label="NeuroFlow binaural studio">
+  <header class="nf-header">
+    <div class="nf-title-group">
+      <div class="nf-eyebrow">CHRYSASYNTH / WELLNESS</div>
+      <h1>Neuro<span>Flow</span></h1>
+      <p>Binaural Studio</p>
+    </div>
+    <div class="nf-master">
+      <div class="nf-field-heading"><label for="nf-volume">MASTER</label><output id="nf-volume-val">18%</output></div>
+      <input id="nf-volume" type="range" min="0" max="100" value="18" aria-label="Master volume">
+    </div>
+  </header>
+
+  <div class="nf-transport">
+    <button type="button" id="nf-play" class="nf-btn nf-btn-primary"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="m7 4 14 8-14 8z"/></svg> Play</button>
+    <button type="button" id="nf-stop" class="nf-btn"><svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><rect x="5" y="5" width="14" height="14" fill="currentColor"/></svg> Stop</button>
+    <div id="nf-status" class="nf-state" aria-live="polite">READY</div>
+    <span class="nf-transport-spacer"></span>
+    <label class="nf-timer-label" for="nf-timer">TIMER</label>
+    <select id="nf-timer" aria-label="Session timer">
+      <option value="0">Off</option><option value="300">5 min</option><option value="600">10 min</option><option value="1200">20 min</option>
+    </select>
+    <output id="nf-time-left" class="nf-countdown" aria-live="off"></output>
+    <button type="button" id="nf-fullscreen" class="nf-btn nf-icon-btn" title="Fullscreen" aria-label="Toggle fullscreen"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg></button>
+  </div>
+
+  <section class="nf-main" aria-label="Binaural frequencies and visualization">
+    <div class="nf-main-head">
+      <div>
+        <div class="nf-section-label">FREQUENCY BANDS</div>
+        <div class="nf-bands" role="group" aria-label="Beat frequency presets">
+          <button type="button" data-band="delta" data-beat="2">Delta <small>2 Hz</small></button>
+          <button type="button" data-band="theta" data-beat="6">Theta <small>6 Hz</small></button>
+          <button type="button" data-band="alpha" data-beat="10" class="active" aria-pressed="true">Alpha <small>10 Hz</small></button>
+          <button type="button" data-band="beta" data-beat="20">Beta <small>20 Hz</small></button>
+          <button type="button" data-band="gamma" data-beat="35">Gamma <small>35 Hz</small></button>
+        </div>
+      </div>
+      <div class="nf-readout"><span id="nf-band-name">ALPHA</span> <strong id="nf-band-hz">10.0 <small>Hz</small></strong></div>
+    </div>
+
+    <div class="nf-visual" id="nf-visual">
+      <canvas id="nf-wave" role="img" aria-label="Animated left and right channel audio waveforms"></canvas>
+      <div class="nf-visual-label"><span><i class="nf-line-marker nf-left"></i> LEFT</span><span><i class="nf-line-marker nf-right"></i> RIGHT</span></div>
+      <div class="nf-visual-overlay" id="nf-idle-overlay">STEREO SIGNAL</div>
+    </div>
+    <div class="nf-channel-readouts">
+      <div><span>LEFT / CARRIER</span><strong id="nf-left-hz">200.0 Hz</strong></div>
+      <div><span>RIGHT / CARRIER + BEAT</span><strong id="nf-right-hz">210.0 Hz</strong></div>
+    </div>
+  </section>
+
+  <section class="nf-bottom" aria-label="Frequency controls">
+    <div class="nf-control">
+      <div class="nf-field-heading"><label for="nf-carrier">CARRIER</label><output id="nf-carrier-val">200 Hz</output></div>
+      <input type="range" id="nf-carrier" min="100" max="400" step="1" value="200">
+      <div class="nf-range-ends"><span>100 Hz</span><span>400 Hz</span></div>
+    </div>
+    <div class="nf-control">
+      <div class="nf-field-heading"><label for="nf-beat">BEAT DIFFERENCE</label><output id="nf-beat-val">10.0 Hz</output></div>
+      <input type="range" id="nf-beat" min="0.5" max="40" step="0.1" value="10">
+      <div class="nf-range-ends"><span>0.5 Hz</span><span>40 Hz</span></div>
+    </div>
+  </section>
+  <footer class="nf-footer"><span>Use stereo headphones for the binaural effect.</span><span>Listening tool · no clinical effects implied</span></footer>
+</main>
+</body>
+</html>

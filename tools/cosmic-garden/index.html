@@ -1,0 +1,327 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>Chrysasynth — Cosmic Garden</title>
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link
+    rel="stylesheet"
+    href="cosmic-garden.css"
+  >
+
+<link rel="stylesheet" href="../forge-scrollbars.css">
+<script src="../forge-scrollbars.js" defer></script>
+</head>
+
+
+<body>
+
+  <main
+    class="cosmic-tool"
+    id="cosmic-tool"
+  >
+
+    <!-- ======================================================
+         HEADER
+         ====================================================== -->
+
+    <header class="cosmic-header">
+
+      <div class="cosmic-brand">
+
+
+        <div class="cosmic-title">
+
+          
+
+          <div class="cosmic-title-line">
+
+            <h1>
+              Cosmic Garden
+            </h1>
+
+            
+
+          </div>
+
+          <p>Harmonic organism</p>
+
+        </div>
+
+      </div>
+
+
+      <div class="cosmic-actions">
+
+        <button
+          class="cosmic-button cosmic-button--record"
+          id="rec-button"
+          type="button"
+        >
+          <span class="record-dot"></span>
+          <span id="rec-label">Record</span>
+        </button>
+
+        <button
+          class="cosmic-button"
+          id="export-button"
+          type="button"
+          disabled
+        >
+          Export WAV
+        </button>
+
+      </div>
+
+    </header>
+
+
+
+    <!-- ======================================================
+         CONTROLS
+         ====================================================== -->
+
+    <section class="garden-console" aria-label="Sound controls">
+
+      <label class="garden-control">
+
+        <span class="garden-label">
+          Scale
+        </span>
+
+        <select id="scale-select">
+
+          <option value="majAmbient">
+            Maj Ambient
+          </option>
+
+          <option value="lydian">
+            Lydian
+          </option>
+
+          <option value="dorian">
+            Dorian
+          </option>
+
+          <option value="minor">
+            Minor
+          </option>
+
+          <option value="jap">
+            Jap Pentatonic
+          </option>
+
+        </select>
+
+      </label>
+
+
+      <label class="garden-control">
+
+        <span class="garden-label">
+          Voice
+        </span>
+
+        <select id="wave-select">
+
+          <option value="round">
+            Round
+          </option>
+
+          <option value="triangle">
+            Triangle
+          </option>
+
+          <option value="softsquare">
+            Soft Square
+          </option>
+
+        </select>
+
+      </label>
+
+
+      <label class="garden-control garden-control--range">
+
+        <span class="garden-control-top">
+
+          <span class="garden-label">
+            Level
+          </span>
+
+          <output id="level-val">
+            55%
+          </output>
+
+        </span>
+
+        <input
+          id="level-slider"
+          type="range"
+          min="0"
+          max="1"
+          step="0.01"
+          value="0.55"
+        >
+
+      </label>
+
+    </section>
+
+
+
+    <!-- ======================================================
+         OBSERVATORY
+         ====================================================== -->
+
+    <section
+      class="garden-observatory"
+      id="garden-observatory"
+    >
+
+      <div class="observatory-frame"></div>
+
+
+      
+
+
+      <canvas
+        id="cosmic-canvas"
+      ></canvas>
+      <div id="garden-error" class="garden-error" hidden>WebGL could not initialize. Check your connection and browser graphics settings.</div>
+
+
+      <div class="garden-depth garden-depth--left"></div>
+      <div class="garden-depth garden-depth--right"></div>
+
+
+      
+
+
+      <div class="garden-resonance" aria-hidden="true">
+
+        <span>ENERGY</span>
+
+        <strong id="resonance-value">
+          70
+        </strong>
+
+      </div>
+
+
+      <div
+        class="garden-bloom-label"
+        id="garden-bloom-label"
+      >
+        <span>
+          DORMANT
+        </span>
+      </div>
+
+    </section>
+
+
+
+    <section class="garden-bottom-controls" aria-label="Sound shape">
+      <label class="garden-control garden-control--range">
+
+        <span class="garden-control-top">
+
+          <span class="garden-label">
+            Tone
+          </span>
+
+          <output id="tone-val">
+            55%
+          </output>
+
+        </span>
+
+        <input
+          id="tone-slider"
+          type="range"
+          min="0"
+          max="1"
+          step="0.01"
+          value="0.55"
+        >
+
+      </label>
+
+
+      <label class="garden-control garden-control--range">
+
+        <span class="garden-control-top">
+
+          <span class="garden-label">
+            Resonance
+          </span>
+
+          <output id="freeze-val">
+            70%
+          </output>
+
+        </span>
+
+        <input
+          id="freeze-slider"
+          type="range"
+          min="0"
+          max="1"
+          step="0.01"
+          value="0.70"
+        >
+
+      </label>
+
+
+    </section>
+
+    <!-- ======================================================
+         FOOT
+         ====================================================== -->
+
+    
+
+  </main>
+
+
+  <!--
+    Global THREE build.
+    No local ES module = works when opened directly with file://
+  -->
+
+ <script
+  src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"
+></script>
+
+<script src="cosmic-garden.js"></script>
+
+</body>
+
+</html>

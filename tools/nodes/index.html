@@ -1,0 +1,203 @@
+<!doctype html>
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Nodes — Chrysasynth Forge</title>
+
+
+
+<link href="./style.css" rel="stylesheet"/><script src="https://cdn.jsdelivr.net/npm/lz-string@1.5.0/libs/lz-string.min.js"></script><script src="https://unpkg.com/tone@14.8.49/build/Tone.js"></script><link rel="stylesheet" href="../forge-scrollbars.css">
+<script src="../forge-scrollbars.js" defer></script>
+</head>
+<body>
+<div class="wrap" id="nodes-app">
+<div class="panel"><header class="nodes-header"><div class="brand">
+
+<div>
+<div class="brand-name">Nodes</div>
+<div class="brand-sub">CHRYSASYNTH / GENERATIVE SYSTEMS</div>
+</div>
+</div><div class="master-box"><label class="master-label" for="volume">MASTER</label><input class="master-range" id="volume" max="1" min="0" step="0.01" type="range" value="0.45"/><span id="masterTopValue">45%</span></div><div class="toolbar"><button class="btn btnAccent btnSm" id="startBtn">▶ Start</button><button class="btn btnGhost btnSm" id="stopBtn">■ Stop</button><button class="btn btnRec off" id="recBtn">● Rec</button><div class="play-pill" id="playPill">
+<div class="play-dot"></div>
+<span id="playLabel">Idle</span>
+</div><div class="record-actions"><div class="rec-timer" id="recTimer">00:00</div><div class="rec-prog"><div class="rec-prog-bar" id="recProgBar"></div></div><button class="btn btnGhost btnSm" disabled="" id="dlBtn">Download audio</button></div></div></header><div class="nodes-layout">
+<!-- LEFT -->
+
+<!-- CENTER -->
+
+<!-- RIGHT -->
+
+<section class="editor"><div class="card card-center">
+<div class="panel-title">SEQUENCER</div>
+<div class="scope"><canvas id="scopeCanvas"></canvas></div>
+<div class="pg-tabs">
+<button class="pg-tab ta" id="tabA">Page A</button>
+<button class="pg-tab" id="tabB">Page B</button>
+</div>
+<div class="pg-mode-row">
+<label>Playback</label>
+<select id="pageMode">
+<option value="a-only">A only</option>
+<option value="b-only">B only</option>
+<option selected="" value="ab-loop">A / B loop</option>
+</select>
+</div>
+<div class="grid-header">
+<h4 id="gridLabel">Page A <span class="pg-pill pill-a" id="gridPill">A</span></h4>
+<span class="step-info" id="stepInfo">—</span>
+</div>
+<div class="grid-outer">
+<div class="grid-shell">
+<div class="note-legend" id="noteLegend"></div>
+<div class="grid-slot">
+<div class="gridBoard grid-a" id="boardA"></div>
+<div class="gridBoard grid-b hidden rev" id="boardB"></div>
+</div>
+</div>
+</div>
+<div class="grid-actions">
+<div class="grid-actions-left">
+<button class="btn btnSm btnGhost" id="armBtn">Arm</button>
+<button class="btn btnSm btnGhost" id="clearPageBtn">Clear</button>
+<button class="btn btnSm btnGhost" id="copyABBtn">Copy A→B</button>
+<button class="btn btnSm btnRand" id="randBtn">Randomize</button>
+</div>
+<button class="btn btnSm" id="shareBtn">Share Seed</button>
+</div>
+<div class="share-card" id="shareCard">
+<div class="share-main">
+
+<div>
+<div class="share-title" id="shareTitle">Link copied</div>
+<div class="share-sub" id="shareSub">Patch complet encodé dans l’URL.</div>
+</div>
+</div>
+<div class="share-acts">
+<button class="share-copy" id="shareCopy">Copy again</button>
+<button class="share-ghost" id="shareOpen">Open preview</button>
+</div>
+</div>
+</div></section><aside class="nodes-sidebar"><div class="card card-harmony">
+<div class="panel-title">HARMONY &amp; MOTION</div>
+<div class="group">
+<div class="row">
+<div>
+<label>Root A</label>
+<select id="rootA"></select>
+</div>
+<div>
+<label>Chord A</label>
+<select id="chordA">
+<option selected="" value="maj">Major</option>
+<option value="min">Minor</option>
+<option value="dom7">Dom7</option>
+<option value="maj7">Maj7</option>
+<option value="m7">Min7</option>
+<option value="dim">Dim</option>
+<option value="sus2">Sus2</option>
+<option value="sus4">Sus4</option>
+<option value="add9">Add9</option>
+</select>
+</div>
+</div>
+<div class="row">
+<div>
+<label>Root B</label>
+<select id="rootB"></select>
+</div>
+<div>
+<label>Chord B</label>
+<select id="chordB">
+<option value="maj">Major</option>
+<option selected="" value="min">Minor</option>
+<option value="dom7">Dom7</option>
+<option value="maj7">Maj7</option>
+<option value="m7">Min7</option>
+<option value="dim">Dim</option>
+<option value="sus2">Sus2</option>
+<option value="sus4">Sus4</option>
+<option value="add9">Add9</option>
+</select>
+</div>
+</div>
+</div>
+<div class="panel-title">Motion</div>
+<div class="group">
+<div class="row">
+<div>
+<label>Arp Mode</label>
+<select id="arpMode">
+<option value="up">Up</option>
+<option value="down">Down</option>
+<option value="updown">Up &amp; Down</option>
+<option value="random">Random</option>
+</select>
+</div>
+<div>
+<label>BPM <span class="vval" id="bpmVal">120</span></label>
+<input id="bpm" max="200" min="40" step="1" type="range" value="120"/>
+</div>
+</div>
+<div class="row" style="margin-bottom:0">
+<div>
+<label>Swing <span class="vval" id="swingVal">0.00</span></label>
+<input id="swing" max="0.3" min="0" step="0.01" type="range" value="0"/>
+</div>
+</div>
+</div>
+</div><div class="card card-sound">
+<div class="panel-title">SOUND DESIGN</div>
+<div class="group">
+<div class="group-title">Voice</div>
+<div class="sdf" style="margin-bottom:0">
+<select id="voice">
+<option selected="" value="fm">FM Pluck</option>
+<option value="bell">Glass Bell</option>
+<option value="organ">Organ</option>
+<option value="lead">Analog Lead</option>
+<option value="pad">Air Pad</option>
+</select>
+</div>
+</div>
+<div class="group">
+<div class="group-title">Filter</div>
+<div class="sdf">
+<div class="sdf-top"><span>Cutoff</span><span><span id="cutVal">5000</span> Hz</span></div>
+<input id="cutoff" max="8000" min="150" step="1" type="range" value="5000"/>
+</div>
+<div class="sdf" style="margin-bottom:0">
+<div class="sdf-top"><span>Q</span><span id="qVal">0.60</span></div>
+<input id="q" max="12" min="0.1" step="0.1" type="range" value="0.6"/>
+</div>
+</div>
+<div class="group">
+<div class="group-title">LFO</div>
+<div class="lfo-box">
+<div class="lfo-row2">
+<div>
+<label>Rate <span class="vval" id="lfoRateVal">0.50</span> Hz</label>
+<input id="lfoRate" max="8" min="0.05" step="0.05" type="range" value="0.5"/>
+</div>
+<div>
+<label>Depth <span class="vval" id="lfoDepthVal">0.30</span></label>
+<input id="lfoDepth" max="1" min="0" step="0.01" type="range" value="0.3"/>
+</div>
+</div>
+</div>
+</div>
+<div class="group">
+<div class="group-title">Ambience</div>
+<div class="sdf">
+<div class="sdf-top"><span>Reverb</span><span id="revVal">0.18</span></div>
+<input id="reverb" max="0.6" min="0" step="0.01" type="range" value="0.18"/>
+</div>
+
+</div>
+</div></aside></div></div>
+</div>
+
+<script src="./app.js"></script></body>
+</html>

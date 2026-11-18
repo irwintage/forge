@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="#090d15" name="theme-color"/>
+<title>Chord Bloom | Chrysasynth Forge</title>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Syne:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/lz-string@1.5.0/libs/lz-string.min.js"></script>
+<script src="https://unpkg.com/tone@14.8.49/build/Tone.js"></script>
+<link href="./style.css" rel="stylesheet"/>
+<link rel="stylesheet" href="../forge-scrollbars.css">
+<script src="../forge-scrollbars.js" defer></script>
+</head>
+<body>
+<main id="cb-app">
+<div class="wrap">
+<header class="app-header">
+<div>
+<div class="eyebrow"><span class="mini-dot"></span> FORGE / CREATIVE SYSTEMS</div>
+<h1>Chord <span>Bloom</span></h1>
+<p>Generate progressions. Shape the sound.</p>
+</div>
+<div class="header-audio"><label class="master-inline" for="cp-master"><span class="master-name">MASTER</span><input aria-label="Master volume in decibels" id="cp-master" max="0" min="-36" step="1" type="range" value="-12"/><output for="cp-master" id="cp-master-val">−12 dB</output></label><span class="engine-ready"><span class="signal-dot"></span> READY</span></div>
+</header>
+<section aria-label="Playback and tempo controls" class="transport">
+<div class="transport-actions">
+<button aria-pressed="false" class="btn btn-play" id="cp-play" type="button">Play</button>
+<button class="btn btn-stop" disabled="" id="cp-stop" type="button">Stop</button>
+<button class="btn btn-generate" id="cp-gen" type="button">Generate</button>
+<button class="btn btn-ghost" id="cp-rand" title="Randomize key and scale" type="button">Random key</button>
+</div>
+<div class="transport-right">
+<div class="transport-field"><label for="cp-bpm">TEMPO <strong id="cp-bpm-val">100</strong> <span>BPM</span></label>
+<input id="cp-bpm" max="180" min="60" type="range" value="100"/></div>
+<div class="transport-field transport-strum"><label for="cp-strum">STRUM <strong id="cp-strum-val">35</strong> <span>MS</span></label>
+<input id="cp-strum" max="80" min="0" type="range" value="35"/></div>
+<button aria-label="Record one full progression" class="btn btn-rec" id="cp-wav" type="button"> <span class="rec-dot"></span> REC</button>
+</div>
+</section>
+<div class="workspace-grid">
+<section aria-label="Progression and sound visualization" class="progression box">
+<div class="section-header"><div class="section-title-wrap"><span class="accent-dot"></span><div><div class="section-kicker">HARMONIC OUTPUT</div><h2>Progression</h2></div></div><span class="section-badge">4 CHORDS</span></div>
+<div class="progHeader"><div class="prog-header-main"><span class="micro-label">CHORD PATH</span><strong id="cp-output-roman">I – V – vi – IV</strong></div><span class="progText" id="cp-output-key">Key: C Major · Celestial Blend</span></div>
+<div class="chords-stage"><div class="chordPills" id="cp-chords"></div></div>
+<div class="progression-summary"><div class="progMain" id="cp-output">—</div></div>
+<div class="scope-header"><span><span class="wave-led"></span> LIVE OSCILLOSCOPE</span><span class="scope-tag">POST MASTER · AUTO VISUAL GAIN</span></div>
+<div class="waveWrap">
+<canvas aria-label="Live waveform with automatic visual magnification; audio volume is unchanged" height="256" id="cp-scope" role="img" width="1100"></canvas>
+</div>
+<div class="output-footer">
+<div class="statusText" id="cp-hint" role="status">Ready to explore. Press Play to hear the progression.</div>
+<div class="exportRow"><button class="btn btn-export" id="cp-midi" type="button">↓ Export MIDI</button>
+<button class="btn btn-ghost" id="cp-share" type="button">Share ↗</button></div>
+</div>
+</section>
+<aside aria-label="Harmony and sound settings" class="settings-column">
+<section class="box harmony-panel">
+<div class="section-kicker">COMPOSITION</div>
+<h2>Key &amp; Seeds</h2>
+
+<div class="keyRow">
+<div>
+<label>Key</label>
+<select id="cp-key">
+<option>C</option><option>C#</option><option>D</option><option>D#</option>
+<option>E</option><option>F</option><option>F#</option><option>G</option>
+<option>G#</option><option>A</option><option>A#</option><option>B</option>
+</select>
+</div>
+<div>
+<label>Scale</label>
+<select id="cp-scale">
+<option value="major">Major</option>
+<option value="minor">Minor</option>
+<option value="harmMinor">Harmonic Minor</option>
+<option value="melodicMinor">Melodic Minor</option>
+<option value="dorian">Dorian</option>
+<option value="phrygian">Phrygian</option>
+<option value="phrygDom">Phrygian Dominant</option>
+<option value="lydian">Lydian</option>
+<option value="mixolydian">Mixolydian</option>
+<option value="aeolian">Aeolian</option>
+<option value="chromatic">Chromatic</option>
+</select>
+</div>
+</div>
+<div class="field-label">MOOD SEEDS</div>
+<div class="seedRow" id="cp-seeds">
+<button class="seedChip active" data-seed="celestial"><svg aria-hidden="true" class="seed-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24"><circle cx="12" cy="12" r="7.7"></circle><circle cx="12" cy="12" fill="currentColor" r="2" stroke="none"></circle><path d="M3 12h3m12 0h3"></path></svg><span>Celestial Blend</span></button>
+<button class="seedChip" data-seed="shadow"><svg aria-hidden="true" class="seed-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24"><path d="M15 3a8 8 0 1 0 6 14A7 7 0 0 1 15 3Z"></path><path d="M7 17l-1 2"></path></svg><span>Shadow Bloom</span></button>
+<button class="seedChip" data-seed="solar"><svg aria-hidden="true" class="seed-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v3m0 14v3M2 12h3m14 0h3M5 5l2 2m10 10 2 2M19 5l-2 2M7 17l-2 2"></path></svg><span>Solar Flux</span></button>
+<button class="seedChip" data-seed="lunar"><svg aria-hidden="true" class="seed-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24"><path d="M5 16c4-2 7-6 9-12 3 6 5 10 6 12-4 4-11 5-15 0Z"></path><path d="M10 15c3-2 5-4 6-7"></path></svg><span>Lunar Drift</span></button>
+<button class="seedChip" data-seed="aether"><svg aria-hidden="true" class="seed-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24"><path d="M12 2l7 10-7 10L5 12 12 2Z"></path><path d="M5 12h14M12 2v20"></path></svg><span>Aether Pulse</span></button>
+</div>
+<div class="toggle-group"><div class="toggleRow">
+<label for="cp-7th">
+<span class="switch">
+<input id="cp-7th" type="checkbox"/>
+<span class="switchTrack"></span>
+</span>
+            7th chords (maj7 / m7 / dom7)
+          </label>
+</div>
+<div class="toggleRow" style="border-top:none;padding-top:0;margin-top:6px;">
+<label for="cp-loop">
+<span class="switch">
+<input checked="" id="cp-loop" type="checkbox"/>
+<span class="switchTrack"></span>
+</span>
+            Loop progression
+          </label>
+</div></div>
+</section>
+<section class="box sound-panel">
+<div class="section-kicker">SOUND DESIGN</div>
+<div class="sound-heading"><h2>Tone &amp; Space</h2><button class="btn btnGhost btnSmall" id="cp-reset">Reset sound</button></div>
+
+<div class="sdPresetRow">
+<button class="sdPreset active" data-preset="softKeys">Soft Keys</button>
+<button class="sdPreset" data-preset="widePad">Wide Pad</button>
+<button class="sdPreset" data-preset="pluck">Pluck</button>
+<button class="sdPreset" data-preset="randomTone">Random tone</button>
+</div>
+<div class="osc-field"><label for="cp-osc">Oscillator</label><select id="cp-osc">
+<option value="fatsawtooth">Fat Saw</option>
+<option value="sawtooth">Saw</option>
+<option value="triangle">Triangle</option>
+<option value="square">Square</option>
+</select></div>
+<div class="sdRow">
+<div class="sdCol">
+<div class="sdField">
+<label><span>Filter</span><span><span id="cp-cut-val">8000</span> Hz</span></label>
+<input id="cp-cut" max="12000" min="500" type="range" value="8000"/>
+</div>
+<div class="sdField">
+<label><span>Attack</span><span><span id="cp-att-val">10</span> ms</span></label>
+<input id="cp-att" max="400" min="1" type="range" value="10"/>
+</div>
+<div class="sdField">
+<label><span>Release</span><span><span id="cp-rel-val">800</span> ms</span></label>
+<input id="cp-rel" max="2000" min="50" type="range" value="800"/>
+</div>
+</div>
+<div class="sdCol">
+<div class="sdField">
+<label><span>Reverb</span><span><span id="cp-reverb-val">24%</span></span></label>
+<input id="cp-reverb" max="100" min="0" type="range" value="24"/>
+</div>
+<div class="sdField">
+<label><span>Chorus</span><span><span id="cp-chorus-val">35%</span></span></label>
+<input id="cp-chorus" max="100" min="0" type="range" value="35"/>
+</div>
+</div>
+</div>
+</section>
+</aside>
+</div>
+<footer class="footer"><span>CHRYSASYNTH / CHORD BLOOM</span><span>FORGE GENERATIVE SYSTEMS</span></footer>
+</div>
+<div class="cb-share-toast" id="cb-share-toast">
+<div class="cb-share-main">
+<div class="cb-share-icon">✦</div>
+<div>
+<div class="cb-share-title" id="cb-share-title">Seed link copied</div>
+<div class="cb-share-sub" id="cb-share-sub">
+        Share this link to recall the same progression.
+      </div>
+</div>
+</div>
+<div class="cb-share-actions">
+<button class="cb-share-btn" id="cb-share-copy">Copy again</button>
+<button class="cb-share-btnGhost" id="cb-share-open">Open preview</button>
+</div>
+</div>
+</main>
+<script src="./audio/engine.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>

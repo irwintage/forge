@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0c1118">
+  <title>Binaural Beats · Chrysasynth Forge</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="./audio/engine.js" defer></script>
+  <script src="./app.js" defer></script>
+<link rel="stylesheet" href="../forge-scrollbars.css">
+<script src="../forge-scrollbars.js" defer></script>
+</head>
+<body>
+<main id="bb-app" aria-label="Binaural Beats synthesizer">
+  <header class="bb-head">
+    <div>
+      <div class="bb-kicker">CHRYSASYNTH / WELLNESS</div>
+      <h1>Binaural <span>Beats</span></h1>
+      <p class="bb-intro">Two frequencies. One stereo experience.</p>
+    </div>
+    <div class="bb-head-right">
+      <div class="bb-master"><label for="bb-master">MASTER <strong id="bb-master-val">22%</strong></label><input id="bb-master" type="range" min="0" max="100" step="1" value="22"></div>
+      <span id="bb-status" class="bb-status" aria-live="polite"><span></span> READY</span>
+    </div>
+  </header>
+  <div class="bb-transport">
+    <button id="bb-play" class="bb-btn bb-primary" type="button"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="m8 5 12 7-12 7z"/></svg><span>Play</span></button>
+    <button id="bb-stop" class="bb-btn" type="button">■ Stop</button>
+    <span class="bb-headphones"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="1.8" aria-hidden="true"><path d="M4 14v-3a8 8 0 0 1 16 0v3M4 14h3v6H5a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2m15 0h-3v6h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2"/></svg> Headphones required for binaural separation</span>
+    <div class="bb-session"><label for="bb-timer">SESSION</label><select id="bb-timer"><option value="0">Unlimited</option><option value="300">5 min</option><option value="600">10 min</option><option value="1200">20 min</option><option value="1800">30 min</option></select><span id="bb-remaining"></span></div>
+  </div>
+  <div class="bb-layout">
+    <section class="bb-panel bb-main-panel" aria-label="Binaural frequencies">
+      <div class="bb-panel-top"><span class="bb-eyebrow">FREQUENCY ENGINE</span><span class="bb-live-label" id="bb-mode-label">STEREO · L / R</span></div>
+      <div class="bb-numbers">
+        <div class="bb-frequency">
+          <label for="bb-base-num">CARRIER FREQUENCY</label>
+          <div class="bb-digit"><input id="bb-base-num" type="number" min="40" max="1000" step="0.1" value="220" inputmode="decimal"><span>Hz</span></div>
+          <input id="bb-base" class="bb-slider" type="range" min="40" max="1000" step="0.1" value="220" aria-label="Carrier frequency">
+          <small>Pitch of the two tones</small>
+        </div>
+        <div class="bb-arrow" aria-hidden="true"><svg viewBox="0 0 36 36" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 14h22m-6-6 6 6-6 6M29 23H7m6-6-6 6 6 6"/></svg></div>
+        <div class="bb-frequency">
+          <label for="bb-beat-num">BEAT DIFFERENCE</label>
+          <div class="bb-digit"><input id="bb-beat-num" type="number" min="0.5" max="40" step="0.1" value="8" inputmode="decimal"><span>Hz</span></div>
+          <input id="bb-beat" class="bb-slider" type="range" min="0.5" max="40" step="0.1" value="8" aria-label="Beat frequency difference">
+          <small>Difference between left and right</small>
+        </div>
+      </div>
+      <div class="bb-presets"><div class="bb-preset-title">QUICK FREQUENCIES</div><div class="bb-preset-buttons" role="group" aria-label="Beat presets"><button type="button" data-beat="0.5">0.5 Hz</button><button type="button" data-beat="4">4 Hz</button><button type="button" data-beat="8" class="active">8 Hz</button><button type="button" data-beat="12">12 Hz</button><button type="button" data-beat="20">20 Hz</button></div></div>
+      <div class="bb-visual">
+        <div class="bb-wave-head"><span>STEREO SIGNAL</span><span class="bb-visual-caption" id="bb-wave-caption">L 216.0 Hz &nbsp; / &nbsp; R 224.0 Hz</span></div>
+        <canvas id="bb-canvas" aria-label="Animated stereo oscillation illustration"></canvas>
+        <div class="bb-channels"><span><i class="bb-l-dot"></i> LEFT <strong id="bb-left">216.0 Hz</strong></span><span><i class="bb-r-dot"></i> RIGHT <strong id="bb-right">224.0 Hz</strong></span></div>
+      </div>
+    </section>
+    <aside class="bb-panel bb-side-panel" aria-label="Sound shaping">
+      <div class="bb-panel-top"><span class="bb-eyebrow">SOUND & SPACE</span></div>
+      <div class="bb-control"><label for="bb-wave">WAVEFORM</label><select id="bb-wave"><option value="sine">Sine · Pure</option><option value="triangle">Triangle · Soft</option><option value="square">Square · Rich</option><option value="sawtooth">Saw · Bright</option></select></div>
+      <div class="bb-rule"></div>
+      <div class="bb-control bb-noise-top"><label for="bb-noise">PINK NOISE</label><label class="bb-toggle"><input type="checkbox" id="bb-noise"><span class="bb-track"></span></label></div>
+      <div class="bb-control bb-noise-volume"><label for="bb-noise-level">NOISE LEVEL <strong id="bb-noise-val">12%</strong></label><input id="bb-noise-level" class="bb-slider" type="range" min="0" max="100" step="1" value="12"></div>
+      <div class="bb-side-foot"><span class="bb-microdot"></span> Independent L/R oscillators<br>Gentle fades &amp; low-level output</div>
+    </aside>
+  </div>
+  <p class="bb-footnote">Use at a comfortable volume. These are audio frequency presets, not proven medical or brainwave effects.</p>
+</main>
+</body>
+</html>

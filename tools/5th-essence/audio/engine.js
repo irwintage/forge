@@ -1,0 +1,29 @@
+(function(){'use strict';
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function driveCurve(mode,amount){const c=new Float32Array(4096);for(let i=0;i<c.length;i++){const x=i/(c.length-1)*2-1;let y;switch(mode){case 'Tape':{const shaped=Math.tanh(x*(1.2+amount*6));y=shaped-.08*amount*shaped*shaped;break;}case 'Fuzz':{const k=.12+amount*.8;y=Math.tanh(x*(4+amount*24));y=Math.round(y/(k||.01))*(k||.01);break;}default:y=(Math.tanh((x+.045*amount)*(1.2+amount*8))-Math.tanh(.045*amount*(1.2+amount*8)));}c[i]=clamp(y,-1,1);}return c;}
+function impulse(ac,mode,amt){const base={Room:.68,Plate:1.85,Hall:3.35}[mode]||1.8,duration=base*(.6+amt*.85),sr=ac.sampleRate,len=Math.ceil(duration*sr),buf=ac.createBuffer(2,len,sr);let seed=41293+Math.round(amt*400)*7+mode.length*331;const random=()=>{seed=(Math.imul(1664525,seed)+1013904223)>>>0;return seed/4294967296*2-1;};for(let ch=0;ch<2;ch++){const data=buf.getChannelData(ch);let smoothNoise=0;for(let i=0;i<len;i++){const t=i/sr;const envelope=Math.exp(-6.9*t/duration);smoothNoise=smoothNoise*.57+random()*.43;const tap=(i%Math.round(sr*(ch?.0137:.0119))===0&&t<.1)?(.065*Math.exp(-t*22)):0;data[i]=(smoothNoise*.22+tap)*envelope;}let energy=0;for(let i=0;i<len;i++)energy+=data[i]*data[i];const scale=.62/Math.sqrt(Math.max(.000001,energy));for(let i=0;i<len;i++)data[i]*=scale;}return buf;}
+function moduleFx(ac,id,p){const input=ac.createGain(),output=ac.createGain(),dry=ac.createGain(),wet=ac.createGain();input.connect(dry).connect(output);wet.connect(output);let clean=()=>{};const setMix=(mix)=>{mix=clamp(mix,0,1);dry.gain.value=1-mix;wet.gain.value=mix};
+if(id==='air'){
+ const f=ac.createBiquadFilter();input.connect(f).connect(wet);f.type={LP:'lowpass',BP:'bandpass',HP:'highpass'}[p.mode]||'lowpass';const a=p.amount;
+ const hz=p.mode==='LP'?19000*Math.pow(220/19000,a):p.mode==='HP'?24*Math.pow(5400/24,a):170*Math.pow(7200/170,a);
+ f.frequency.value=hz;f.Q.value=.55+p.tone*9;setMix(p.mix);
+}else if(id==='fire'){
+ const pre=ac.createGain(),sh=ac.createWaveShaper(),tone=ac.createBiquadFilter(),post=ac.createGain();sh.oversample='4x';tone.type='lowpass';pre.gain.value=1.3+p.amount*5.4;sh.curve=driveCurve(p.mode,p.amount);tone.frequency.value=700+Math.pow(p.tone,1.65)*17500;
+ const compensation={Tube:.7,Tape:.74,Fuzz:.48}[p.mode]||.7;post.gain.value=compensation/(1+.75*p.amount);input.connect(pre).connect(sh).connect(tone).connect(post).connect(wet);setMix(p.mix);
+}else if(id==='water'){
+ const split=ac.createChannelSplitter(2),merge=ac.createChannelMerger(2),dl=ac.createDelay(.15),dr=ac.createDelay(.15),lfo=ac.createOscillator(),depthL=ac.createGain(),depthR=ac.createGain(),wetG=ac.createGain();input.connect(split);split.connect(dl,0);split.connect(dr,1);dl.connect(merge,0,0);dr.connect(merge,0,1);merge.connect(wetG).connect(wet);
+ const mode=p.mode,rate=mode==='Flanger'?.07+p.tone*1.9:mode==='Vibrato'?.5+p.tone*6:.06+p.tone*1.3,base=mode==='Flanger'?.003:mode==='Vibrato'?.014:.023,depth=mode==='Flanger'?.00025+p.amount*.0021:mode==='Vibrato'?.0008+p.amount*.004:.001+p.amount*.005;dl.delayTime.value=base;dr.delayTime.value=base*1.12;depthL.gain.value=depth;depthR.gain.value=-depth*.92;lfo.type='sine';lfo.frequency.value=rate;lfo.connect(depthL).connect(dl.delayTime);lfo.connect(depthR).connect(dr.delayTime);lfo.start();clean=()=>{try{lfo.stop()}catch{}};wetG.gain.value=.8;
+ setMix(p.mode==='Vibrato'?Math.max(.6,p.mix):p.mix);
+}else if(id==='earth'){
+ const pred=ac.createDelay(.25),damp=ac.createBiquadFilter(),cv=ac.createConvolver(),tail=ac.createGain();damp.type='lowpass';pred.delayTime.value=.008+p.tone*.085;damp.frequency.value=2000+(1-p.tone)*10500;cv.buffer=impulse(ac,p.mode,p.amount);tail.gain.value=.92;input.connect(pred).connect(damp).connect(cv).connect(tail).connect(wet);setMix(p.mix);
+}else if(id==='aether'){
+ // No independent noise generator: coloration remains tied to the incoming signal.
+ const hp=ac.createBiquadFilter(),lp=ac.createBiquadFilter(),sh=ac.createWaveShaper(),gain=ac.createGain();hp.type='highpass';lp.type='lowpass';const bands={Air:[1700,12500],Dust:[120,2700],Grain:[380,7200]},band=bands[p.mode]||bands.Air;hp.frequency.value=band[0];lp.frequency.value=band[1];sh.oversample='2x';sh.curve=driveCurve(p.mode==='Grain'?'Fuzz':'Tape',.15+p.amount*.3);gain.gain.value=.27+p.amount*.35;input.connect(hp).connect(lp).connect(sh).connect(gain).connect(wet);setMix(Math.min(.28,p.mix*.3));
+}
+return{input,output,dispose:clean};}
+function build(ac,state){const input=ac.createGain(),output=ac.createGain(),master=ac.createGain(),modules=[];let from=input;
+ for(const id of state.order){const cfg=state.settings[id];if(!cfg||!cfg.on)continue;const fx=moduleFx(ac,id,cfg);from.connect(fx.input);from=fx.output;modules.push(fx);}from.connect(master).connect(output);master.gain.value=state.master;
+ return{input,output,dispose(){for(const m of modules)m.dispose();try{input.disconnect();output.disconnect();master.disconnect()}catch{}}};}
+function wav(buffer){const count=buffer.length,n=2,sr=buffer.sampleRate;const raw=new ArrayBuffer(44+count*n*2),view=new DataView(raw);const str=(o,s)=>{for(let i=0;i<s.length;i++)view.setUint8(o+i,s.charCodeAt(i))};str(0,'RIFF');view.setUint32(4,36+count*n*2,true);str(8,'WAVE');str(12,'fmt ');view.setUint32(16,16,true);view.setUint16(20,1,true);view.setUint16(22,n,true);view.setUint32(24,sr,true);view.setUint32(28,sr*n*2,true);view.setUint16(32,n*2,true);view.setUint16(34,16,true);str(36,'data');view.setUint32(40,count*n*2,true);const L=buffer.getChannelData(0),R=buffer.getChannelData(buffer.numberOfChannels>1?1:0);for(let i=0;i<count;i++){for(const [c,s] of [[0,L[i]],[1,R[i]]])view.setInt16(44+2*(i*2+c),Math.round(clamp(s,-1,1)*(s<0?32768:32767)),true);}return new Blob([raw],{type:'audio/wav'});}
+window.EssenceEngine={build,wav};
+})();

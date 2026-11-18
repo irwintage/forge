@@ -1,0 +1,1188 @@
+/* ============================================================
+   COSMIC GARDEN
+   ============================================================ */
+
+:root{
+
+  --cg-void:#020408;
+  --cg-black:#050811;
+
+  --cg-panel:
+    rgba(10,15,25,.92);
+
+  --cg-panel-soft:
+    rgba(17,23,37,.68);
+
+  --cg-line:
+    rgba(162,191,222,.12);
+
+  --cg-line-soft:
+    rgba(162,191,222,.065);
+
+  --cg-text:#f3f7fc;
+  --cg-text-2:#9baabd;
+  --cg-text-3:#637389;
+
+  --cg-cyan:#7bdbe8;
+  --cg-blue:#679fed;
+  --cg-violet:#a491ee;
+  --cg-pink:#dd8fc8;
+  --cg-gold:#e8c894;
+
+  --cg-danger:#ef7882;
+
+  --cg-ease:
+    cubic-bezier(.2,.75,.25,1);
+}
+
+
+*{
+  box-sizing:border-box;
+}
+
+
+html,
+body{
+  margin:0;
+  min-height:100%;
+
+  font-family:
+    "Inter",
+    system-ui,
+    sans-serif;
+
+  color:
+    var(--cg-text);
+
+  background:
+    transparent;
+}
+
+
+body{
+  padding:22px;
+}
+
+
+/* ============================================================
+   TOOL SHELL
+   ============================================================ */
+
+.cosmic-tool{
+  position:relative;
+
+  width:min(1160px,100%);
+
+  margin:0 auto;
+
+  padding:15px;
+
+  overflow:hidden;
+
+  border:
+    1px solid
+    rgba(125,165,208,.14);
+
+  border-radius:25px;
+
+  background:
+
+    radial-gradient(
+      circle at 6% 0%,
+      rgba(80,155,225,.10),
+      transparent 25%
+    ),
+
+    radial-gradient(
+      circle at 96% 12%,
+      rgba(164,145,238,.065),
+      transparent 26%
+    ),
+
+    linear-gradient(
+      180deg,
+      rgba(12,18,29,.97),
+      rgba(5,8,14,.99)
+    );
+
+  box-shadow:
+
+    0 36px 90px
+    rgba(0,0,0,.35),
+
+    0 0 0 1px
+    rgba(255,255,255,.012),
+
+    inset 0 1px 0
+    rgba(255,255,255,.045),
+
+    inset 0 -1px 0
+    rgba(255,255,255,.012);
+}
+
+
+.cosmic-tool::before{
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  pointer-events:none;
+
+  background:
+
+    linear-gradient(
+      115deg,
+      rgba(123,219,232,.025),
+      transparent 25%,
+      transparent 70%,
+      rgba(221,143,200,.018)
+    );
+}
+
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+.cosmic-header{
+  position:relative;
+  z-index:2;
+
+  min-height:74px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:28px;
+
+  padding:
+    5px 7px
+    14px;
+}
+
+
+.cosmic-brand{
+  min-width:0;
+
+  display:flex;
+  align-items:center;
+
+  gap:14px;
+}
+
+
+/* MARK */
+
+.garden-mark{
+  position:relative;
+
+  width:40px;
+  height:40px;
+
+  flex:0 0 40px;
+
+  display:grid;
+  place-items:center;
+}
+
+
+.garden-mark::before{
+  content:"";
+
+  position:absolute;
+
+  width:33px;
+  height:33px;
+
+  border:
+    1px solid
+    rgba(123,219,232,.18);
+
+  border-radius:50%;
+
+  box-shadow:
+    inset 0 0 15px
+    rgba(123,219,232,.045);
+}
+
+
+.garden-mark-orbit{
+  position:absolute;
+
+  width:40px;
+  height:17px;
+
+  border:
+    1px solid
+    rgba(164,145,238,.27);
+
+  border-radius:50%;
+
+  transform:
+    rotate(-24deg);
+}
+
+
+.garden-mark-seed{
+  width:8px;
+  height:8px;
+
+  border-radius:50%;
+
+  background:#eefeff;
+
+  box-shadow:
+
+    0 0 6px
+    rgba(255,255,255,.9),
+
+    0 0 14px
+    rgba(123,219,232,.65),
+
+    0 0 28px
+    rgba(164,145,238,.24);
+}
+
+
+/* TITLE */
+
+.cosmic-title{
+  min-width:0;
+}
+
+
+.cosmic-kicker{
+  display:block;
+
+  margin-bottom:4px;
+
+  color:
+    #83ddea;
+
+  font-size:8px;
+  font-weight:700;
+
+  letter-spacing:.17em;
+}
+
+
+.cosmic-title-line{
+  display:flex;
+  align-items:center;
+
+  gap:10px;
+}
+
+
+.cosmic-title h1{
+  margin:0;
+
+  font-size:19px;
+  line-height:1;
+
+  font-weight:650;
+
+  letter-spacing:-.03em;
+}
+
+
+.cosmic-title p{
+  margin:
+    6px 0 0;
+
+  color:
+    var(--cg-text-3);
+
+  font-size:10px;
+}
+
+
+/* LIVE */
+
+.garden-live{
+  display:inline-flex;
+  align-items:center;
+
+  gap:5px;
+
+  padding:
+    4px 7px;
+
+  border:
+    1px solid
+    rgba(123,219,232,.11);
+
+  border-radius:999px;
+
+  color:
+    rgba(164,232,239,.78);
+
+  background:
+    rgba(123,219,232,.035);
+
+  font-size:7.5px;
+  font-weight:600;
+}
+
+
+.garden-live i{
+  width:4px;
+  height:4px;
+
+  border-radius:50%;
+
+  background:
+    var(--cg-cyan);
+
+  box-shadow:
+    0 0 7px
+    rgba(123,219,232,.55);
+}
+
+
+/* ============================================================
+   HEADER ACTIONS
+   ============================================================ */
+
+.cosmic-actions{
+  display:flex;
+  align-items:center;
+
+  gap:7px;
+}
+
+
+.cosmic-button{
+  min-height:34px;
+
+  padding:
+    7px 11px;
+
+  display:inline-flex;
+  align-items:center;
+
+  gap:7px;
+
+  border:
+    1px solid
+    rgba(173,197,225,.11);
+
+  border-radius:10px;
+
+  color:
+    var(--cg-text-2);
+
+  background:
+    rgba(255,255,255,.025);
+
+  font:inherit;
+
+  font-size:9px;
+  font-weight:600;
+
+  cursor:pointer;
+
+  transition:
+    .18s var(--cg-ease);
+}
+
+
+.cosmic-button:hover:not(:disabled){
+  color:
+    var(--cg-text);
+
+  border-color:
+    rgba(123,219,232,.20);
+
+  background:
+    rgba(123,219,232,.055);
+}
+
+
+.cosmic-button:disabled{
+  opacity:.3;
+  cursor:default;
+}
+
+
+.record-dot{
+  width:6px;
+  height:6px;
+
+  border-radius:50%;
+
+  background:
+    rgba(239,120,130,.58);
+}
+
+
+.cosmic-button--record.is-recording{
+  color:#ffe1e4;
+
+  border-color:
+    rgba(239,120,130,.28);
+
+  background:
+    rgba(239,120,130,.075);
+}
+
+
+.cosmic-button--record.is-recording
+.record-dot{
+  background:
+    var(--cg-danger);
+
+  box-shadow:
+    0 0 10px
+    rgba(239,120,130,.62);
+}
+
+
+/* ============================================================
+   CONTROL CONSOLE
+   ============================================================ */
+
+.garden-console{
+  position:relative;
+  z-index:2;
+
+  display:grid;
+
+  grid-template-columns:
+    .8fr .8fr 1fr 1fr 1fr;
+
+  gap:7px;
+
+  padding:7px;
+
+  margin-bottom:10px;
+
+  border:
+    1px solid
+    var(--cg-line-soft);
+
+  border-radius:15px;
+
+  background:
+
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.025),
+      rgba(255,255,255,.009)
+    ),
+
+    rgba(5,9,16,.20);
+
+  box-shadow:
+    inset 0 1px 0
+    rgba(255,255,255,.022);
+}
+
+
+.garden-control{
+  min-width:0;
+  min-height:48px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:9px;
+
+  padding:
+    8px 10px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.018);
+
+  border-radius:10px;
+
+  background:
+    rgba(2,5,10,.30);
+}
+
+
+.garden-control--range{
+  flex-direction:column;
+  justify-content:center;
+  align-items:stretch;
+
+  gap:8px;
+}
+
+
+.garden-control-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:10px;
+}
+
+
+.garden-label{
+  color:
+    var(--cg-text-3);
+
+  font-size:7.5px;
+  font-weight:700;
+
+  letter-spacing:.14em;
+
+  text-transform:uppercase;
+}
+
+
+.garden-control output{
+  color:
+    #9ddce7;
+
+  font-size:8px;
+
+  font-variant-numeric:
+    tabular-nums;
+}
+
+
+/* SELECT */
+
+.garden-control select{
+  min-width:100px;
+
+  padding:
+    5px 8px;
+
+  outline:none;
+
+  border:
+    1px solid
+    rgba(156,187,220,.08);
+
+  border-radius:7px;
+
+  color:
+    var(--cg-text);
+
+  background:
+    rgba(5,9,16,.75);
+
+  font:inherit;
+
+  font-size:9px;
+  font-weight:500;
+
+  cursor:pointer;
+}
+
+
+.garden-control option{
+  color:#edf5ff;
+  background:#080c14;
+}
+
+
+/* RANGE */
+
+.garden-control input[type="range"]{
+  width:100%;
+
+  height:3px;
+
+  margin:0;
+
+  appearance:none;
+
+  border-radius:999px;
+
+  outline:none;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--cg-cyan),
+      var(--cg-violet)
+    );
+}
+
+
+.garden-control input[type="range"]::-webkit-slider-thumb{
+  width:11px;
+  height:11px;
+
+  appearance:none;
+
+  border:
+    2px solid
+    #081018;
+
+  border-radius:50%;
+
+  background:
+    #e8fbff;
+
+  box-shadow:
+    0 0 8px
+    rgba(123,219,232,.42);
+
+  cursor:pointer;
+}
+
+
+.garden-control input[type="range"]::-moz-range-thumb{
+  width:11px;
+  height:11px;
+
+  border:
+    2px solid
+    #081018;
+
+  border-radius:50%;
+
+  background:
+    #e8fbff;
+
+  box-shadow:
+    0 0 8px
+    rgba(123,219,232,.42);
+}
+
+
+/* ============================================================
+   OBSERVATORY
+   ============================================================ */
+
+.garden-observatory{
+  position:relative;
+
+  width:100%;
+
+  height:min(690px,72vh);
+  min-height:470px;
+
+  overflow:hidden;
+
+  border:
+    1px solid
+    rgba(122,166,210,.12);
+
+  border-radius:18px;
+
+  background:
+
+    radial-gradient(
+      ellipse at 50% 48%,
+      rgba(36,62,91,.105),
+      transparent 35%
+    ),
+
+    radial-gradient(
+      circle at 25% 72%,
+      rgba(221,143,200,.025),
+      transparent 28%
+    ),
+
+    radial-gradient(
+      circle at 77% 30%,
+      rgba(123,219,232,.028),
+      transparent 30%
+    ),
+
+    #010307;
+
+  box-shadow:
+
+    inset 0 1px 0
+    rgba(255,255,255,.022),
+
+    inset 0 0 100px
+    rgba(0,0,0,.58),
+
+    0 12px 32px
+    rgba(0,0,0,.19);
+}
+
+
+/*
+   Secondary inner frame:
+   gives the impression of looking through
+   an instrument / observatory window.
+*/
+
+.observatory-frame{
+  position:absolute;
+
+  inset:8px;
+
+  z-index:4;
+
+  pointer-events:none;
+
+  border:
+    1px solid
+    rgba(255,255,255,.019);
+
+  border-radius:12px;
+}
+
+
+.observatory-frame::before,
+.observatory-frame::after{
+  content:"";
+
+  position:absolute;
+
+  width:58px;
+  height:1px;
+
+  top:-1px;
+}
+
+
+.observatory-frame::before{
+  left:22px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(123,219,232,.45),
+      transparent
+    );
+}
+
+
+.observatory-frame::after{
+  right:22px;
+
+  background:
+    linear-gradient(
+      270deg,
+      rgba(221,143,200,.32),
+      transparent
+    );
+}
+
+
+/* CANVAS */
+
+#cosmic-canvas{
+  position:absolute;
+
+  inset:0;
+
+  z-index:1;
+
+  width:100%;
+  height:100%;
+
+  display:block;
+
+  cursor:grab;
+}
+
+
+#cosmic-canvas:active{
+  cursor:grabbing;
+}
+
+
+/* DEPTH / VIGNETTE */
+
+.garden-depth{
+  position:absolute;
+
+  z-index:2;
+
+  pointer-events:none;
+
+  border-radius:50%;
+
+  filter:blur(70px);
+}
+
+
+.garden-depth--left{
+  width:220px;
+  height:260px;
+
+  left:-110px;
+  top:22%;
+
+  background:
+    rgba(67,130,193,.045);
+}
+
+
+.garden-depth--right{
+  width:260px;
+  height:320px;
+
+  right:-130px;
+  bottom:6%;
+
+  background:
+    rgba(156,107,212,.045);
+}
+
+
+.garden-observatory::after{
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  z-index:3;
+
+  pointer-events:none;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      transparent 45%,
+      rgba(1,2,5,.15) 70%,
+      rgba(1,2,5,.48) 100%
+    );
+}
+
+
+/* ============================================================
+   OBSERVATORY COPY
+   ============================================================ */
+
+.garden-copy{
+  position:absolute;
+
+  z-index:5;
+
+  top:21px;
+  left:23px;
+
+  pointer-events:none;
+}
+
+
+.garden-copy > span{
+  display:block;
+
+  margin-bottom:7px;
+
+  color:
+    rgba(123,219,232,.60);
+
+  font-size:7px;
+  font-weight:700;
+
+  letter-spacing:.18em;
+}
+
+
+.garden-copy strong{
+  display:block;
+
+  margin-bottom:4px;
+
+  color:
+    rgba(242,247,252,.78);
+
+  font-size:11.5px;
+  font-weight:600;
+}
+
+
+.garden-copy p{
+  margin:0;
+
+  color:
+    rgba(155,170,189,.52);
+
+  font-size:9px;
+}
+
+
+/* ============================================================
+   ORBIT HINT
+   ============================================================ */
+
+.garden-orbit-hint{
+  position:absolute;
+
+  z-index:5;
+
+  left:23px;
+  bottom:19px;
+
+  display:flex;
+  align-items:center;
+
+  gap:7px;
+
+  color:
+    rgba(155,170,189,.42);
+
+  font-size:8px;
+
+  pointer-events:none;
+}
+
+
+.garden-orbit-hint i{
+  width:1px;
+  height:9px;
+
+  background:
+    rgba(255,255,255,.07);
+}
+
+
+.hint-light{
+  width:4px;
+  height:4px;
+
+  border-radius:50%;
+
+  background:
+    var(--cg-cyan);
+
+  box-shadow:
+    0 0 8px
+    rgba(123,219,232,.50);
+}
+
+
+/* ============================================================
+   RESONANCE
+   ============================================================ */
+
+.garden-resonance{
+  position:absolute;
+
+  z-index:5;
+
+  right:22px;
+  bottom:18px;
+
+  display:flex;
+  align-items:center;
+
+  gap:8px;
+
+  pointer-events:none;
+}
+
+
+.garden-resonance span{
+  color:
+    rgba(155,170,189,.36);
+
+  font-size:6.5px;
+  font-weight:700;
+
+  letter-spacing:.16em;
+}
+
+
+.garden-resonance strong{
+  color:
+    rgba(131,221,234,.77);
+
+  font-size:8.5px;
+
+  font-variant-numeric:
+    tabular-nums;
+}
+
+
+/* ============================================================
+   BLOOM LABEL
+   ============================================================ */
+
+.garden-bloom-label{
+  position:absolute;
+
+  z-index:5;
+
+  right:21px;
+  top:19px;
+
+  opacity:.5;
+
+  pointer-events:none;
+}
+
+
+.garden-bloom-label span{
+  color:
+    rgba(164,145,238,.52);
+
+  font-size:6.5px;
+  font-weight:700;
+
+  letter-spacing:.16em;
+
+  transition:
+    color .3s ease,
+    opacity .3s ease;
+}
+
+
+.garden-bloom-label.is-awake span{
+  color:
+    rgba(221,143,200,.75);
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.garden-footer{
+  position:relative;
+  z-index:2;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:20px;
+
+  padding:
+    10px 4px 0;
+
+  color:
+    var(--cg-text-3);
+
+  font-size:7.5px;
+
+  letter-spacing:.03em;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media(max-width:900px){
+
+  body{
+    padding:12px;
+  }
+
+  .garden-console{
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+  }
+
+  .garden-control:last-child{
+    grid-column:
+      span 2;
+  }
+
+}
+
+
+@media(max-width:640px){
+
+  body{
+    padding:8px;
+  }
+
+  .cosmic-tool{
+    padding:10px;
+
+    border-radius:19px;
+  }
+
+  .cosmic-header{
+    flex-direction:column;
+    align-items:flex-start;
+
+    gap:13px;
+  }
+
+  .cosmic-actions{
+    width:100%;
+
+    justify-content:flex-end;
+  }
+
+  .garden-console{
+    grid-template-columns:
+      1fr;
+  }
+
+  .garden-control:last-child{
+    grid-column:auto;
+  }
+
+  .garden-observatory{
+    min-height:390px;
+
+    height:62vh;
+  }
+
+  .garden-live{
+    display:none;
+  }
+
+}
+/* FORGE V2 / IMMERSIVE OBSERVATORY */
+body {padding:14px; background:#05090d;}
+.cosmic-tool {width:min(1400px,100%);border-radius:18px;background:linear-gradient(180deg,#0d141d 0%,#05080d 100%);box-shadow:0 28px 90px #0008;}
+.cosmic-brand {gap:0;}
+.cosmic-title h1 {font-size:clamp(22px,2.3vw,30px); letter-spacing:-.045em;font-weight:650;}
+.cosmic-kicker {font-size:9px;letter-spacing:.19em;color:#8dd9c0;}
+.cosmic-title p {font-size:11px;color:#93a5b6;}
+.garden-mark {display:none;}
+.garden-observatory {height:clamp(510px,calc(100dvh - 232px),900px);min-height:490px; border-radius:15px; border-color:#7997ab22; background:#010307;}
+.garden-console {margin-bottom:9px;}
+.garden-copy strong {font-size:15px;font-weight:550;letter-spacing:-.015em;}
+.garden-copy>span {font-size:8px;letter-spacing:.18em;}
+.garden-copy p {font-size:10px; max-width:260px;line-height:1.6;}
+.garden-observatory::after {background:radial-gradient(ellipse at 50% 50%,transparent 25%,rgba(1,2,5,.18) 72%,rgba(1,2,5,.48) 100%);}
+.garden-depth--left {background:#298f9c14; width:330px;height:460px;filter:blur(100px);}
+.garden-depth--right {background:#8864c314;width:360px;height:430px;filter:blur(110px);}
+.garden-live {border-color:#8dc9b830;color:#b1e5d7;background:#75bfa511;}
+.garden-live i{background:#91e0b8;}
+.garden-control {min-height:61px;}
+.garden-label {font-size:8px;}
+.garden-error {position:absolute;inset:0;display:grid;place-items:center;padding:30px;z-index:20;background:#05080e;color:#e6b2b7;font-size:13px;text-align:center;}
+.garden-error[hidden]{display:none;}
+@media (max-width:640px){body{padding:0;} .cosmic-tool{padding:10px;border-radius:0;} .cosmic-header{gap:10px;} .garden-observatory{height:min(72dvh,660px);min-height:420px;} .cosmic-title h1{font-size:23px;} .garden-copy{top:17px;left:17px;} .garden-copy p{max-width:190px;}.garden-console{grid-template-columns:repeat(2,minmax(0,1fr));} .garden-control:last-child{grid-column:span 2;} }
+@media (prefers-reduced-motion:reduce){.garden-depth{display:none;}}
+
+/* =======================================================
+   FORGE V3 / KNOT : QUIET CONTROLS, IMMERSIVE INSTRUMENT
+   ======================================================= */
+:root { --cg-cyan:#a5e6c9; --cg-violet:#a99ce1; --cg-pink:#d3a6d4; --cg-gold:#eed5a4; --cg-text-2:#9eaca9; --cg-text-3:#71817e; }
+html,body {background:#0a0e10;}
+body {padding:12px;}
+.cosmic-tool {width:min(1460px,100%);padding:19px 22px 16px;border-radius:21px;background:linear-gradient(165deg,#111719,#0b1012 68%,#090d0f);border:1px solid #2a3736;box-shadow:0 30px 75px #0005;}
+.cosmic-tool::before {display:none;}
+.cosmic-header {min-height:55px;padding:0 0 16px;align-items:center;}
+.cosmic-brand {gap:0;}.garden-mark,.garden-live,.cosmic-kicker {display:none!important;}
+.cosmic-title h1 {font-size:23px;font-weight:570;letter-spacing:-.04em;color:#f1f5f2;line-height:1.12;}
+.cosmic-title p {margin-top:5px;font-size:10px;color:#7f908b;letter-spacing:.02em;}
+.cosmic-actions {gap:8px;}.cosmic-button {border-radius:9px;min-height:35px;padding:9px 15px;font-size:10px;letter-spacing:.015em;background:rgba(255,255,255,.025);border-color:#2b3a37;color:#bbc9c3;}
+.cosmic-button:hover:not(:disabled) {background:#1c2b28;border-color:#426b5b;color:#e5f7ed;}
+.garden-console {margin:0 0 12px;padding:5px 3px 12px;background:transparent;box-shadow:none;border:0;border-bottom:1px solid rgba(202,240,218,.09);border-radius:0;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) minmax(0,1.5fr);gap:24px;}
+.garden-control {padding:0 3px;min-height:40px;border:0;background:transparent;border-radius:0;gap:8px;}
+.garden-label {font-size:9px;color:#7d9189;letter-spacing:.1em;}
+.garden-control select {width:min(185px,65%);font-size:12px;background:transparent;color:#d9e7df;border:0;border-bottom:1px solid #3b4c46;border-radius:0;padding:6px 20px 6px 3px;outline-offset:3px;}
+.garden-control output {font-size:10px;color:#bad3c6;}
+.garden-control input[type=range] {height:3px;background:linear-gradient(90deg,#92dcc0,#799c92);}
+.garden-control input[type=range]::-webkit-slider-thumb {background:#dff9ec;box-shadow:0 0 12px #8de7bf88;}
+.garden-bottom-controls {display:grid;grid-template-columns:1fr 1fr;gap:38px;padding:15px 7px 0;}
+.garden-bottom-controls .garden-control {display:flex;min-height:47px;padding:0;}
+.garden-bottom-controls .garden-control-top {margin-bottom:4px;}
+.garden-observatory {height:clamp(520px,calc(100dvh - 230px),890px);min-height:480px;border-radius:13px;border:1px solid #263533;background:#020506;box-shadow:inset 0 0 100px #0008;}
+.observatory-frame {display:none;}.garden-depth {opacity:.5;}
+.garden-copy,.garden-orbit-hint,.garden-bloom-label,.garden-footer {display:none!important;}
+.garden-resonance {bottom:16px;right:18px;opacity:.55;}
+.garden-resonance span {font-size:8px;color:#8da69b;}.garden-resonance strong {color:#c1f0d7;font-size:10px;}
+#cosmic-canvas {touch-action:none;}
+@media(max-width:900px){.garden-console {grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;} .garden-control:last-child {grid-column:auto;} .garden-observatory {height:65vh;min-height:470px;}}
+@media(max-width:640px){body{padding:7px;}.cosmic-tool{padding:12px;border-radius:14px;}.cosmic-header{gap:10px;flex-direction:row;align-items:center;}.cosmic-title h1{font-size:19px;}.cosmic-title p{font-size:9px;}.cosmic-actions{width:auto;gap:5px}.cosmic-button{min-height:34px;padding:8px 9px;font-size:9px}.garden-console{grid-template-columns:1fr 1fr;gap:12px 10px;}.garden-control{min-height:34px;}.garden-console .garden-control:last-child{grid-column:1 / -1;}.garden-control select{min-width:0;width:66%;font-size:11px;}.garden-bottom-controls{gap:15px;}.garden-observatory{height:clamp(360px,59dvh,650px);min-height:360px;}}

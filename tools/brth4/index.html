@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0c1015">
+<title>BRTH4 | Chrysasynth Forge</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../forge-scrollbars.css">
+<script src="../forge-scrollbars.js" defer></script>
+</head>
+<body>
+<main class="shell">
+ <header class="header"><div class="identity"><span class="brandmark" aria-hidden="true"></span><div><div class="eyebrow">CHRYSASYNTH / FORGE</div><h1>BRTH4</h1></div></div><span class="edition">BREATHWORK</span></header>
+ <section class="session" aria-label="Breathing guide">
+  <div class="session-top"><span class="state" id="state">READY</span><span class="time" id="sessionTime">00:00</span></div>
+  <div class="breath-stage">
+   <div class="guide" id="guide"><div class="guide-border"></div><div class="guide-fill" id="guideFill"></div><div class="track"><div class="cursor" id="cursor"></div></div><div class="center"><div class="phase" id="phase">Ready</div><div class="count" id="count">4.0</div><div class="hint" id="hint">Begin at your own pace</div></div></div>
+  </div>
+  <div class="phase-progress"><div id="progress"></div></div>
+  <div class="phase-steps" id="phaseSteps"><span>INHALE</span><span>HOLD</span><span>EXHALE</span><span>HOLD</span></div>
+  <div class="transport"><button class="primary" id="start">Start session</button><button class="secondary" id="stop" disabled>Stop</button></div>
+ </section>
+ <section class="settings" aria-label="Session settings">
+  <div class="section-title"><span>SESSION SETTINGS</span><span class="subtle">Calm, at your pace</span></div>
+  <div class="fields"><label class="field">Breathing pattern<select id="pattern"><option value="box">Box · 4–4–4–4</option><option value="relax">Relax · 4–7–8</option><option value="focus">Focus · 5–5–5–5</option><option value="custom">Custom</option></select></label><label class="field">Duration<select id="duration"><option value="0">Unlimited</option><option value="60">1 minute</option><option value="180">3 minutes</option><option value="300" selected>5 minutes</option><option value="600">10 minutes</option></select></label></div>
+  <div id="custom" class="custom hidden"><label>Inhale <input id="inDur" type="number" min="1" max="30" step="0.5" value="4"></label><label>Hold in <input id="holdIn" type="number" min="0" max="30" step="0.5" value="4"></label><label>Exhale <input id="outDur" type="number" min="1" max="30" step="0.5" value="4"></label><label>Hold out <input id="holdOut" type="number" min="0" max="30" step="0.5" value="4"></label></div>
+  <div class="sound-row"><div><div class="sound-title">Soundscape</div><div class="subtle" id="soundDescription">Soft brown noise</div></div><button id="sound" class="toggle" role="switch" aria-checked="false" aria-label="Enable sound"><span></span></button></div>
+  <div class="sound-settings"><label class="field">Texture<select id="texture"><option value="brown">Brown Noise</option><option value="alpha">Binaural · 8 Hz</option></select></label><label class="field">Volume<div class="volume"><input id="volume" type="range" min="0" max="100" value="30" step="1"><output id="volumeLabel">30%</output></div></label></div>
+ </section>
+ <footer><span>BRTH4 · BREATHING COMPANION</span><span>CH R Y S A S Y N T H</span></footer>
+</main>
+<script src="audio/engine.js"></script>
+<script src="visual/display.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

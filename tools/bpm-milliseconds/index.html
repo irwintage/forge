@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10141b">
+  <title>BPM ⇆ Milliseconds · Chrysasynth Forge</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+<link rel="stylesheet" href="../forge-scrollbars.css">
+<script src="../forge-scrollbars.js" defer></script>
+</head>
+<body>
+<main id="bm-app">
+  <header class="bm-header">
+    <div class="bm-heading"><div class="bm-kicker"><span class="bm-dot"></span> CHRYSASYNTH / UTILITY</div><h1>BPM <span>⇆</span> Milliseconds</h1></div>
+    <span class="bm-status" id="bm-status" role="status" aria-live="polite">READY</span>
+  </header>
+  <section class="bm-panel" aria-label="Tempo and time converter">
+    <div class="bm-convert">
+      <label class="bm-value" for="bm-bpm"><span class="bm-value-label">TEMPO</span><span class="bm-entry"><input id="bm-bpm" type="number" min="20" max="300" step="any" value="120" inputmode="decimal" aria-label="Tempo in beats per minute"><span class="bm-unit">BPM</span></span></label>
+      <div class="bm-link" aria-hidden="true"><svg width="33" height="33" viewBox="0 0 33 33" fill="none"><path d="M5 11h22m-6-6 6 6-6 6M28 22H6m6-6-6 6 6 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <label class="bm-value" for="bm-ms"><span class="bm-value-label">TIME</span><span class="bm-entry"><input id="bm-ms" type="number" min="1" step="any" value="500" inputmode="decimal" aria-label="Time in milliseconds"><span class="bm-unit">ms</span></span></label>
+    </div>
+    <div class="bm-toolbar">
+      <div class="bm-controls">
+        <label class="bm-small-label" for="bm-note">NOTE</label>
+        <select id="bm-note" aria-label="Note duration"><option value="4">1/1</option><option value="2">1/2</option><option value="1" selected>1/4</option><option value="0.5">1/8</option><option value="0.25">1/16</option><option value="0.125">1/32</option><option value="0.0625">1/64</option></select>
+        <div class="bm-segment" role="group" aria-label="Rhythm variation"><button type="button" data-feel="1" class="active" aria-pressed="true">Straight</button><button type="button" data-feel="1.5" aria-pressed="false">Dotted</button><button type="button" data-feel="0.6666666666666666" aria-pressed="false">Triplet</button></div>
+      </div>
+      <div class="bm-tap-group"><span class="bm-tap-caption" id="bm-tap-caption">Tap a rhythm</span><button id="bm-tap" type="button" aria-label="Tap tempo" title="Tap or press Space (outside an input)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v3M5.6 5.6l2 2M3 12h3m12-3.5L20.4 6M12 8l-3 6h6l-3 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> TAP</button><button id="bm-reset" type="button" aria-label="Reset tap" title="Reset tap tempo"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8m0-5v5h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+    </div>
+    <div class="bm-bottom"><span id="bm-summary">Quarter note · straight</span><button id="bm-copy" type="button" aria-label="Copy milliseconds value"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" stroke="currentColor" stroke-width="1.7"/></svg> Copy ms</button></div>
+  </section>
+</main>
+</body>
+</html>

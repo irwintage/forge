@@ -1,0 +1,84 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#0d0f12"><title>Hold the Frequency | Chrysasynth Forge</title><link rel="stylesheet" href="style.css"><script defer src="../audio/Tone.js"></script><script defer src="app.js"></script><script defer src="forge-integration.js"></script><link rel="stylesheet" href="../../forge-scrollbars.css">
+<script src="../../forge-scrollbars.js" defer></script>
+</head><body class="forge-mode">
+  <div id="startScreen" class="start-screen">
+  <div class="start-card">
+    <div class="start-title">Hold the Frequency</div>
+    <div class="start-subtitle">A sonic focus experiment</div>
+    <button id="enableAudioBtn" class="start-btn">Enable Audio</button>
+  </div>
+</div>
+<main class="forge-site">
+<header class="forge-top"><div class="forge-mark"><div class="forge-symbol" aria-hidden="true">◎</div><div><div class="forge-overline">CHRYSASYNTH / FORGE</div><div class="forge-title">HOLD THE <span>FREQUENCY</span></div></div></div><nav class="forge-nav" aria-label="Edition"><span>SONIC FOCUS / FLAGSHIP EXPERIENCE</span><strong>01 / 07</strong></nav></header>
+<div class="forge-grid">
+<div class="forge-instrument"><div class="app-shell">
+  <button id="debugToggle" class="debug-hotspot" aria-hidden="true" tabindex="-1"></button>
+
+  <div class="app">
+
+    <div class="session-bar" id="sessionBar"></div>
+
+    <header class="app-header">
+      <div class="title-block"><h1>Chrysasynth Studio</h1></div>
+      <div class="badge">7 chakras · 7 minutes</div>
+    </header>
+
+    <div class="flask-wrapper">
+      <div class="flask" id="flask">
+        <div class="flask-layer" data-index="0"></div>
+        <div class="flask-layer" data-index="1"></div>
+        <div class="flask-layer" data-index="2"></div>
+        <div class="flask-layer" data-index="3"></div>
+        <div class="flask-layer" data-index="4"></div>
+        <div class="flask-layer" data-index="5"></div>
+        <div class="flask-layer" data-index="6"></div>
+      </div>
+    </div>
+
+    <div class="chips-row" id="chakraChips"></div>
+
+    <section class="hold-section">
+      <div class="hold-caption">Hold the frequency</div>
+      <div class="timer-ring idle" id="timerRing">
+        <button class="hold-btn" id="holdButton">
+          <div class="hold-core"></div>
+        </button>
+      </div>
+      <div class="timer-text">
+        <span id="timerDisplay">00:00</span> ·
+        <span id="timerStatus">Ready</span> ·
+        <span id="holdHint">Hold for 60s</span>
+      </div>
+    </section>
+
+    <div class="status-row">
+      <div>
+        <div class="chakra-name" id="chakraName"></div>
+        <div class="chakra-freq" id="chakraFreq"></div>
+      </div>
+      <div class="status-pill" id="sessionStatus">
+        <span id="sessionStatusText">0/7</span>
+      </div>
+    </div>
+
+    <div class="volume-row">
+      <span class="vol-label">Vol</span>
+      <input id="volumeSlider" class="slider" type="range" min="0" max="100" value="40" />
+      <span class="tone-label">Tone</span>
+      <input id="toneSlider" class="slider" type="range" min="0" max="100" value="60" />
+    </div>
+
+  </div>
+</div>
+</div>
+
+
+
+
+<aside class="forge-aside" aria-label="Session information">
+<div><div class="forge-kicker">01 / Sonic Focus</div><h2>Find your frequency.<br>Hold your focus.</h2><p>A seven-stage sonic experience. Press and hold the glowing core for sixty uninterrupted seconds to complete each frequency. Release early to restart that stage.</p></div>
+<section class="forge-section"><div class="forge-section-head"><h3>Session journey</h3><span class="forge-counter" id="forgeCounter">0 / 7 complete</span></div><div class="forge-tracks" id="forgeTracks"></div></section>
+<section class="forge-section"><div class="forge-section-head"><h3>Session controls</h3></div><div class="forge-actions"><button class="forge-action primary" id="forgeSave">Save progress</button><button class="forge-action" id="forgeRestore">Restore</button><button class="forge-action" id="forgeReset">Reset session</button></div><p style="margin-top:12px" id="forgeSaveStatus" aria-live="polite">Your session stays in this browser. Cloud account sync can be connected later.</p></section>
+<p class="forge-note">Headphones recommended for binaural listening. The displayed frequencies are creative design choices, not scientifically established therapeutic frequencies.</p>
+</aside></div><footer class="forge-site-footer"><span>CHRYSASYNTH STUDIO / HOLD THE FREQUENCY</span><span>FORGE EDITION V1</span></footer>
+</main></body></html>

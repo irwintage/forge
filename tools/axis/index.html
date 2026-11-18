@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Axis | Chrysasynth Forge</title>
+<script src="https://cdn.jsdelivr.net/npm/lz-string@1.5.0/libs/lz-string.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/tone@14.8.49/build/Tone.js"></script>
+<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="../forge-scrollbars.css">
+<script src="../forge-scrollbars.js" defer></script>
+</head><body>
+<div class="shell">
+<header class="hero">
+ <div class="branding"><div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 12h3l2-6 3 12 3-14 3 16 2-8h4"/></svg></div><div><div class="eyebrow">CHRYSASYNTH / FORGE</div><h1>AXIS</h1><div class="subtitle">STEP SEQUENCER</div></div></div>
+ <div class="header-seed" aria-label="Pattern seed selector">
+   <span class="header-seed-label">SEED</span>
+   <span class="seedicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20 4C9 4 4 9 4 15a5 5 0 0 0 5 5c6 0 11-5 11-16Z"/><path d="M5 19c3-5 7-8 12-11"/></svg></span>
+   <select id="seedSelect" aria-label="Load a seed pattern"><option value="none">Choose a Seed</option><option value="serpent">Serpent Acid</option><option value="quartz">Quartz Bloom</option><option value="ghost">Ghost Footsteps</option><option value="dry">Dry Groove Circuit</option><option value="solar">Solar Triphaze</option></select>
+ </div>
+ <div class="header-right"><span id="engineStatus" class="engine-status">READY · AUDIO ON PLAY</span><button id="share" class="action-secondary" hidden aria-hidden="true" tabindex="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3m-5 5 5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg> <span>Share pattern</span></button></div>
+</header>
+<main class="studio">
+<aside class="left-column">
+ <section class="module transport"><div class="section-title"><span>01</span><h2>TRANSPORT</h2></div>
+  <div class="transport-actions"><button id="start" class="primary"><svg viewBox="0 0 24 24" fill="currentColor"><path d="m8 5 12 7-12 7z"/></svg> <span>Play</span></button><button id="dice" class="square-button" title="Generate new pattern" aria-label="Randomize pattern"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8" cy="8" r="1" fill="currentColor"/><circle cx="16" cy="8" r="1" fill="currentColor"/><circle cx="12" cy="12" r="1" fill="currentColor"/><circle cx="8" cy="16" r="1" fill="currentColor"/><circle cx="16" cy="16" r="1" fill="currentColor"/></svg></button><button id="rec" class="record-button" title="Record audio" aria-label="Record audio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg> <span>Record</span></button></div>
+  <a id="download" class="download" style="display:none">Download recording</a>
+  <div class="range-row"><label for="bpm">Tempo</label><input id="bpm" type="range" min="60" max="180" value="125"><output id="bpmVal">125</output></div>
+  <div class="range-row"><label for="swing">Swing</label><input id="swing" type="range" min="0" max="80" value="8"><output id="swingVal">8%</output></div>
+ </section>
+ <section class="module pitch"><div class="section-title"><span>02</span><h2>PITCH & SCALE</h2></div>
+  <div class="fieldgrid"><label>Root</label><div class="paired"><select id="rootNote"><option>C</option><option>C#</option><option>D</option><option>D#</option><option>E</option><option>F</option><option>F#</option><option>G</option><option>G#</option><option>A</option><option>A#</option><option>B</option></select><select id="rootOct"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option></select></div>
+   <label for="scale">Scale</label><select id="scale"><option value="0,2,3,5,7,8,10" selected>Minor</option><option value="0,2,4,5,7,9,11" >Major</option><option value="0,2,3,5,7,8,11" >Harmonic Minor</option><option value="0,2,3,5,7,9,10" >Dorian</option><option value="0,1,3,5,7,8,10" >Phrygian</option><option value="0,1,4,5,7,8,10" >Phrygian Dominant</option><option value="0,2,4,6,7,9,11" >Lydian</option><option value="0,2,4,5,7,9,10" >Mixolydian</option><option value="0,1,3,5,6,8,10" >Locrian</option><option value="0,3,5,7,10" >Minor Pentatonic</option><option value="0,2,4,7,9" >Major Pentatonic</option><option value="chromatic" >Chromatic</option></select>
+   <label for="range">Range</label><select id="range"><option value="12">±1 octave</option><option value="24" selected>±2 octaves</option></select>
+  </div>
+ </section>
+</aside>
+<div class="main-column">
+ <section class="module voice"><div class="section-title line-title"><div><span>03</span><h2>AXIS VOICE</h2></div><select id="wave" class="wave-select"><option value="sawtooth">Sawtooth</option><option value="square">Square</option><option value="triangle">Triangle</option></select></div>
+  <div class="wave-preview"><svg viewBox="0 0 540 64" preserveAspectRatio="none"><path d="M0 32H540" stroke="#36513b" stroke-dasharray="4 8"/><path id="waveformLine" fill="none" stroke="#a6ef9c" stroke-width="2" d="" /></svg></div>
+  <div class="voice-controls"><div class="vc"><label for="cut">CUTOFF</label><input id="cut" type="range" min="100" max="8000" value="1600"></div><div class="vc"><label for="res">RESONANCE</label><input id="res" type="range" min="0" max="18" step="0.1" value="0.9"></div><div class="vc"><label for="env">ENVELOPE</label><input id="env" type="range" min="0" max="1" step="0.01" value="0.35"></div><div class="vc"><label for="drive">DRIVE</label><input id="drive" type="range" min="0" max="1" step="0.01" value="0.25"></div><div class="vc"><label for="svol">VOICE LEVEL</label><input id="svol" type="range" min="-36" max="6" value="0"></div></div>
+ </section>
+ <section class="module sequence"><div class="section-title line-title"><div><span>04</span><h2>MELODIC SEQUENCER</h2></div><div class="abWrap"><div class="abToggle"><button class="abBtn active" data-bank="A">A</button><button class="abBtn" data-bank="B">B</button></div><button class="lockToggle" id="lockToggle" title="Alternate patterns each bar">A + B</button></div></div>
+  <div class="ruler"><span>STEPS / 16</span><span>ACCENT <i class="accent-key"></i> &nbsp; SLIDE <i class="slide-key"></i></span></div>
+  <div class="seqWrap"><div class="seq" id="seq"></div></div>
+  <div class="sequence-footer"><span>CLICK A CELL TO PLACE A NOTE</span><span>ONE NOTE PER STEP</span></div>
+ </section>
+</div>
+<aside class="right-column">
+ <section class="module drums"><div class="section-title line-title"><div><span>05</span><h2>DRUM MACHINE</h2></div><button id="drumLock" class="lockToggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> LOCK</button></div>
+  <div class="drumline"><div class="drumlabel"><div class="drumsymbol kick-symbol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 12h3l2-6 3 12 3-14 3 16 2-8h4"/></svg></div><span>KICK</span></div><div class="lane" id="kick"></div></div>
+  <div class="drumline"><div class="drumlabel"><div class="drumsymbol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 12h3l2-6 3 12 3-14 3 16 2-8h4"/></svg></div><span>SNARE</span></div><div class="lane" id="snare"></div></div>
+  <div class="drumline"><div class="drumlabel"><div class="drumsymbol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 12h3l2-6 3 12 3-14 3 16 2-8h4"/></svg></div><span>HATS</span></div><div class="lane" id="hats"></div></div>
+  <div class="range-row drumvol"><label for="dvol">LEVEL</label><input id="dvol" type="range" min="-24" max="6" value="-6"><output id="dvolVal">-6 dB</output></div>
+ </section>
+ <section class="module space"><div class="section-title"><span>06</span><h2>SPACE</h2></div>
+  <div class="xyBox"><canvas id="xy" aria-label="Reverb mix and decay pad"></canvas><div class="xyBadge">REVERB / DECAY</div><div class="xyNote" id="xyLabel">Mix 0.25 • Decay 2.00s</div></div>
+  <div class="range-row"><label for="delay">DELAY</label><input id="delay" type="range" min="0" max="0.8" step="0.01" value="0.25"><output id="delayVal">0.25</output></div>
+ </section>
+</aside></main>
+<footer class="footer"><span>AXIS <span class="footer-divider">/</span> CHRYSASYNTH FORGE</span><span class="footer-right">SEQUENCING IS PLAYING</span></footer></div>
+<div class="shareToast" id="shareToast" hidden aria-hidden="true"><div class="shareToast-main"><div class="shareToast-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3m-5 5 5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg></div><div><div class="shareToast-title" id="shareToastTitle">Pattern copied</div><div class="shareToast-sub" id="shareToastSub">Open this link to load the same pattern.</div></div></div><div class="shareToast-actions"><button class="shareToast-btn" id="shareToastCopy">Copy again</button><button class="shareToast-btnGhost" id="shareToastOpen">Open preview</button></div></div>
+<script defer src="app.js"></script></body></html>

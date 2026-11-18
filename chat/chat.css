@@ -1,0 +1,296 @@
+/* Forge Chat V19: stand-alone stylesheet. No instrument CSS modifications. */
+.fc-scrim{position:fixed;inset:0;z-index:1590;background:rgba(2,8,5,.28)}
+.fc-scrim[hidden],.fc-section[hidden],#fcTyping[hidden]{display:none!important}
+.fc-drawer{position:fixed;right:0;top:0;bottom:0;z-index:1600;display:flex;flex-direction:column;width:min(408px,100vw);background:linear-gradient(145deg,#152a20 0%,#0a1611 44%,#07100c 100%);border-left:1px solid #365a40;color:#edf4ed;box-shadow:-18px 0 50px #0008;transform:translateX(105%);visibility:hidden;transition:transform .24s ease,visibility .24s;isolation:isolate;font-family:system-ui,-apple-system,sans-serif}
+.fc-drawer.is-open{transform:translateX(0);visibility:visible}.fc-drawer *{box-sizing:border-box}
+.fc-header{display:flex;align-items:center;gap:10px;padding:17px 17px 15px;border-bottom:1px solid #24412f;flex-shrink:0}.fc-orb{width:39px;height:39px;border:1px solid #57855f;background:#264936;border-radius:12px;display:grid;place-items:center;color:#bbf5a0}.fc-orb svg{width:20px}.fc-heading{display:flex;flex-direction:column;gap:3px;flex:1;min-width:0}.fc-heading strong{font-size:15px;font-weight:650}.fc-heading small{font-size:11px;color:#9fbea9;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}.fc-mode{font-size:8px;letter-spacing:.10em;color:#91b7a0;background:#1a3225;padding:6px;border-radius:5px;white-space:nowrap}.fc-close{border:0;background:transparent;color:#b6d1bd;cursor:pointer;padding:7px;display:grid;place-items:center}.fc-close svg{width:18px}
+.fc-chat-body{min-height:0;flex:1;overflow:auto;display:flex;flex-direction:column;gap:14px;padding:19px 16px 8px;scrollbar-width:thin;scrollbar-color:#477453 transparent}.fc-messages{display:flex;flex-direction:column;gap:13px}.fc-message{font-size:12px;line-height:1.6;white-space:pre-line;max-width:90%;padding:11px 13px;border-radius:13px}.fc-message.assistant{align-self:flex-start;background:#1b3025;border:1px solid #2b4533;color:#e0eee0}.fc-message.user{align-self:flex-end;background:#31513b;color:#f1fff0}.fc-label{display:block;font-size:9px;letter-spacing:.1em;color:#9acfa0;text-transform:uppercase;margin-bottom:7px;font-weight:700}.fc-typing{width:65px;padding:3px 8px;border:1px solid #2a4b36;border-radius:11px;background:#182e23}.fc-suggestions{display:flex;gap:7px;flex-wrap:wrap;margin-top:auto;padding:8px 0}.fc-suggestions button{border:1px solid #42664d;border-radius:999px;background:#162a1e;color:#cce8cf;padding:7px 10px;cursor:pointer;text-align:left;font-size:10px}.fc-suggestions button:hover{border-color:#a9f27c;color:white}
+.fc-extras{padding:9px 16px 0;max-height:42vh;overflow:auto;scrollbar-width:thin;scrollbar-color:#477453 transparent}.fc-actions{display:flex;gap:7px}.fc-actions button{display:flex;align-items:center;justify-content:center;gap:6px;flex:1;font-size:10px;background:#192d21;border:1px solid #365841;border-radius:9px;padding:11px 5px;color:#dceadd;cursor:pointer}.fc-actions svg{width:14px;height:14px}.fc-section{margin:9px 0 0;padding:12px;background:#12241a;border:1px solid #294731;border-radius:10px;display:flex;flex-direction:column;gap:9px}.fc-section strong{font-size:12px}.fc-section p,.fc-section small{font-size:10px;line-height:1.5;color:#9cbd9e;margin:0}.fc-section select,.fc-section textarea{background:#0b1911;border:1px solid #355641;color:#e5f3e8;padding:9px;border-radius:8px;resize:vertical;font:11px system-ui}.fc-section>button{background:#a9f27c;border:0;border-radius:8px;color:#102216;padding:9px;font-size:11px;font-weight:700;cursor:pointer}.fc-section>button:disabled{background:#294537;color:#799b82;cursor:not-allowed}.fc-stars{display:flex;gap:6px}.fc-stars button{background:none;border:0;padding:4px;cursor:pointer;color:#55715d}.fc-stars button.chosen{color:#b7eb89}.fc-stars button svg{width:25px;height:25px;fill:currentColor;stroke:currentColor}.fc-compose{display:flex;gap:8px;margin:12px 16px 0;padding:6px;border-radius:11px;background:#193023;border:1px solid #42644b}.fc-compose input{min-width:0;flex:1;background:transparent;border:0;outline:0;font-size:12px;color:#fff;padding:7px}.fc-compose input::placeholder{color:#8ca793}.fc-compose button{width:35px;height:35px;background:#a9f27c;color:#13251a;border:0;border-radius:8px;cursor:pointer;display:grid;place-items:center}.fc-compose button svg{width:17px}.fc-footer{padding:10px 16px 16px;color:#789883;font-size:9px;line-height:1.4;text-align:center}
+.sidebar-account-icon svg{width:18px;height:18px}
+@media(max-width:620px){.fc-drawer{width:100vw}.fc-mode{display:none}}
+@media(prefers-reduced-motion:reduce){.fc-drawer{transition:none}}
+
+/* V19.1 – Compact, nonmodal Forge Companion.
+   Never changes the dimensions of Forge, the sidebar or the instrument iframe. */
+.fc-drawer {
+  top:auto;
+  bottom:22px;
+  right:22px;
+  width:min(366px,calc(100vw - 28px));
+  height:min(480px,calc(100dvh - 44px));
+  max-height:calc(100dvh - 44px);
+  border:1px solid rgba(151,213,162,.23);
+  border-radius:19px;
+  overflow:hidden;
+  box-shadow:0 18px 58px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.025) inset;
+  transform:translateY(15px) scale(.97);
+  transform-origin:bottom right;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .19s ease, transform .22s cubic-bezier(.2,.8,.2,1),visibility .2s;
+}
+.fc-drawer.is-open {transform:translateY(0) scale(1);opacity:1;visibility:visible}
+.fc-header {min-height:57px;padding:12px 14px 11px;gap:8px}
+.fc-heading strong{font-size:13px}
+.fc-heading small{font-size:10px}
+.fc-mode{font-size:8px;padding:5px}
+.fc-chat-body{padding:12px 12px 5px;gap:10px}
+.fc-messages{gap:9px}
+.fc-message{font-size:11px;line-height:1.5;padding:9px 11px;border-radius:12px}
+.fc-extras{padding:7px 12px 0;max-height:44%}
+.fc-actions button{padding:9px 5px}
+.fc-compose{margin:9px 12px 0}
+.fc-footer{padding:8px 12px 10px}
+.fc-scrim{display:none!important}
+/* One conversational glyph, no redundant circle/frame around it. */
+.sidebar-account-icon{
+  width:24px!important;height:24px!important;display:grid;place-items:center;
+  border:0!important;border-radius:0!important;background:transparent!important;
+  color:#a9f27c;
+}
+.sidebar-account-icon svg{width:21px;height:21px;stroke-width:1.65;overflow:visible}
+@keyframes fc-conversation-idle {
+  0%,75%,100%{transform:translateY(0) rotate(0);opacity:1}
+  81%{transform:translateY(-2px) rotate(-4deg);opacity:.88}
+  88%{transform:translateY(0) rotate(3deg);opacity:1}
+  94%{transform:translateY(-1px) rotate(0);opacity:.94}
+}
+.sidebar-account-icon svg{animation:fc-conversation-idle 5.4s ease-in-out infinite;transform-origin:50% 70%}
+.sidebar-account:hover .sidebar-account-icon svg{animation-play-state:paused;transform:translateY(-2px) scale(1.09)}
+@media(max-width:620px){
+  .fc-drawer{
+    width:min(366px,calc(100vw - 20px));
+    right:10px;bottom:10px;
+    height:min(480px,calc(100dvh - 20px));
+    max-height:calc(100dvh - 20px);
+    border-radius:16px;
+  }
+  .fc-mode{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .fc-drawer{transition:none}
+  .sidebar-account-icon svg{animation:none}
+}
+
+/* V19.2 - Living Line chat affordance, visible with collapsed sidebar. */
+.sidebar-account-icon svg{animation:none!important;transform:none!important;filter:none!important;width:22px!important;height:22px!important}
+.sidebar-account:hover .sidebar-account-icon svg{transform:none!important}
+.fc-living-svg{display:block;width:22px;height:22px;overflow:visible;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.fc-living-base{stroke:#A9F27C;stroke-width:1.65;opacity:.78}
+.fc-living-glint{stroke:#edffe0;stroke-width:2.65;stroke-linecap:round;fill:none;filter:drop-shadow(0 0 1.5px rgba(189,255,143,.72))}
+
+.sidebar-account:hover .fc-living-glint,.fc-collapsed-trigger:hover .fc-living-glint{stroke:#fff;stroke-width:2.9}
+
+/* The collapsed trigger is a single compact navigation icon. */
+.fc-collapsed-trigger{display:none;align-items:center;justify-content:center;flex:0 0 46px;width:46px;height:46px;border:1px solid rgba(169,242,124,.2);border-radius:12px;background:rgba(169,242,124,.055);color:#A9F27C;cursor:pointer;transition:border-color .18s,background .18s}
+.fc-collapsed-trigger:hover,.fc-collapsed-trigger[aria-expanded="true"]{border-color:rgba(169,242,124,.48);background:rgba(169,242,124,.12)}
+@media(min-width:961px){
+ .app.sidebar-collapsed .fc-collapsed-trigger{display:flex;margin:4px auto 10px}
+ .app.sidebar-collapsed .sidebar-foot{display:flex;align-items:center;flex-direction:column}
+}
+/* Aligned over the left navigation control, never resizes the workspace. JS positions it. */
+.fc-drawer{left:var(--fc-pop-left,98px);right:auto;top:var(--fc-pop-top,auto);bottom:auto;transform-origin:bottom left;transform:translateY(12px) scale(.97)}
+.fc-drawer.is-open{transform:translateY(0) scale(1)}
+@media(max-width:620px){.fc-drawer{left:var(--fc-pop-left,10px);right:auto;top:var(--fc-pop-top,10px);bottom:auto}}
+@media(prefers-reduced-motion:reduce){.fc-living-glint{filter:none}}
+
+
+/* V19.4 • Clean integrated Forge Chat card.
+   Artwork retained, with deliberate negative space and a single compact CTA.
+   Scoped to the sidebar card to protect instrument layouts. */
+.sidebar-lab {
+  height:184px;
+  margin-bottom:11px;
+  border-radius:16px;
+  border-color:rgba(163,215,166,.18);
+  background:#080e14;
+  isolation:isolate;
+}
+.sidebar-lab-img {
+  object-position:50% 38%;
+  filter:saturate(1.02) brightness(.89);
+}
+.sidebar-lab::after {
+  background:linear-gradient(180deg,rgba(6,12,17,.00) 0%,rgba(8,17,15,.04) 40%,rgba(7,19,14,.38) 63%,rgba(7,19,14,.80) 100%);
+  pointer-events:none;
+}
+/* Hide any legacy copy should a custom build still include it. */
+.sidebar-lab .sidebar-lab-copy {display:none}
+.sidebar-lab .sidebar-account {
+  left:9px;
+  right:9px;
+  bottom:9px;
+  height:53px;
+  padding:0 12px;
+  gap:10px;
+  border-radius:11px;
+  border:1px solid rgba(150,219,154,.26)!important;
+  background:linear-gradient(110deg,rgba(24,52,34,.92),rgba(12,32,23,.93))!important;
+  box-shadow:0 7px 20px rgba(0,0,0,.18)!important;
+  -webkit-backdrop-filter:blur(8px);
+  backdrop-filter:blur(8px);
+}
+.sidebar-lab .sidebar-account:hover,
+.sidebar-lab .sidebar-account[aria-expanded="true"] {
+  border-color:rgba(169,242,124,.53)!important;
+  background:linear-gradient(110deg,rgba(35,70,45,.97),rgba(17,41,28,.97))!important;
+  box-shadow:0 8px 24px rgba(0,0,0,.22)!important;
+}
+.sidebar-lab .sidebar-account-icon {
+  flex:0 0 25px;
+  width:25px!important;
+  height:25px!important;
+  border:0!important;
+  background:transparent!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  padding:0;
+}
+.sidebar-lab .sidebar-account-icon .fc-living-svg {width:23px!important;height:23px!important;}
+.sidebar-lab .sidebar-account-copy{gap:3px}
+.sidebar-lab .sidebar-account-copy strong{font-size:12px;letter-spacing:-.01em;font-weight:650;line-height:1.12}
+.sidebar-lab .sidebar-account-copy small{font-size:9.5px;letter-spacing:.005em;line-height:1.2;white-space:nowrap}
+.sidebar-lab .sidebar-account-arrow{font-size:18px;opacity:.75}
+.sidebar-lab .sidebar-account:hover .sidebar-account-arrow{opacity:1;color:#c5f4b4}
+@media (max-height:690px) and (min-width:961px) {
+  .sidebar-lab{height:156px}
+  .sidebar-lab .sidebar-account{height:49px}
+}
+
+
+/* V19.5 / Usability refinement. Local FAQ only; no claims of AI connectivity. */
+.fc-drawer{
+  width:min(420px,calc(100vw - 20px));
+  height:min(576px,calc(100dvh - 24px));
+  max-height:calc(100dvh - 24px);
+  border-color:rgba(157,217,163,.32);
+  box-shadow:0 18px 64px rgba(0,0,0,.58),0 0 0 1px rgba(255,255,255,.018) inset;
+}
+.fc-header{padding:15px 16px 13px;min-height:65px}
+.fc-heading strong{font-size:16px;line-height:1.25;letter-spacing:-.015em}
+.fc-heading small{font-size:12px;line-height:1.35;color:#b7cfbc}
+.fc-context-tool{color:#b9f394;font-weight:inherit;background:none;text-decoration:none;border:0}
+.fc-mode{font-size:9px;letter-spacing:.07em;padding:6px 7px}
+.fc-chat-body{padding:16px 15px 10px;gap:13px}
+.fc-messages{gap:13px}
+.fc-message{font-size:14px;line-height:1.52;padding:13px 14px;border-radius:13px;max-width:94%;white-space:pre-line}
+.fc-message.assistant{background:#1b3427;border-color:#355642;color:#eaf5eb}
+.fc-message.user{background:#355d43;color:#f4fff5}
+.fc-label{font-size:10px;letter-spacing:.085em;margin-bottom:8px;color:#b7eba5}
+.fc-tool-emphasis{color:#bef69a;font-weight:inherit;background:none;text-decoration:none;border:0}
+.fc-suggestions-dock{display:flex;flex-direction:column;gap:7px;flex-shrink:0;padding:10px 15px 11px;border-top:1px solid rgba(130,189,141,.15);background:rgba(14,30,20,.84)}
+.fc-suggestions-title{font-size:10px;letter-spacing:.09em;color:#95b99d;font-weight:700}
+.fc-suggestions{display:flex;align-items:flex-start;flex-wrap:wrap;gap:7px;margin:0;padding:0}
+.fc-suggestions button{font-size:12px;line-height:1.25;padding:9px 11px;background:#1d3827;border-color:#477553;color:#dff0e0;border-radius:9px}
+.fc-suggestions button:hover{background:#294932;border-color:#a9f27c}
+.fc-extras{padding:11px 15px 0;max-height:45%;flex-shrink:0}
+.fc-actions button{font-size:12px;line-height:1.25;padding:11px 7px;gap:8px}
+.fc-actions svg{width:16px;height:16px}
+.fc-section strong{font-size:13px}
+.fc-section p,.fc-section small{font-size:12px}
+.fc-section select,.fc-section textarea{font-size:13px}
+.fc-section>button{font-size:12px}
+.fc-compose{margin:11px 15px 0;padding:7px;border-color:#507b58}
+.fc-compose input{font-size:14px;padding:8px 9px}
+.fc-compose button{width:38px;height:38px;flex-shrink:0}
+.fc-footer{font-size:11px;line-height:1.4;padding:10px 15px 12px;color:#a3bfa9}
+@media(max-width:620px){.fc-drawer{width:min(420px,calc(100vw - 20px));height:min(576px,calc(100dvh - 20px));max-height:calc(100dvh - 20px)}}
+@media(max-height:670px){.fc-suggestions-dock{padding-top:6px;padding-bottom:6px}.fc-chat-body{padding-top:10px}.fc-footer{padding-top:6px;padding-bottom:7px}}
+
+/* V19.6: clearer creative assistant, visible prompts and three-dot reply cue. */
+.fc-drawer{width:min(440px,calc(100vw - 20px));height:min(608px,calc(100dvh - 24px));}
+.fc-header{min-height:70px;padding:15px 17px 14px}
+.fc-heading strong{font-size:17px}
+.fc-heading small{font-size:13px}
+.fc-mode{font-size:10px;padding:6px 8px}
+.fc-chat-body{padding:16px 16px 9px;gap:13px}
+.fc-messages{gap:12px}
+.fc-message{font-size:14.5px;line-height:1.54;padding:13px 15px;max-width:95%;overflow-wrap:anywhere}
+.fc-label{font-size:10.5px;letter-spacing:.065em;margin-bottom:7px}
+.fc-suggestions-dock{padding:11px 16px 12px;gap:9px;background:rgba(11,25,17,.96)}
+.fc-suggestions-title{font-size:10.5px;letter-spacing:.09em}
+.fc-suggestions{gap:8px}
+.fc-suggestions button{font-size:12.5px;padding:9px 11px;line-height:1.3;border-radius:9px}
+.fc-extras{padding:12px 16px 0}
+.fc-actions button{font-size:12.5px;padding:11px 7px}
+.fc-compose{margin:11px 16px 0;padding:7px}
+.fc-compose input{font-size:14.5px;padding:8px 9px}
+.fc-footer{font-size:11px;line-height:1.4;padding:10px 16px 12px}
+.fc-typing{width:max-content;min-width:64px;height:34px;padding:9px 12px;display:flex;align-items:center;justify-content:center;gap:6px;flex-shrink:0}
+.fc-typing-dot{display:block;width:6px;height:6px;border-radius:50%;background:#adea9a;animation:fc-dot-breathe 1.05s ease-in-out infinite}
+.fc-typing-dot:nth-child(2){animation-delay:.17s}
+.fc-typing-dot:nth-child(3){animation-delay:.34s}
+@keyframes fc-dot-breathe{0%,60%,100%{opacity:.4;transform:translateY(0)}30%{opacity:1;transform:translateY(-4px)}}
+@media(max-width:620px){.fc-drawer{width:min(440px,calc(100vw - 20px));height:min(608px,calc(100dvh - 20px));max-height:calc(100dvh - 20px)}}
+@media(prefers-reduced-motion:reduce){.fc-typing-dot{animation:none;opacity:.8}}
+
+
+/* V19.8: grab the chat title bar and move the floating window. */
+.fc-drawer .fc-header{cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
+.fc-drawer.is-dragging .fc-header{cursor:grabbing}
+.fc-drawer .fc-header .fc-close{cursor:pointer;touch-action:manipulation}
+.fc-drawer.is-dragging{transition:none!important}
+
+/* V19.9 — Direct stars, confirmation before sending, and separate feedback view.
+   All styling is scoped to the Forge Chat drawer. */
+.fc-drawer [hidden]{display:none!important}
+.fc-drawer .fc-extras{padding:11px 16px 0;max-height:none;overflow:visible;flex-shrink:0}
+.fc-drawer .fc-rating-inline{display:flex;flex-direction:column;gap:5px;border-top:1px solid rgba(169,242,124,.14);padding-top:10px}
+.fc-drawer .fc-rating-row{display:flex;align-items:center;gap:9px;min-height:36px}
+.fc-drawer .fc-rating-label{font-size:12px;line-height:1.3;color:#c8dcca;white-space:nowrap;flex:0 1 auto;max-width:125px;overflow:hidden;text-overflow:ellipsis}
+.fc-drawer .fc-stars{display:flex;align-items:center;gap:0;flex:1 0 auto;max-width:160px}
+.fc-drawer .fc-stars button{padding:3px;border-radius:7px;display:grid;place-items:center;background:none;color:#6d8970;border:0;cursor:pointer;transition:color .15s,transform .15s}
+.fc-drawer .fc-stars button:hover{color:#c9f0a9;transform:translateY(-1px)}
+.fc-drawer .fc-stars button.chosen{color:#b7eb89}
+.fc-drawer .fc-stars button:focus-visible,.fc-drawer .fc-feedback-back:focus-visible,.fc-drawer .fc-feedback-open:focus-visible{outline:2px solid #a9f27c;outline-offset:3px}
+.fc-drawer .fc-stars button svg{width:22px;height:22px;stroke:currentColor;fill:none}
+.fc-drawer .fc-stars button.chosen svg{fill:currentColor}
+.fc-drawer .fc-feedback-open{margin-left:auto;flex:0 0 auto;border:1px solid #3c6347;background:#193223;color:#c8dfce;padding:8px 10px;border-radius:8px;font-size:11.5px;line-height:1.2;display:flex;align-items:center;gap:6px;cursor:pointer;font-family:inherit}
+.fc-drawer .fc-feedback-open:hover{background:#23432d;border-color:#94c795}
+.fc-drawer .fc-feedback-open svg{height:14px;width:14px}
+.fc-drawer .fc-rating-confirm{display:flex;align-items:center;gap:9px;flex-wrap:wrap;min-height:0}
+.fc-drawer .fc-rating-confirm button{padding:7px 11px;border:0;border-radius:7px;background:#a9f27c;color:#152c18;font-size:12px;font-weight:700;cursor:pointer}
+.fc-drawer .fc-rating-confirm button:disabled{cursor:not-allowed;color:#a5b4a9;background:#35463a}
+.fc-drawer .fc-rating-confirm p{margin:0;font-size:10.5px;line-height:1.4;color:#a8c7ac;flex:1}
+.fc-drawer #fcRatingSummary{display:block;font-size:10.5px;color:#a9c7ad}
+.fc-drawer .fc-feedback-view{flex:1;min-height:0;overflow:auto;display:flex;flex-direction:column;gap:14px;padding:18px 17px 20px;scrollbar-width:thin;scrollbar-color:#477453 transparent}
+.fc-drawer .fc-feedback-head{display:flex;align-items:center;gap:12px;border-bottom:1px solid #365442;padding-bottom:14px;flex:none}
+.fc-drawer .fc-feedback-back{width:35px;height:35px;display:grid;place-items:center;flex-shrink:0;border:1px solid #41634a;border-radius:9px;background:#213a29;color:#e4f2df;font-size:22px;font-family:inherit;cursor:pointer}
+.fc-drawer .fc-feedback-back:hover{background:#304d37}
+.fc-drawer .fc-feedback-heading{display:flex;flex-direction:column;gap:4px;min-width:0}
+.fc-drawer .fc-feedback-heading strong{font-size:16px;font-weight:660;color:#eaf5ea}
+.fc-drawer .fc-feedback-heading small{font-size:12px;color:#afeba1}
+.fc-drawer .fc-feedback-view .fc-section{display:flex!important;flex-direction:column;gap:12px;margin:0;padding:0;border:0;background:none;max-height:none;overflow:visible}
+.fc-drawer .fc-feedback-view .fc-section>strong{display:none}
+.fc-drawer .fc-feedback-view .fc-section select,
+.fc-drawer .fc-feedback-view .fc-section textarea{padding:12px;font-size:14px;border:1px solid #476851;border-radius:10px;background:#11251a;color:#e9f7eb;font-family:inherit}
+.fc-drawer .fc-feedback-view .fc-section textarea{min-height:150px;resize:vertical;max-height:250px;line-height:1.5}
+.fc-drawer .fc-feedback-view .fc-section select:focus,
+.fc-drawer .fc-feedback-view .fc-section textarea:focus{outline:1px solid #b7e999}
+.fc-drawer .fc-feedback-view .fc-section>button{padding:12px;font-size:13px;border-radius:9px}
+.fc-drawer .fc-feedback-view .fc-section>button:disabled{background:#304636;color:#a1baa7}
+.fc-drawer .fc-feedback-view .fc-section p{font-size:12px;color:#b5cabc;line-height:1.55}
+.fc-drawer .fc-feedback-privacy{font-size:11px;line-height:1.5;color:#8cab96;margin:0}
+.fc-drawer .fc-turnstile-host{min-height:0;max-width:100%}
+.fc-drawer.fc-feedback-mode .fc-chat-body,
+.fc-drawer.fc-feedback-mode .fc-suggestions-dock,
+.fc-drawer.fc-feedback-mode .fc-extras,
+.fc-drawer.fc-feedback-mode .fc-compose,
+.fc-drawer.fc-feedback-mode .fc-footer{display:none!important}
+.fc-drawer.fc-feedback-mode .fc-feedback-view:not([hidden]){display:flex}
+@media(max-width:460px){
+ .fc-drawer .fc-rating-row{gap:5px}
+ .fc-drawer .fc-rating-label{font-size:11px;max-width:92px}
+ .fc-drawer .fc-stars{max-width:140px}
+ .fc-drawer .fc-stars button{padding:2px}
+ .fc-drawer .fc-stars button svg{width:20px;height:20px}
+ .fc-drawer .fc-feedback-open{font-size:10.5px;padding:7px}
+}
+@media(prefers-reduced-motion:reduce){.fc-drawer .fc-stars button{transition:none}}
+
+/* In Explore, feedback remains accessible without suggesting a tool-specific rating. */
+.fc-drawer .fc-rating-inline.fc-no-tool .fc-rating-label,
+.fc-drawer .fc-rating-inline.fc-no-tool .fc-stars,
+.fc-drawer .fc-rating-inline.fc-no-tool .fc-rating-confirm,
+.fc-drawer .fc-rating-inline.fc-no-tool #fcRatingSummary{display:none!important}
+.fc-drawer .fc-rating-inline.fc-no-tool .fc-rating-row{justify-content:flex-end}

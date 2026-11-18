@@ -1,0 +1,63 @@
+{
+  "folder_count": 37,
+  "local_instrument_entries": 38,
+  "normalized_folders": [
+    "5th-essence",
+    "aura-sampler",
+    "axis",
+    "binaural-beats",
+    "bpm-milliseconds",
+    "brth4",
+    "chord-bloom",
+    "chorus-flanger",
+    "climax",
+    "cosmic-garden",
+    "delay",
+    "duality-synth",
+    "etheremin",
+    "fibonacci-melody",
+    "frequency-note",
+    "granular-pad",
+    "hold-the-frequency",
+    "kaleidoscope-studio",
+    "knot",
+    "loudness-utility",
+    "mindshift",
+    "mystic-drums",
+    "neuroflow-forge",
+    "nodes",
+    "noise-generator",
+    "pixeltone",
+    "polyrhythm-forge",
+    "reverb",
+    "shepard",
+    "soft-glue-bus",
+    "sphere-natale",
+    "structura",
+    "subdive",
+    "tap-tempo",
+    "tone-sculptor",
+    "trim-ritual",
+    "vocalis"
+  ],
+  "special_paths": {
+    "pixelTone Bloom": "tools/pixeltone/bloom/index.html",
+    "pixelTone Warp": "tools/pixeltone/warp/index.html",
+    "Hold The Frequency": "tools/hold-the-frequency/forge/index.html"
+  },
+  "catalogue_notes": [
+    "Knot moved to common catalogue, dedicated mount and loader removed",
+    "No visual card redesign in this draft",
+    "Loudness Utility replaces Mastering Tools",
+    "Orbit Pan absent from supplied Tools.zip; not added",
+    "Chrysasynth Studio external URL not migrated into local-only library",
+    "ZenBox / Mic Clean / 3-Band EQ / PolyShape / Ethereal Stretch absent; omitted pending product decision",
+    "Chakra Frequency Generator duplicate of Hold the Frequency; omitted"
+  ],
+  "technical_notes": [
+    "Iframe is removed from DOM navigation by src removal to stop most Web Audio sources",
+    "Desktop layout has flexible scrollable container; mobile allows internal scrolling",
+    "Microphone/webcam permissions depend on deployment origin and browser security context",
+    "Basic tests verify paths, not full realtime audio behavior"
+  ]
+}

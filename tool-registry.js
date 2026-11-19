@@ -159,7 +159,7 @@ const FORGE_INSTRUMENTS = [
     "name": "MindShift",
     "category": "Wellness",
     "desc": "Audio for productivity",
-    "path": "tools/mindshift/index.html"
+    "path": "tools/Mindshift/index.html"
   },
   {
     "id": "cosmic-garden",

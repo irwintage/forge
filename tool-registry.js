@@ -26,7 +26,7 @@ const FORGE_INSTRUMENTS = [
     "name": "Mystic Drums",
     "category": "Creative",
     "desc": "An interactive drum machine",
-    "path": "tools/mystic-drums/index.html"
+    "path": "tools/Mystic-drums/index.html"
   },
   {
     "id": "aura-sampler",
@@ -229,7 +229,7 @@ const FORGE_INSTRUMENTS = [
     "name": "Loudness Utility",
     "category": "Utility",
     "desc": "Analyze, normalize, export. No unnecessary process.",
-    "path": "tools/loudness-utility/index.html"
+    "path": "tools/Loudness-Utility/index.html"
   },
   {
     "id": "trim-ritual",

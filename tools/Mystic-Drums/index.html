@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Mystic Drums · Chrysasynth Forge</title>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+
+
+
+<link href="css/main.css" rel="stylesheet"/></head>
+<body>
+<div class="md-scope">
+<div class="md-box">
+<header class="md-header">
+<div class="md-titleBlock">
+<div class="md-titleRow">MYSTIC DRUMS</div>
+<div class="md-subtitle">Five-voice ritual sequencer · 16 steps · A/B patterns</div>
+</div>
+<div class="md-badge"><span>FORGE / DRUM MACHINE</span></div>
+</header>
+<section class="md-topBar">
+<div class="md-topGroup md-transportGroup">
+<button class="md-btn md-btnPrimary" id="playBtn">Play</button>
+<button class="md-btn" id="stopBtn">Stop</button>
+</div>
+<div class="md-topGroup">
+<span class="md-topLabel">Tempo</span>
+<div class="md-sliderWrap">
+<input id="tempo" max="160" min="60" type="range" value="110"/>
+<div class="md-sliderVal" id="tempoVal">110 BPM</div>
+</div>
+</div>
+<div class="md-topGroup">
+<span class="md-topLabel">Swing</span>
+<div class="md-sliderWrap">
+<input id="swing" max="65" min="0" type="range" value="0"/>
+<div class="md-sliderVal" id="swingVal">0 %</div>
+</div>
+</div>
+<div class="md-topGroup">
+<span class="md-topLabel">FX</span>
+<div class="md-sliderWrap" style="min-width:120px;">
+<input id="verb" max="100" min="0" type="range" value="25"/>
+<div class="md-sliderVal" id="verbVal">25 % verb</div>
+</div>
+<div class="md-sliderWrap" style="min-width:120px;">
+<input id="warmth" max="100" min="0" type="range" value="20"/>
+<div class="md-sliderVal" id="warmthVal">20 % tape</div>
+</div>
+</div>
+<div class="md-topGroup" style="flex:1;min-width:160px;">
+<div class="md-chipRow">
+<button class="md-chip active" data-preset="moon">Moon Pulse</button>
+<button class="md-chip" data-preset="ash">Ash Ritual</button>
+<button class="md-chip" data-preset="silver">Silver Echo</button>
+</div>
+</div>
+<div class="md-statusMini">
+<span class="md-dot" id="statusDot"></span>
+<span id="statusText">Engine idle.</span>
+</div>
+</section>
+<section class="md-main">
+<!-- SEQUENCER -->
+<div class="md-gridPanel">
+<div class="md-panelTitle">STEP SEQUENCER</div>
+<div class="md-panelCaption">Tap to program each voice. Switch A / B to create variations.</div>
+<div class="md-abRow">
+<div class="md-abGroup">
+<button class="md-abBtn active" data-bank="A">A</button>
+<button class="md-abBtn" data-bank="B">B</button>
+<button class="md-abLock" id="abLockBtn"><span class="md-abLockDot"></span>Lock</button>
+</div>
+</div>
+<div class="md-gridWrap">
+<div class="md-gridInner">
+<div class="md-gridHeader">
+<div class="md-labelCol"></div>
+<div class="md-stepNums" id="stepNums"></div>
+</div>
+<div class="md-gridBody" id="gridBody"></div>
+</div>
+</div>
+<div class="md-gridFooter">
+<div style="display:flex;gap:6px;flex-wrap:wrap;">
+<button class="md-btn md-btnSmall" id="clearBtn">Clear</button>
+<button class="md-btn md-btnSmall" id="randomBtn">Randomize</button>
+</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-left:auto;">
+<button class="md-btn md-btnSmall" id="shareBtn">Share Pattern</button>
+<button class="md-btn md-btnSmall" disabled="" id="exportBtn">Record 60s</button>
+</div>
+</div>
+<div class="md-toast" id="mdToast">
+<div class="md-toastMain">
+<div class="md-toastIcon">OK</div>
+<div>
+<div class="md-toastTitle" id="mdToastTitle">Pattern link copied</div>
+<div class="md-toastSub" id="mdToastSub">Share this link to load the same pattern.</div>
+</div>
+</div>
+<div class="md-toastActions">
+<button class="md-toastBtn" id="mdToastCopy">Copy again</button>
+<button class="md-toastBtnGhost" id="mdToastOpen">Open preview</button>
+</div>
+</div>
+</div>
+<!-- INSTRUMENTS – collapsible -->
+<div class="md-instPanel">
+<div class="md-instPanelHeader" id="instPanelHeader" role="button">
+<div class="md-instPanelTitles">
+<div class="md-panelTitle" style="margin:0;">Instruments</div>
+<div class="md-panelCaption" style="margin:0;">Per-voice volume / decay / tone.</div>
+</div>
+<button aria-expanded="false" class="md-instToggleBtn" id="instToggleBtn">
+<span id="instToggleLabel">Show</span>
+<span class="md-instToggleIcon" id="instToggleIcon">▾</span>
+</button>
+</div>
+<div class="md-instBody" id="instBody">
+<div class="md-instBodyInner">
+<div class="md-instGrid" id="instGrid"></div>
+</div>
+</div>
+</div>
+</section>
+<div class="status-message" id="statusMsg"></div>
+<footer class="md-footer">
+<span>MYSTIC DRUMS  /  CHRYSASYNTH</span>
+<span>WAV  /  44.1 kHz · 24-bit PCM</span>
+</footer>
+</div>
+</div>
+
+<script defer="True" src="vendor/tone.min.js"></script><script defer="True" src="js/audio-engine.js"></script><script defer="True" src="js/app.js"></script></body>
+</html>

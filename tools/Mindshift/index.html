@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Mindshift · Chrysasynth Forge</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app" id="mindshift">
+    <header class="header">
+      <div class="headleft">
+        <div class="eyebrow">CHRYSASYNTH / GENERATIVE AUDIO</div>
+        <h1>Mindshift</h1>
+        <p>Five sonic environments. One fluid instrument.</p>
+        <div class="transport">
+          <button id="play" class="primary">▶ Play</button>
+          <button id="stop">■ Stop</button>
+          <button id="record" class="record">● Rec</button>
+          <button id="export" disabled>↓ WAV</button>
+          <span id="status" class="status" aria-live="polite">Ready</span>
+        </div>
+      </div>
+      <div class="master"><label for="master">MASTER <output id="masterValue">24%</output></label><input id="master" type="range" min="0" max="100" value="24"></div>
+    </header>
+
+    <nav class="modes" aria-label="Sound worlds">
+      <button data-mode="calm" class="selected">Calm</button>
+      <button data-mode="focus">Focus</button>
+      <button data-mode="dream">Dream</button>
+      <button data-mode="flow">Flow</button>
+      <button data-mode="ko">KO</button>
+    </nav>
+
+    <div class="workspace">
+      <section class="orb-panel">
+        <div class="orb-top"><div><span class="kicker">SONIC MATTER / XY</span><strong id="modeTitle">CALM</strong></div><p id="modeDescription">Warm harmonic drone, deep and intimate</p></div>
+        <div id="xy" class="xy" role="application" aria-label="Interactive X Y sound controller" tabindex="0">
+          <canvas id="orb" aria-hidden="true"></canvas>
+          <div class="axis x-axis" id="xAxis">X · Harmonic Color</div><div class="axis y-axis" id="yAxis">Y · Body / Air</div>
+          <div class="position-dot" id="positionDot"></div>
+        </div>
+        <div class="orb-bottom">
+          <button id="hold" class="toggle" aria-pressed="false">Hold <span>OFF</span></button>
+          <button id="auto" class="toggle" aria-pressed="false">Auto Motion <span>OFF</span></button>
+          <label class="auto-speed" for="autoSpeed">Speed <input type="range" id="autoSpeed" min="5" max="100" value="35"></label>
+        </div>
+        <p class="gesture-help">Drag the fluid field to shape the sound. Arrow keys also work.</p>
+      </section>
+
+      <aside class="sound-panel">
+        <div class="panel-heading"><div><span class="kicker">SONIC ENGINE</span><h2 id="engineTitle">Calm Engine</h2></div><span class="mode-indicator" id="engineColor"></span></div>
+        <div class="global-selects">
+          <label>Root<select id="root"><option>C</option><option>C#</option><option>D</option><option>D#</option><option>E</option><option>F</option><option>F#</option><option>G</option><option>G#</option><option selected>A</option><option>A#</option><option>B</option></select></label>
+          <label>Scale<select id="scale"><option value="minor" selected>Minor</option><option value="major">Major</option><option value="pentatonic">Pentatonic</option><option value="dorian">Dorian</option><option value="chromatic">Chromatic</option></select></label>
+        </div>
+        <div class="param-list" id="parameters"></div>
+        <div class="sound-foot"><div class="tiny-scope"><canvas id="scope" aria-label="Audio output waveform"></canvas></div><label>SPACE <output id="spaceValue">25%</output><input id="space" type="range" min="0" max="100" value="25"></label></div>
+        <div class="sound-note" id="soundNote">A stable harmonic drone: X shapes warmth and Y blends body with air.</div>
+      </aside>
+    </div>
+    <footer><span>Use headphones for the full stereo field</span><span id="recordingInfo">Stereo WAV · max 2 min</span></footer>
+  </main>
+  <script src="audio/presets.js"></script>
+  <script src="audio/engine.js"></script>
+  <script src="visual/fluid.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

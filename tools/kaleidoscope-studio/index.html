@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kaleidoscope · Polyrhythm Studio — Chrysasynth Forge</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="app" id="app">
+  <header class="header">
+    <div class="heading"><div class="eyebrow">CHRYSASYNTH / RHYTHM</div><h1>Kaleidoscope <em>Studio</em></h1><p>Four rhythms. Four instruments. One evolving pattern.</p></div>
+    <div class="master"><div class="control-top"><span>MASTER</span><output id="masterValue">70%</output></div><input id="master" type="range" min="0" max="100" value="70"></div>
+  </header>
+  <div class="toolbar">
+    <div class="transport"><button id="play" class="primary" aria-label="Play rhythm">▶ Play</button><button id="stop">■ Stop</button></div>
+    <label class="field"><span>POLYRHYTHM</span><select id="preset"><option value="3,4,5,7" selected>3 : 4 : 5 : 7</option><option value="2,3,4,5">2 : 3 : 4 : 5</option><option value="2,5,7,9">2 : 5 : 7 : 9</option><option value="4,6,9,12">4 : 6 : 9 : 12</option></select></label>
+    <label class="field bpmfield"><span>TEMPO <output id="bpmValue">96</output> BPM</span><input id="bpm" type="range" min="40" max="180" value="96"></label>
+    <button id="resetPattern" class="secondary" title="Restore all steps">Reset steps</button>
+    <div class="transport-status" id="status" role="status" aria-live="polite">Ready</div>
+  </div>
+  <div class="studio">
+    <section class="sequencer" aria-label="Interactive circular sequencer">
+      <div class="visual-head"><div><h2>Rhythm geometry</h2><p>Click a node to turn a beat on or off.</p></div><button id="random" class="subtle">Randomize</button></div>
+      <canvas id="rings" aria-label="Four circular rhythms; click an impact point to toggle it"></canvas>
+      <div class="visual-footer"><span>ONE SHARED 4-BEAT CYCLE</span><span id="cycleLabel">3 / 4 / 5 / 7</span></div>
+    </section>
+    <section class="voices" aria-label="Four percussion sound design cards">
+      <div class="section-title"><div><h2>Sound design</h2><p>Individual controls for each rhythmic layer.</p></div></div>
+      <div class="voice-grid" id="voiceGrid"></div>
+    </section>
+  </div>
+</main>
+<script src="audio/engine.js"></script><script src="app.js"></script>
+</body>
+</html>

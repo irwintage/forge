@@ -26,7 +26,7 @@ const FORGE_INSTRUMENTS = [
     "name": "Mystic Drums",
     "category": "Creative",
     "desc": "An interactive drum machine",
-    "path": "tools/Mystic-drums/index.html"
+    "path": "tools/Mystic-Drums/index.html"
   },
   {
     "id": "aura-sampler",
